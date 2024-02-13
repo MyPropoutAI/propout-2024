@@ -1,19 +1,21 @@
+import { ConnectButton } from "./ConnectButton";
 import { Button } from "./ui/button";
+import Wrapper from "./Wrapper";
 
 const Header = () => {
   return (
-    <div className="flex justify-between items-center bg-purple-900 py-3 text-white">
-      <img
-        className="ml-10"
-        src="src/components/img/pro2 1.svg"
-        alt="Prop Logo"
-      />
+    <div className="bg-purple-900 sticky top-0 z-10">
+      <Wrapper>
+        <div className="flex justify-between items-center text-white">
+          <img src="/images/pro2 1.svg" alt="Prop Logo" />
 
-      <div className="flex items-center">
-        <img src="src/components/img/Ellipse 10.svg" alt="Eclipse" />
-        <Button className="mx-5">Explore Propout</Button>
-        <Button className="mr-20">Connect Wallet</Button>
-      </div>
+          <div className="flex items-center">
+            <img src="/images/Ellipse 10.svg" alt="Eclipse" />
+            <Button className="mx-5">Explore Propout</Button>
+            <ConnectButton className="bg-gradient-to-r from-[#C064F8]  to-[#FF087F]" />
+          </div>
+        </div>
+      </Wrapper>
     </div>
   );
 };

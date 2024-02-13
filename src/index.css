@@ -2,7 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground: rgba(42, 1, 68, 1);
-  --background: rgb(255, 255, 255);
+@layer base {
+  :root {
+    --background: 34, 1, 54;
+    --foreground: 222.2 84% 4.9%;
+    --ring: 171, 85, 223, 0.55;
+    --orange: 224, 132, 0, 1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    margin-right: 5px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+    height: 200px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  ::-webkit-scrollbar-track-piece {
+    background: rgb(226, 234, 226);
+  }
+
+  .scroll::-webkit-scrollbar {
+    height: 6px !important;
+  }
 }
