@@ -35,7 +35,7 @@ const frameworks = [
   },
 ];
 
-export function Combobox() {
+export function Combobox({ options, trigger, search }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -49,17 +49,17 @@ export function Combobox() {
           className="w-[200px] justify-between border-main rounded-md text-black"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? options.find((framework) => framework.value === value)?.label
+            : trigger}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className="w-[200px] p-0  bg-white">
         <Command>
-          <CommandInput placeholder="Search framework..." />
+          <CommandInput placeholder={`Search ${search}`} />
           <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {options.map((framework) => (
               <CommandItem
                 key={framework.value}
                 value={framework.value}

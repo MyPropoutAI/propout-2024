@@ -18,10 +18,11 @@ import {
 } from "@thirdweb-dev/react";
 import { FuseSparknet } from "@thirdweb-dev/chains";
 
-import { ethers } from "ethers";
+// import { Web3Provider } from "./lib/Web3Provider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    {/* <Web3Provider> */}
     <ThirdwebProvider
       activeChain={FuseSparknet}
       clientId="1639134fe6d77249631aa361f3a9cbe1"
@@ -40,6 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <RouterProvider router={router} />
       </Context>
     </ThirdwebProvider>
+    {/* </Web3Provider> */}
   </React.StrictMode>
 );
 

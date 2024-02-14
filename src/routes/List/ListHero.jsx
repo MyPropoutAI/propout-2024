@@ -7,7 +7,10 @@ import {
   SelectValue,
 } from "../../components/ui/select";
 
+import { useNavigate } from "react-router-dom";
+
 const ListHero = () => {
+  const navigate = useNavigate();
   return (
     <Hero>
       <div className="text-center flex flex-col gap-5 text-white items-center">
@@ -19,7 +22,7 @@ const ListHero = () => {
           estate affiliate markets
         </p>
         <div className="my-5">
-          <Select>
+          <Select onValueChange={() => navigate("/list/sell")}>
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Get started" />
             </SelectTrigger>

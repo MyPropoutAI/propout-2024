@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 
 const GetStarted = () => {
@@ -8,8 +9,12 @@ const GetStarted = () => {
         alt=""
         className="max-w-[180px]"
       />
-      <Button variant="normal" className="px-8 md:px-44 text-white rounded-md">
-        Get Started
+      <Button
+        variant="normal"
+        className="px-8 md:px-44 text-white rounded-md"
+        asChild
+      >
+        <Link to={"/list/sell"}>Get Started</Link>
       </Button>
     </div>
   );

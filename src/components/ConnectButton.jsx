@@ -9,7 +9,7 @@ const supportedTokens = {
       address: "0x0c4BB3e2539b22f66dda2E4712f430944c3aCf95", // token contract address
       name: "$Prop-Coin",
       symbol: "PT",
-      icon: "https://assets.coingecko.com/coins/images/9956/small/Badge_Dai.png?1687143508",
+      icon: "",
     },
   ],
 };

@@ -33,7 +33,7 @@ const Builtfor = () => {
           </div>
           <div className="mt-10">
             <Button variant="normal" className="px-8 md:px-44">
-              Chat with Propout A.I
+              Rent API
             </Button>
           </div>
         </div>

@@ -31,9 +31,37 @@ const HomeHero = () => {
             className="w-full max-w-[500px] mx-auto"
           />
           <div className="p-4 md:p-6 bg-white gap-5 flex">
-            <Combobox />
-            <Combobox />
-            <Combobox />
+            <Combobox
+              options={[
+                {
+                  value: "abuja",
+                  label: "Abuja",
+                },
+              ]}
+              trigger={"Choose area"}
+              search={"area"}
+            />
+            <Combobox
+              options={[
+                {
+                  value: "good",
+                  label: "Good",
+                },
+              ]}
+              trigger={"Property status"}
+              search={"status"}
+            />
+            <Combobox
+              options={[
+                {
+                  value: "abuja",
+                  label: "Abuja",
+                },
+              ]}
+              trigger={"Property type"}
+              search={"type"}
+            />
+
             <Button className="hover:shadow-md px-10 rounded-md">
               Find now
             </Button>
