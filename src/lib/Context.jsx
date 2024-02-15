@@ -8,7 +8,7 @@ const StateContext = createContext();
 export const Context = ({ children }) => {
   const { toast } = useToast();
   const { contract } = useContract(
-    "0x5d053EDe66f15A43CD55fFb1Df67754A76DB88F2"
+    "0x41b553358eC830A42c677836C995B1E8De38482C"
   );
   const address = useAddress();
 
