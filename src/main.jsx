@@ -16,7 +16,7 @@ import {
   phantomWallet,
   localWallet,
 } from "@thirdweb-dev/react";
-import { FuseSparknet } from "@thirdweb-dev/chains";
+import { Fuse } from "@thirdweb-dev/chains";
 
 // import { Web3Provider } from "./lib/Web3Provider";
 
@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {/* <Web3Provider> */}
     <ThirdwebProvider
-      activeChain={FuseSparknet}
+      activeChain={Fuse}
       clientId="1639134fe6d77249631aa361f3a9cbe1"
       supportedWallets={[
         metamaskWallet({

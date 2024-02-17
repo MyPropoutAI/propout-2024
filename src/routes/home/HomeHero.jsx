@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Hero from "../../components/Hero";
 import { Button } from "../../components/ui/button";
 import { Combobox } from "../../components/ui/combobox";
@@ -13,9 +14,11 @@ const HomeHero = () => {
           List Properties on the goo...
         </p>
         <div className="flex gap-5 mt-5">
-          <Button className="px-8 rounded-md">List</Button>
+          <Button className="px-8 rounded-md">
+            <Link to={"/list"}>List</Link>
+          </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            Rent
+            <Link to={"/list/sell"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
             Buy
