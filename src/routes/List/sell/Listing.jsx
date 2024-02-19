@@ -3,7 +3,6 @@ import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
 import { Textarea } from "../../../components/ui/textarea";
-import { useNavigate } from "react-router-dom";
 
 import { useStateContext } from "../../../lib/Context";
 import { useRef, useState } from "react";
@@ -12,8 +11,6 @@ import { ethers } from "ethers";
 // import { Web3Button } from "@thirdweb-dev/react";
 
 const Listing = () => {
-  const navigate = useNavigate();
-
   const { callListProperty } = useStateContext();
 
   const [loading, setIsLoading] = useState(false);
@@ -45,7 +42,6 @@ const Listing = () => {
       price: ethers.utils.parseUnits(form.price, 18),
     });
     setIsLoading(false);
-    navigate("/list/success", { state: { key: "value" } });
   };
 
   const handleImageChange = (e, setImage) => {
