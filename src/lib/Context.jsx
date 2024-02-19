@@ -43,7 +43,6 @@ export const Context = ({ children }) => {
           description: "Your property have been listed successfully",
         });
         return;
-        // return navigate("/list/success", { state: { key: "value" } });
       }
     } catch (err) {
       alert("Something went wrong");

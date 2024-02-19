@@ -15,7 +15,7 @@ const HomeHero = () => {
         </p>
         <div className="flex gap-5 mt-5">
           <Button className="px-8 rounded-md">
-            <Link to={"/list"}>List</Link>
+            <Link to={"list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
             <Link to={"/list/sell"}>Rent</Link>

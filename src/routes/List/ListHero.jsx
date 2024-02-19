@@ -27,8 +27,18 @@ const ListHero = () => {
               <SelectValue placeholder="Get started" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="rent">List for rent</SelectItem>
-              <SelectItem value="sale">List for sale</SelectItem>
+              <SelectItem
+                value="rent"
+                className=" cursor-pointer hover:bg-slate-400"
+              >
+                List for rent
+              </SelectItem>
+              <SelectItem
+                value="sale"
+                className=" cursor-pointer hover:bg-slate-400"
+              >
+                List for sale
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
