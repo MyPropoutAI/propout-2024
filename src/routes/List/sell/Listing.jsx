@@ -7,11 +7,15 @@ import { Textarea } from "../../../components/ui/textarea";
 import { useStateContext } from "../../../lib/Context";
 import { useRef, useState } from "react";
 import { ethers } from "ethers";
+import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
+// import { ConnectButton } from "../../../components/ConnectButton";
+
 // import Web3Btn from "../../../components/Web3Button";
-// import { Web3Button } from "@thirdweb-dev/react";
 
 const Listing = () => {
   const { callListProperty } = useStateContext();
+
+  const status = useConnectionStatus();
 
   const [loading, setIsLoading] = useState(false);
   //   const [properties, setProperties] = useState([]);
@@ -123,13 +127,18 @@ const Listing = () => {
             />
           </div>
 
-          <Button
-            className="w-full lg:w-2/3 text-white mx-auto block mt-10 text-lg h-14"
-            // onClick={handleSubmit}
-          >
-            {loading ? "Listing..." : "List Property"}
-            {/* <Web3Btn text="List Property" /> */}
-          </Button>
+          <div className="mx-auto block mt-10 lg:w-2/3">
+            {status == "connected" ? (
+              <Button
+                className="w-full  text-white  text-lg h-14"
+                // onClick={handleSubmit}
+              >
+                {loading ? "Listing..." : "List Property"}
+              </Button>
+            ) : (
+              <ConnectWallet style={{ minWidth: "100%" }} />
+            )}
+          </div>
         </form>
       </Wrapper>
     </div>
