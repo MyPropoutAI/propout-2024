@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const Listing = () => {
   const navigate = useNavigate();
-  const { callListProperty, listed, setListed } = useStateContext();
+  const { callListProperty } = useStateContext();
 
   const status = useConnectionStatus();
 
@@ -47,8 +47,6 @@ const Listing = () => {
         price: ethers.utils.parseUnits(form.price, 18),
       });
       setIsLoading(false);
-      listed && navigate("/list/success");
-      setListed(false);
     } catch (error) {
       console.log(error);
     }

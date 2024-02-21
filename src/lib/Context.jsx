@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext } from "react";
 import { useAddress, useContractWrite, useContract } from "@thirdweb-dev/react";
 
 import { toast } from "sonner";
@@ -6,8 +6,6 @@ import { toast } from "sonner";
 const StateContext = createContext();
 
 export const Context = ({ children }) => {
-  const [listed, setListed] = useState(false);
-
   const { contract } = useContract(
     "0x41b553358eC830A42c677836C995B1E8De38482C"
   );
@@ -43,16 +41,14 @@ export const Context = ({ children }) => {
           },
         },
       });
-      setListed(true);
+      // setListed(true);
     } catch (err) {
       toast.error("Something went wrong", { description: err.reason });
     }
   };
 
   return (
-    <StateContext.Provider
-      value={{ contract, address, callListProperty, listed, setListed }}
-    >
+    <StateContext.Provider value={{ contract, address, callListProperty }}>
       {children}
     </StateContext.Provider>
   );
