@@ -1,29 +1,22 @@
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 import { useAddress, useContractWrite, useContract } from "@thirdweb-dev/react";
 
-import { useToast } from "@/components/ui/use-toast";
-
-// import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const StateContext = createContext();
 
 export const Context = ({ children }) => {
-  // const navigate = useNavigate();
-  const { toast } = useToast();
+  const [listed, setListed] = useState(false);
+
   const { contract } = useContract(
     "0x41b553358eC830A42c677836C995B1E8De38482C"
   );
   const address = useAddress();
 
-  //   functions
-
-  // 1. list properties
-
-  const {
-    mutateAsync: listProperty,
-    isSuccess,
-    isError,
-  } = useContractWrite(contract, "listProperty");
+  const { mutateAsync: listProperty } = useContractWrite(
+    contract,
+    "listProperty"
+  );
   const callListProperty = async (form) => {
     const { propertyTitle, price, description, images, propertyAddress } = form;
     try {
@@ -37,21 +30,29 @@ export const Context = ({ children }) => {
           description,
         ],
       });
-      if (isSuccess) {
-        toast({
-          title: "Success",
-          description: "Your property have been listed successfully",
-        });
-        return;
-      }
+
+      toast("Success", {
+        description: "Your property have been listed successfully",
+        action: {
+          label: "View",
+          onClick: () => {
+            window.open(
+              "https://explorer.fuse.io/tx/" + data.receipt.transactionHash,
+              "_blank"
+            );
+          },
+        },
+      });
+      setListed(true);
     } catch (err) {
-      alert("Something went wrong");
-      console.error("contract call failure", err);
+      toast.error("Something went wrong", { description: err.reason });
     }
   };
 
   return (
-    <StateContext.Provider value={{ contract, address, callListProperty }}>
+    <StateContext.Provider
+      value={{ contract, address, callListProperty, listed, setListed }}
+    >
       {children}
     </StateContext.Provider>
   );

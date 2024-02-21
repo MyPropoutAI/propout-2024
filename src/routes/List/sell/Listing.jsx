@@ -8,17 +8,17 @@ import { useStateContext } from "../../../lib/Context";
 import { useRef, useState } from "react";
 import { ethers } from "ethers";
 import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
-// import { ConnectButton } from "../../../components/ConnectButton";
 
-// import Web3Btn from "../../../components/Web3Button";
+import { useNavigate } from "react-router-dom";
 
 const Listing = () => {
-  const { callListProperty } = useStateContext();
+  const navigate = useNavigate();
+  const { callListProperty, listed, setListed } = useStateContext();
 
   const status = useConnectionStatus();
 
   const [loading, setIsLoading] = useState(false);
-  //   const [properties, setProperties] = useState([]);
+
   const [image0, setImage0] = useState(null);
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
@@ -41,11 +41,17 @@ const Listing = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    await callListProperty({
-      ...form,
-      price: ethers.utils.parseUnits(form.price, 18),
-    });
-    setIsLoading(false);
+    try {
+      await callListProperty({
+        ...form,
+        price: ethers.utils.parseUnits(form.price, 18),
+      });
+      setIsLoading(false);
+      listed && navigate("/list/success");
+      setListed(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleImageChange = (e, setImage) => {
