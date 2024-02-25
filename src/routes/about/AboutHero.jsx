@@ -7,7 +7,14 @@ const AboutHero = () => {
       <Wrapper>
         <div className="relative py-10 md:py-16">
           <div className="absolute top-5 md:top-10 left-8 hidden lg:block text-white">
-            <Back className="text-black" />
+            <Back color="text-black" />
+          </div>
+          <div>
+            <img
+              src="/images/abouthero.svg"
+              alt=""
+              className="w-full max-w-[500px] mx-auto"
+            />
           </div>
         </div>
       </Wrapper>

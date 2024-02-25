@@ -38,4 +38,40 @@
   .scroll::-webkit-scrollbar {
     height: 6px !important;
   }
+
+  .my_underline {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    padding-bottom: 15px;
+  }
+
+  .my_underline::before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background-color: #e08400;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .your_underline {
+    position: relative;
+    width: fit-content;
+    margin: 0 auto;
+    padding-bottom: 7px;
+  }
+
+  .your_underline::before {
+    content: "";
+    position: absolute;
+    width: 80%;
+    height: 2px;
+    background-color: #e08400;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
