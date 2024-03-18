@@ -24,7 +24,7 @@ const HomeHero = () => {
             Buy
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to={"p2p"}>P2P</Link>
+            <Link to="/p2p">Testnet</Link>
           </Button>
         </div>
         <div>
