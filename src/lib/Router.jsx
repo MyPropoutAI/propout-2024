@@ -8,6 +8,7 @@ import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 import About from "../routes/about/About";
+import Faucet from "../routes/testnet/faucet/faucet";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,11 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       { path: "/test", element: <Testing /> },
+
+      {
+        path: "/Testnet/faucet",
+        element: <Faucet />,
+      },
     ],
   },
 ]);
