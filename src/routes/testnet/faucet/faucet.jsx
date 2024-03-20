@@ -5,7 +5,7 @@ import { buttonVariants } from "../../../components/ui/button";
 const Faucet = () => {
   return (
     <div>
-      <div className="bg-hero bg-[#AB55DF] min-h-screen flex flex-col justify-center items-center">
+      <div className="bg-hero bg-[#AB55DF]/55 min-h-screen flex flex-col justify-center items-center">
         <div className="bg-[#2A0144]  max-w-[550px] p-5 rounded-md">
           <div className="text-[#FFFFFF]">
             <h1 className="font-bold text-center text-2xl py-3">
@@ -25,7 +25,7 @@ const Faucet = () => {
                   </p>
                   <input
                     type="text"
-                    placeholder="Ox..."
+                    placeholder="Ox.."
                     className="p-4 rounded-md w-full bg-[#964CC3]/50 outline-transparent"
                   />
                 </div>
