@@ -41,7 +41,7 @@ const Marketplace = () => {
               className=" absolute right-10 top-1/2 -translate-y-1/2"
             />
           </div>
-          <div className="my-10 p-10 max-w-[800px] mx-auto bg-white rounded-lg flex justify-center items-center gap-5">
+          <div className="my-10 p-10 max-w-[800px] mx-auto bg-white rounded-lg flex justify-center items-center gap-5 flex-wrap">
             <Select className="bg-white">
               <SelectTrigger className="w-[200px] bg-white text-lg">
                 <SelectValue placeholder="Property Type" className="bg-white" />
@@ -50,7 +50,10 @@ const Marketplace = () => {
                 <SelectGroup>
                   <SelectLabel>Types</SelectLabel>
                   <SelectItem value="office" className="cursor-pointer">
-                    Apple
+                    Office
+                  </SelectItem>
+                  <SelectItem value="home" className="cursor-pointer">
+                    Home
                   </SelectItem>
                 </SelectGroup>
               </SelectContent>
