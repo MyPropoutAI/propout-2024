@@ -33,7 +33,7 @@ const HomeHero = () => {
             alt=""
             className="w-full max-w-[500px] mx-auto"
           />
-          <div className="p-4 md:p-6 bg-white gap-5 flex">
+          <div className="p-4 md:p-6 bg-white gap-5 flex flex-wrap justify-center">
             <Combobox
               options={[
                 {
@@ -43,6 +43,7 @@ const HomeHero = () => {
               ]}
               trigger={"Choose area"}
               search={"area"}
+              className="flex-1"
             />
             <Combobox
               options={[
@@ -53,6 +54,7 @@ const HomeHero = () => {
               ]}
               trigger={"Property status"}
               search={"status"}
+              className="flex-1"
             />
             <Combobox
               options={[
@@ -63,9 +65,10 @@ const HomeHero = () => {
               ]}
               trigger={"Property type"}
               search={"type"}
+              className="flex-1"
             />
 
-            <Button className="hover:shadow-md px-10 rounded-md">
+            <Button className="hover:shadow-md px-10 rounded-md flex-1">
               Find now
             </Button>
           </div>
