@@ -18,13 +18,13 @@ const HomeHero = () => {
             <Link to={"/list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to={"/list/sell"}>Rent</Link>
+            <Link to={"/marketplace"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
             Buy
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to="/p2p">Testnet</Link>
+            <Link to="/testnet/faucet">Testnet</Link>
           </Button>
         </div>
         <div>

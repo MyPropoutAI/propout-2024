@@ -27,6 +27,9 @@ module.exports = {
         ring: "rgb(var(--ring))",
         orange: "rgb(var(--orange))",
       },
+      gridTemplateColumns: {
+        "three-columns": "repeat(auto-fill, minmax(280px, 350px))",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

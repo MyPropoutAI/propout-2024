@@ -9,6 +9,7 @@ import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 import About from "../routes/about/About";
 import Faucet from "../routes/testnet/faucet/faucet";
+import Marketplace from "../routes/marketplace/Marketplace";
 
 export const router = createBrowserRouter([
   {
@@ -34,12 +35,16 @@ export const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
-      { path: "/test", element: <Testing /> },
 
       {
-        path: "/Testnet/faucet",
+        path: "/testnet/faucet",
         element: <Faucet />,
       },
+      {
+        path: "/marketplace",
+        element: <Marketplace />,
+      },
+      { path: "/test", element: <Testing /> },
     ],
   },
 ]);

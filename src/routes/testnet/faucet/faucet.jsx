@@ -1,6 +1,4 @@
-import React from "react";
 import { Button } from "/src/components/ui/button";
-import { buttonVariants } from "../../../components/ui/button";
 
 const Faucet = () => {
   return (
