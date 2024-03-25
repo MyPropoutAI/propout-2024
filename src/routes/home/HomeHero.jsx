@@ -13,7 +13,7 @@ const HomeHero = () => {
         <p className="mt-3 font-[7000] text-base">
           List Properties on the goo...
         </p>
-        <div className="flex gap-5 mt-5">
+        <div className="flex gap-5 mt-5 flex-wrap justify-center">
           <Button className="px-8 rounded-md">
             <Link to={"/list"}>List</Link>
           </Button>
