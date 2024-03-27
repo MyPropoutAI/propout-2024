@@ -21,7 +21,7 @@ const HomeHero = () => {
             <Link to={"/list/sell"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            Buy
+            <Link to={"/list/sell"}>Buy</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
             <Link to={"p2p"}>P2P</Link>
