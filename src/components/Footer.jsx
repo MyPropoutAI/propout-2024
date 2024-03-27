@@ -17,7 +17,7 @@ const Footer = () => {
         </section>
         <section className="flex-1 flex flex-col gap-5 lg:text-center text-[#964CC3]">
           <div>
-            <Link to="" className="underline">
+            <Link to="AboutUs" className="underline">
               About us
             </Link>
           </div>

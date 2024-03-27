@@ -8,7 +8,7 @@ import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 import PeerToPeer from "../routes/p2p/P2P";
-import About from "../routes/about/About";
+import AboutUs from "../routes/about/AboutUs";
 
 export const router = createBrowserRouter([
   {
@@ -34,8 +34,8 @@ export const router = createBrowserRouter([
         element: <PeerToPeer />,
       },
       {
-        path: "about",
-        element: <About />,
+        path: "AboutUs",
+        element: <AboutUs />,
       },
       { path: "/test", element: <Testing /> },
     ],
