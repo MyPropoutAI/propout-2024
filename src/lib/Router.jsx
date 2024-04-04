@@ -10,7 +10,15 @@ import Success from "../routes/list-success/Success";
 import About from "../routes/about/About";
 import Faucet from "../routes/testnet/faucet/faucet";
 import Marketplace from "../routes/marketplace/Marketplace";
-// import Dashboard from "../routes/dashboard/dashboard";
+import DashboardRoot from "../routes/dashboard/Root";
+import ListProperty from "../routes/dashboard/ListProperty";
+import Overview from "../routes/dashboard/Overview";
+import Refer from "../routes/dashboard/Refer";
+import Setting from "../routes/dashboard/Setting";
+import Task from "../routes/dashboard/Task";
+import Stake from "../routes/testnet/stake/stake";
+import Swap from "../routes/testnet/swap/swap";
+import Myproperty from "../routes/dashboard/Myproperty";
 
 export const router = createBrowserRouter([
   {
@@ -42,11 +50,48 @@ export const router = createBrowserRouter([
         element: <Faucet />,
       },
       {
+        path: "/testnet/swap",
+        element: <Swap />,
+      },
+      {
+        path: "/testnet/stake",
+        element: <Stake />,
+      },
+      {
         path: "/marketplace",
         element: <Marketplace />,
       },
       { path: "/test", element: <Testing /> },
-      // { path: "/dashboard", element: <Dashboard /> },
+      {
+        path: "/dashboard",
+        element: <DashboardRoot />,
+        children: [
+          {
+            path: "/dashboard/list",
+            element: <ListProperty />,
+          },
+          {
+            path: "/dashboard/overview",
+            element: <Overview />,
+          },
+          {
+            path: "/dashboard/properties",
+            element: <Myproperty />,
+          },
+          {
+            path: "/dashboard/referral",
+            element: <Refer />,
+          },
+          {
+            path: "/dashboard/setting",
+            element: <Setting />,
+          },
+          {
+            path: "/dashboard/task",
+            element: <Task />,
+          },
+        ],
+      },
     ],
   },
 ]);
