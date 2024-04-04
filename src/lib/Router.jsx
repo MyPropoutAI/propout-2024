@@ -10,6 +10,7 @@ import Success from "../routes/list-success/Success";
 import About from "../routes/about/About";
 import Faucet from "../routes/testnet/faucet/faucet";
 import Marketplace from "../routes/marketplace/Marketplace";
+// import Dashboard from "../routes/dashboard/dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,7 @@ export const router = createBrowserRouter([
         element: <Marketplace />,
       },
       { path: "/test", element: <Testing /> },
+      // { path: "/dashboard", element: <Dashboard /> },
     ],
   },
 ]);
