@@ -23,7 +23,7 @@ export function Combobox({ options, trigger, search }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between border-main rounded-md text-black"
+          className="w-[200px] justify-between border-main rounded-md text-black flex-1"
         >
           {value
             ? options.find((framework) => framework.value === value)?.label

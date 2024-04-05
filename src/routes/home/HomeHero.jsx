@@ -13,18 +13,18 @@ const HomeHero = () => {
         <p className="mt-3 font-[7000] text-base">
           List Properties on the goo...
         </p>
-        <div className="flex gap-5 mt-5">
+        <div className="flex gap-5 mt-5 flex-wrap justify-center">
           <Button className="px-8 rounded-md">
             <Link to={"/list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to={"/list/sell"}>Rent</Link>
+            <Link to={"/marketplace"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
             <Link to={"/list/sell"}>Buy</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to={"p2p"}>P2P</Link>
+            <Link to="/testnet/faucet">Testnet</Link>
           </Button>
         </div>
         <div>
@@ -33,7 +33,7 @@ const HomeHero = () => {
             alt=""
             className="w-full max-w-[500px] mx-auto"
           />
-          <div className="p-4 md:p-6 bg-white gap-5 flex">
+          <div className="p-4 md:p-6 bg-white gap-5 flex flex-wrap justify-center">
             <Combobox
               options={[
                 {
@@ -43,6 +43,7 @@ const HomeHero = () => {
               ]}
               trigger={"Choose area"}
               search={"area"}
+              className="flex-1"
             />
             <Combobox
               options={[
@@ -53,6 +54,7 @@ const HomeHero = () => {
               ]}
               trigger={"Property status"}
               search={"status"}
+              className="flex-1"
             />
             <Combobox
               options={[
@@ -63,9 +65,10 @@ const HomeHero = () => {
               ]}
               trigger={"Property type"}
               search={"type"}
+              className="flex-1"
             />
 
-            <Button className="hover:shadow-md px-10 rounded-md">
+            <Button className="hover:shadow-md px-10 rounded-md flex-1">
               Find now
             </Button>
           </div>

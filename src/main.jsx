@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { QueryClient } from "@tanstack/react-query";
 
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
@@ -17,7 +16,7 @@ import {
   phantomWallet,
   localWallet,
 } from "@thirdweb-dev/react";
-import { Fuse } from "@thirdweb-dev/chains";
+import { Fuse, FuseSparknet } from "@thirdweb-dev/chains";
 import { Web3Provider } from "./lib/Web3Provider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -26,6 +25,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <ThirdwebProvider
         // queryClient={queryClient}
         activeChain={Fuse}
+        // activeChain="LiskSepoliaTestnet"
+        supportedChains={[FuseSparknet]}
         clientId="1639134fe6d77249631aa361f3a9cbe1"
         supportedWallets={[
           metamaskWallet({

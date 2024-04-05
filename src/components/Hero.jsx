@@ -11,7 +11,7 @@ const Hero = ({ children }) => {
           </div>
           {children}
         </div>
-      </Wrapper>
+      </Wrapper>   
     </div>
   );
 };

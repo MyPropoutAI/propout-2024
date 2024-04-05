@@ -1,0 +1,89 @@
+/* Boxes styling */
+.box {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+.box Svg:hover {
+  transform: scale(1.1);
+}
+.boxes Svg {
+  width: 400px;
+}
+
+/* settings.jsx styling */
+
+.text {
+  color: #320051;
+  background-color: white;
+  margin-top: 30px;
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-bottom: 25px;
+  border-radius: 8px;
+  /* font-family: Popins; */
+}
+.text h3 {
+  margin-bottom: 35px;
+  font-weight: bold;
+}
+.text label {
+  margin-bottom: 20px;
+}
+.text input {
+  margin-bottom: 25px;
+  margin-top: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+  border-color: #320051;
+  width: 300px;
+  height: 35px;
+}
+
+/* Refer styling */
+
+.refer {
+  color: #320051;
+  background-color: white;
+  border-radius: 8px;
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.refer h3 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.refer h2 {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.refer p {
+  margin-bottom: 25px;
+}
+.refer svg {
+  position: absolute;
+  left: 800px;
+}
+/* Help styling */
+
+.help {
+  color: #320051;
+  background-color: white;
+  border-radius: 8px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.help Svg {
+  width: 350px;
+  height: 300px;
+}
+.help Svg:hover {
+  transform: scale(1.1);
+}

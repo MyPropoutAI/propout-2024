@@ -1,5 +1,7 @@
 import Wrapper from "../../components/Wrapper";
 import { Button } from "../../components/ui/button";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 
 const scenarios = [
   {
@@ -37,6 +39,21 @@ const scenarios = [
   },
 ];
 
+const items = scenarios.map((scenario) => {
+  return (
+    <div key={scenario.title} className="min-w-[300px] ">
+      <Button variant="orangeBTN">{scenario.title}</Button>
+      <div className="mt-5 ">
+        <ul className=" list-disc list-inside">
+          {scenario.scenes.map((scene, i) => (
+            <li key={i}>{scene}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+});
+
 const HowItWorks = () => {
   return (
     <div className="bg-white overflow-x-hidden">
@@ -57,7 +74,7 @@ const HowItWorks = () => {
           </div>
 
           <div className="flex  gap-[10%] justify-cener mt-16 overflow-auto scroll pb-8 px-[5%]">
-            {scenarios.map((scenario) => (
+            {/* {scenarios.map((scenario) => (
               <div key={scenario.title} className="min-w-[300px] ">
                 <Button variant="orangeBTN">{scenario.title}</Button>
                 <div className="mt-5 ">
@@ -68,7 +85,26 @@ const HowItWorks = () => {
                   </ul>
                 </div>
               </div>
-            ))}
+            ))} */}
+            <AliceCarousel
+              mouseTracking
+              items={items}
+              responsive={{
+                0: {
+                  items: 1,
+                },
+                850: {
+                  items: 2,
+                },
+
+                1024: {
+                  items: 3,
+                  itemsFit: "contain",
+                },
+              }}
+              controlsStrategy="responsive"
+              disableButtonsControls
+            />
           </div>
         </div>
       </Wrapper>

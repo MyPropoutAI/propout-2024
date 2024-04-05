@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Wrapper from "./Wrapper";
+
 const Footer = () => {
   return (
     <Wrapper>
