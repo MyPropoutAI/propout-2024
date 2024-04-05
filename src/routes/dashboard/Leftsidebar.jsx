@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 const links = [
   {
     name: "Overview",
-    path: "/dashboard/overview",
+    path: "/dashboard",
     img: "/images/overview.svg",
   },
   {
