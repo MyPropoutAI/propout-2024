@@ -1,9 +1,75 @@
 import path from "path";
 import { useLocation } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const Rightsidebar = () => {
   const location = useLocation();
   const { pathname } = location;
+
+  const Tasks = [
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+    {
+      name: "Social Task",
+      date: "30/1/2024",
+      time: "16:20",
+      points: "18",
+    },
+  ];
 
   return (
     <div>
@@ -31,7 +97,39 @@ const Rightsidebar = () => {
       </div>
 
       {pathname == "/dashboard/task" && (
-        <div className="bg-white p-5 mt-5 rounded-md"></div>
+        <div className="bg-white p-5 mt-5 rounded-md">
+          <div>
+            <Table>
+              <TableHeader className="text-[#2A0144] font-semibold">
+                <TableRow>
+                  <TableHead className="w-[200px]">
+                    Social Task History
+                  </TableHead>
+
+                  <TableHead className="text-right"> Points</TableHead>
+                </TableRow>
+              </TableHeader>
+              {Tasks.map((task) => (
+                <TableBody>
+                  <TableRow>
+                    <TableCell>
+                      <div className="text-[#2A0144] font-bold">
+                        {task.name}
+                      </div>
+                      <span className="text-[#2A0144]/35 text-[10px] flex gap-1 font-semibold">
+                        <span> {task.date}</span>
+                        <span>{task.time}</span>
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right pr-10">
+                      <div className="text-[#2A0144]/35">{task.points}</div>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ))}
+            </Table>
+          </div>
+        </div>
       )}
     </div>
   );

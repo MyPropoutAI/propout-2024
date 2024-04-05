@@ -71,7 +71,7 @@ export const router = createBrowserRouter([
             element: <ListProperty />,
           },
           {
-            path: "/dashboard/overview",
+            path: "/dashboard",
             element: <Overview />,
           },
           {
