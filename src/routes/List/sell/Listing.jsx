@@ -9,21 +9,17 @@ import { useRef, useState } from "react";
 import { ethers } from "ethers";
 import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const Listing = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { callListProperty } = useStateContext();
 
   const status = useConnectionStatus();
 
   const [loading, setIsLoading] = useState(false);
 
-  const [image0, setImage0] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [image3, setImage3] = useState(null);
-  const [image4, setImage4] = useState(null);
+  const [images, setImages] = useState([""]);
 
   const [form, setForm] = useState({
     propertyTitle: "",
@@ -52,36 +48,35 @@ const Listing = () => {
     }
   };
 
-  const handleImageChange = (e, setImage) => {
+  const handleImageChange = (e, index) => {
     const file = e.target.files[0];
-    const imageUrl = URL.createObjectURL(file);
-    setImage(imageUrl);
+    const newImages = [...images];
+    newImages[index] = URL.createObjectURL(file);
+    setImages(newImages);
+  };
+
+  const handleAddImage = () => {
+    setImages([...images, ""]);
   };
 
   return (
     <div className="p-10">
       <Wrapper>
         <div className="flex gap-8  flex-wrap justify-center">
-          <UploadImage
-            imageUrl={image0}
-            onChange={(e) => handleImageChange(e, setImage0)}
-          />
-          <UploadImage
-            imageUrl={image1}
-            onChange={(e) => handleImageChange(e, setImage1)}
-          />
-          <UploadImage
-            imageUrl={image2}
-            onChange={(e) => handleImageChange(e, setImage2)}
-          />
-          <UploadImage
-            imageUrl={image3}
-            onChange={(e) => handleImageChange(e, setImage3)}
-          />
-          <UploadImage
-            imageUrl={image4}
-            onChange={(e) => handleImageChange(e, setImage4)}
-          />
+          {images.map((image, i) => (
+            <UploadImage
+              image={image}
+              handleUpload={handleImageChange}
+              key={i}
+              i={i}
+            />
+          ))}
+
+          {images.length >= 1 && (
+            <button onClick={handleAddImage} disabled={false}>
+              Add Image
+            </button>
+          )}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
@@ -151,18 +146,13 @@ const Listing = () => {
 
 export default Listing;
 
-const UploadImage = ({ imageUrl, onChange }) => {
-  const inputRef = useRef(null);
-
-  const handleClick = () => {
-    inputRef.current.click();
-  };
+const UploadImage = ({ image, handleUpload, i }) => {
   return (
     <div className=" basis-[250px]">
       <div className="w-full h-[300px] bg-white grid place-items-center rounded-2xl">
-        {imageUrl ? (
+        {image ? (
           <img
-            src={imageUrl}
+            src={image}
             alt="Uploaded Image "
             className="max-w-full max-h-[300px]"
           />
@@ -174,19 +164,18 @@ const UploadImage = ({ imageUrl, onChange }) => {
         Upload a clear picture of the property you want to list
       </p>
       <input
-        ref={inputRef}
         className="hidden"
         type="file"
-        id="img"
+        id={`img-${i}`}
         accept="image/*"
-        onChange={onChange}
+        onChange={(e) => handleUpload(e, i)}
       />
       <Button
         className="w-full text-white font-bold text-base mt-5 rounded-lg"
         asChild
       >
-        <label onClick={handleClick} htmlFor="im" className="cursor-pointer">
-          {imageUrl ? "Change Image" : "Upload Image"}
+        <label htmlFor={`img-${i}`} className="cursor-pointer">
+          {image ? "Change Image" : "Upload Image"}
         </label>
       </Button>
     </div>
