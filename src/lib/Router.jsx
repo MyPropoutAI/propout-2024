@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, createHashRouter } from "react-router-dom";
 
 //  import About from "../routes/about/About";
 // import Faucet from "../routes/testnet/faucet/faucet";
@@ -32,7 +32,7 @@ import Success from "../routes/list-success/Success";
 // import PeerToPeer from "../routes/p2p/P2P";
 import AboutUs from "../routes/about/AboutUs";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: "/",
     element: <Root />,
@@ -78,33 +78,33 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <DashboardRoot />,
-        // children: [
-        //   {
-        //     // path: "/dashboard",
-        //     index: true,
-        //     element: <Overview />,
-        //   },
-        //   {
-        //     path: "/dashboard/list",
-        //     element: <ListProperty />,
-        //   },
-        //   {
-        //     path: "/dashboard/properties",
-        //     element: <Myproperty />,
-        //   },
-        //   {
-        //     path: "/dashboard/referral",
-        //     element: <Refer />,
-        //   },
-        //   {
-        //     path: "/dashboard/setting",
-        //     element: <Setting />,
-        //   },
-        //   {
-        //     path: "/dashboard/task",
-        //     element: <Task />,
-        //   },
-        // ],
+        children: [
+          {
+            // path: "/dashboard",
+            index: true,
+            element: <Overview />,
+          },
+          {
+            path: "/dashboard/list",
+            element: <ListProperty />,
+          },
+          {
+            path: "/dashboard/properties",
+            element: <Myproperty />,
+          },
+          {
+            path: "/dashboard/referral",
+            element: <Refer />,
+          },
+          {
+            path: "/dashboard/setting",
+            element: <Setting />,
+          },
+          {
+            path: "/dashboard/task",
+            element: <Task />,
+          },
+        ],
       },
     ],
   },
