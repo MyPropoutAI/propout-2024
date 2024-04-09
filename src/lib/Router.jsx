@@ -75,36 +75,36 @@ export const router = createBrowserRouter([
         element: <Marketplace />,
       },
       { path: "/test", element: <Testing /> },
-    ],
-  },
-  {
-    path: "/dashboard",
-    element: <DashboardRoot />,
-    children: [
       {
-        // path: "/dashboard",
-        index: true,
-        element: <Overview />,
-      },
-      {
-        path: "/dashboard/list",
-        element: <ListProperty />,
-      },
-      {
-        path: "/dashboard/properties",
-        element: <Myproperty />,
-      },
-      {
-        path: "/dashboard/referral",
-        element: <Refer />,
-      },
-      {
-        path: "/dashboard/setting",
-        element: <Setting />,
-      },
-      {
-        path: "/dashboard/task",
-        element: <Task />,
+        path: "/dashboard",
+        element: <DashboardRoot />,
+        // children: [
+        //   {
+        //     // path: "/dashboard",
+        //     index: true,
+        //     element: <Overview />,
+        //   },
+        //   {
+        //     path: "/dashboard/list",
+        //     element: <ListProperty />,
+        //   },
+        //   {
+        //     path: "/dashboard/properties",
+        //     element: <Myproperty />,
+        //   },
+        //   {
+        //     path: "/dashboard/referral",
+        //     element: <Refer />,
+        //   },
+        //   {
+        //     path: "/dashboard/setting",
+        //     element: <Setting />,
+        //   },
+        //   {
+        //     path: "/dashboard/task",
+        //     element: <Task />,
+        //   },
+        // ],
       },
     ],
   },
