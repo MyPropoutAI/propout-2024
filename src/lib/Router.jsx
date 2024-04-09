@@ -31,84 +31,88 @@ import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 // import PeerToPeer from "../routes/p2p/P2P";
 import AboutUs from "../routes/about/AboutUs";
+// import { basename } from "path";
 
-export const router = createHashRouter([
-  {
-    path: "/",
-    element: <Root />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, element: <Home /> },
-      // { path: "/", element: <Home /> },
-      {
-        path: "list",
-        element: <List />,
-      },
-      {
-        path: "list/sell",
-        element: <Sell />,
-      },
-      {
-        path: "list/success",
-        element: <Success />,
-      },
+export const router = createHashRouter(
+  [
+    {
+      path: "/",
+      element: <Root />,
+      errorElement: <NotFound />,
+      children: [
+        { index: true, element: <Home /> },
+        // { path: "/", element: <Home /> },
+        {
+          path: "list",
+          element: <List />,
+        },
+        {
+          path: "list/sell",
+          element: <Sell />,
+        },
+        {
+          path: "list/success",
+          element: <Success />,
+        },
 
-      {
-        path: "AboutUs",
-        element: <AboutUs />,
-      },
+        {
+          path: "AboutUs",
+          element: <AboutUs />,
+        },
 
-      {
-        path: "/testnet/faucet",
-        element: <Faucet />,
-      },
-      {
-        path: "/testnet/swap",
-        element: <Swap />,
-      },
-      {
-        path: "/testnet/stake",
-        element: <Stake />,
-      },
-      {
-        path: "/marketplace",
-        element: <Marketplace />,
-      },
-      { path: "/test", element: <Testing /> },
-      {
-        path: "/dashboard",
-        element: <DashboardRoot />,
-        children: [
-          {
-            // path: "/dashboard",
-            index: true,
-            element: <Overview />,
-          },
-          {
-            path: "/dashboard/list",
-            element: <ListProperty />,
-          },
-          {
-            path: "/dashboard/properties",
-            element: <Myproperty />,
-          },
-          {
-            path: "/dashboard/referral",
-            element: <Refer />,
-          },
-          {
-            path: "/dashboard/setting",
-            element: <Setting />,
-          },
-          {
-            path: "/dashboard/task",
-            element: <Task />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+        {
+          path: "/testnet/faucet",
+          element: <Faucet />,
+        },
+        {
+          path: "/testnet/swap",
+          element: <Swap />,
+        },
+        {
+          path: "/testnet/stake",
+          element: <Stake />,
+        },
+        {
+          path: "/marketplace",
+          element: <Marketplace />,
+        },
+        { path: "/test", element: <Testing /> },
+        {
+          path: "/dashboard",
+          element: <DashboardRoot />,
+          children: [
+            {
+              // path: "/dashboard",
+              index: true,
+              element: <Overview />,
+            },
+            {
+              path: "/dashboard/list",
+              element: <ListProperty />,
+            },
+            {
+              path: "/dashboard/properties",
+              element: <Myproperty />,
+            },
+            {
+              path: "/dashboard/referral",
+              element: <Refer />,
+            },
+            {
+              path: "/dashboard/setting",
+              element: <Setting />,
+            },
+            {
+              path: "/dashboard/task",
+              element: <Task />,
+            },
+          ],
+        },
+      ],
+    },
+  ]
+  // { basename: "/" }
+);
 
 // import About from "../routes/about/About";
 // import Faucet from "../routes/testnet/faucet/faucet";
