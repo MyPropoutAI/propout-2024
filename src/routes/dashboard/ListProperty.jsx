@@ -35,7 +35,7 @@ const ListProperty = () => {
     setImages([...images, ""]);
   };
   return (
-    <div>
+    <div className="bg-white p-8 rounded-md">
       <div className="border-2 p-4 rounded-md flex gap-5 relative overflow-hidden max-w-full">
         {images.map((image, i) => (
           <UploadImage
@@ -54,9 +54,9 @@ const ListProperty = () => {
         </div>
       </div>
 
-      <div>
-        <div></div>
-        <div></div>
+      <div className="flex gap-10 flex-col lg:flex-row">
+        <div className="flex-[3]"></div>
+        <div className="flex-[2]"></div>
       </div>
     </div>
   );
@@ -67,7 +67,7 @@ export default ListProperty;
 const UploadImage = ({ image, handleUpload, i }) => {
   return (
     <div className=" basis-[200px] relative">
-      <div className="w-full aspect-square bg-white grid place-items-center rounded-2xl">
+      <div className="w-full aspect-square bg-[#F2F4F8] grid place-items-center rounded-2xl">
         {image ? (
           <img
             src={image}
