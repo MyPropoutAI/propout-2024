@@ -33,7 +33,7 @@ import Success from "../routes/list-success/Success";
 import AboutUs from "../routes/about/AboutUs";
 // import { basename } from "path";
 
-export const router = createHashRouter(
+export const router = createBrowserRouter(
   [
     {
       path: "/",
@@ -111,7 +111,7 @@ export const router = createHashRouter(
       ],
     },
   ],
-  { basename: "." }
+  { basename: "/" }
 );
 
 // import About from "../routes/about/About";
