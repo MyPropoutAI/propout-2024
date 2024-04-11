@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Connect } from "./ConnectButton";
 import { Button } from "./ui/button";
 import Wrapper from "./Wrapper";
+import User from "./User";
 
 const links = [
   { name: "Faucet", path: "/testnet/faucet", state: true },
@@ -33,7 +34,7 @@ const AuthHeader = () => {
         </div>
 
         <div className="lg:hidden flex items-center gap-5">
-          {/*  */}
+          <User />
           <div>
             <img src="/images/menu-icon.svg" alt="" />
           </div>

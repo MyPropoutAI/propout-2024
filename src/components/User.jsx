@@ -17,7 +17,7 @@ const User = () => {
             <img
               src="/images/userpic.svg"
               alt=""
-              className="h-8 aspect-square"
+              className="h-9 aspect-square"
             />
             <img src="/images/dropdown.svg" alt="" className="w-3" />
           </div>
