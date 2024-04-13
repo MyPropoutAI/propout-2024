@@ -1,6 +1,6 @@
 import { ConnectButton } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
-import { createThirdwebClient } from "thirdweb";
+import { createThirdwebClient, defineChain } from "thirdweb";
 
 import { useActiveWallet } from "thirdweb/react";
 
@@ -18,18 +18,23 @@ const client = createThirdwebClient({
 export const Connect = () => {
   const wallet = useActiveWallet();
 
-  console.log(wallet);
+  const fuse = defineChain({
+    id: 122,
+  });
+
   return (
     <div className="relative">
       <ConnectButton
         wallets={wallets}
         client={client}
+        chain={fuse}
         autoConnect={{ timeout: 10000 }}
         switchButton={{
           label: "Wrong Network",
-          className: "my-custom-class",
+
           style: {
             backgroundColor: "red",
+            color: "white",
           },
         }}
         connectButton={{
@@ -37,7 +42,6 @@ export const Connect = () => {
           style: {
             backgroundImage: "linear-gradient(to right, #C064F8, #FF087F )",
             color: "white",
-
             minWidth: "200px",
             paddingBlock: "12px",
             fontWeight: 500,
