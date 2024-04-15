@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
 import User from "./User";
+import { Button } from "./ui/button";
 
 const Header = () => {
   return (
@@ -22,19 +23,15 @@ const Header = () => {
               <img src="/images/dropdown.svg" alt="" className="w-4" />
             </div> */}
 
-            <div>
-              <User />
-            </div>
-
-            <Link
-              to="/list"
-              className="bg-gradient-to-r from-[#C064F8]  to-[#FF087F] py-3 px-6 rounded-md hidden lg:block"
-            >
-              Explore Propout
-            </Link>
+            <Button variant="propout" size="default">
+              <Link to="/list">Explore Propout</Link>
+            </Button>
 
             <div>
               <Connect />
+            </div>
+            <div>
+              <User />
             </div>
           </div>
         </div>

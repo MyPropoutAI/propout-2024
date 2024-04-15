@@ -26,6 +26,9 @@ const User = () => {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
+            <Link to="/dashboard">Dashboard</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <Link to="/dashboard">Profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>Log out</DropdownMenuItem>
