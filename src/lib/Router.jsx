@@ -14,8 +14,6 @@ import Task from "../routes/dashboard/Task";
 // import Myproperty from "../routes/dashboard/Myproperty";
 // >>>>>>> 284ed83f55823efd1f01d3208e27a60bb89bd58e
 
-
-
 import Refer from "../routes/dashboard/Refer";
 import Myproperty from "../routes/dashboard/Myproperty";
 import Overview from "../routes/dashboard/Overview";
@@ -33,7 +31,8 @@ import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 // import PeerToPeer from "../routes/p2p/P2P";
 import AboutUs from "../routes/about/AboutUs";
-
+import Login from "../routes/onboarding/Login";
+import Signup from "../routes/onboarding/Signup";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +41,14 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { path: "/", element: <Home /> },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Signup />,
+      },
       {
         path: "list",
         element: <List />,
@@ -110,16 +117,6 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
-
-
-
-
-
-
-
-
-
 
 // import About from "../routes/about/About";
 // import Faucet from "../routes/testnet/faucet/faucet";

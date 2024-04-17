@@ -74,4 +74,23 @@
     left: 50%;
     transform: translateX(-50%);
   }
+
+  .hr-with-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1px; /* Adjust thickness of the line */
+    border: none;
+    background-color: #000; /* Adjust color of the line */
+    margin: 20px 0; /* Adjust spacing around the line */
+    position: relative;
+  }
+
+  .hr-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 10px; /* Adjust spacing around the text */
+    background-color: #fff; /* Adjust background color of the text */
+  }
 }
