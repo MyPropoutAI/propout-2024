@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { ConnectButton } from "./ConnectButton";
-import { Button } from "./ui/button";
+import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
+import User from "./User";
+import { Button } from "./ui/button";
 
 const Header = () => {
   return (
@@ -12,12 +13,26 @@ const Header = () => {
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
 
-          <div className="flex items-center">
-            <img src="/images/Ellipse 10.svg" alt="Eclipse" />
-            <Button className="mx-5" asChild>
+          <div className="flex items-center gap-6">
+            {/* <div className="flex gap-2 items-center cursor-pointer">
+              <img
+                src="/images/Ellipse 10.svg"
+                alt="Eclipse"
+                className="w-10 aspect-square"
+              />
+              <img src="/images/dropdown.svg" alt="" className="w-4" />
+            </div> */}
+
+            <Button variant="propout" size="default">
               <Link to="/list">Explore Propout</Link>
             </Button>
-            <ConnectButton className="bg-gradient-to-r from-[#C064F8]  to-[#FF087F]" />
+
+            <div>
+              <Connect />
+            </div>
+            <div>
+              <User />
+            </div>
           </div>
         </div>
       </Wrapper>

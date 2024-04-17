@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
-import { TransactionButton, useActiveAccount } from "thirdweb/react";
+import { TransactionButton, useActiveAccount, useWeb3 } from "thirdweb/react";
 import { prepareContractCall, resolveMethod } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
+// import { useListProperty } from "../../lib/constants";
 import { contract } from "../../lib/utils";
 
 const ListProperty = () => {
   const [images, setImages] = useState([""]);
   const { mutate: sendTransaction, isLoading, isError } = useSendTransaction();
-
+  const { network } = useWeb3();
   const account = useActiveAccount();
 
   const [form, setForm] = useState({
@@ -22,6 +23,16 @@ const ListProperty = () => {
       "https://images.propertypro.ng/large/2-bedroom-detached-bungalow-in-epe-lagos-nigeria-73WIcgOJYA8u2u3mDZK3.jpg",
     _propertyAddress: " ",
   });
+
+  const [isWrongNetwork, setIsWrongNetwork] = useState(false);
+
+  useEffect(() => {
+    if (network && network.chainId!== 1) {
+      setIsWrongNetwork(true);
+    } else {
+      setIsWrongNetwork(false);
+    }
+  }, [network]);
 
   const handleImageChange = (e, index) => {
     const file = e.target.files[0];
@@ -35,7 +46,7 @@ const ListProperty = () => {
   };
 
   const handleFormChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
+    setForm({...form, [fieldName]: e.target.value });
   };
 
   const call = async () => {
@@ -104,89 +115,61 @@ const ListProperty = () => {
                 className="w-full texl-lg"
               />
             </div>
-            <div>
+<div>
               <Input
                 type="text"
-                placeholder="Room Specification"
-                className="w-full texl-lg"
-              />
-            </div>
-            <div>
-              <Input
-                type="text"
-                placeholder="Type"
+                placeholder="Address"
                 className="w-full texl-lg"
               />
             </div>
             <div>
               <Textarea
-                type="text"
                 placeholder="Description"
-                className="w-full texl-lg min-h-40"
+                className="w-full texl-lg"
               />
             </div>
-            <div>
-              <TransactionButton
-                transaction={call}
-                style={{ background: "transparent", padding: 0 }}
-              >
-                <Button className="text-white px-12">List Property</Button>
-              </TransactionButton>
-            </div>
           </div>
         </div>
-        <div className="flex-[2] ">
-          <div className=" bg-[#EBEBEB] rounded-lg">
-            <p className="pt-5 text-center font-bold text-lg text-[#320051]">
-              PREVIEW
-            </p>
 
-            <div className="p-3">
-              <div className="h-[250px] bg-[#DDE1E6] mt-5 relative  overflow-hidden">
-                <span className=" absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold">
-                  FOR RENT
-                </span>
+        <div className="flex-[2]">
+          <div className="bg-white p-8 rounded-md max-w-full">
+            <div className="text-2xl font-bold mb-5">
+              <p>Preview</p>
+            </div>
+            <div className="flex flex-col gap-5">
+              <div className="flex gap-5">
+                <img
+                  src={images[0]}
+                  alt=""
+                  className="w-full h-full object-cover rounded-md"
+                />
               </div>
-              <div className="bg-white p-5">
-                <p className="text-lg text-[#FF0606]">Price/month</p>
-                <p className="my-3 font-bold text-xl">Headline</p>
-                <p>Description</p>
-
-                <div className="flex items-center justify-between my-5">
-                  <div className="text-center">
-                    <p>0</p>
-                    <p>Bedroom</p>
-                  </div>
-                  <div className="text-center">
-                    <p>0</p>
-                    <p>Bedroom</p>
-                  </div>
-                  <div className="text-center">
-                    <p>0</p>
-                    <p>Square</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <img
-                      src="/images/userpic.svg"
-                      alt=""
-                      className="h-12 aspect-square border-4 rounded-full bg-slate-900"
-                    />
-                    <div>
-                      <p className=" font-bold">Adams Cane</p>
-                      <p className="text-sm">Estate agent</p>
-                    </div>
-                  </div>
-                  <Button className=" rounded-md text-white px-8">
-                    See more{" "}
-                  </Button>
-                </div>
+              <div>
+                <p className="text-xl font-bold">{form._propertyTitle}</p>
+                <p className="text-gray-500">{form._propertyAddress}</p>
+                <p className="text-gray-500">{form.price} ETH</p>
+              </div>
+              <div>
+                <p className="text-xl font-bold">Description</p>
+                <p className="text-gray-500">{form._description}</p>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-10">
+        <TransactionButton
+          contractAddress={contract.address}
+          contractAbi={contract.abi}
+          isLoading={isLoading}
+          isError={isError}
+          isWrongNetwork={isWrongNetwork}
+          onSuccess={call}
+          actionName="List Property"
+          form={form}
+          setForm={setForm}
+        />
       </div>
     </div>
   );
@@ -194,32 +177,70 @@ const ListProperty = () => {
 
 export default ListProperty;
 
-const UploadImage = ({ image, handleUpload, i }) => {
-  return (
-    <div className="  relative min-w-36 aspect-square md:min-w-48">
-      <div className="w-full aspect-square bg-[#F2F4F8] grid place-items-center rounded-2xl">
-        {image ? (
-          <img
-            src={image}
-            alt="Uploaded Image "
-            className="max-w-ful max-h-[250px]"
-          />
-        ) : (
-          <img src="/images/image-upload.svg" alt="" className="w-1/2" />
-        )}
-      </div>
-      <input
-        className="hidden"
-        type="file"
-        id={`img-${i}`}
-        accept="image/*"
-        onChange={(e) => handleUpload(e, i)}
-      />
 
-      <label
-        htmlFor={`img-${i}`}
-        className="cursor-pointer absolute inset-0 appearance-none"
-      ></label>
+
+
+
+
+import { useState } from "react";
+import { Button } from "../../components/ui/button";
+import { useActiveAccount, useWeb3 } from "thirdweb/react";
+import { useSendTransaction } from "thirdweb/react";
+import { prepareContractCall, resolveMethod } from "thirdweb";
+
+const TransactionButton = ({
+  contractAddress,
+  contractAbi,
+  isLoading,
+  isError,
+  isWrongNetwork,
+  onSuccess,
+  actionName,
+  form,
+  setForm,
+}) => {
+  const { mutate: sendTransaction, isLoading: isTransactionLoading } =
+    useSendTransaction();
+  const { network } = useWeb3();
+  const account = useActiveAccount();
+
+  const [isConfirming, setIsConfirming] = useState(false);
+
+  const handleTransaction = async () => {
+    if (!account) {
+      alert("Please connect your wallet");
+      return;
+    }
+
+    if (isWrongNetwork) {
+      alert("Please switch to the correct network");
+      return;
+    }
+
+    setIsConfirming(true);
+
+    const transaction = await prepareContractCall({
+      contract: contractAddress,
+      method: resolveMethod(actionName),
+      params: [form],
+    });
+
+    const { transactionHash } = await sendTransaction(transaction);
+
+    onSuccess();
+  };
+
+  return (
+    <div className="mt-10">
+      <Button
+        className="w-full"
+        disabled={isTransactionLoading || isConfirming}
+        onClick={handleTransaction}
+      >
+        {isTransactionLoading || isConfirming ? "Loading..." : actionName}
+      </Button>
     </div>
   );
 };
+
+export default TransactionButton;

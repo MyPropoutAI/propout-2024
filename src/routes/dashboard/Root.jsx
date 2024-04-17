@@ -2,15 +2,24 @@ import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Leftsidebar from "./Leftsidebar";
 import Rightsidebar from "./Rightsidebar";
+import AuthHeader from "../../components/AuthHeader";
 
 const DashboardRoot = () => {
   return (
-    <div className="flex bg-slate-100 min-h-[calc(100vh-100px)] p-6 gap-10">
-      <Leftsidebar />
-      <div className=" flex-1">
-        <Outlet />
+    <div>
+      <AuthHeader />
+
+      <div className="flex bg-slate-100 min-h-[calc(100vh-100px)] p-6 gap-10">
+        <div className="hidden  md:block">
+          <Leftsidebar />
+        </div>
+        <div className=" flex-1">
+          <Outlet />
+        </div>
+        <div className="hidden lg:block">
+          <Rightsidebar />
+        </div>
       </div>
-      <Rightsidebar />
     </div>
   );
 };

@@ -24,6 +24,8 @@ const buttonVariants = cva(
         loginBTN:
           "bg-gradient-to-r from-[#C064F8]  to-[#FF087F] text-white h-10 g-10",
         caseScenario: "bg-[#FFC107] text-[#964CC3] h-10 g-10",
+        propout:
+          "bg-gradient-to-r from-[#C064F8]  to-[#FF087F] py-2 px-4 rounded-md hidden lg:block",
       },
       size: {
         default: "h-10 px-4 py-2",

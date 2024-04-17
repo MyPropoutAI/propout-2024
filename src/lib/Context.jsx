@@ -1,11 +1,16 @@
 import { useContext, createContext } from "react";
-import { useAddress, useContractWrite, useContract } from "@thirdweb-dev/react";
+import { createThirdwebClient, getContract, resolveMethod } from "thirdweb";
+import { defineChain } from "thirdweb";
+import { ThirdwebProvider } from "thirdweb/react";
 
 import { toast } from "sonner";
 
 const StateContext = createContext();
 
 export const Context = ({ children }) => {
+  const client = createThirdwebClient({
+    clientId: "1639134fe6d77249631aa361f3a9cbe1",
+  });
   const { contract } = useContract(
     "0x41b553358eC830A42c677836C995B1E8De38482C"
   );
