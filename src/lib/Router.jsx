@@ -18,7 +18,8 @@ import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 import AboutUs from "../routes/about/AboutUs";
-
+import LoginPage from "../routes/auth/login/Login";
+import Register from "../routes/auth/register/Register";
 export const router = createHashRouter([
   {
     path: "/",
@@ -30,6 +31,14 @@ export const router = createHashRouter([
       {
         path: "list",
         element: <List />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
       {
         path: "list/sell",
