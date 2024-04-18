@@ -2,14 +2,11 @@ import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import DashboardRoot from "../routes/dashboard/Root";
 import Setting from "../routes/dashboard/Setting";
 import Task from "../routes/dashboard/Task";
-<<<<<<< HEAD
 // import Stake from "../routes/testnet/stake/stake";
 // import Swap from "../routes/testnet/swap/swap";
 // import Myproperty from "../routes/dashboard/Myproperty";
 // >>>>>>> 284ed83f55823efd1f01d3208e27a60bb89bd58e
 
-=======
->>>>>>> e127c1a984b3a66a3a522abfa645af9eadd3991a
 import Refer from "../routes/dashboard/Refer";
 import Myproperty from "../routes/dashboard/Myproperty";
 import Overview from "../routes/dashboard/Overview";
@@ -26,15 +23,10 @@ import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 import AboutUs from "../routes/about/AboutUs";
-<<<<<<< HEAD
 import Login from "../routes/onboarding/Login";
 import Signup from "../routes/onboarding/Signup";
 
 export const router = createBrowserRouter([
-=======
-
-export const router = createHashRouter([
->>>>>>> e127c1a984b3a66a3a522abfa645af9eadd3991a
   {
     path: "/",
     element: <Root />,
@@ -118,7 +110,6 @@ export const router = createHashRouter([
     ],
   },
 ]);
-<<<<<<< HEAD
 
 // import About from "../routes/about/About";
 // import Faucet from "../routes/testnet/faucet/faucet";
@@ -133,5 +124,3 @@ export const router = createHashRouter([
 // import Swap from "../routes/testnet/swap/swap";
 // import Myproperty from "../routes/dashboard/Myproperty";
 // >>>>>>> 284ed83f55823efd1f01d3208e27a60bb89bd58e
-=======
->>>>>>> e127c1a984b3a66a3a522abfa645af9eadd3991a
