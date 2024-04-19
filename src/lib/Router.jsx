@@ -2,6 +2,11 @@ import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import DashboardRoot from "../routes/dashboard/Root";
 import Setting from "../routes/dashboard/Setting";
 import Task from "../routes/dashboard/Task";
+// import Stake from "../routes/testnet/stake/stake";
+// import Swap from "../routes/testnet/swap/swap";
+// import Myproperty from "../routes/dashboard/Myproperty";
+// >>>>>>> 284ed83f55823efd1f01d3208e27a60bb89bd58e
+
 import Refer from "../routes/dashboard/Refer";
 import Myproperty from "../routes/dashboard/Myproperty";
 import Overview from "../routes/dashboard/Overview";
@@ -23,7 +28,11 @@ import Register from "../routes/auth/register/Register";
 import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
 import NewPassword from "../routes/auth/newPassword/NewPassword";
 import Index from "../routes/page/Index";
-export const router = createHashRouter([
+// export const router = createHashRouter([
+// import Login from "../routes/onboarding/Login";
+// import Signup from "../routes/onboarding/Signup";
+
+export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
@@ -32,6 +41,7 @@ export const router = createHashRouter([
       // { index: true, element: <Home /> },
       { path: "/", element: <Index /> },
       { path: "home", element: <Home /> },
+
       {
         path: "list",
         element: <List />,
@@ -116,3 +126,17 @@ export const router = createHashRouter([
     ],
   },
 ]);
+
+// import About from "../routes/about/About";
+// import Faucet from "../routes/testnet/faucet/faucet";
+// import Marketplace from "../routes/marketplace/Marketplace";
+// import DashboardRoot from "../routes/dashboard/Root";
+// import ListProperty from "../routes/dashboard/ListProperty";
+// import Overview from "../routes/dashboard/Overview";
+// import Refer from "../routes/dashboard/Refer";
+// import Setting from "../routes/dashboard/Setting";
+// import Task from "../routes/dashboard/Task";
+// import Stake from "../routes/testnet/stake/stake";
+// import Swap from "../routes/testnet/swap/swap";
+// import Myproperty from "../routes/dashboard/Myproperty";
+// >>>>>>> 284ed83f55823efd1f01d3208e27a60bb89bd58e
