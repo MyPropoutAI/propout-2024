@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Input } from "../../../components/ui/input";
-//import { Rings } from "react-loader-spinner";
+import { Rings } from "react-loader-spinner";
 import { FormSchema } from "../../../lib/FormSchema";
 import { useForm } from "react-hook-form";
 import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthBg } from "../../../components/AuthBg";
-import RemenberMe from "../../../components/RemenberMe";
-import { SocialLogin } from "../../../components/SocialLogin";
-import { Button } from "../../../components/ui/button";
-import { Link } from "react-router-dom";
-const Login = () => {
+
+const Register = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
@@ -43,18 +41,18 @@ const Login = () => {
       </div>
       <div className="w-[100%] lg:w-[60%] flex justify-center items-center">
         <div className="w-[70%]">
-          <h2 className="text-2xl font-semibold mb-2">Sign up</h2>
-          <p className="mb-4">Welcome to Propout</p>
+          <h2 className="text-2xl font-semibold mb-2">Create new password</h2>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="my-2">
               <Input
-                {...register("email", { required: true })}
-                type="email"
-                placeholder="email"
+                {...register("password", { required: true })}
+                type={pwType}
+                placeholder="password"
               />
-              {errors.email && (
+              {errors.password && (
                 <span className="error text-red-500 text-md">
-                  {errors.email.message}
+                  {errors.password.message}
                 </span>
               )}
             </div>
@@ -71,53 +69,38 @@ const Login = () => {
                 )}
               </div>
               <Input
-                {...register("password", { required: true })}
+                {...register("confirmPassword", { required: true })}
                 type={pwType}
-                placeholder="password"
+                placeholder="Confirm password"
               />
-              {errors.password && (
+              {errors.confirmPassword && (
                 <span className="error text-red-500 text-md">
-                  {errors.password.message}
+                  {errors.confirmPassword.message}
                 </span>
               )}
             </div>
 
-            <div className="my-3 flex justify-between items-center">
-              <RemenberMe />
-              <div className="text-[#9C0AE1] cursor-pointer">
-                <Link to="/forgetPassword">Forgot password?</Link>
-              </div>
-            </div>
-            {isLoading ? (
-              <Button
-                disabled
-                className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gray-400 text-white  px-4  shadow-sm"
-                type="submit"
-              >
-                Register
-              </Button>
-            ) : (
-              <Button
-                className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
-                type="submit"
-              >
-                Register
-              </Button>
-            )}
+            <button
+              className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
+              type="submit"
+            >
+              Create Password
+              {isLoading && (
+                <Rings
+                  visible={true}
+                  height="40"
+                  width="844fa94d"
+                  ariaLabel="rings-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              )}
+            </button>
           </form>
-          <p className="text-center">
-            Don’t have an account?
-            <Link to="/register">
-              <span className="text-[#9C0AE1] cursor-pointer">Sign up</span>
-            </Link>
-          </p>
-          <div className="w-full flex justify-center items-center ">
-            <SocialLogin />
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

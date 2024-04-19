@@ -20,6 +20,9 @@ import Success from "../routes/list-success/Success";
 import AboutUs from "../routes/about/AboutUs";
 import LoginPage from "../routes/auth/login/Login";
 import Register from "../routes/auth/register/Register";
+import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
+import NewPassword from "../routes/auth/newPassword/NewPassword";
+import Index from "../routes/page/Index";
 export const router = createHashRouter([
   {
     path: "/",
@@ -27,7 +30,8 @@ export const router = createHashRouter([
     errorElement: <NotFound />,
     children: [
       // { index: true, element: <Home /> },
-      { path: "/", element: <Home /> },
+      { path: "/", element: <Index /> },
+      { path: "home", element: <Home /> },
       {
         path: "list",
         element: <List />,
@@ -35,6 +39,14 @@ export const router = createHashRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "forgetPassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "createPassword",
+        element: <NewPassword />,
       },
       {
         path: "register",
