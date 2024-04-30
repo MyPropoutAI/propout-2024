@@ -7,7 +7,7 @@ import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthBg } from "../../../components/AuthBg";
+//import { AuthBg } from "../../../components/AuthBg";
 import RemenberMe from "../../../components/RemenberMe";
 import { SocialLogin } from "../../../components/SocialLogin";
 import { Link } from "react-router-dom";
@@ -37,10 +37,15 @@ const Register = () => {
     // Handle form submission logic here (e.g., send data to server)
   };
   return (
-    <div className="w-full flex">
-      <div className="hidden lg:flex w-[40%] bg-blue-900">
-        <AuthBg />
-      </div>
+    <div className="w-full flex h-screen">
+      <div
+        className="hidden lg:flex w-[40%] bg-blue-900"
+        style={{
+          backgroundImage: "url('/images/authbg.png')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      ></div>
       <div className="w-[100%] lg:w-[60%] flex justify-center items-center">
         <div className="w-[70%]">
           <h2 className="text-2xl font-semibold mb-2">Sign up</h2>
@@ -129,7 +134,7 @@ const Register = () => {
           </form>
           <p className="text-center">
             Already have an account?
-            <Link to="/login">
+            <Link to="/auth/login">
               <span className="text-[#9C0AE1] cursor-pointer">Login</span>
             </Link>
           </p>

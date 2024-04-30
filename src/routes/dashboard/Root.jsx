@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Leftsidebar from "./Leftsidebar";
 import Rightsidebar from "./Rightsidebar";
 import AuthHeader from "../../components/AuthHeader";
