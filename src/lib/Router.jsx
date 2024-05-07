@@ -23,60 +23,77 @@ import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
 import AboutUs from "../routes/about/AboutUs";
-import Login from "../routes/onboarding/Login";
-import Signup from "../routes/onboarding/Signup";
+import LoginPage from "../routes/auth/login/Login";
+import Register from "../routes/auth/register/Register";
+import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
+import NewPassword from "../routes/auth/newPassword/NewPassword";
+import Index from "../routes/page/Index";
+import PageRoot from "../routes/page/Root";
+import Blog from "../routes/blog/Blog";
+import RoadMap from "../routes/road-map/RoadMap";
+import Guide from "../routes/guide/Guide";
+import AuthRoot from "../routes/auth/Root";
+// export const router = createHashRouter([
+// import Login from "../routes/onboarding/Login";
+// import Signup from "../routes/onboarding/Signup";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <PageRoot />,
+    errorElement: <NotFound />,
+    children: [
+      // { index: true, element: <Home /> },
+      { path: "/", element: <Index /> },
+      { path: "blog", element: <Blog /> },
+      { path: "/road-map", element: <RoadMap /> },
+      { path: "/guide", element: <Guide /> },
+    ],
+  },
+
+  {
+    path: "/home",
     element: <Root />,
     errorElement: <NotFound />,
     children: [
       // { index: true, element: <Home /> },
-      { path: "/", element: <Home /> },
+      // { path: "/", element: <Index /> },
+      { path: "/home", element: <Home /> },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Signup />,
-      },
-      {
-        path: "list",
+        path: "/home/list",
         element: <List />,
       },
       {
-        path: "list/sell",
+        path: "/home/list/sell",
         element: <Sell />,
       },
       {
-        path: "list/success",
+        path: "/home/list/success",
         element: <Success />,
       },
 
       {
-        path: "AboutUs",
+        path: "/home/AboutUs",
         element: <AboutUs />,
       },
 
       {
-        path: "/testnet/faucet",
+        path: "/home/testnet/faucet",
         element: <Faucet />,
       },
       {
-        path: "/testnet/swap",
+        path: "/home/testnet/swap",
         element: <Swap />,
       },
       {
-        path: "/testnet/stake",
+        path: "/home/testnet/stake",
         element: <Stake />,
       },
       {
-        path: "/marketplace",
+        path: "/home/marketplace",
         element: <Marketplace />,
       },
-      { path: "/test", element: <Testing /> },
+      { path: "/home/test", element: <Testing /> },
     ],
   },
   {
@@ -106,6 +123,33 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/task",
         element: <Task />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    element: <AuthRoot />,
+    children: [
+      {
+        index: true,
+        element: <Overview />,
+      },
+
+      {
+        path: "/auth/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/auth/forgetPassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "/auth/createPassword",
+        element: <NewPassword />,
+      },
+      {
+        path: "/auth/register",
+        element: <Register />,
       },
     ],
   },

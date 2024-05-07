@@ -22,7 +22,14 @@ const cards = [
 
 const Builtfor = () => {
   return (
-    <div className=" bg-decoration-line bg-cover bg-center">
+    <div
+      className=" bg-decoration-line bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/images/builtFor.png')",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <Wrapper>
         <div className="text-center text-white text-2xl md:text-3xl py-10">
           <p className="font-[700]">Propout is Built For:</p>
