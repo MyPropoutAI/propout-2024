@@ -8,7 +8,7 @@ export default function Rentsample() {
         <img
           src="/images/rent.svg"
           className="min-w-[100%] max-h-[200px]  rounded-[3.08px] object-cover object-center"
-          alt=""
+          alt="images"
         />
         <p className="px-5 py-2 text-white bg-[#0EFC25] w-fit absolute right-0 top-0">
           For Rent

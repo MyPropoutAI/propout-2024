@@ -40,6 +40,7 @@ module.exports = {
       gridTemplateColumns: {
         "three-columns": "repeat(auto-fill, minmax(280px, 350px))",
         "my-property": "repeat(auto-fill, minmax(280px, 250px))",
+        "dashboard-settings": "repeat(auto-fill, minmax(250px, 1fr))",
       },
     },
   },
