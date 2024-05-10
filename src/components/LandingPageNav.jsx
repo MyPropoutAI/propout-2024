@@ -5,10 +5,10 @@ import { Button } from "./ui/button";
 
 const navLink = [
   { name: "Home", path: "/" },
-  { name: "Blog", path: "/blog" },
-  { name: "Explore Propout", path: "/explore" },
-  { name: "Road Map", path: "/road-map" },
-  { name: "Guide", path: "/guide" },
+  // { name: "Blog", path: "/blog" },
+  { name: "Explore Propout", path: "/home/list" },
+  // { name: "Road Map", path: "/road-map" },
+  // { name: "Guide", path: "/guide" },
 ];
 
 const LandingPageNav = () => {
@@ -45,7 +45,7 @@ const LandingPageNav = () => {
             {/* <div>
               <Connect />
             </div> */}
-            <Link to="/auth/register">
+            <Link to="/auth/login">
               <Button className="border border-purple-500 border-solid">
                 Get Started
               </Button>

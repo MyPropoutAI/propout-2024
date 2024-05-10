@@ -9,7 +9,7 @@ import { Button } from "../../../components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 //import { AuthBg } from "../../../components/AuthBg";
 import RemenberMe from "../../../components/RemenberMe";
-import { SocialLogin } from "../../../components/SocialLogin";
+//import { SocialLogin } from "../../../components/SocialLogin";
 import { Link } from "react-router-dom";
 // import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
@@ -165,9 +165,9 @@ const Register = () => {
               <span className="text-[#9C0AE1] cursor-pointer">Login</span>
             </Link>
           </p>
-          <div className="w-full flex justify-center items-center items-center">
+          {/* <div className="w-full flex justify-center items-center items-center">
             <SocialLogin />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

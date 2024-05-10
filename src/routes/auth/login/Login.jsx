@@ -8,7 +8,7 @@ import { EyeOff } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 //import { AuthBg } from "../../../components/AuthBg";
 import RemenberMe from "../../../components/RemenberMe";
-import { SocialLogin } from "../../../components/SocialLogin";
+//import { SocialLogin } from "../../../components/SocialLogin";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
 import { useLogin } from "../../../contexts/hooks/useLogin";
@@ -140,9 +140,9 @@ const Login = () => {
               <span className="text-[#9C0AE1] cursor-pointer">Sign up</span>
             </Link>
           </p>
-          <div className="w-full flex justify-center items-center ">
+          {/* <div className="w-full flex justify-center items-center ">
             <SocialLogin />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
