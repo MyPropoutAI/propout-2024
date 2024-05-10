@@ -50,14 +50,14 @@ const transactions = [
 
 const Swaphistory = () => {
   return (
-    <div className="text-white">
-      <p className=" text-left px-3 text-lg py-3">Recent trades</p>
+    <div className="text-[#FFFF]/50">
+      <p className=" text-left text-white px-3 text-lg py-3">Recent trades</p>
       <hr />
 
       <div>
         <Table>
           <TableCaption>A list of your recent Transactions.</TableCaption>
-          <TableHeader className="text-[#FFFFFF]/50">
+          <TableHeader className="text-[#FFFFFF]">
             <TableRow>
               <TableHead className="min-w-[100px]">Date</TableHead>
               <TableHead>From</TableHead>
