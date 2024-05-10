@@ -68,24 +68,33 @@ const Swaphistory = () => {
           <TableBody>
             {transactions.map((items, index) => {
               return (
-                <TableRow className="text-[15px] font-light">
+                <TableRow className="md:text-[15px] text-[12px] font-light">
                   {
-                    <TableCell className="font-medium" key={index}>
+                    <TableCell
+                      className="md:font-medium font-light"
+                      key={index}
+                    >
                       {items.date}
                     </TableCell>
                   }
                   {
-                    <TableCell className="font-medium" key={index}>
+                    <TableCell
+                      className="md:font-medium font-light"
+                      key={index}
+                    >
                       {items.from}
                     </TableCell>
                   }
                   {
-                    <TableCell className="font-medium" key={index}>
+                    <TableCell
+                      className="md:font-medium font-light"
+                      key={index}
+                    >
                       {items.to}
                     </TableCell>
                   }
                   {
-                    <TableCell className="font-medium text-right">
+                    <TableCell className="md:font-medium font-light text-right">
                       {items.address}
                     </TableCell>
                   }
