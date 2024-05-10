@@ -26,10 +26,10 @@ const tokens = [
 
 const Stake = () => {
   return (
-    <div className=" bg-[#AB55DF]/55 bg-hero min-h-screen pb-10 mx-auto ">
-      <div className=" min-h-screen/50 mx-auto px-4 md:w-[600px] text-white ">
+    <div className=" bg-[#AB55DF]/55 bg-hero min-h-screen flex mx-auto ">
+      <div className=" min-h-screen/50 mx-auto my-10 px-4 md:w-[700px] text-white ">
         <div className="bg-[#2A0144] flex flex-col items-center justify-center rounded-md  px-10 py-10">
-          <h1 className="text-xl text-center pb-2">Add Stake</h1>
+          <h1 className="text-xl text-center pb-2 font-bold">Add Stake</h1>
 
           <div className="flex flex-col gap-4 w-full">
             <div className="rounded-md w-full  bg-[#964CC333]/20 px-4">
@@ -58,7 +58,7 @@ const Stake = () => {
               </div>
 
               <div>
-                <p>Add duration</p>
+                <p className="py-1">Add duration</p>
                 <div className="flex justify-between px-2 py-4 items-center text-[#fff]/20 rounded-md border border-[#964CC3]/20 ">
                   <p>90</p>
                   <p>DAYS</p>
@@ -76,18 +76,32 @@ const Stake = () => {
                 </div>
               </div>
 
-              <div id="">
-                <p className="py-3 text-[#FFFFFF]/20">You pay</p>
-                <div className="bg-[#964CC3]/50 rounded-md  w-full py-4 px-4 flex justify-between items-center">
-                  <select className="rounded-md px-1 py-3 bg-[#2A0144] text-white">
-                    {tokens.map((token, index) => (
-                      <option value="" key={index}>
-                        {token.logo}
-                        {token.name}
-                      </option>
-                    ))}
-                  </select>
-                  <p>0.10</p>
+              <div>
+                <p className="py-1">You will receive</p>
+                <div className="flex justify-between px-2 py-4 items-center text-[#fff]/20 rounded-md border border-[#964CC3]/20 ">
+                  <p>0.0 FUSE</p>
+                </div>
+              </div>
+              <div id="footer">
+                <div className="flex justify-between py-2 items-center   text-[#fff]/20">
+                  <p>Added Stake:</p>
+                  <p>0.0 FUSE</p>
+                </div>
+                <div className="flex justify-between py-2 items-center   text-[#fff]/20">
+                  <p>Current Stake:</p>
+                  <p>0.0</p>
+                </div>
+                <div className="flex justify-between py-2 items-center   text-[#fff]/20">
+                  <p>Exchange Rate:</p>
+                  <p>0.4 FUSE = 1 USDT</p>
+                </div>
+                <div className="flex justify-between py-2 items-center   text-[#fff]/20">
+                  <p>Staking Reward</p>
+                  <p>0%</p>
+                </div>
+                <div className="flex justify-between py-2 items-center   text-[#fff]/20">
+                  <p>Staking Fee</p>
+                  <p>10%</p>
                 </div>
               </div>
 
