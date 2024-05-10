@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input } from "../../../components/ui/input";
 //import { Rings } from "react-loader-spinner";
-import { FormSchema } from "../../../lib/FormSchema";
+// import { FormSchema } from "../../../lib/FormSchema";
 import { useForm } from "react-hook-form";
 import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
@@ -11,10 +11,16 @@ import RemenberMe from "../../../components/RemenberMe";
 import { SocialLogin } from "../../../components/SocialLogin";
 import { Button } from "../../../components/ui/button";
 import { Link } from "react-router-dom";
+import { useLogin } from "../../../contexts/hooks/useLogin";
+
+import { Rings } from "react-loader-spinner";
+import { LoginSchema } from "../../../lib/FormSchema";
 const Login = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
+
+  const { login, error, loading } = useLogin();
 
   const handlePassword = () => {
     if (pwType == "password") {
@@ -29,11 +35,27 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(FormSchema) });
+  } = useForm({ resolver: zodResolver(LoginSchema) });
 
-  const onSubmit = (data) => {
-    setIsLoading(true);
+  const onSubmit = async (data) => {
     console.log("Form data:", data);
+    try {
+      // const res = await fetch(
+      //   `https://proput-db.onrender.com/log-in?email=${data.email}&password=${data.password}`,
+      //   {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //   }
+      // );
+
+      await login(data);
+
+      if (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
     // Handle form submission logic here (e.g., send data to server)
   };
   return (
@@ -93,22 +115,24 @@ const Login = () => {
                 <Link to="/auth/forgetPassword">Forgot password?</Link>
               </div>
             </div>
-            {isLoading ? (
-              <Button
-                disabled
-                className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gray-400 text-white  px-4  shadow-sm"
-                type="submit"
-              >
-                Register
-              </Button>
-            ) : (
-              <Button
-                className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
-                type="submit"
-              >
-                Register
-              </Button>
-            )}
+            <Button
+              className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
+              type="submit"
+              disables={loading}
+            >
+              {loading ? "" : "Register"}
+
+              {loading && (
+                <Rings
+                  visible={true}
+                  height="40"
+                  width="844fa94d"
+                  ariaLabel="rings-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              )}
+            </Button>
           </form>
           <p className="text-center">
             Don’t have an account?

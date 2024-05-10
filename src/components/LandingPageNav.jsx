@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Connect } from "./ConnectButton";
+//import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
 import { Button } from "./ui/button";
 
@@ -42,9 +42,9 @@ const LandingPageNav = () => {
               ))}
             </div>
 
-            <div>
+            {/* <div>
               <Connect />
-            </div>
+            </div> */}
             <Link to="/auth/register">
               <Button className="border border-purple-500 border-solid">
                 Get Started

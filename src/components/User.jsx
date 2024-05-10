@@ -7,18 +7,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useLogout } from "../contexts/hooks/useLogout";
 
-const User = () => {
+const User = ({ userAvartar }) => {
+  const { logout } = useLogout();
+  const handleLogout = () => {
+    logout();
+  };
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <div className="flex gap-2 items-center cursor-pointer">
-            <img
-              src="/images/userpic.svg"
-              alt=""
-              className="h-9 aspect-square"
-            />
+            {userAvartar}
             <img src="/images/dropdown.svg" alt="" className="w-3" />
           </div>
         </DropdownMenuTrigger>
@@ -29,9 +30,9 @@ const User = () => {
             <Link to="/dashboard">Dashboard</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/dashboard">Profile</Link>
+            <Link to="/dashboard/setting">Profile</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { Connect } from "./ConnectButton";
-import { Button } from "./ui/button";
-import Wrapper from "./Wrapper";
+//import { Button } from "./ui/button";
+//import Wrapper from "./Wrapper";
 import User from "./User";
+import jwt from "jsonwebtoken";
+import { useAuthContext } from "../contexts/hooks/useAuthcontext";
 
 const links = [
   { name: "Faucet", path: "/testnet/faucet", state: true },
@@ -11,16 +13,25 @@ const links = [
 ];
 
 const AuthHeader = () => {
+  const { user } = useAuthContext();
+  console.log(user.success.token);
+  const userToken = user.success.token;
+  const decodedUser = jwt.decode(userToken);
+  console.log(decodedUser);
+  const userAvartar = decodedUser.name.substring(0, 2);
+  console.log(userAvartar);
   return (
     <div className="bg-white sticky top-0 z-10 text-black px-6">
       <div className="flex justify-between items-center text-whit">
         <div className="flex items-center gap-10">
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
           <div className="lg:flex text-lg gap-5 hidden">
-            {links.map((link) => (
-              <Link to={link.path}>{link.name}</Link>
+            {links.map((link, i) => (
+              <Link key={i} to={link.path}>
+                {link.name}
+              </Link>
             ))}
           </div>
         </div>
@@ -34,7 +45,7 @@ const AuthHeader = () => {
         </div>
 
         <div className="lg:hidden flex items-center gap-5">
-          <User />
+          <User userAvartar={userAvartar} />
           <div>
             <img src="/images/menu-icon.svg" alt="" />
           </div>

@@ -11,10 +11,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import RemenberMe from "../../../components/RemenberMe";
 import { SocialLogin } from "../../../components/SocialLogin";
 import { Link } from "react-router-dom";
+// import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/components/ui/use-toast";
+
+import { useSignup } from "../../../contexts/hooks/useSignup";
+
 const Register = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { signup, error, loading } = useSignup();
+  // const queryClient = useQueryClient();
+  const toast = useToast();
 
   const handlePassword = () => {
     if (pwType == "password") {
@@ -31,10 +39,14 @@ const Register = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(FormSchema) });
 
-  const onSubmit = (data) => {
-    setIsLoading(true);
-    console.log(data);
-    // Handle form submission logic here (e.g., send data to server)
+  const onSubmit = async (data) => {
+    console.log(data.password);
+
+    await signup(data);
+    if (error) {
+      console.log(error);
+      toast.error(error);
+    }
   };
   return (
     <div className="w-full flex h-screen">
@@ -55,7 +67,7 @@ const Register = () => {
               <Input
                 {...register("name", { required: true })}
                 type="text"
-                placeholder="Fullname"
+                placeholder="Full name"
               />
               {errors.name && (
                 <span className="error text-red-500 text-md">
@@ -73,6 +85,19 @@ const Register = () => {
               {errors.email && (
                 <span className="error text-red-500 text-md">
                   {errors.email.message}
+                </span>
+              )}
+            </div>
+
+            <div className="my-2">
+              <Input
+                {...register("phone_number", { required: true })}
+                type="tel"
+                placeholder="Phone number"
+              />
+              {errors.phone_number && (
+                <span className="error text-red-500 text-md">
+                  {errors.phone_number.message}
                 </span>
               )}
             </div>
@@ -118,9 +143,11 @@ const Register = () => {
             <Button
               className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
               type="submit"
+              disables={loading}
             >
-              Register
-              {isLoading && (
+              {loading ? "" : "Register"}
+
+              {loading && (
                 <Rings
                   visible={true}
                   height="40"

@@ -3,13 +3,24 @@ import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
 import User from "./User";
 import { Button } from "./ui/button";
+import jwt from "jsonwebtoken";
+import { useAuthContext } from "../contexts/hooks/useAuthcontext";
 
 const Header = () => {
+  const { user } = useAuthContext();
+  console.log(user.success.token);
+  const userToken = user.success.token;
+  const decodedUser = jwt.decode(userToken);
+  console.log(decodedUser);
+  const userAvartar = decodedUser.name.substring(0, 2);
+  console.log(userAvartar);
+  // const decodedToken = jwtDecode(user?.success?.token);
+  // console.log(decodedToken);
   return (
     <div className="bg-purple-900 sticky top-0 z-10">
       <Wrapper>
         <div className="flex justify-between items-center text-white">
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
 
@@ -31,7 +42,7 @@ const Header = () => {
               <Connect />
             </div>
             <div>
-              <User />
+              <User userAvartar={userAvartar} />
             </div>
           </div>
         </div>
