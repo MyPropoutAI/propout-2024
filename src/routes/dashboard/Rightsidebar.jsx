@@ -1,5 +1,5 @@
 import path from "path";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -9,10 +9,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import jwt from "jsonwebtoken";
+import { useAuthContext } from "../../contexts/hooks/useAuthcontext";
 
 const Rightsidebar = () => {
   const location = useLocation();
   const { pathname } = location;
+  const { user } = useAuthContext();
+  console.log(user.success.token);
+  const userToken = user.success.token;
+  const decodedUser = jwt.decode(userToken);
+  console.log(decodedUser);
+  const userAvartar = decodedUser.name.substring(0, 2);
+  console.log(userAvartar);
 
   const Tasks = [
     {
@@ -76,9 +85,13 @@ const Rightsidebar = () => {
       <div className="bg-[#FFFF] p-5 h-fit rounded-md">
         <div className="bg-[#FFFF] text-[#320051] flex flex-col ">
           <div className="justify-center flex flex-col items-center">
-            <img src="/images/userpic.svg" alt="" />
+            <div className="w-20 h-20 flex justify-center items-center mb-2 rounded-full border">
+              <h1 className="text-[#320051] font-bold text-2xl text-center">
+                {userAvartar}
+              </h1>
+            </div>
 
-            <p className="font-bold">Joel Pillar</p>
+            <p className="font-bold">{decodedUser.name}</p>
             <p className="italic ">Lord of real estate asset worldwide</p>
           </div>
 
@@ -90,9 +103,11 @@ const Rightsidebar = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <button className="bg-[#964CC3] text-[#ffff] py-1 px-5 mt-2 rounded-md">
-            Edit Profile
-          </button>
+          <Link to="/dashboard/setting">
+            <button className="bg-[#964CC3] text-[#ffff] py-1 px-5 mt-2 rounded-md">
+              Edit Profile
+            </button>
+          </Link>
         </div>
       </div>
 
