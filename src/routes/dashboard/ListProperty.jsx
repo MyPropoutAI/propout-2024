@@ -5,10 +5,12 @@ import { Textarea } from "../../components/ui/textarea";
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { prepareContractCall, resolveMethod } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
+import { toast } from "sonner";
 import { contract } from "../../lib/utils";
 
 const ListProperty = () => {
   const [images, setImages] = useState([""]);
+
   const { mutate: sendTransaction, isLoading, isError } = useSendTransaction();
 
   const account = useActiveAccount();
@@ -38,26 +40,10 @@ const ListProperty = () => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
-  const call = async () => {
-    const transaction = await prepareContractCall({
-      contract,
-      method: resolveMethod("listProperty"),
-      params: [
-        account.address,
-        form.price,
-        form._propertyTitle,
-        form._images,
-        form._propertyAddress,
-        form._description,
-      ],
-    });
-    const { transactionHash } = await sendTransaction(transaction);
-  };
-
   return (
     <div className="bg-white p-8 rounded-md max-w-full">
-      <div className="border-2 p-4 rounded-md flex gap-5 relative max-w-full">
-        <div className="flex gap-4 overflow-x-auto max-w-full">
+      <div className="border-2 p-4 rounded-md flex gap-5 relative  ">
+        <div className="flex gap-4 overflow-x-auto">
           {images.map((image, i) => (
             <UploadImage
               image={image}
@@ -127,7 +113,42 @@ const ListProperty = () => {
             </div>
             <div>
               <TransactionButton
-                transaction={call}
+                transaction={() => {
+                  const transaction = prepareContractCall({
+                    contract,
+                    method: resolveMethod("listProperty"),
+                    params: [
+                      account.address,
+                      form.price,
+                      form._propertyTitle,
+                      form._images,
+                      form._propertyAddress,
+                      form._description,
+                    ],
+                  });
+                  return transaction;
+                }}
+                onTransactionConfirmed={(trx) => {
+                  toast("Success", {
+                    description: "Your property have been listed successfully",
+                    action: {
+                      label: "View",
+                      onClick: () => {
+                        window.open(
+                          "https://explorer.fuse.io/tx/" + trx.transactionHash,
+                          "_blank"
+                        );
+                      },
+                    },
+                  });
+                }}
+                onError={(err) => {
+                  if (err.code == "4001") {
+                    toast.error("Transaction rejected");
+                  } else {
+                    console.log(err);
+                  }
+                }}
                 style={{ background: "transparent", padding: 0 }}
               >
                 <Button className="text-white px-12">List Property</Button>
