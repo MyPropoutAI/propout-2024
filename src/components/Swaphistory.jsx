@@ -59,7 +59,7 @@ const Swaphistory = () => {
           <TableCaption>A list of your recent Transactions.</TableCaption>
           <TableHeader className="text-[#FFFFFF]">
             <TableRow>
-              <TableHead className="min-w-[100px]">Date</TableHead>
+              <TableHead className="">Date</TableHead>
               <TableHead>From</TableHead>
               <TableHead>To</TableHead>
               <TableHead className="text-right">Address</TableHead>

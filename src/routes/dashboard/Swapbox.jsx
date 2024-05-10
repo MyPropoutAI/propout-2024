@@ -25,7 +25,7 @@ const tokens = [
 ];
 const Swapbox = () => {
   return (
-    <div className=" min-h-screen/50 w-[600px] text-white ">
+    <div className=" min-h-screen/50 mx-auto px-4 md:w-[600px] text-white ">
       <div className="bg-[#2A0144] flex flex-col items-center justify-center rounded-md  px-10 py-10">
         <h1 className="text-xl text-center pb-2">Swap Any Asset</h1>
 
