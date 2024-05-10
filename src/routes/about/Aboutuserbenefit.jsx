@@ -93,7 +93,6 @@ const Aboutuserbenefit = () => {
           </div>
         </div>
       </div>
-      {/* https://www.figma.com/file/wpPdCqDPA12zJUy13Mu9fJ/PROPOUT?type=design&node-id=2118-53676&mode=design&t=99lF3Oa8aZK3ZZ9d-0* */}
     </div>
   );
 };

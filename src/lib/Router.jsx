@@ -33,6 +33,12 @@ import Blog from "../routes/blog/Blog";
 import RoadMap from "../routes/road-map/RoadMap";
 import Guide from "../routes/guide/Guide";
 import AuthRoot from "../routes/auth/Root";
+
+import Accountsetting from "../components/Accountsetting";
+import Notification from "../components/Notification";
+import Helpsetting from "../components/Helpsetting";
+import Profilesetting from "../components/Profilesetting";
+
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
 // import Signup from "../routes/onboarding/Signup";
@@ -119,6 +125,24 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/setting",
         element: <Setting />,
+        children: [
+          {
+            path: "/dashboard/setting/profile",
+            element: <Profilesetting />,
+          },
+          {
+            path: "/dashboard/setting/notification",
+            element: <Notification />,
+          },
+          {
+            path: "/dashboard/setting/help",
+            element: <Helpsetting />,
+          },
+          {
+            path: "/dashboard/setting/account",
+            element: <Accountsetting />,
+          },
+        ],
       },
       {
         path: "/dashboard/task",
