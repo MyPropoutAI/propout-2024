@@ -20,12 +20,12 @@ const links = [
   },
   {
     name: " Swap",
-    path: "/testnet/swap",
+    path: "/home/testnet/swap",
     img: "/images/swap.svg",
   },
   {
     name: " Stake ",
-    path: "/testnet/stake",
+    path: "/home/testnet/stake",
     img: "/images/stake.svg",
   },
   {

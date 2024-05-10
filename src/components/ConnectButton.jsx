@@ -38,14 +38,14 @@ export const Connect = () => {
           },
         }}
         connectButton={{
-          label: "Connect wallet",
+          label: "",
           style: {
             backgroundImage: "linear-gradient(to right, #C064F8, #FF087F )",
             color: "white",
-            minWidth: "200px",
+            minWidth: "",
             paddingBlock: "12px",
             fontWeight: 500,
-            fontSize: "18px",
+            fontSize: "16px",
             paddingInlineStart: "60px",
             paddingInlineEnd: "30px",
           },

@@ -25,8 +25,11 @@ module.exports = {
         "refer-hero-card": "url('/images/test.svg')",
         "refer-hero-card-2": "url('/images/refer-card-2.svg')",
         "task-hero-card-2": "url('/images/allpoint.svg')",
+        "login-bg": "url('/images/loginbg.svg')",
         "refer-gradient":
           "linear-gradient(to right,rgba(255, 255, 255, 0.21) ,rgba(42, 1, 68, 0.21))",
+        // btnGrad: "bg-gradient-to-r from-[#964DC3]  to-[#F42A8B] text-white ",
+        btnGrad: "linear-gradient(to right, #964DC3, #F42A8B ) ",
       },
       colors: {
         main: "rgb(var(--background))",
@@ -36,6 +39,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         "three-columns": "repeat(auto-fill, minmax(280px, 350px))",
+        "my-property": "repeat(auto-fill, minmax(280px, 250px))",
+        "dashboard-settings": "repeat(auto-fill, minmax(250px, 1fr))",
       },
     },
   },

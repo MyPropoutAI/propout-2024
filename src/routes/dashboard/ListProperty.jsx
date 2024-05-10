@@ -151,7 +151,9 @@ const ListProperty = () => {
                 }}
                 style={{ background: "transparent", padding: 0 }}
               >
-                <Button className="text-white px-12">List Property</Button>
+                <Button className="text-white px-12 bg-blue-500">
+                  List Property
+                </Button>
               </TransactionButton>
             </div>
           </div>

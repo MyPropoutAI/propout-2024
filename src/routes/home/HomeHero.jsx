@@ -15,16 +15,16 @@ const HomeHero = () => {
         </p>
         <div className="flex gap-5 mt-5 flex-wrap justify-center">
           <Button className="px-8 rounded-md">
-            <Link to={"/list"}>List</Link>
+            <Link to={"/home/list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to={"/marketplace"}>Rent</Link>
+            <Link to={"/home/marketplace"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to={"/list/sell"}>Buy</Link>
+            <Link to={"/home/list/sell"}>Buy</Link>
           </Button>
           <Button className="px-8 rounded-md" variant="outline">
-            <Link to="/testnet/faucet">Testnet</Link>
+            <Link to="/home/testnet/faucet">Testnet</Link>
           </Button>
         </div>
         <div>
