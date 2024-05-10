@@ -104,16 +104,15 @@ const Stake = () => {
                   <p>10%</p>
                 </div>
               </div>
-
-              <div className=" rounded-md mx-5 my-3">
-                <Button
-                  size="lg"
-                  className=" bg-btnGrad text-white lg mt-4 rounded-md text-xl flex justify-center items-center gap-2 w-full "
-                >
-                  <img src="/images/Vector-1.svg" alt="" />
-                  Connect wallet
-                </Button>
-              </div>
+            </div>
+            <div className=" rounded-md">
+              <Button
+                size="lg"
+                className=" bg-btnGrad text-white lg mt-4 rounded-md text-xl flex justify-center items-center gap-2 w-full "
+              >
+                <img src="/images/Vector-1.svg" alt="" />
+                Connect wallet
+              </Button>
             </div>
           </div>
         </div>

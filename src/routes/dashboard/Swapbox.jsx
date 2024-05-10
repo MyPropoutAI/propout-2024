@@ -7,6 +7,10 @@ import { SiSolana } from "react-icons/si";
 
 const tokens = [
   {
+    name: "FUSE",
+    logo: <FaBitcoin />,
+  },
+  {
     name: "BITCOIN",
     logo: <FaBitcoin />,
   },
