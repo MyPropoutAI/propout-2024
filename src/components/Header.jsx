@@ -9,7 +9,7 @@ import { useAuthContext } from "../contexts/hooks/useAuthcontext";
 const Header = () => {
   const { user } = useAuthContext();
   console.log(user.success.token);
-  const userToken = user.success.token;
+  const userToken = user;
   const decodedUser = jwt.decode(userToken);
   console.log(decodedUser);
   const userAvartar = decodedUser.name.substring(0, 2);

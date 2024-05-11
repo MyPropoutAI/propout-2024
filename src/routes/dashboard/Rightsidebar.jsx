@@ -1,5 +1,6 @@
 import path from "path";
 import { Link, useLocation } from "react-router-dom";
+import { useRef, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,15 +11,23 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import jwt from "jsonwebtoken";
-import { useAuthContext } from "../../contexts/hooks/useAuthcontext";
+//import { useAuthContext } from "../../contexts/hooks/useAuthcontext";
 
 const Rightsidebar = () => {
   const location = useLocation();
   const { pathname } = location;
-  const { user } = useAuthContext();
-  console.log(user.success.token);
-  const userToken = user.success.token;
-  const decodedUser = jwt.decode(userToken);
+  const [authUser, setAuthUser] = useState("");
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user);
+    if (user) {
+      setAuthUser(user);
+    }
+  }, []);
+  // const { user } = useAuthContext();
+  // const userRef = useRef(user);
+
+  const decodedUser = jwt.decode(authUser);
   console.log(decodedUser);
   const userAvartar = decodedUser.name.substring(0, 2);
   console.log(userAvartar);

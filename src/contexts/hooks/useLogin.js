@@ -27,7 +27,7 @@ export const useLogin = () => {
       }
       if (json.success) {
         console.log(json);
-        localStorage.setItem("user", JSON.stringify(json));
+        localStorage.setItem("propoutUser", JSON.stringify(json.success.token));
         dispatch({ type: "LOGIN", payload: json });
         setLoading(false);
         navigate("/home");

@@ -14,8 +14,8 @@ const links = [
 
 const AuthHeader = () => {
   const { user } = useAuthContext();
-  //console.log(user.success.token);
-  const userToken = user.success.token;
+  console.log(user);
+  const userToken = user;
   const decodedUser = jwt.decode(userToken);
   //console.log(decodedUser);
   const userAvartar = decodedUser.name.substring(0, 2);
