@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthcontext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/userSlice";
 
 export const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { dispatch } = useAuthContext();
+  // const { dispatch } = useAuthContext();
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const signup = async (data) => {
     setLoading(true);
@@ -31,8 +35,9 @@ export const useSignup = () => {
       }
       if (json.success) {
         console.log(json);
-        localStorage.setItem("propoutUser", JSON.stringify(json.success.token));
-        dispatch({ type: "LOGIN", payload: json });
+        //localStorage.setItem("propoutUser", JSON.stringify(json.success.token));
+        //dispatch({ type: "LOGIN", payload: json });
+        dispatch(login(json.success.token));
         setLoading(false);
         navigate("/home");
       }

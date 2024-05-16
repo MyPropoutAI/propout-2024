@@ -19,7 +19,7 @@ const Myproperty = () => {
       <Tabs defaultValue="account" className="">
         <TabsList>
           <TabsTrigger value="property">My Properties</TabsTrigger>
-          <TabsTrigger value="purchased">Purchased Property</TabsTrigger>
+          {/* <TabsTrigger value="purchased">Purchased Property</TabsTrigger> */}
         </TabsList>
         <TabsContent value="property">
           <div className="grid grid-cols-my-property gap-4 border w-full">
@@ -28,7 +28,7 @@ const Myproperty = () => {
             <Rentsample />
           </div>
         </TabsContent>
-        <TabsContent value="purchased">Change your password here.</TabsContent>
+        {/* <TabsContent value="purchased">Change your password here.</TabsContent> */}
       </Tabs>
     </div>
   );

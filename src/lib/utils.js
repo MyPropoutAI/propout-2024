@@ -1,8 +1,6 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-// import { sepolia } from "thirdweb/chains";
-
 import { createThirdwebClient, getContract } from "thirdweb";
 import { defineChain } from "thirdweb";
 

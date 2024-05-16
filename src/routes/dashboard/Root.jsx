@@ -12,10 +12,10 @@ const DashboardRoot = () => {
         <div className="hidden  md:block">
           <Leftsidebar />
         </div>
-        <div className=" flex-1">
+        <div className=" lg:flex-1 max-w-[20rem] md:max-w-[38rem] lg:max-w-[75rem]">
           <Outlet />
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden lg:block ">
           <Rightsidebar />
         </div>
       </div>
