@@ -2,6 +2,7 @@ import { createBrowserRouter, createHashRouter } from "react-router-dom";
 import DashboardRoot from "../routes/dashboard/Root";
 import Setting from "../routes/dashboard/Setting";
 import Task from "../routes/dashboard/Task";
+
 // import Stake from "../routes/testnet/stake/stake";
 // import Swap from "../routes/testnet/swap/swap";
 // import Myproperty from "../routes/dashboard/Myproperty";
@@ -39,6 +40,8 @@ import Notification from "../components/Notification";
 import Helpsetting from "../components/Helpsetting";
 import Profilesetting from "../components/Profilesetting";
 
+import Propertydesc from "../routes/dashboard/Propertydesc";
+
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
 // import Signup from "../routes/onboarding/Signup";
@@ -54,6 +57,10 @@ export const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "/road-map", element: <RoadMap /> },
       { path: "/guide", element: <Guide /> },
+      // {
+      //   path: "/property-description",
+      //   element: <Propertydesc />,
+      // },
     ],
   },
 
@@ -100,6 +107,10 @@ export const router = createBrowserRouter([
         element: <Marketplace />,
       },
       { path: "/home/test", element: <Testing /> },
+      {
+        path: "/home/property-description",
+        element: <Propertydesc />,
+      },
     ],
   },
   {
