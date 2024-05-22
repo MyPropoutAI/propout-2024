@@ -8,6 +8,8 @@ import { useSendTransaction } from "thirdweb/react";
 import { toast } from "sonner";
 import { contract } from "../../lib/utils";
 
+// import ethers
+
 const ListProperty = () => {
   const [images, setImages] = useState([""]);
 
@@ -118,7 +120,6 @@ const ListProperty = () => {
                     contract,
                     method: resolveMethod("listProperty"),
                     params: [
-                      account.address,
                       form.price,
                       form._propertyTitle,
                       form._images,
@@ -151,7 +152,7 @@ const ListProperty = () => {
                 }}
                 style={{ background: "transparent", padding: 0 }}
               >
-                <Button className="text-white px-12 bg-blue-500">
+                <Button className="text-white px-12 bg-[#964CC3]">
                   List Property
                 </Button>
               </TransactionButton>
@@ -169,6 +170,11 @@ const ListProperty = () => {
                 <span className=" absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold">
                   FOR RENT
                 </span>
+                <img
+                  src={images[0]}
+                  alt=""
+                  className="h-full object-cover object-top"
+                />
               </div>
               <div className="bg-white p-5">
                 <p className="text-lg text-[#FF0606]">Price/month</p>
@@ -202,7 +208,7 @@ const ListProperty = () => {
                       <p className="text-sm">Estate agent</p>
                     </div>
                   </div>
-                  <Button className=" rounded-md text-white px-8">
+                  <Button className=" rounded-md text-white px-8 bg-[#964CC3]">
                     See more{" "}
                   </Button>
                 </div>
@@ -219,7 +225,7 @@ export default ListProperty;
 
 const UploadImage = ({ image, handleUpload, i }) => {
   return (
-    <div className="  relative min-w-36 aspect-square md:min-w-48">
+    <div className="relative w-36 aspect-square md:min-w-48 ">
       <div className="w-full aspect-square bg-[#F2F4F8] grid place-items-center rounded-2xl">
         {image ? (
           <img
