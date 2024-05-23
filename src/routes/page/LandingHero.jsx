@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Combobox } from "../../components/ui/combobox";
+import { Button } from "../../components/ui/button";
 const TextContent = ({ children, className }) => (
   <div
     className={`text-center text-white max-md:max-w-full max-md:text-4xl ${className}`}
@@ -16,13 +17,13 @@ const GradientText = ({ children }) => (
   </div>
 );
 
-const Button = ({ children, className }) => (
-  <button
-    className={`flex items-center justify-center px-4 py-2 rounded-xl  ${className}`}
-  >
-    {children}
-  </button>
-);
+// const Button = ({ children, className }) => (
+//   <button
+//     className={`flex items-center justify-center px-4 py-2 rounded-xl  ${className}`}
+//   >
+//     {children}
+//   </button>
+// );
 const LandingHero = () => {
   return (
     <div
@@ -39,23 +40,23 @@ const LandingHero = () => {
       <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap w-[550px] max-md:text-4xl font-extrabold ">
         <GradientText>Homeownership</GradientText>
       </div>
-      <TextContent className="mt-10 text-lg w-[766px]">
+      <TextContent className="hidden md:block mt-10 text-lg w-[766px]">
         Making buying and selling real estate easier than ever by combining
         traditional and blockchain property transactions with smart contracts,
         leveraging the blockchain.
       </TextContent>
-      <div className="flex gap-4 mt-14 max-w-full text-sm font-semibold leading-5 text-white w-[415px] max-md:mt-10">
-        <Button className="px-8 rounded-md">
-          <Link to={"/list"}>List</Link>
+      <div className="flex gap-5 mt-5 flex-wrap justify-center">
+        <Button className="px-8 rounded-md text-white">
+          <Link to={"/home/list"}>List</Link>
         </Button>
-        <Button className="px-8 rounded-md" variant="outline">
-          <Link to={"/marketplace"}>Rent</Link>
+        <Button className="px-8 rounded-md text-white" variant="outline">
+          <Link to={"/home/marketplace"}>Rent</Link>
         </Button>
-        <Button className="px-8 rounded-md" variant="outline">
-          <Link to={"/list/sell"}>Buy</Link>
+        <Button className="px-8 rounded-md text-white" variant="outline">
+          <Link to={"/home/list/sell"}>Buy</Link>
         </Button>
-        <Button className="px-8 rounded-md" variant="outline">
-          <Link to="/testnet/faucet">Testnet</Link>
+        <Button className="px-8 rounded-md text-white" variant="outline">
+          <Link to="/home/testnet/faucet">Testnet</Link>
         </Button>
       </div>
 

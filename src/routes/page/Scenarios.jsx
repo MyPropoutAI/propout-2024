@@ -105,7 +105,7 @@ const Scenarios = () => {
         </div>
       </Wrapper>
       <div className="w-full mb-[-8rem] flex justify-center items-center z-10">
-        <div className=" rounded-b-xl w-[40%]   shadow-md mx-auth py-4 bg-[#320051] flex flex-col items-center">
+        <div className=" rounded-b-xl w-[75%] lg:w-[40%]   shadow-md mx-auth py-4 bg-[#320051] flex flex-col items-center">
           <h1 className="text-3xl font-extrabold text-center text-white">
             Explore Properties
           </h1>

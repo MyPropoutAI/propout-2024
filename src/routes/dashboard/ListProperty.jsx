@@ -7,6 +7,7 @@ import { prepareContractCall, resolveMethod } from "thirdweb";
 import { useSendTransaction } from "thirdweb/react";
 import { toast } from "sonner";
 import { contract } from "../../lib/utils";
+import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 
 const ListProperty = () => {
   const [images, setImages] = useState([""]);

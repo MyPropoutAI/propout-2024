@@ -1,7 +1,7 @@
 import Scenarios from "./Scenarios";
 const Info = () => {
   return (
-    <div>
+    <div className="pt-10">
       <Scenarios />
     </div>
   );
