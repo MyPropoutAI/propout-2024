@@ -50,16 +50,16 @@ const transactions = [
 
 const Swaphistory = () => {
   return (
-    <div className="text-white">
-      <p className=" text-left px-3 text-lg py-3">Recent trades</p>
+    <div className="text-[#FFFF]/50">
+      <p className=" text-left text-white px-3 text-lg py-3">Recent trades</p>
       <hr />
 
       <div>
         <Table>
           <TableCaption>A list of your recent Transactions.</TableCaption>
-          <TableHeader className="text-[#FFFFFF]/50">
+          <TableHeader className="text-[#FFFFFF]">
             <TableRow>
-              <TableHead className="min-w-[100px]">Date</TableHead>
+              <TableHead className="">Date</TableHead>
               <TableHead>From</TableHead>
               <TableHead>To</TableHead>
               <TableHead className="text-right">Address</TableHead>
@@ -68,24 +68,33 @@ const Swaphistory = () => {
           <TableBody>
             {transactions.map((items, index) => {
               return (
-                <TableRow className="text-[15px] font-light">
+                <TableRow className="md:text-[15px] text-[12px] font-light">
                   {
-                    <TableCell className="font-medium" key={index}>
+                    <TableCell
+                      className="md:font-medium font-light"
+                      key={index}
+                    >
                       {items.date}
                     </TableCell>
                   }
                   {
-                    <TableCell className="font-medium" key={index}>
+                    <TableCell
+                      className="md:font-medium font-light"
+                      key={index}
+                    >
                       {items.from}
                     </TableCell>
                   }
                   {
-                    <TableCell className="font-medium" key={index}>
+                    <TableCell
+                      className="md:font-medium font-light"
+                      key={index}
+                    >
                       {items.to}
                     </TableCell>
                   }
                   {
-                    <TableCell className="font-medium text-right">
+                    <TableCell className="md:font-medium font-light text-right">
                       {items.address}
                     </TableCell>
                   }

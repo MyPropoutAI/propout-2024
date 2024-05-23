@@ -10,9 +10,9 @@ import {
 import { useLogout } from "../contexts/hooks/useLogout";
 
 const User = ({ userAvartar }) => {
-  const { logout } = useLogout();
+  const { userLogout } = useLogout();
   const handleLogout = () => {
-    logout();
+    userLogout();
   };
   return (
     <div>

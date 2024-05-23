@@ -20,7 +20,7 @@ const Login = () => {
   const [pwType, setPwType] = useState("password");
   //const [isLoading, setIsLoading] = useState(false);
 
-  const { login, error, loading } = useLogin();
+  const { userLogin, error, loading } = useLogin();
 
   const handlePassword = () => {
     if (pwType == "password") {
@@ -48,7 +48,7 @@ const Login = () => {
       //   }
       // );
 
-      await login(data);
+      await userLogin(data);
 
       if (error) {
         console.log(error);
