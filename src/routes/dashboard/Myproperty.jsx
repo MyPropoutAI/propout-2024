@@ -19,10 +19,10 @@ import { cn } from "../../lib/utils";
 const Myproperty = () => {
   const [activeTab, setActiveTab] = useState("property");
 
-  const style = {
-    backgroundColor: activeTab ? "black" : "white",
-    color: activeTab ? "white" : "black",
-  };
+  // const style = {
+  //   backgroundColor: activeTab ? "black" : "white",
+  //   color: activeTab ? "white" : "black",
+  // };
 
   return (
     <div>
