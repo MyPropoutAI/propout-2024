@@ -4,7 +4,8 @@ import { Connect } from "./ConnectButton";
 //import Wrapper from "./Wrapper";
 import User from "./User";
 import jwt from "jsonwebtoken";
-import { useAuthContext } from "../contexts/hooks/useAuthcontext";
+//import { useAuthContext } from "../contexts/hooks/useAuthcontext";
+import { useSelector } from "react-redux";
 
 const links = [
   { name: "Faucet", path: "/home/testnet/faucet", state: true },
@@ -13,9 +14,9 @@ const links = [
 ];
 
 const AuthHeader = () => {
-  const { user } = useAuthContext();
-  //console.log(user.success.token);
-  const userToken = user.success.token;
+  const user = useSelector((state) => state.auth.user);
+  //console.log(user);
+  const userToken = user;
   const decodedUser = jwt.decode(userToken);
   //console.log(decodedUser);
   const userAvartar = decodedUser.name.substring(0, 2);

@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthcontext";
+// import { useAuthContext } from "./useAuthcontext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/userSlice";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { dispatch } = useAuthContext();
+  //const { dispatch } = useAuthContext();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const login = async (data) => {
+  const userLogin = async (data) => {
     setLoading(true);
     setError(false);
     try {
@@ -26,9 +29,7 @@ export const useLogin = () => {
         setLoading(false);
       }
       if (json.success) {
-        console.log(json);
-        localStorage.setItem("user", JSON.stringify(json));
-        dispatch({ type: "LOGIN", payload: json });
+        dispatch(login(json.success.token));
         setLoading(false);
         navigate("/home");
       }
@@ -37,5 +38,5 @@ export const useLogin = () => {
     }
   };
 
-  return { login, error, loading };
+  return { userLogin, error, loading };
 };

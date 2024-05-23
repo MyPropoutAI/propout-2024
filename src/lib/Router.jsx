@@ -57,10 +57,10 @@ export const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "/road-map", element: <RoadMap /> },
       { path: "/guide", element: <Guide /> },
-      {
-        path: "/property-description",
-        element: <Propertydesc />,
-      },
+      // {
+      //   path: "/property-description",
+      //   element: <Propertydesc />,
+      // },
     ],
   },
 
@@ -107,6 +107,10 @@ export const router = createBrowserRouter([
         element: <Marketplace />,
       },
       { path: "/home/test", element: <Testing /> },
+      {
+        path: "/home/property-description",
+        element: <Propertydesc />,
+      },
     ],
   },
   {

@@ -1,9 +1,9 @@
-import React from "react";
+//import React from "react";
 import { Button } from "/src/components/ui/button";
 import { IoSwapVerticalOutline } from "react-icons/io5";
 import { FaBitcoin, FaEthereum } from "react-icons/fa";
-import { RiBnbFill } from "react-icons/ri";
-import { SiSolana } from "react-icons/si";
+//import { RiBnbFill } from "react-icons/ri";
+//import { SiSolana } from "react-icons/si";
 
 const tokens = [
   {
@@ -18,14 +18,14 @@ const tokens = [
     name: "ETHEREUM",
     logo: <FaEthereum />,
   },
-  {
-    name: "BNB",
-    logo: <RiBnbFill />,
-  },
-  {
-    name: "SOLANA",
-    logo: <SiSolana />,
-  },
+  // {
+  //   name: "BNB",
+  //   logo: <RiBnbFill />,
+  // },
+  // {
+  //   name: "SOLANA",
+  //   logo: <SiSolana />,
+  // },
 ];
 const Swapbox = () => {
   return (
