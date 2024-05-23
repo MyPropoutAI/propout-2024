@@ -30,7 +30,12 @@ module.exports = {
           "linear-gradient(to right,rgba(255, 255, 255, 0.21) ,rgba(42, 1, 68, 0.21))",
         // btnGrad: "bg-gradient-to-r from-[#964DC3]  to-[#F42A8B] text-white ",
         btnGrad: "linear-gradient(to right, #964DC3, #F42A8B ) ",
+        heroAgent:
+          " radial-gradient(circle, rgba(150,76,195,1) 45%, rgba(55,22,76,1) 50%)",
+        agentFooter:
+          "linear-gradient(180deg, rgba(34, 1, 54, 0.85) 0%, #220136 100%)",
       },
+
       colors: {
         main: "rgb(var(--background))",
         ring: "rgb(var(--ring))",

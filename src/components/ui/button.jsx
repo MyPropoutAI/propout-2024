@@ -26,6 +26,7 @@ const buttonVariants = cva(
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
         property: "px-5 py-4 h-5 ",
+        footer: "px-fit py-fit p-[5px]",
       },
     },
     defaultVariants: {

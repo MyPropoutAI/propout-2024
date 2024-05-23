@@ -41,6 +41,7 @@ import Helpsetting from "../components/Helpsetting";
 import Profilesetting from "../components/Profilesetting";
 
 import Propertydesc from "../routes/dashboard/Propertydesc";
+import Agent from "../routes/Agent/Agent";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -110,6 +111,10 @@ export const router = createBrowserRouter([
       {
         path: "/home/property-description",
         element: <Propertydesc />,
+      },
+      {
+        path: "/home/agent",
+        element: <Agent />,
       },
     ],
   },
