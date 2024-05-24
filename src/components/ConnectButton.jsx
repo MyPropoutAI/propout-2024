@@ -22,12 +22,17 @@ export const Connect = () => {
     id: 122,
   });
 
+  const lisk = defineChain({
+    id: 4202,
+  });
+
   return (
     <div className="relative">
       <ConnectButton
         wallets={wallets}
         client={client}
-        chain={fuse}
+        // chain={fuse}
+        chain={lisk}
         autoConnect={{ timeout: 10000 }}
         switchButton={{
           label: "Wrong Network",

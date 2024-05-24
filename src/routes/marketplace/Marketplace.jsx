@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "../../components/ui/button";
 import Card from "./Card";
+import { PropertyType } from "../../lib/PropertyType";
 
 const Marketplace = () => {
   return (
@@ -49,12 +50,12 @@ const Marketplace = () => {
               <SelectContent>
                 <SelectGroup>
                   <SelectLabel>Types</SelectLabel>
-                  <SelectItem value="office" className="cursor-pointer">
-                    Office
-                  </SelectItem>
-                  <SelectItem value="home" className="cursor-pointer">
-                    Home
-                  </SelectItem>
+
+                  {PropertyType.map((type, i) => (
+                    <SelectItem key={i} value={type} className="cursor-pointer">
+                      {type}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>

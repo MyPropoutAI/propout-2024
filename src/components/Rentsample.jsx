@@ -36,7 +36,7 @@ export default function Rentsample() {
           </p>
         </div>
 
-        <div className="flex gap-2 items-center py-3">
+        {/* <div className="flex gap-2 items-center py-3">
           <img src="/images/adams.svg" className="h-[50px]" alt="" />
 
           <div className="flex flex-col text-[14px]">
@@ -48,7 +48,7 @@ export default function Rentsample() {
           <Button variant="rent" size="property">
             See More
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ const Card = () => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center">
+        {/* <div className="flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <img
               src="./images/pk.jpg"
@@ -48,7 +48,7 @@ const Card = () => {
           </div>
 
           <Button>See More</Button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
