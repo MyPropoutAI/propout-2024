@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 export default function Rentsample() {
   return (
@@ -44,6 +45,12 @@ export default function Rentsample() {
 
             <p> Estate Agent</p>
           </div>
+          <Link to={"/home/agent"}>
+            <Button variant="rent" size="property">
+              See More
+            </Button>
+          </Link>
+        </div>
 
           <Button variant="rent" size="property">
             See More

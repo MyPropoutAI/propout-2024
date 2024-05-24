@@ -19,11 +19,6 @@ import { cn } from "../../lib/utils";
 const Myproperty = () => {
   const [activeTab, setActiveTab] = useState("property");
 
-  const style = {
-    backgroundColor: activeTab ? "black" : "white",
-    color: activeTab ? "white" : "black",
-  };
-
   return (
     <div>
       <Tabs defaultValue="property" className="">
@@ -58,8 +53,12 @@ const Myproperty = () => {
             <Link to={"/property-description"}>
               <Rentsample />
             </Link>
-            <Rentsample />
-            <Rentsample />
+            <Link to={"/property-description"}>
+              <Rentsample />
+            </Link>
+            <Link to={"/property-description"}>
+              <Rentsample />
+            </Link>
           </div>
         </TabsContent>
         <TabsContent value="purchased">
@@ -68,10 +67,15 @@ const Myproperty = () => {
             <Link to={"/property-description"}>
               <Rentsample />
             </Link>
-            <Rentsample />
-            <Rentsample />
-            <Rentsample />
-            <Rentsample />
+            <Link to={"/property-description"}>
+              <Rentsample />
+              <Link to={"/property-description"}>
+                <Rentsample />
+              </Link>
+            </Link>
+            <Link to={"/property-description"}>
+              <Rentsample />
+            </Link>
           </div>
         </TabsContent>
       </Tabs>
