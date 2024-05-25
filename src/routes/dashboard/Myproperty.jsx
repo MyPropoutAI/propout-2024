@@ -50,13 +50,13 @@ const Myproperty = () => {
         </TabsList>
         <TabsContent value="property">
           <div className="grid grid-cols-my-property gap-4  w-full">
-            <Link to={"/property-description"}>
+            <Link to={"/home/property-description"}>
               <Rentsample />
             </Link>
-            <Link to={"/property-description"}>
+            <Link to={"/home/property-description"}>
               <Rentsample />
             </Link>
-            <Link to={"/property-description"}>
+            <Link to={"/home/property-description"}>
               <Rentsample />
             </Link>
           </div>
