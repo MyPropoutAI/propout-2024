@@ -5,10 +5,11 @@ import { Textarea } from "../../components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 import { useVerify } from "../../contexts/hooks/useVerify";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import jwt from "jsonwebtoken";
 import { Rings } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
+import { verified } from "../../redux/userSlice";
 const Verification = () => {
   const {
     register,
@@ -17,12 +18,14 @@ const Verification = () => {
   } = useForm();
 
   const user = useSelector((state) => state.auth.user);
+  const isVerified = useSelector((state) => state.auth.isVerified);
   const navigate = useNavigate();
   const decodedUser = jwt.decode(user);
   const userId = decodedUser.id;
   //console.log(userId);
 
   const { verify, loading } = useVerify();
+  const dispatch = useDispatch();
   const onSubmit = async (data) => {
     // console.log("Form data:", data);
     const image1 = data.pfp[0];
@@ -45,6 +48,7 @@ const Verification = () => {
         id: userId,
       };
       await verify(credentials);
+      dispatch(verified());
       navigate("/dashboard");
     } catch (error) {
       console.log(error);

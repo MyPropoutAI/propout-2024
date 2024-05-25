@@ -26,7 +26,7 @@ const Myproperty = () => {
   const { data, isLoading } = useReadContract({
     contract: listingContract,
     method: resolveMethod("getUserProperties"),
-    params: [account.address],
+    params: [account && account.address],
   });
 
   return (
@@ -62,7 +62,7 @@ const Myproperty = () => {
           <div className="grid grid-cols-my-property gap-4  w-full">
             {data?.map((item, i) => (
               <Link
-                to={`/property-description${item.propertyId.toString()}`}
+                to={`/home/property-description/${item.propertyId}`}
                 key={i}
               >
                 <Rentsample data={item} />

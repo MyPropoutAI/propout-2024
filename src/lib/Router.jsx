@@ -40,7 +40,7 @@ import Notification from "../components/Notification";
 import Helpsetting from "../components/Helpsetting";
 import Profilesetting from "../components/Profilesetting";
 
-import Propertydesc from "../routes/dashboard/Propertydesc";
+import Propertydesc from "../routes/descripyion/Propertydesc";
 import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
 
@@ -110,7 +110,7 @@ export const router = createBrowserRouter([
       },
       { path: "/home/test", element: <Testing /> },
       {
-        path: "/home/property-description",
+        path: "/home/property-description/:id",
         element: <Propertydesc />,
       },
       {

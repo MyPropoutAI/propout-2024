@@ -13,7 +13,8 @@ export const listingContract = getContract({
   chain: defineChain(4202),
   // address: "0xE9EfB15B4ba0361f6147bba9EBf6c8c2CB79f2A9",
   // address: "0xFA6e0Af166960b5AF66F66b583e1425608090D4E",
-  address: "0x98C5f41c8bC55C7151c305cDb42BABEE60A041df",
+  // address: "0x98C5f41c8bC55C7151c305cDb42BABEE60A041df",
+  address: "0x609605e8bE449Dbc852D96Ab633EEC9c7B7d29F8",
 });
 
 export function cn(...inputs) {
