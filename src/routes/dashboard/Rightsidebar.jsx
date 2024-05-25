@@ -97,7 +97,21 @@ const Rightsidebar = () => {
                     {userAvartar}
                   </h1>
                 </div>
-
+                <div
+                  className={
+                    decodedUser.status === false
+                      ? "bg-red-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-red-600"
+                      : "bg-green-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-green-600"
+                  }
+                >
+                  {decodedUser.status === false ? (
+                    <Link to="/dashboard/verification">
+                      <h2>Not Verified</h2>
+                    </Link>
+                  ) : (
+                    <h2>Verified</h2>
+                  )}
+                </div>
                 <p className="font-bold">{decodedUser.name}</p>
                 <p className="italic ">Lord of real estate asset worldwide</p>
               </div>

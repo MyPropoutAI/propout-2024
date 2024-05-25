@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { PropertyType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
+import { Countries } from "../../lib/Countries";
 
 // import ethers
 
@@ -171,6 +172,24 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
+                type="text"
+                placeholder="City"
+                className="w-full texl-lg"
+                onChange={(e) => handleFormChange("_propertyAddress", e)}
+              />
+            </div>
+            <div>
+              <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                <option value="1">Country</option>
+                {Countries.map((type, i) => (
+                  <option key={i} value={type}>
+                    {type}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <Input
                 type="number"
                 placeholder="Bedroom"
                 className="w-full texl-lg"
@@ -187,7 +206,7 @@ const ListProperty = () => {
             </div>
             <div>
               <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                <option value="1">Type</option>
+                <option value="1">Property Type</option>
                 {PropertyType.map((type, i) => (
                   <option key={i} value={type}>
                     {type}

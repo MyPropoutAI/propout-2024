@@ -17,6 +17,7 @@ export const UploadToCloudinary = async (rawImage) => {
     }
     const imageData = await response.json();
     console.log("Image uploaded:", imageData);
+    return imageData;
   } catch (error) {
     console.log(error);
   }
