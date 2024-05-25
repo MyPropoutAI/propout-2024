@@ -18,14 +18,15 @@ const Verification = () => {
 
   const decodedUser = jwt.decode(user);
   const userId = decodedUser.id;
+  console.log(userId);
 
   const { verify } = useVerify();
   const onSubmit = async (data) => {
-    console.log("Form data:", data);
+    // console.log("Form data:", data);
     const image1 = data.pfp[0];
     const image2 = data.id_card[0];
     const image3 = data.profile_picture[0];
-    console.log(image1, image2, image3);
+    //console.log(image1, image2, image3);
     try {
       const rawImage1 = await UploadToCloudinary(image1);
       const rawImage2 = await UploadToCloudinary(image2);

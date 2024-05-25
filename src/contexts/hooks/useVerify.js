@@ -5,6 +5,7 @@ export const useVerify = () => {
   const [loading, setLoading] = useState(false);
   const verify = async (data, userId) => {
     setLoading(true);
+    console.log(data, userId);
     try {
       const res = await fetch(
         `https://proput-db.onrender.com/update_credentials/${userId}`,

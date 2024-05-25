@@ -156,7 +156,7 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
-                type="number"
+                type="text"
                 placeholder="Property Price"
                 className="w-full texl-lg"
                 onChange={(e) => handleFormChange("price", e)}
@@ -190,7 +190,7 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
-                type="number"
+                type="text"
                 placeholder="Bedroom"
                 className="w-full texl-lg"
                 onChange={(e) => handleFormChange("_propertyAddress", e)}
@@ -198,7 +198,7 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
-                type="number"
+                type="text"
                 placeholder="Square foot"
                 className="w-full texl-lg"
                 onChange={(e) => handleFormChange("_propertyAddress", e)}
