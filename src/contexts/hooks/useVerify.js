@@ -1,21 +1,46 @@
 //import { BiErrorCircle } from "react-icons/bi";
+import { useState } from "react";
 
-export const useVerify = async (data, userId) => {
-  try {
-    const response = await fetch(
-      `https://proput-db.onrender.com/update_credentials
-`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, id: userId }),
-      }
-    );
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.log(error);
-  }
+export const useVerify = () => {
+  const [loading, setLoading] = useState(false);
+  const verify = async (data, userId) => {
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `https://proput-db.onrender.com/update_credentials/${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const resData = await res.json();
+      console.log(resData);
+      return resData;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return { verify, loading };
 };
+
+// try {
+//   const response = await fetch(
+//     `https://proput-db.onrender.com/update_credentials
+// `,
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ ...data, id: userId }),
+//     }
+//   );
+//   const json = await response.json();
+//   return json;
+// } catch (error) {
+//   console.log(error);
+// }

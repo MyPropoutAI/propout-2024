@@ -1,9 +1,12 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { UploadToCloudinary } from "../../components/UploadToCloudinary";
+import { useVerify } from "../../contexts/hooks/useVerify";
+import { useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
 const Verification = () => {
   const {
     register,
@@ -11,6 +14,12 @@ const Verification = () => {
     formState: { errors },
   } = useForm();
 
+  const user = useSelector((state) => state.auth.user);
+
+  const decodedUser = jwt.decode(user);
+  const userId = decodedUser.id;
+
+  const { verify } = useVerify();
   const onSubmit = async (data) => {
     console.log("Form data:", data);
     const image1 = data.pfp[0];
@@ -21,6 +30,17 @@ const Verification = () => {
       const rawImage1 = await UploadToCloudinary(image1);
       const rawImage2 = await UploadToCloudinary(image2);
       const rawImage3 = await UploadToCloudinary(image3);
+      if (!rawImage1 && rawImage2 && rawImage3) {
+        console.log("upload image error");
+      }
+      console.log(rawImage1, rawImage2, rawImage3);
+      const credentials = {
+        ...data,
+        pfp: rawImage1,
+        id_card: rawImage2,
+        profile_picture: rawImage3,
+      };
+      await verify(credentials, userId);
     } catch (error) {
       console.log(error);
     }
