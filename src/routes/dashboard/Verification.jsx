@@ -7,6 +7,8 @@ import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 import { useVerify } from "../../contexts/hooks/useVerify";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import { Rings } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 const Verification = () => {
   const {
     register,
@@ -15,12 +17,12 @@ const Verification = () => {
   } = useForm();
 
   const user = useSelector((state) => state.auth.user);
-
+  const navigate = useNavigate();
   const decodedUser = jwt.decode(user);
   const userId = decodedUser.id;
-  console.log(userId);
+  //console.log(userId);
 
-  const { verify } = useVerify();
+  const { verify, loading } = useVerify();
   const onSubmit = async (data) => {
     // console.log("Form data:", data);
     const image1 = data.pfp[0];
@@ -39,9 +41,11 @@ const Verification = () => {
         ...data,
         pfp: rawImage1,
         id_card: rawImage2,
-        profile_picture: rawImage3,
+        proof_of_residence: rawImage3,
+        id: userId,
       };
-      await verify(credentials, userId);
+      await verify(credentials);
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -131,7 +135,20 @@ const Verification = () => {
               </span>
             )}
           </div>
-          <Button className="text-white px-12 bg-[#964CC3]">Verify</Button>
+          <Button className="text-white px-12 bg-[#964CC3]">
+            {loading ? (
+              "Verify"
+            ) : (
+              <Rings
+                visible={true}
+                height="40"
+                width="844fa94d"
+                ariaLabel="rings-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            )}
+          </Button>
         </form>
       </div>
     </div>

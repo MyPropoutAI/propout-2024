@@ -20,6 +20,7 @@ const Rightsidebar = () => {
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.auth.user);
+  const verified = useSelector((state) => state.auth.isVerified);
 
   const decodedUser = jwt.decode(user);
   console.log(decodedUser);
@@ -104,7 +105,7 @@ const Rightsidebar = () => {
                       : "bg-green-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-green-600"
                   }
                 >
-                  {decodedUser.status === false ? (
+                  {verified === false ? (
                     <Link to="/dashboard/verification">
                       <h2>Not Verified</h2>
                     </Link>
