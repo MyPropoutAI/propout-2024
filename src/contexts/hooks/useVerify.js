@@ -3,11 +3,12 @@ import { useState } from "react";
 
 export const useVerify = () => {
   const [loading, setLoading] = useState(false);
-  const verify = async (data, userId) => {
+  const verify = async (data) => {
     setLoading(true);
+    console.log(data);
     try {
       const res = await fetch(
-        `https://proput-db.onrender.com/update_credentials/${userId}`,
+        `https://proput-db.onrender.com/update_credentials`,
         {
           method: "POST",
           headers: {

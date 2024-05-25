@@ -11,3 +11,5 @@ export const PropertyType = [
   "garage",
   "commercial",
 ];
+
+export const ListType = ["Rent", "Sell"];
