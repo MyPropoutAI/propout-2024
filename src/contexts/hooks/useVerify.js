@@ -18,6 +18,7 @@ export const useVerify = () => {
         }
       );
       const resData = await res.json();
+      setLoading(false);
       console.log(resData);
       return resData;
     } catch (err) {

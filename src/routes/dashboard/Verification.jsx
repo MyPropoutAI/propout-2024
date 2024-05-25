@@ -141,8 +141,6 @@ const Verification = () => {
           </div>
           <Button className="text-white px-12 bg-[#964CC3]">
             {loading ? (
-              "Verify"
-            ) : (
               <Rings
                 visible={true}
                 height="40"
@@ -151,6 +149,8 @@ const Verification = () => {
                 wrapperStyle={{}}
                 wrapperClass=""
               />
+            ) : (
+              "Verify"
             )}
           </Button>
         </form>
