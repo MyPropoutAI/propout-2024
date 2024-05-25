@@ -6,7 +6,7 @@ import { TransactionButton } from "thirdweb/react";
 import { prepareContractCall, resolveMethod } from "thirdweb";
 import { toast } from "sonner";
 import axios from "axios";
-import { listingContract } from "../../lib/utils";
+import { cn, listingContract } from "../../lib/utils";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { PropertyType, ListType } from "../../lib/PropertyType";
@@ -40,6 +40,7 @@ const ListProperty = () => {
     _square: "",
     _city: "",
     _country: "",
+    listType: "",
   });
 
   const changeHandler = (event, index) => {
@@ -104,6 +105,7 @@ const ListProperty = () => {
             square: form._square.toString(),
             city: form._city,
             country: form._country,
+            listType: form.listType,
           },
         ],
       });
@@ -187,7 +189,7 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
-                type="text"
+                type="number"
                 placeholder="Property Price"
                 className="w-full texl-lg"
                 onChange={(e) => handleFormChange("price", e)}
@@ -224,7 +226,7 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
-                type="text"
+                type="number"
                 placeholder="Bedroom"
                 className="w-full texl-lg"
                 onChange={(e) => handleFormChange("_property_spec", e)}
@@ -232,7 +234,7 @@ const ListProperty = () => {
             </div>
             <div>
               <Input
-                type="text"
+                type="number"
                 placeholder="Square foot"
                 className="w-full texl-lg"
                 onChange={(e) => handleFormChange("_square", e)}
@@ -252,8 +254,13 @@ const ListProperty = () => {
               </select>
             </div>
             <div>
-              <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                <option value="1">List Type</option>
+              <select
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                onChange={(e) => handleFormChange("listType", e)}
+              >
+                <option value="1" hidden>
+                  List Type
+                </option>
                 {ListType.map((type, i) => (
                   <option key={i} value={type}>
                     {type}
@@ -299,8 +306,13 @@ const ListProperty = () => {
             </p>
             <div className="p-3">
               <div className="h-[250px] bg-[#DDE1E6] mt-5 relative overflow-hidden">
-                <span className="absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold">
-                  FOR RENT
+                <span
+                  className={cn(
+                    "absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold",
+                    form.listType == "Sell" ? "bg-blue-900" : "bg-[#0EFC25]"
+                  )}
+                >
+                  {form.listType.toLocaleUpperCase()}
                 </span>
                 <img
                   src={imageURLs[0]}
@@ -311,21 +323,20 @@ const ListProperty = () => {
               <div className="bg-white p-5">
                 <p className="text-lg text-[#FF0606]">
                   <CurrencySymbol amount={form.price} />
-                  /month
                 </p>
                 <p className="my-3 font-bold text-xl">{form._propertyTitle}</p>
                 <p>{form._description}</p>
                 <div className="flex items-center justify-between my-5">
                   <div className="text-center">
-                    <p>0</p>
+                    <p>{form._property_spec || 0}</p>
                     <p>Bedroom</p>
                   </div>
                   <div className="text-center">
-                    <p>0</p>
+                    <p>{form._property_type}</p>
                     <p>Type</p>
                   </div>
                   <div className="text-center">
-                    <p>0</p>
+                    <p>{form._square || 0}</p>
                     <p>Square</p>
                   </div>
                 </div>
