@@ -14,10 +14,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Rentsample from "../../components/Rentsample";
 import { Link } from "react-router-dom";
 
-import { cn } from "../../lib/utils";
+import { cn, listingContract } from "../../lib/utils";
+import { useActiveAccount, useReadContract } from "thirdweb/react";
+import { resolveMethod } from "thirdweb";
 
 const Myproperty = () => {
   const [activeTab, setActiveTab] = useState("property");
+
+  const account = useActiveAccount();
+
+  const { data, isLoading } = useReadContract({
+    contract: listingContract,
+    method: resolveMethod("getUserProperties"),
+    params: [account.address],
+  });
 
   return (
     <div>
@@ -50,15 +60,14 @@ const Myproperty = () => {
         </TabsList>
         <TabsContent value="property">
           <div className="grid grid-cols-my-property gap-4  w-full">
-            <Link to={"/property-description"}>
-              <Rentsample />
-            </Link>
-            <Link to={"/property-description"}>
-              <Rentsample />
-            </Link>
-            <Link to={"/property-description"}>
-              <Rentsample />
-            </Link>
+            {data?.map((item, i) => (
+              <Link
+                to={`/property-description${item.propertyId.toString()}`}
+                key={i}
+              >
+                <Rentsample data={item} />
+              </Link>
+            ))}
           </div>
         </TabsContent>
         <TabsContent value="purchased">

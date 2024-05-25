@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Leftsidebar from "./Leftsidebar";
 import Rightsidebar from "./Rightsidebar";
 import AuthHeader from "../../components/AuthHeader";
+import { Toaster } from "../../components/ui/sonner";
 
 const DashboardRoot = () => {
   return (
@@ -18,6 +19,8 @@ const DashboardRoot = () => {
         <div className="hidden lg:block ">
           <Rightsidebar />
         </div>
+
+        <Toaster />
       </div>
     </div>
   );
