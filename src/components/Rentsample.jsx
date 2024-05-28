@@ -2,12 +2,13 @@ import React from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
-export default function Rentsample() {
+export default function Rentsample({ data }) {
+  console.log(data);
   return (
     <div className="bg-white relative rounded-md">
       <div>
         <img
-          src="/images/rent.svg"
+          src={`https://white-active-whippet-173.mypinata.cloud/ipfs/${data?.images[0]}`}
           className="min-w-[100%] max-h-[200px]  rounded-[3.08px] object-cover object-center"
           alt="images"
         />
@@ -16,23 +17,23 @@ export default function Rentsample() {
         </p>
       </div>
       <div className="text-[14px] p-4">
-        <p className="text-[#FF0606] text-left">$3400/month</p>
-        <p className="font-bold text-lg py-2">New Apartment Nice view.</p>
-        <p className="text-[#0000009E]">
-          Beautiful Huge 1 family House in the Heart of westburg. Newly
-          Renovated with new woods
+        <p className="text-[#FF0606] text-left">
+          ${data?.price.toString()}/month
         </p>
+        <p className="font-bold text-lg py-2">New Apartment Nice view.</p>
+        <p className="text-[#0000009E] line-clamp-2">{data?.description}</p>
         <div className=" flex gap-3 items-center text-[#0000009E] py-2">
           <p className="text-center">
-            3 <br /> Bedroom
+            {data?.propertySpec.toString()} <br /> Bedroom
           </p>
           <p className="text-center">
-            2 <br />
-            Bathrooom{" "}
+            {data?.propertyType.toString()} <br />
+            Type{" "}
           </p>
           <p className="text-center">
             {" "}
-            3450 <br />
+            {data?.square.toString()}
+            <br />
             square ft
           </p>
         </div>

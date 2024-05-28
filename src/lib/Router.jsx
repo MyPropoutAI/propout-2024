@@ -110,7 +110,7 @@ export const router = createBrowserRouter([
       },
       { path: "/home/test", element: <Testing /> },
       {
-        path: "/home/property-description",
+        path: "/home/property-description/:id",
         element: <Propertydesc />,
       },
       {

@@ -3,14 +3,27 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Button } from "/src/components/ui/button";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import { useParams } from "react-router-dom";
+import { useReadContract } from "thirdweb/react";
+import { listingContract } from "../../lib/utils";
+import { resolveMethod } from "thirdweb";
 
 const Propertydesc = () => {
+  let { id } = useParams();
   const user = useSelector((state) => state.auth.user);
   //const verified = useSelector((state) => state.auth.isVerified);
 
   const decodedUser = jwt.decode(user);
-  console.log(decodedUser);
+
   const userAvartar = decodedUser.name.substring(0, 2);
+
+  const { data, isLoading } = useReadContract({
+    contract: listingContract,
+    method: resolveMethod("getProperty"),
+    params: [id],
+  });
+
+  console.log(data);
   return (
     <div className="bg-hero bg-[#2A0144] min-h-screen ">
       <div className="md:px-10 px-5">
@@ -25,24 +38,19 @@ const Propertydesc = () => {
         </div>
         <div className="flex flex-col gap-5 px-5 text-white pt-5 ">
           <div className="flex-1 grid grid-cols-property-desc gap-4  w-full">
-            <img src="/images/house1.svg" alt="house" />
-            <img src="/images/house1.svg" alt="house" />
-
-            <img src="/images/house1.svg" alt="house" />
-
-            <img src="/images/house2.svg" alt="house" />
-            <img src="/images/house3.svg" alt="house" />
-            <img src="/images/house4.svg" alt="house" />
-            {/* <img src="/images/house5.svg" alt="house" /> */}
+            {data.images.map((img, i) => (
+              <img
+                src={`https://white-active-whippet-173.mypinata.cloud/ipfs/${img}`}
+                key={i}
+              />
+            ))}
           </div>
 
           <div>
             <p className="font-bold py-5">Property Address</p>
             <input
               type="text"
-              value={
-                "No. 45 Ajibade street lekki phase 2, Lagos State, Nigeria"
-              }
+              value={data.propertyAddress}
               className="text-[#000000]/70 bg-white border rounded-md outline-[#964CC3] border-[#964CC3] w-full px-4 py-4 md:text-xl font-bold"
               disabled
             />
@@ -52,9 +60,7 @@ const Propertydesc = () => {
             <p className="font-bold py-5">Property Description</p>
             <textarea
               type="text"
-              value={
-                "This duplex is designed to make you feel the beauty and also have a feeling of comfort in your abode. The space has three bedrooms, four toilets, one living room, one kitchen, a garage, and one swimming pool."
-              }
+              value={data.description}
               className="text-[10px] text-[#000000]/70 bg-white border rounded-md  border-[#964CC3] w-full px-4 py-4 md:text-xl font-bold"
               disabled
             ></textarea>
@@ -63,7 +69,9 @@ const Propertydesc = () => {
           <div className="flex gap-4 items-center justify-between mx-5">
             <div className="flex-1 flex items-center gap-3">
               <img src="/images/car01.svg" className="w-8 h-7" alt="image" />
-              <p className="text-3xl font-bold underline ">3</p>
+              <p className="text-3xl font-bold underline ">
+                {data.propertySpec.toString()}
+              </p>
             </div>
 
             <div className="flex-1 flex items-center gap-3">

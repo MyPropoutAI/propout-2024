@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const CurrencySymbol = ({ amount }) => {
-  const [pay, setPay] = useState("");
+  const [pay, setPay] = useState(0);
   function formatCurrency(number, currency = "USD") {
     //   // Use Intl.NumberFormat for locale-aware formatting
     const formatter = new Intl.NumberFormat("en-US", {
@@ -20,11 +20,11 @@ const CurrencySymbol = ({ amount }) => {
       setPay(res);
     };
     getMoney(amount);
-  }, []);
+  }, [amount]);
 
   return (
     <div>
-      <p>{pay}</p>
+      <p>{pay}/month</p>
     </div>
   );
 };
