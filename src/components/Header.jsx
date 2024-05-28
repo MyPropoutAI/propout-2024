@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect, useRef, Suspense } from "react";
+//import { useState, useEffect, useRef, Suspense } from "react";
 import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
 import User from "./User";
 import { Button } from "./ui/button";
 import jwt from "jsonwebtoken";
-import { useAuthContext } from "../contexts/hooks/useAuthcontext";
+//import { useAuthContext } from "../contexts/hooks/useAuthcontext";
 //import { useFetchUser } from "../contexts/hooks/useFetchUser";
 import { useSelector } from "react-redux";
 
@@ -34,6 +34,7 @@ const Header = () => {
               />
               <img src="/images/dropdown.svg" alt="" className="w-4" />
             </div> */}
+              <Link to="https://app.optimism.io/faucet">Get token</Link>
 
               <Button variant="propout" size="default">
                 <Link to="/list">Explore Propout</Link>
