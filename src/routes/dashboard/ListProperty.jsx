@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 import { PropertyType, ListType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Countries } from "../../lib/Countries";
-
+import Swal from "sweetalert2";
 // import ethers
 
 const ListProperty = () => {
@@ -90,9 +90,12 @@ const ListProperty = () => {
 
   const handleSubmission = async () => {
     if (verified === false) {
-      alert(
-        "You need to compleate your verification before you can list a property"
-      );
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "You need to compleate your verification before you can list a property",
+        footer: '<a href="/dashboard/verification">Verify you account</a>',
+      });
     }
     if (verified === true) {
       try {

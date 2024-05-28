@@ -50,6 +50,7 @@
     "redux-persist": "^6.0.0",
     "sonner": "^1.4.0",
     "sort-by": "^1.2.0",
+    "sweetalert2": "^11.11.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "thirdweb": "^5.4.2",
