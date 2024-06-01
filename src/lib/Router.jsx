@@ -23,7 +23,7 @@ import Testing from "../routes/testing/Testing";
 import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
-import AboutUs from "../routes/about/AboutUs";
+// import AboutUs from "../routes/about/AboutUs";
 import LoginPage from "../routes/auth/login/Login";
 import Register from "../routes/auth/register/Register";
 import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
