@@ -8,8 +8,8 @@ const About = () => {
       </div>
       <div className="bg-[#320051]">
         <div className=" bg-hero  bg-purple-950 text-white px-5  ">
-          <h1 className="my_underline font-bold text-4xl">ABOUT US</h1>
-          <div className="flex flex-col gap-4 text-justify px-20">
+          <h1 className="my_underline font-bold md:text-4xl p-5">ABOUT US</h1>
+          <div className="flex flex-col gap-4 md:text-center px-3 text-[13px] md:text-[19px] text-justify md:px-20 ">
             <p>
               Propout' s emergence as a Real Estate Network Technology (RENT)
               presents a groundbreaking opportunity for Nigeria. As the real
@@ -39,11 +39,11 @@ const About = () => {
         </div>
 
         <div className=" bg-purple-950 ">
-          <h1 className="my_underline font-bold text-4xl text-white">
+          <h1 className="my_underline font-bold md:text-4xl text-white p-5">
             HERE WE ARE MAKING A DIFFERENCE{" "}
           </h1>
 
-          <div className="flex text-justify-center items-center gap-5 px-20 mt-5 text-[#320051]">
+          <div className="md:flex grid p-5 text-justify-center items-center gap-5 md:px-20 mt-5 text-[#320051]">
             <div className="flex flex-col justify-center items-center text bg-white flex-1 p-20 ">
               <h1 className="text-[#E08400] text-3xl font-bold text-justify">
                 AI AUTOMATION
@@ -68,6 +68,8 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      <div id="next"></div>
     </div>
   );
 };
