@@ -19,7 +19,7 @@ const Footer = () => {
           </section>
           <section className="flex-1 flex flex-col gap-5 lg:text-center text-white">
             <div>
-              <Link to="AboutUs" className="underline">
+              <Link to="/home/about" className="underline">
                 About us
               </Link>
             </div>
@@ -39,21 +39,36 @@ const Footer = () => {
               Follow Us
             </p>
             <div className="flex mt-5 gap-4">
-              <Link to="">
+              <Link
+                to="https://www.facebook.com/profile.php?id=61555579964638&mibextid=JRoKGi"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   className="h-5 w5 mx-1"
                   src="/images/logos_facebook.svg"
                   alt="Facebook"
                 />
               </Link>
-              <Link to="">
+              <Link
+                to="https://www.linkedin.com/in/propout-nft-37966028a/"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   className="h-5 w5 mx-1"
                   src="/images/bi_linkedin.svg"
                   alt="linkedin"
                 />
               </Link>
-              <Link to="">
+              <Link
+                to="https://twitter.com/myPropoutAI "
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   className="h-5 w5 mx-1"
                   src="/images/formkit_twitter.svg"
@@ -61,7 +76,12 @@ const Footer = () => {
                 />
               </Link>
 
-              <Link to="">
+              <Link
+                to="https://www.instagram.com/mypropoutai/"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   className="h-5 w5 mx-1"
                   src="/images/ri_instagram-fill.svg"

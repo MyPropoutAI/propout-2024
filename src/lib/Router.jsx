@@ -43,6 +43,7 @@ import Profilesetting from "../components/Profilesetting";
 import Propertydesc from "../routes/descripyion/Propertydesc";
 import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
+import About from "../routes/page/About";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -88,8 +89,8 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "/home/AboutUs",
-        element: <AboutUs />,
+        path: "/home/about",
+        element: <About />,
       },
 
       {
