@@ -37,6 +37,7 @@ const About = () => {
             </p>
           </div>
         </div>
+        {/* SECTION 1 */}
 
         <div className=" bg-purple-950 ">
           <h1 className="my_underline font-bold md:text-4xl text-white p-5">
@@ -67,9 +68,144 @@ const About = () => {
             </div>
           </div>
         </div>
-      </div>
+        {/*  SECTION 2  */}
 
-      <div id="next"></div>
+        <div className=" bg-[#AB55DF8C]/55 py-5 text-white">
+          <div className="flex flex-col items-center text-center mx-auto md:px-20 px-12">
+            <div className="py-20">
+              <p className=" text-xl">How it works</p>
+              <h1 className="text-3xl font-bold py-2">Our best services</h1>
+              <p className=" md:max-w-[650px] md:text-[19px] text-[14px] max-w-]">
+                Utilizing the Propout A.I to checkmate and conveniently flip
+                property assets remotely. Open participation for all kinds of
+                users with the following in-built AI tech integrations to foster
+                trust, transperency, and convenience.
+              </p>
+            </div>
+
+            <div className=" grid justify-items-start gap-3">
+              <div className="flex gap-3 text-left  items-center text-lg md:text-xl">
+                <div className=" rounded-full py-5 px-1 bg-white grid place-items-center">
+                  <img src="/images/property_trading.svg" alt="image" />
+                </div>
+                <p> Property trading system</p>
+              </div>
+              <div className="flex gap-1 text-left md:gap-3 items-center  text-lg md:text-xl">
+                <div className=" rounded-full py-3 px-3 bg-white grid place-items-center">
+                  <img src="/images/property_allocation.svg" alt="image" />
+                </div>
+                <p>Property allocation system</p>
+              </div>
+              <div className="flex gap-1 text-left md:gap-3 items-center  text-lg md:text-xl">
+                <div className=" rounded-full py-3 px-3 bg-white grid place-items-center">
+                  <img src="/images/property_allocation.svg" alt="image" />
+                </div>
+                <p>Property identification system</p>
+              </div>
+              <div className="flex gap-1 text-left md:gap-3 items-center  text-lg md:text-xl">
+                <div className=" rounded-full py-5 px-1 bg-white grid place-items-center">
+                  <img src="/images/property_verification.svg" alt="image" />
+                </div>
+                <p>Property verification system</p>
+              </div>
+              <div className="flex gap-3  text-left items-center  text-lg md:text-xl">
+                <div className=" rounded-full py-4 px-2 bg-white grid place-items-center">
+                  <img src="/images/ai_assistance.svg" alt="image" />
+                </div>
+                <p>Ai assistance</p>
+              </div>
+              <div className="flex gap-3  text-left items-center  text-lg md:text-xl">
+                <div className=" rounded-full py-5 px-2 bg-white grid place-items-center">
+                  <img src="/images/Governance.svg" alt="image" />
+                </div>
+                <p>Governance</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/*  SECTION 3  */}
+
+        <div className=" bg-[#2109308c] text-white">
+          <div className="py-5 mt-5 bg-white text-[#964CC3] flex flex-col items-center">
+            <h1 className="font-bold md:text-3xl text-xl py-1">
+              User Benefits
+            </h1>
+            <p className="text-sm md:text-lg">
+              Built for everyone to be inclusive in the real estate game.
+            </p>
+          </div>
+
+          <div className=" flex justify-center px-5">
+            <div className=" grid justify-items-end py-5  gap-3">
+              <div className="flex  gap-1 md:gap-3 text-right items-center text-lg md:text-xl">
+                <p> Investment</p>
+                <div className=" rounded-full py-5 px-1 bg-white grid place-items-center">
+                  <img src="/images/investment.svg" alt="image" />
+                </div>
+              </div>
+              <div className="flex gap-1 md:gap-3 text-right items-center text-lg md:text-xl">
+                <p>Fractional ownership</p>
+
+                <div className=" rounded-full py-3 px-3 bg-white grid place-items-center">
+                  <img src="/images/Fractional_ownership.svg" alt="image" />
+                </div>
+              </div>
+              <div className="flex gap-1 md:gap-3 text-right items-center text-lg md:text-xl">
+                <p>Community and crowding</p>
+
+                <div className=" rounded-full py-4 px-3 bg-white grid place-items-center">
+                  <img src="/images/Community_crowding.svg" alt="image" />
+                </div>
+              </div>
+              <div className="flex gap-1 md:gap-3 text-right  items-center text-lg md:text-xl">
+                <p>Property information request and data</p>
+
+                <div className=" rounded-full py-5 px-1 bg-white grid place-items-center">
+                  <img src="/images/property_information.svg" alt="image" />
+                </div>
+              </div>
+
+              <div className="flex gap-1 md:gap-3 text-right  items-center text-lg md:text-xl">
+                <p>Property proof of ownership</p>
+
+                <div className=" rounded-full py-5 px-2 bg-white grid place-items-center">
+                  <img src="/images/property_proof.svg" alt="image" />
+                </div>
+              </div>
+
+              <div className="flex gap-1 md:gap-3 text-right  items-center text-lg md:text-xl">
+                <p>Making informed property decisions</p>
+
+                <div className=" rounded-full py-5 px-2 bg-white grid place-items-center">
+                  <img
+                    src="/images/Making_informed_property_decisions.svg"
+                    alt="image"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-1 md:gap-3 text-right  items-center text-lg md:text-xl">
+                <p>A.I Chatbot</p>
+
+                <div className=" rounded-full py-4 px-2 bg-white grid place-items-center">
+                  <img src="/images/ai_assistance.svg" alt="image" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/*  SECTION 4 */}
+        <div className=" bg-purple-950 ">
+          <h1 className="my_underline font-bold md:text-4xl text-white p-5">
+            OUR ROAD MAP{" "}
+          </h1>
+
+          <div className=" flex px-16 justify-center py-10">
+            <img src="/images/roadmap.svg" alt="images" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
