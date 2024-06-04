@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaTelegramPlane } from "react-icons/fa";
 import Wrapper from "./Wrapper";
 
 const Footer = () => {
@@ -58,7 +59,7 @@ const Footer = () => {
                 rel="noreferrer"
               >
                 <img
-                  className="h-5 w5 mx-1"
+                  className="h-5 w-5 mx-1"
                   src="/images/bi_linkedin.svg"
                   alt="linkedin"
                 />
@@ -70,7 +71,7 @@ const Footer = () => {
                 rel="noreferrer"
               >
                 <img
-                  className="h-5 w5 mx-1"
+                  className="h-5 w-5 mx-1"
                   src="/images/formkit_twitter.svg"
                   alt="X(Twitter)"
                 />
@@ -83,10 +84,18 @@ const Footer = () => {
                 rel="noreferrer"
               >
                 <img
-                  className="h-5 w5 mx-1"
+                  className="h-5 w-5 mx-1"
                   src="/images/ri_instagram-fill.svg"
                   alt="Instagram"
                 />
+              </Link>
+              <Link
+                to="https://t.me/+0THrDm5u1CUwZTU0"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaTelegramPlane className="h-5 w5 mx-1 text-purple-500" />
               </Link>
             </div>
           </section>

@@ -11,27 +11,27 @@ import { cn } from "../../lib/utils";
 
 // const messages = ["Homeownership", "Real Estate", "New Possibilities"];
 
-const marquee = keyframes`
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-`;
+// const marquee = keyframes`
+//   0% { transform: translateX(100%); }
+//   100% { transform: translateX(-100%); }
+// `;
 
-const MarqueeText = styled.div`
-  display: inline-block;
-  white-space: nowrap;
-  animation: ${marquee} 10s linear infinite;
-`;
+// const MarqueeText = styled.div`
+//   display: inline-block;
+//   white-space: nowrap;
+//   animation: ${marquee} 10s linear infinite;
+// `;
 
-const MarqueeWrapper = styled.div`
-  overflow: hidden;
-  white-space: nowrap;
-`;
+// const MarqueeWrapper = styled.div`
+//   overflow: hidden;
+//   white-space: nowrap;
+// `;
 
-const messages = [
-  "Homeownership",
-  "Real Estate ",
-  // " New Possibilities"
-];
+// const messages = [
+//   "Homeownership",
+//   "Real Estate ",
+//   // " New Possibilities"
+// ];
 
 const TextContent = ({ children, className }) => (
   <div
@@ -57,25 +57,25 @@ const HomeHero = () => {
           Welcome to the Future of
         </TextContent>
 
-        <div>
+        {/* <div>
           <MarqueeWrapper>
             <TransitionGroup>
               {messages.map((message, index) => (
                 <CSSTransition key={index} timeout={500} classNames="fade">
                   <MarqueeText>
-                    <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] max-md:text-4xl font-extrabold ">
-                      <GradientText>{message}</GradientText>
+                    <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] overflow-hidden  max-md:text-4xl font-extrabold ">
+                      <GradientText>Homeownership</GradientText>
                     </div>
                   </MarqueeText>
                 </CSSTransition>
               ))}
             </TransitionGroup>
           </MarqueeWrapper>
-        </div>
-
-        {/* <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] max-md:text-4xl font-extrabold ">
-          <GradientText>Home ownership</GradientText>
         </div> */}
+
+        <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] max-md:text-4xl font-extrabold ">
+          <GradientText>Home ownership</GradientText>
+        </div>
         <TextContent className="hidden md:block mt-10 text-sm lg:text-lg text-center w-[80%] lg:w-[70%]">
           Listing, buying, and selling real estate at your fingertip
         </TextContent>
