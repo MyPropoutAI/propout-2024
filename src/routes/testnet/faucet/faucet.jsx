@@ -1,4 +1,6 @@
+import { ConnectButton } from "thirdweb/react";
 import { Button } from "/src/components/ui/button";
+import { Connect } from "../../../components/ConnectButton";
 
 const Faucet = () => {
   return (
@@ -34,8 +36,10 @@ const Faucet = () => {
                 size="lg"
                 className="lg mt-4 rounded-md text-xl flex justify-center items-center gap-2 w-full "
               >
-                <img src="/images/Vector-1.svg" alt="" />
-                Connect wallet
+                {/* <img src="/images/Vector-1.svg" alt="" /> */}
+                {/* Connect wallet */}
+                {/* <ConnectButton /> */}
+                <Connect />
               </Button>
             </div>
           </div>
