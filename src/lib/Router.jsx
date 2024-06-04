@@ -23,7 +23,7 @@ import Testing from "../routes/testing/Testing";
 import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
-import AboutUs from "../routes/about/AboutUs";
+// import AboutUs from "../routes/about/AboutUs";
 import LoginPage from "../routes/auth/login/Login";
 import Register from "../routes/auth/register/Register";
 import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
@@ -43,6 +43,7 @@ import Profilesetting from "../components/Profilesetting";
 import Propertydesc from "../routes/descripyion/Propertydesc";
 import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
+import About from "../routes/page/About";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -88,8 +89,8 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "/home/AboutUs",
-        element: <AboutUs />,
+        path: "/home/about",
+        element: <About />,
       },
 
       {

@@ -60,7 +60,7 @@ const HowItWorks = () => {
       <Wrapper>
         <div className="py-10">
           <div className="text-center flex flex-col gap-8 items-center">
-            <p className="text-3xl font-[700]">How it work</p>
+            <p className="text-3xl font-[700]">How it works</p>
             <p className="max-w-[650px]">
               Listing properties on Propout. Flip at your convenience and earn
               well! Bringing the real estate sector into one single marketplace
