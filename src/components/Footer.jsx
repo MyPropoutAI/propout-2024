@@ -41,7 +41,7 @@ const Footer = () => {
             </p>
             <div className="flex mt-5 gap-4">
               <Link
-                to="https://www.facebook.com/profile.php?id=61555579964638&mibextid=JRoKGi"
+                to="https://www.facebook.com/profile.php?id=100090156995333&mibextid=JRoKGi"
                 title="social"
                 target="_blank"
                 rel="noreferrer"
