@@ -39,7 +39,7 @@ const TextContent = ({ children, className }) => (
 );
 
 const GradientText = ({ children }) => (
-  <div className="flex flex-col justify-center px-2 max-md:max-w-full max-md:text-4xl">
+  <div className="flex flex-cl justify-center px-2 max-md:max-w-full max-md:text-4xl">
     <div className="bg-gradient-to-r from-[#E08400] to-[#FF087F] text-transparent bg-clip-text  max-md:max-w-full max-md:text-4xl">
       {children}
     </div>
@@ -81,8 +81,8 @@ const LandingHero = () => {
           </TransitionGroup>
         </MarqueeWrapper>
       </div> */}
-      <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] max-md:text-4xl font-extrabold ">
-        <GradientText>Home ownership</GradientText>
+      <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap w-[550px] max-md:text-4xl font-extrabold ">
+        <GradientText>Homeownership</GradientText>
       </div>
       <TextContent className="hidden md:block mt-10 text-lg w-[766px]">
         Ensuring buying, selling, and listing real estate is easier and safer
