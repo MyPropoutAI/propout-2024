@@ -66,26 +66,31 @@ const Header = () => {
               </div>
             </div>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <img src="/images/menu-icon.svg" alt="" />
-              </SheetTrigger>
-              <SheetContent>
-                <div className="flex flex-col text-white gap-2 my-2">
-                  {mobileNav.map((link, i) => (
-                    <Link key={i} to={link.path}>
-                      <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
-                        {link.name}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+            <div className="flex gap-x-4 lg:hidden">
+              <div>
+                <User userAvartar={userAvartar} />
+              </div>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <img src="/images/menu-icon.svg" alt="" />
+                </SheetTrigger>
+                <SheetContent>
+                  <div className="flex flex-col text-white gap-2 my-2">
+                    {mobileNav.map((link, i) => (
+                      <Link key={i} to={link.path}>
+                        <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
+                          {link.name}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
 
-                <div className="lg:flex items-center gap-8 mt-24">
-                  <Connect />
-                </div>
-              </SheetContent>
-            </Sheet>
+                  <div className="lg:flex items-center gap-8 mt-24">
+                    <Connect />
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </Wrapper>
       </div>
