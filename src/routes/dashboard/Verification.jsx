@@ -10,6 +10,7 @@ import jwt from "jsonwebtoken";
 import { Rings } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { verified } from "../../redux/userSlice";
+import Camera from "../../components/Camera";
 const Verification = () => {
   const {
     register,
@@ -98,6 +99,9 @@ const Verification = () => {
               </span>
             )}
           </div>
+          {/* camera */}
+          {/* <Camera /> */}
+          {/* end of camera */}
           <div>
             <label className="mb-1">ID CARD</label>
             <Input

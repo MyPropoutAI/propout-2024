@@ -20,7 +20,7 @@ import {
 const mobileNav = [
   { name: "Faucet", path: "/home/testnet/faucet", state: true },
   { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
-  { name: "Explore Propout", path: "/list", state: true },
+  { name: "Explore Propout", path: "/home/list", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -55,7 +55,7 @@ const Header = () => {
               <Link to="https://app.optimism.io/faucet">Get token</Link>
 
               <Button variant="propout" size="default">
-                <Link to="/list">Explore Propout</Link>
+                <Link to="/home/list">Explore Propout</Link>
               </Button>
 
               <div>

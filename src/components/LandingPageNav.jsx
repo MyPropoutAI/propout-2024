@@ -15,7 +15,7 @@ const mobileNav = [
   { name: "Home", path: "/" },
   { name: "Faucet", path: "/home/testnet/faucet", state: true },
   { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
-  { name: "Explore Propout", path: "/list", state: true },
+  { name: "Explore Propout", path: "/home/list", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
