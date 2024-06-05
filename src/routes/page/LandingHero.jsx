@@ -90,18 +90,16 @@ const LandingHero = () => {
         technology!
       </TextContent>
       <div className="flex gap-5 mt-5 flex-wrap justify-center">
-        <Button className="px-8 rounded-md text-white">
-          <Link to={"/home/list"}>List</Link>
-        </Button>
-        <Button className="px-8 rounded-md text-white" variant="outline">
-          <Link to={"/home/marketplace"}>Rent</Link>
-        </Button>
-        <Button className="px-8 rounded-md text-white" variant="outline">
-          <Link to={"/home/marketplace"}>Buy</Link>
-        </Button>
-        <Button className="px-8 rounded-md text-white" variant="outline">
-          <Link to="/home/testnet/faucet">Testnet</Link>
-        </Button>
+        <Link to={"http://waitlist-propout.onrender.com"}>
+          <Button className="px-8 rounded-md text-white">
+            Join our waitlist
+          </Button>
+        </Link>
+        <Link to="/auth/login">
+          <Button className="border border-purple-500 border-solid text-white">
+            Get Started
+          </Button>
+        </Link>
       </div>
 
       <div className="p-4 mb-[-8rem] shadow-md mt-[2rem] z-10 md:p-6 bg-white space-x-4 flex flex-wrap justify-center rounded-md">

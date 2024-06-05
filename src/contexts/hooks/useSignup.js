@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthcontext";
+//import { useAuthContext } from "./useAuthcontext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
@@ -27,14 +27,14 @@ export const useSignup = () => {
         }),
       });
       const json = await response.json();
-      console.log(json);
+      //console.log(json);
       if (!json.success) {
         setError(json.error);
         setLoading(false);
         console.log(error);
       }
       if (json.success) {
-        console.log(json);
+        // console.log(json);
         //localStorage.setItem("propoutUser", JSON.stringify(json.success.token));
         //dispatch({ type: "LOGIN", payload: json });
         dispatch(login(json.success.token));

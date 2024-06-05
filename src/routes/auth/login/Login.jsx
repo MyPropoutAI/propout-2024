@@ -38,7 +38,7 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(LoginSchema) });
 
   const onSubmit = async (data) => {
-    console.log("Form data:", data);
+    //console.log("Form data:", data);
     try {
       // const res = await fetch(
       //   `https://proput-db.onrender.com/log-in?email=${data.email}&password=${data.password}`,

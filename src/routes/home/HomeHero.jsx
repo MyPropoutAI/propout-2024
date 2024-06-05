@@ -87,7 +87,7 @@ const HomeHero = () => {
             <Link to={"/home/marketplace"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
-            <Link to={"/home/list/sell"}>Buy</Link>
+            <Link to={"/home/marketplace"}>Buy</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
             <Link to="/home/testnet/faucet">Testnet</Link>
