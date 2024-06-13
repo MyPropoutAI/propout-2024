@@ -89,15 +89,15 @@ const ListProperty = () => {
   };
 
   const handleSubmission = async () => {
-    if (verified === false) {
+   
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "You need to compleate your verification before you can list a property",
         footer: '<a href="/dashboard/verification">Verify you account</a>',
       });
-    }
-    if (verified === true) {
+    
+   
       try {
         const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
         const transaction = prepareContractCall({
@@ -145,7 +145,7 @@ const ListProperty = () => {
       } catch (error) {
         console.error("Error uploading images or sending transaction: ", error);
       }
-    }
+    
   };
 
   const handleListingSuccessfull = async (trx) => {
