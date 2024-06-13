@@ -8,65 +8,154 @@ import { useStateContext } from "../../../lib/Context";
 import { useRef, useState } from "react";
 import { ethers } from "ethers";
 import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
+import { toast } from "sonner";
+import { prepareContractCall, resolveMethod } from "thirdweb";
+import { listingContract } from "../../../lib/utils";
+import { TransactionButton } from "thirdweb/react";
 
 // import { useNavigate } from "react-router-dom";
 
 const Listing = () => {
-  // const navigate = useNavigate();
-  const { callListProperty } = useStateContext();
-
-  const status = useConnectionStatus();
-
-  const [loading, setIsLoading] = useState(false);
-
-  const [images, setImages] = useState([""]);
+  const [images, setImages] = useState([]);
+  const [imageURLs, setImageURLs] = useState([""]);
 
   const [form, setForm] = useState({
-    propertyTitle: "",
+    _propertyTitle: "",
     price: "",
-    description: "",
-    images:
-      "https://images.propertypro.ng/large/2-bedroom-detached-bungalow-in-epe-lagos-nigeria-73WIcgOJYA8u2u3mDZK3.jpg",
-    propertyAddress: "",
+    _description: "",
+    _propertyAddress: "",
+    _property_type: "",
+    _property_spec: "",
+    _square: "",
+    _city: "",
+    _country: "",
+    listType: "",
   });
 
-  const handleChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
-  };
+  const changeHandler = (event, index) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const newImages = [...images];
+      newImages[index] = file;
+      setImages(newImages);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      await callListProperty({
-        ...form,
-        price: ethers.utils.parseUnits(form.price, 18),
-      });
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
+      const newImageURLs = [...imageURLs];
+      newImageURLs[index] = URL.createObjectURL(file);
+      setImageURLs(newImageURLs);
     }
   };
 
-  const handleImageChange = (e, index) => {
-    const file = e.target.files[0];
-    const newImages = [...images];
-    newImages[index] = URL.createObjectURL(file);
-    setImages(newImages);
-  };
-
   const handleAddImage = () => {
-    setImages([...images, ""]);
+    setImages([...images, null]);
+    setImageURLs([...imageURLs, ""]);
   };
 
+  const handleFormChange = (fieldName, e) => {
+    setForm({ ...form, [fieldName]: e.target.value });
+  };
+
+  const uploadToIPFS = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    const metadata = JSON.stringify({ name: file.name });
+    formData.append("pinataMetadata", metadata);
+    const options = JSON.stringify({ cidVersion: 0 });
+    formData.append("pinataOptions", options);
+
+    const res = await axios.post(
+      "https://api.pinata.cloud/pinning/pinFileToIPFS",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${userJwt}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return res.data.IpfsHash;
+  };
+
+  const handleSubmission = async () => {
+    // Swal.fire({
+    //   icon: "error",
+    //   title: "Oops...",
+    //   text: "You need to compleate your verification before you can list a property",
+    //   footer: '<a href="/dashboard/verification">Verify you account</a>',
+    // });
+
+    try {
+      const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
+      const transaction = prepareContractCall({
+        contract: listingContract,
+        method: resolveMethod("listProperty"),
+        params: [
+          {
+            price: form.price.toString(),
+            propertyTitle: form._propertyTitle,
+            images: [...imageIPFSHashes],
+            propertyAddress: form._propertyAddress,
+            description: form._description,
+            propertyType: form._property_type,
+            propertySpec: form._property_spec.toString(),
+            square: form._square.toString(),
+            city: form._city,
+            country: form._country,
+            listType: form.listType,
+          },
+        ],
+      });
+      // const res = await axios.post(
+      //   "https://proput-db.onrender.com/new_listing",
+      //   {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify({
+      //       property_price: form.price,
+      //       headline: form._propertyTitle,
+      //       img_urls: imageIPFSHashes,
+      //       room_spec: form._property_spec,
+      //       description: form._description,
+      //       id: decodedUser.id,
+      //       square_ft: form._square,
+      //       type: form._property_type,
+      //       address: form._propertyAddress,
+      //     }),
+      //   }
+      // );
+      // if (!res) {
+      //   throw new Error("property not uploaded to database");
+      // }
+
+      return transaction;
+    } catch (error) {
+      console.error("Error uploading images or sending transaction: ", error);
+    }
+  };
+
+  const handleListingSuccessfull = async (trx) => {
+    console.log(trx);
+    toast("Success", {
+      description: "Your property has been listed successfully",
+      action: {
+        label: "View",
+        onClick: () => {
+          window.open(
+            "https://explorer.fuse.io/tx/" + trx.transactionHash,
+            "_blank"
+          );
+        },
+      },
+    });
+  };
   return (
     <div className="p-10">
       <Wrapper>
         <div className="flex gap-8  flex-wrap justify-center">
-          {images.map((image, i) => (
+          {imageURLs.map((image, i) => (
             <UploadImage
               image={image}
-              handleUpload={handleImageChange}
+              handleUpload={changeHandler}
               key={i}
               i={i}
             />
@@ -78,67 +167,72 @@ const Listing = () => {
             </button>
           )}
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-            <Label htmlFor="address" className="text-white text-2xl font-bold">
-              Property Title
-            </Label>
-            <Input
-              id="address"
-              type="text"
-              className="w-full mx-auto text-xLG p-3"
-              autoComplete="off"
-              onInput={(e) => handleChange("propertyTitle", e)}
-            />
-          </div>
-          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-            <Label htmlFor="address" className="text-white text-2xl font-bold">
-              Property Price
-            </Label>
-            <Input
-              id="address"
-              type="number"
-              className="w-full mx-auto text-xLG p-3"
-              autocomplete="off"
-              onInput={(e) => handleChange("price", e)}
-            />
-          </div>
-          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-            <Label htmlFor="address" className="text-white text-2xl font-bold">
-              Property Address
-            </Label>
-            <Input
-              id="address"
-              type="text"
-              className="w-full mx-auto text-xLG p-3"
-              onInput={(e) => handleChange("propertyAddress", e)}
-            />
-          </div>
-          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-            <Label htmlFor="desc" className="text-white text-2xl font-bold">
-              Property Description
-            </Label>
-            <Textarea
-              id="desc"
-              type="text"
-              className="w-full mx-auto text-LG p-3"
-              onInput={(e) => handleChange("description", e)}
-            />
-          </div>
 
-          <div className="mx-auto block mt-10 lg:w-2/3">
-            {status == "connected" ? (
-              <Button
-                className="w-full  text-white  text-lg h-14"
-                // onClick={handleSubmit}
-              >
-                {loading ? "Listing..." : "List Property"}
-              </Button>
-            ) : (
-              <ConnectWallet style={{ minWidth: "100%" }} />
-            )}
-          </div>
-        </form>
+        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+          <Label htmlFor="address" className="text-white text-2xl font-bold">
+            Property Title
+          </Label>
+          <Input
+            id="address"
+            type="text"
+            className="w-full mx-auto text-xLG p-3"
+            autoComplete="off"
+          />
+        </div>
+        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+          <Label htmlFor="address" className="text-white text-2xl font-bold">
+            Property Price
+          </Label>
+          <Input
+            id="address"
+            type="number"
+            className="w-full mx-auto text-xLG p-3"
+            autocomplete="off"
+          />
+        </div>
+        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+          <Label htmlFor="address" className="text-white text-2xl font-bold">
+            Property Address
+          </Label>
+          <Input
+            id="address"
+            type="text"
+            className="w-full mx-auto text-xLG p-3"
+          />
+        </div>
+        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+          <Label htmlFor="desc" className="text-white text-2xl font-bold">
+            Property Description
+          </Label>
+          <Textarea
+            id="desc"
+            type="text"
+            className="w-full mx-auto text-LG p-3"
+            required
+          />
+        </div>
+
+        <div className="mx-auto block mt-10 lg:w-2/3">
+          <TransactionButton
+            transaction={handleSubmission}
+            // transaction={}
+            onTransactionConfirmed={(trx) => {
+              handleListingSuccessfull(trx);
+            }}
+            onError={(err) => {
+              if (err.code == "4001") {
+                toast.error("Transaction rejected");
+              } else {
+                toast.error(err.message);
+              }
+            }}
+            style={{ background: "transparent", padding: 0 }}
+          >
+            <Button className="text-white px-12 bg-[#964CC3]">
+              List Property
+            </Button>
+          </TransactionButton>
+        </div>
       </Wrapper>
     </div>
   );

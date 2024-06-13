@@ -22,7 +22,7 @@ const ListHero = () => {
           estate affiliate markets
         </p>
         <div className="my-5">
-          <Select onValueChange={() => navigate("/list/sell")}>
+          <Select onValueChange={() => navigate("/home/list/sell")}>
             <SelectTrigger className="w-[200px]">
               <SelectValue placeholder="Get started" />
             </SelectTrigger>
