@@ -38,7 +38,7 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(LoginSchema) });
 
   const onSubmit = async (data) => {
-    console.log("Form data:", data);
+    //console.log("Form data:", data);
     try {
       // const res = await fetch(
       //   `https://proput-db.onrender.com/log-in?email=${data.email}&password=${data.password}`,
@@ -70,7 +70,7 @@ const Login = () => {
       ></div>
       <div className="w-[100%] lg:w-[60%] flex justify-center items-center">
         <div className="w-[70%]">
-          <h2 className="text-2xl font-semibold mb-2">Sign up</h2>
+          <h2 className="text-2xl font-semibold mb-2">Log In</h2>
           <p className="mb-4">Welcome to Propout</p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="my-2">
@@ -120,7 +120,7 @@ const Login = () => {
               type="submit"
               disables={loading}
             >
-              {loading ? "" : "Register"}
+              {loading ? "" : "Login"}
 
               {loading && (
                 <Rings
@@ -135,7 +135,7 @@ const Login = () => {
             </Button>
           </form>
           <p className="text-center">
-            Don’t have an account?
+            Don&apos;t have an account?
             <Link to="/auth/register">
               <span className="text-[#9C0AE1] cursor-pointer">Sign up</span>
             </Link>

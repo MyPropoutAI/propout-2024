@@ -9,13 +9,13 @@ import { Link } from "react-router-dom";
 
 const links = [
   { link: "Home", url: "/" },
-  { link: "About us", url: "/about" },
-  { link: "List", url: "/list" },
-  { link: "Marketplace", url: "/marketplace" },
+  { link: "About us", url: "/home/about" },
+  { link: "List", url: "/home/list" },
+  { link: "Marketplace", url: "/home/marketplace" },
   { link: "whitepaper", url: "/whitepaper" },
   { link: "airdrop", url: "/airdrop" },
   { link: "blog", url: "/blog" },
-  { link: "Rent API", url: "/api" },
+  { link: "Rent API", url: "https://www.rentglobal.xyz" },
 ];
 
 export function Menu() {

@@ -40,7 +40,7 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(FormSchema) });
 
   const onSubmit = async (data) => {
-    console.log(data.password);
+    //console.log(data.password);
 
     await signup(data);
     if (error) {

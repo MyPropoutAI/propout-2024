@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaTelegramPlane } from "react-icons/fa";
 import Wrapper from "./Wrapper";
 
 const Footer = () => {
@@ -19,7 +20,7 @@ const Footer = () => {
           </section>
           <section className="flex-1 flex flex-col gap-5 lg:text-center text-white">
             <div>
-              <Link to="AboutUs" className="underline">
+              <Link to="/home/about" className="underline">
                 About us
               </Link>
             </div>
@@ -29,7 +30,13 @@ const Footer = () => {
               </Link>
             </div>
             <div>
-              <Link to="" className="underline">
+              <Link
+                to="https://waitlist-propout.onrender.com/"
+                className="underline"
+                title="waitlist"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Join waitlist
               </Link>
             </div>
@@ -39,34 +46,62 @@ const Footer = () => {
               Follow Us
             </p>
             <div className="flex mt-5 gap-4">
-              <Link to="">
+              <Link
+                to="https://www.facebook.com/profile.php?id=100090156995333&mibextid=JRoKGi"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
                   className="h-5 w5 mx-1"
                   src="/images/logos_facebook.svg"
                   alt="Facebook"
                 />
               </Link>
-              <Link to="">
+              <Link
+                to="https://www.linkedin.com/in/propout-nft-37966028a/"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
-                  className="h-5 w5 mx-1"
+                  className="h-5 w-5 mx-1"
                   src="/images/bi_linkedin.svg"
                   alt="linkedin"
                 />
               </Link>
-              <Link to="">
+              <Link
+                to="https://twitter.com/myPropoutAI "
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
-                  className="h-5 w5 mx-1"
+                  className="h-5 w-5 mx-1"
                   src="/images/formkit_twitter.svg"
                   alt="X(Twitter)"
                 />
               </Link>
 
-              <Link to="">
+              <Link
+                to="https://www.instagram.com/mypropoutai/"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <img
-                  className="h-5 w5 mx-1"
+                  className="h-5 w-5 mx-1"
                   src="/images/ri_instagram-fill.svg"
                   alt="Instagram"
                 />
+              </Link>
+              <Link
+                to="https://t.me/+0THrDm5u1CUwZTU0"
+                title="social"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaTelegramPlane className="h-5 w5 mx-1 text-purple-500" />
               </Link>
             </div>
           </section>

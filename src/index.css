@@ -115,7 +115,7 @@
     position: relative;
     width: fit-content;
     margin: 0 auto;
-    padding-bottom: 7px;
+    padding-bottom: 3px;
   }
 
   .your_underline::before {

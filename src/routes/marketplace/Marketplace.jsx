@@ -29,7 +29,7 @@ const Marketplace = () => {
 
   console.log(data);
   return (
-    <div className="bg-main bg-hero bg-repeat-y bg-center">
+    <div className="bg-[#2A0144] bg-hero bg-repeat-y bg-center">
       <div className="bg-white py-5 rounded-md">
         <Container>
           <div className=" flex items-center gap-10">

@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 import { PropertyType, ListType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Countries } from "../../lib/Countries";
-
+import Swal from "sweetalert2";
 // import ethers
 
 const ListProperty = () => {
@@ -25,6 +25,7 @@ const ListProperty = () => {
   const [imageURLs, setImageURLs] = useState([]);
   // const account = useActiveAccount();
   const user = useSelector((state) => state.auth.user);
+  const verified = useSelector((state) => state.auth.isVerified);
 
   const decodedUser = jwt.decode(user);
   //console.log(decodedUser.id);
@@ -88,6 +89,13 @@ const ListProperty = () => {
   };
 
   const handleSubmission = async () => {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "You need to compleate your verification before you can list a property",
+      footer: '<a href="/dashboard/verification">Verify you account</a>',
+    });
+
     try {
       const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
       const transaction = prepareContractCall({

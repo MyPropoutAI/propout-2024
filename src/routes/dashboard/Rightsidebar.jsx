@@ -100,7 +100,7 @@ const Rightsidebar = () => {
                 </div>
                 <div
                   className={
-                    decodedUser.status === false
+                    verified === false
                       ? "bg-red-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-red-600"
                       : "bg-green-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-green-600"
                   }

@@ -25,6 +25,8 @@ module.exports = {
         "refer-hero-card": "url('/images/test.svg')",
         "refer-hero-card-2": "url('/images/refer-card-2.svg')",
         "task-hero-card-2": "url('/images/allpoint.svg')",
+        "about-section": "url('/images/about-section.svg')",
+        "about-section-2": "url('/images/about-section-2.svg')",
         "login-bg": "url('/images/loginbg.svg')",
         "refer-gradient":
           "linear-gradient(to right,rgba(255, 255, 255, 0.21) ,rgba(42, 1, 68, 0.21))",
