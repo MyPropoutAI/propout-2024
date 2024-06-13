@@ -30,7 +30,13 @@ const Footer = () => {
               </Link>
             </div>
             <div>
-              <Link to="" className="underline">
+              <Link
+                to="https://waitlist-propout.onrender.com/"
+                className="underline"
+                title="waitlist"
+                target="_blank"
+                rel="noreferrer"
+              >
                 Join waitlist
               </Link>
             </div>
