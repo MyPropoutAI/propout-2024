@@ -3,10 +3,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { Button } from "/src/components/ui/button";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useReadContract } from "thirdweb/react";
 import { listingContract } from "../../lib/utils";
 import { resolveMethod } from "thirdweb";
+
+import { useNavigate } from "react-router-dom";
 
 const Propertydesc = () => {
   let { id } = useParams();
@@ -14,6 +16,12 @@ const Propertydesc = () => {
   //const verified = useSelector((state) => state.auth.isVerified);
 
   const decodedUser = jwt.decode(user);
+
+  const navigate = useNavigate();
+
+  if (!user) {
+    return navigate("/auth/login");
+  }
 
   const userAvartar = decodedUser.name.substring(0, 2);
 
@@ -23,7 +31,10 @@ const Propertydesc = () => {
     params: [id],
   });
 
+  if (isLoading) return <p>Loading......</p>;
+
   console.log(data);
+
   return (
     <div className="bg-hero bg-[#2A0144] min-h-screen ">
       <div className="md:px-10 px-5">
@@ -106,9 +117,10 @@ const Propertydesc = () => {
             <Button
               size="lg"
               className=" bg-btnGrad text-white lg mt-4 rounded-md text-xl px-4 flex justify-center items-center gap-2 w-[30%] "
+              asChild
             >
-              <img src="/images/Vector-1.svg" alt="" />
-              Contact Lister
+              {/* <img src="/images/Vector-1.svg" alt="" /> */}
+              <Link to="/home/agent">Contact Lister</Link>
             </Button>
           </div>
         </div>
