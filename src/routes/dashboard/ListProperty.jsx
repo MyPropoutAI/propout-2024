@@ -159,6 +159,7 @@ const ListProperty = () => {
       },
     });
   };
+
   return (
     <div className="bg-white p-8 rounded-md max-w-full">
       <div className="border-2 p-4 rounded-md flex gap-5 relative">

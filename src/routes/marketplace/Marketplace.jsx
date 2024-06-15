@@ -14,8 +14,20 @@ import {
 import { Button } from "../../components/ui/button";
 import Card from "./Card";
 import { PropertyType } from "../../lib/PropertyType";
+import { useReadContract } from "thirdweb/react";
+import { listingContract } from "../../lib/utils";
+import { resolveMethod } from "thirdweb";
+import Rentsample from "../../components/Rentsample";
+import { Link } from "react-router-dom";
 
 const Marketplace = () => {
+  const { data, isLoading } = useReadContract({
+    contract: listingContract,
+    method: resolveMethod("getAllProperties"),
+    params: [],
+  });
+
+  console.log(data);
   return (
     <div className="bg-[#2A0144] bg-hero bg-repeat-y bg-center">
       <div className="bg-white py-5 rounded-md">
@@ -62,6 +74,7 @@ const Marketplace = () => {
             <Button className="px-10 rounded-md text-white ">Find now</Button>
           </div>
           <div className="grid grid-cols-three-columns gap-8 mt-10 justify-center">
+            {/* <Card />
             <Card />
             <Card />
             <Card />
@@ -69,8 +82,16 @@ const Marketplace = () => {
             <Card />
             <Card />
             <Card />
-            <Card />
-            <Card />
+            <Card /> */}
+
+            {data?.map((item, i) => (
+              <Link
+                to={`/home/property-description/${item.propertyId}`}
+                key={i}
+              >
+                <Rentsample data={item} />
+              </Link>
+            ))}
           </div>
         </Container>
         <div className="pt-10"></div>
