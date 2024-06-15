@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 const CurrencySymbol = ({ amount }) => {
   const [pay, setPay] = useState(0);
-  function formatCurrency(number, currency = "USD") {
+  function formatCurrency(number, currency = "NGN") {
     //   // Use Intl.NumberFormat for locale-aware formatting
-    const formatter = new Intl.NumberFormat("en-US", {
+    const formatter = new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: currency,
     });
