@@ -89,12 +89,12 @@ const ListProperty = () => {
   };
 
   const handleSubmission = async () => {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "You need to compleate your verification before you can list a property",
-      footer: '<a href="/dashboard/verification">Verify you account</a>',
-    });
+    // Swal.fire({
+    //   icon: "error",
+    //   title: "Oops...",
+    //   text: "You need to compleate your verification before you can list a property",
+    //   footer: '<a href="/dashboard/verification">Verify you account</a>',
+    // });
 
     try {
       const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
@@ -117,24 +117,23 @@ const ListProperty = () => {
           },
         ],
       });
-      // const res = await axios.post(
-      //   "https://proput-db.onrender.com/new_listing",
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({
-      //       property_price: form.price,
-      //       headline: form._propertyTitle,
-      //       img_urls: imageIPFSHashes,
-      //       room_spec: form._property_spec,
-      //       description: form._description,
-      //       id: decodedUser.id,
-      //       square_ft: form._square,
-      //       type: form._property_type,
-      //       address: form._propertyAddress,
-      //     }),
-      //   }
-      // );
+      // const res = await fetch("https://proput-db.onrender.com/new_listing", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({
+      //     price: form.price,
+      //     propertyTitle: form._propertyTitle,
+      //     images: [...imageIPFSHashes],
+      //     propertyAddress: form._propertyAddress,
+      //     description: form._description,
+      //     propertyType: form._property_type,
+      //     propertySpec: form._property_spec.toString(),
+      //     square: form._square.toString(),
+      //     city: form._city,
+      //     country: form._country,
+      //     listType: form.listType,
+      //   }),
+      // });
       // if (!res) {
       //   throw new Error("property not uploaded to database");
       // }
@@ -146,7 +145,7 @@ const ListProperty = () => {
   };
 
   const handleListingSuccessfull = async (trx) => {
-    console.log(trx);
+    //console.log(trx);
     toast("Success", {
       description: "Your property has been listed successfully",
       action: {
