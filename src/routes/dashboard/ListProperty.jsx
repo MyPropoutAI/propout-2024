@@ -89,6 +89,13 @@ const ListProperty = () => {
   };
 
   const handleSubmission = async () => {
+    // Swal.fire({
+    //   icon: "error",
+    //   title: "Oops...",
+    //   text: "You need to compleate your verification before you can list a property",
+    //   footer: '<a href="/dashboard/verification">Verify you account</a>',
+    // });
+
     try {
       const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
       const transaction = prepareContractCall({
@@ -139,7 +146,7 @@ const ListProperty = () => {
   };
 
   const handleListingSuccessfull = async (trx) => {
-    console.log(trx);
+    //console.log(trx);
     toast("Success", {
       description: "Your property has been listed successfully",
       action: {
