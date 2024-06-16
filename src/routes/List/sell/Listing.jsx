@@ -168,71 +168,77 @@ const Listing = () => {
           )}
         </div>
 
-        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-          <Label htmlFor="address" className="text-white text-2xl font-bold">
-            Property Title
-          </Label>
-          <Input
-            id="address"
-            type="text"
-            className="w-full mx-auto text-xLG p-3"
-            autoComplete="off"
-          />
-        </div>
-        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-          <Label htmlFor="address" className="text-white text-2xl font-bold">
-            Property Price
-          </Label>
-          <Input
-            id="address"
-            type="number"
-            className="w-full mx-auto text-xLG p-3"
-            autocomplete="off"
-          />
-        </div>
-        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-          <Label htmlFor="address" className="text-white text-2xl font-bold">
-            Property Address
-          </Label>
-          <Input
-            id="address"
-            type="text"
-            className="w-full mx-auto text-xLG p-3"
-          />
-        </div>
-        <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
-          <Label htmlFor="desc" className="text-white text-2xl font-bold">
-            Property Description
-          </Label>
-          <Textarea
-            id="desc"
-            type="text"
-            className="w-full mx-auto text-LG p-3"
-            required
-          />
-        </div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+            <Label htmlFor="address" className="text-white text-2xl font-bold">
+              Property Title
+            </Label>
+            <Input
+              id="address"
+              type="text"
+              className="w-full mx-auto text-xLG p-3"
+              autoComplete="off"
+              onChange={(e) => handleFormChange("_propertyTitle", e)}
+            />
+          </div>
+          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+            <Label htmlFor="address" className="text-white text-2xl font-bold">
+              Property Price
+            </Label>
+            <Input
+              id="address"
+              type="number"
+              className="w-full mx-auto text-xLG p-3"
+              autocomplete="off"
+              onChange={(e) => handleFormChange("price", e)}
+            />
+          </div>
+          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+            <Label htmlFor="address" className="text-white text-2xl font-bold">
+              Property Address
+            </Label>
+            <Input
+              id="address"
+              type="text"
+              className="w-full mx-auto text-xLG p-3"
+              onChange={(e) => handleFormChange("_propertyAddress", e)}
+            />
+          </div>
+          <div className="grid w-full lg:w-2/3 items-center mx-auto gap-4 mt-10">
+            <Label htmlFor="desc" className="text-white text-2xl font-bold">
+              Property Description
+            </Label>
+            <Textarea
+              id="desc"
+              type="text"
+              className="w-full mx-auto text-LG p-3"
+              required
+              onChange={(e) => handleFormChange("_description", e)}
+            />
+          </div>
 
-        <div className="mx-auto block mt-10 lg:w-2/3">
-          <TransactionButton
-            transaction={handleSubmission}
-            // transaction={}
-            onTransactionConfirmed={(trx) => {
-              handleListingSuccessfull(trx);
-            }}
-            onError={(err) => {
-              if (err.code == "4001") {
-                toast.error("Transaction rejected");
-              } else {
-                toast.error(err.message);
-              }
-            }}
-            style={{ background: "transparent", padding: 0 }}
-          >
-            <Button className="text-white px-12 bg-[#964CC3]">
-              List Property
-            </Button>
-          </TransactionButton>
-        </div>
+          <div className="mx-auto block mt-10 lg:w-2/3">
+            <TransactionButton
+              transaction={handleSubmission}
+              // transaction={}
+              onTransactionConfirmed={(trx) => {
+                handleListingSuccessfull(trx);
+              }}
+              onError={(err) => {
+                if (err.code == "4001") {
+                  toast.error("Transaction rejected");
+                } else {
+                  toast.error(err.message);
+                }
+              }}
+              style={{ background: "transparent", padding: 0 }}
+            >
+              <Button className="text-white px-12 bg-[#964CC3]">
+                List Property
+              </Button>
+            </TransactionButton>
+          </div>
+        </form>
       </Wrapper>
     </div>
   );

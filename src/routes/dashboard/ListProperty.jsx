@@ -89,13 +89,6 @@ const ListProperty = () => {
   };
 
   const handleSubmission = async () => {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "You need to compleate your verification before you can list a property",
-      footer: '<a href="/dashboard/verification">Verify you account</a>',
-    });
-
     try {
       const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
       const transaction = prepareContractCall({
@@ -117,28 +110,28 @@ const ListProperty = () => {
           },
         ],
       });
-      // const res = await axios.post(
-      //   "https://proput-db.onrender.com/new_listing",
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({
-      //       property_price: form.price,
-      //       headline: form._propertyTitle,
-      //       img_urls: imageIPFSHashes,
-      //       room_spec: form._property_spec,
-      //       description: form._description,
-      //       id: decodedUser.id,
-      //       square_ft: form._square,
-      //       type: form._property_type,
-      //       address: form._propertyAddress,
-      //     }),
-      //   }
-      // );
-      // if (!res) {
-      //   throw new Error("property not uploaded to database");
-      // }
-
+      const res = await fetch("https://proput-db.onrender.com/new_listing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          property_price: form.price,
+          headline: form._propertyTitle,
+          img_urls: imageIPFSHashes,
+          room_spec: form._property_spec,
+          description: form._description,
+          id: decodedUser.id,
+          square_ft: form._square,
+          type: form._property_type,
+          address: form._propertyAddress,
+          city: form._city,
+          country: form._country,
+          listType: form.listType,
+        }),
+      });
+      if (!res) {
+        throw new Error("property not uploaded to database");
+      }
+      console.log(res, "uploaded data");
       return transaction;
     } catch (error) {
       console.error("Error uploading images or sending transaction: ", error);
