@@ -81,7 +81,7 @@ const HomeHero = () => {
         </TextContent>
         <div className="flex gap-5 mt-5 flex-wrap justify-center">
           <Button className="px-8 rounded-md text-white">
-            <Link to={"/home/list"}>List</Link>
+            <Link to={"/dashboard/list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
             <Link to={"/home/marketplace"}>Rent</Link>

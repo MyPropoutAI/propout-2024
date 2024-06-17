@@ -18,7 +18,7 @@ import { Button } from "./ui/button";
 
 const links = [
   { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
+  // { name: "Get token", path: "https://app.optimism.io/faucet", state: !true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
