@@ -20,6 +20,11 @@ const links = [
   { name: "Faucet", path: "/home/testnet/faucet", state: true },
   // { name: "Get token", path: "https://app.optimism.io/faucet", state: !true },
   {
+    name: "Generate E-Flyer",
+    path: "https://propout-eflyer.onrender.com",
+    state: !true,
+  },
+  {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
     state: true,
