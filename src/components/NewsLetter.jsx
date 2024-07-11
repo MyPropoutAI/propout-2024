@@ -37,7 +37,7 @@ export default function NewsLetter() {
       <div className="flex items-center gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col w-[46%] max-md:ml-0 max-md:w-full">
           <h2 className="text-2xl font-semibold text-white w-[60%]">
-            Don’t miss out - Subscribe to our newsletter mailing list
+            Don&apos;t miss out - Subscribe to our newsletter mailing list
           </h2>
         </div>
         <div className="flex flex-col ml-5 w-[54%] max-md:ml-0 max-md:w-full">

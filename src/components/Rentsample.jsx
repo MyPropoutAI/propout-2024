@@ -3,15 +3,18 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
 export default function Rentsample({ data }) {
-  console.log(data);
+  // console.log(data);
   return (
     <div className="bg-white relative rounded-md">
       <div>
         <img
-          src={`https://white-active-whippet-173.mypinata.cloud/ipfs/${data?.images[0]}`}
-          className="min-w-[100%] max-h-[200px]  rounded-[3.08px] object-cover object-center"
+          //Unknown**
+          // src={`https://white-active-whippet-173.mypinata.cloud/ipfs/${data?.images[0]}`}
+          src="/images/house2.svg"
+          className="min-w-[100%] max-h-[200px] rounded-[3.08px] object-cover object-centers"
           alt="images"
         />
+
         <p className="px-5 py-2 text-white bg-[#0EFC25] w-fit absolute right-0 top-0">
           For Rent
         </p>
@@ -36,6 +39,16 @@ export default function Rentsample({ data }) {
             <br />
             square ft
           </p>
+        </div>
+        <div className="flex justify-between items-center gap-4">
+          <img src="/images/adams.svg" className="h-[50px]" alt="" />
+
+          <p className="font-semibold text-[12px] flex items-center ">
+            Adams Cane
+          </p>
+          <Button variant="rent" size="property">
+            See More
+          </Button>
         </div>
 
         {/* <div className="flex gap-2 items-center py-3">

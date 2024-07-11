@@ -22,10 +22,14 @@ export function Menu() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <img src="/images/menu.svg" alt="" className="w-10 cursor-pointer" />
+        <img
+          src="/images/menu.svg"
+          alt="images"
+          className="w-10 cursor-pointer"
+        />
       </SheetTrigger>
       <SheetContent
-        className="w-[100vw] h-fit  bg-[#964CC3] top-20 left-1/2 -translate-x-1/2"
+        className="w-[100vw] h-fit bg-[#964CC3] top-20 left-1/2 -translate-x-1/2"
         style={{ minWidth: "80vw" }}
       >
         <div className=" flex flex-col gap-2 justify-center py-6">
@@ -40,7 +44,7 @@ export function Menu() {
             </SheetClose>
           ))}
         </div>
-        <SheetClose asChild className="absolute right-3 top-3">
+        <SheetClose asChild className="absolute right-3 top-3 cursor-pointer">
           {/* <img src="/images/close.svg" alt="" className="w-8 cursor-pointer" /> */}
         </SheetClose>
       </SheetContent>

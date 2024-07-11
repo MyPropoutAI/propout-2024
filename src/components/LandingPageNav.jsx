@@ -81,7 +81,11 @@ const LandingPageNav = () => {
           <div className="flex lg:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <img src="/images/menu-icon.svg" alt="" />
+                <img
+                  src="/images/menu-icon.svg"
+                  className="cursor-pointer"
+                  alt="hamburger"
+                />
               </SheetTrigger>
               <SheetContent>
                 <div className="flex flex-col text-white gap-2 my-2">

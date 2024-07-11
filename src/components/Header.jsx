@@ -72,7 +72,11 @@ const Header = () => {
               </div>
               <Sheet>
                 <SheetTrigger asChild>
-                  <img src="/images/menu-icon.svg" alt="" />
+                  <img
+                    src="/images/menu-icon.svg"
+                    className="cursor-pointer"
+                    alt="images"
+                  />
                 </SheetTrigger>
                 <SheetContent>
                   <div className="flex flex-col text-white gap-2 my-2">
