@@ -145,7 +145,7 @@ const Register = () => {
               type="submit"
               disables={loading}
             >
-              {loading ? "" : "Register"}
+              {loading ? "" : "Sign up"}
 
               {loading && (
                 <Rings
@@ -160,7 +160,7 @@ const Register = () => {
             </Button>
           </form>
           <p className="text-center">
-            Already have an account?
+            Already have an account?{"  "}
             <Link to="/auth/login">
               <span className="text-[#9C0AE1] cursor-pointer">Login</span>
             </Link>

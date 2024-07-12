@@ -135,7 +135,7 @@ const Login = () => {
             </Button>
           </form>
           <p className="text-center">
-            Don&apos;t have an account?
+            Don&apos;t have an account?{" "}
             <Link to="/auth/register">
               <span className="text-[#9C0AE1] cursor-pointer">Sign up</span>
             </Link>
