@@ -18,18 +18,10 @@ const tokens = [
     name: "ETHEREUM",
     logo: <FaEthereum />,
   },
-  // {
-  //   name: "BNB",
-  //   logo: <RiBnbFill />,
-  // },
-  // {
-  //   name: "SOLANA",
-  //   logo: <SiSolana />,
-  // },
 ];
 const Swapbox = () => {
   return (
-    <div className=" min-h-screen/50 mx-auto px-4 md:w-[600px] text-white ">
+    <div className="min-h-screen/50 mx-auto w-[320px] px-4 md:w-[600px] text-white ">
       <div className="bg-[#2A0144] flex flex-col items-center justify-center rounded-md  px-10 py-10">
         <h1 className="text-xl text-center pb-2">Swap Any Asset</h1>
 
@@ -71,7 +63,7 @@ const Swapbox = () => {
             <div className=" rounded-md mx-5 my-3">
               <Button
                 size="lg"
-                className=" bg-btnGrad text-white lg mt-4 rounded-md text-xl flex justify-center items-center gap-2 w-full "
+                className="bg-btnGrad text-white w-full mt-4 rounded-md text-xl flex justify-center items-center gap-2 "
               >
                 <img src="/images/Vector-1.svg" alt="" />
                 Connect wallet
