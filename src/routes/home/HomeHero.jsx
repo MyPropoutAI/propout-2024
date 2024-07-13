@@ -1,37 +1,15 @@
 import { Link } from "react-router-dom";
 import Hero from "../../components/Hero";
 import { Button } from "../../components/ui/button";
+import "react-awesome-slider/dist/styles.css";
+import Combobox2 from "../../components/Combobox";
+
+//UN-USED
 import { Combobox } from "../../components/ui/combobox";
 import AwesomeSlider from "react-awesome-slider";
-import "react-awesome-slider/dist/styles.css";
-
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import { cn } from "../../lib/utils";
-
-// const messages = ["Homeownership", "Real Estate", "New Possibilities"];
-
-// const marquee = keyframes`
-//   0% { transform: translateX(100%); }
-//   100% { transform: translateX(-100%); }
-// `;
-
-// const MarqueeText = styled.div`
-//   display: inline-block;
-//   white-space: nowrap;
-//   animation: ${marquee} 10s linear infinite;
-// `;
-
-// const MarqueeWrapper = styled.div`
-//   overflow: hidden;
-//   white-space: nowrap;
-// `;
-
-// const messages = [
-//   "Homeownership",
-//   "Real Estate ",
-//   // " New Possibilities"
-// ];
 
 const TextContent = ({ children, className }) => (
   <div
@@ -56,22 +34,6 @@ const HomeHero = () => {
         <TextContent className="mt-36 max-md:mt-6 font-extrabold">
           Welcome to the Future of
         </TextContent>
-
-        {/* <div>
-          <MarqueeWrapper>
-            <TransitionGroup>
-              {messages.map((message, index) => (
-                <CSSTransition key={index} timeout={500} classNames="fade">
-                  <MarqueeText>
-                    <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] overflow-hidden  max-md:text-4xl font-extrabold ">
-                      <GradientText>Homeownership</GradientText>
-                    </div>
-                  </MarqueeText>
-                </CSSTransition>
-              ))}
-            </TransitionGroup>
-          </MarqueeWrapper>
-        </div> */}
 
         <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap w-[550px] max-md:text-4xl font-extrabold ">
           <GradientText>Home ownership</GradientText>
@@ -99,45 +61,7 @@ const HomeHero = () => {
             alt=""
             className="w-full max-w-[500px] mx-auto"
           />
-          <div className="p-4 md:p-6 bg-white gap-5 flex flex-wrap justify-center">
-            <Combobox
-              options={[
-                {
-                  value: "abuja",
-                  label: "Abuja",
-                },
-              ]}
-              trigger={"Choose area"}
-              search={"area"}
-              className="flex-1"
-            />
-            <Combobox
-              options={[
-                {
-                  value: "good",
-                  label: "Good",
-                },
-              ]}
-              trigger={"Property status"}
-              search={"status"}
-              className="flex-1"
-            />
-            <Combobox
-              options={[
-                {
-                  value: "abuja",
-                  label: "Abuja",
-                },
-              ]}
-              trigger={"Property type"}
-              search={"type"}
-              className="flex-1"
-            />
-
-            <Button className="hover:shadow-md px-10 rounded-md flex-1">
-              Find now
-            </Button>
-          </div>
+          <Combobox2 />
         </div>
       </div>
     </Hero>
