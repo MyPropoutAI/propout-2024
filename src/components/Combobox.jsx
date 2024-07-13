@@ -11,7 +11,7 @@ const Combobox2 = () => {
             label: "Abuja",
           },
         ]}
-        trigger={"Choose area"}
+        trigger={"Location "}
         search={"area"}
         className="flex-1"
       />
@@ -22,7 +22,7 @@ const Combobox2 = () => {
             label: "Good",
           },
         ]}
-        trigger={"Property status"}
+        trigger={"Property Type"}
         search={"status"}
         className="flex-1"
       />
@@ -33,7 +33,7 @@ const Combobox2 = () => {
             label: "Abuja",
           },
         ]}
-        trigger={"Property type"}
+        trigger={"Budget"}
         search={"type"}
         className="flex-1"
       />

@@ -65,18 +65,6 @@ const Agent = () => {
           <div>
             <Tabs defaultValue="Property Listed" className="">
               <TabsList className="md:w-full flex gap-1 md:gap-3 ">
-                {/* <TabsTrigger
-                  value="Assets"
-                  className={cn(
-                    "flex-1 md:font-bold text-[13px] md:text-[17px]",
-                    activeTab == "Assets"
-                      ? "bg-[#964CC3] text-white"
-                      : "bg-white text-[#964CC3]"
-                  )}
-                  onClick={() => setActiveTab("Assets")}
-                >
-                  Assets
-                </TabsTrigger> */}
                 <TabsTrigger
                   value="Property Listed"
                   className={cn(

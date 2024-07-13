@@ -13,7 +13,7 @@ const Footer = () => {
             </div>
             <p>Own properties on Propout, and flip at your convenience. </p>
             <p>
-              We've enabled properties and other real estate assets further
+              We&apos;ve enabled properties and other real estate assets further
               visibility through the Prop-tech digital market. Hence a safe and
               trusted tool for all kinds of real estate market
             </p>
