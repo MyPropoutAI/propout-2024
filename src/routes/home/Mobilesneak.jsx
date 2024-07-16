@@ -6,7 +6,7 @@ const Mobilesneak = () => {
       <div className="absolute inset-0 bg-slate-900 opacity-90 -z-20" />
       <Wrapper>
         <div className="text-center text-white py-5 md:py-10 pb-14">
-          <p className="text-2xl md:text-4xl font-[700] leading-snug max-w-[400px] mx-auto leading-snug">
+          <p className="text-2xl md:text-4xl font-[700] max-w-[400px] mx-auto leading-snug">
             Our Mobile Application sneak peek
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-10">

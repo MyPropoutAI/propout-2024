@@ -61,7 +61,7 @@ const HomeHero = () => {
             alt=""
             className="w-full max-w-[500px] mx-auto"
           />
-          <Combobox2 />
+          {/* <Combobox2 /> */}
         </div>
       </div>
     </Hero>
