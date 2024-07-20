@@ -1,38 +1,14 @@
-import { useSendTransaction } from "thirdweb/react";
-import { prepareContractCall, resolveMethod } from "thirdweb";
-import { contract } from "./utils";
+import { createThirdwebClient, getContract } from "thirdweb";
+import { defineChain } from "thirdweb";
 
-export const useListProperty = () => {
-  const { mutate: sendTransaction, isLoading, isError } = useSendTransaction();
+const client = createThirdwebClient({
+  clientId: "1639134fe6d77249631aa361f3a9cbe1",
+});
 
-  const listProperty = async (form) => {
-    const {
-      _propertyTitle,
-      price,
-      _description,
-      _images,
-      _propertyAddress,
-      owner,
-    } = form;
+export const chain = defineChain(4202);
 
-    const transaction = await prepareContractCall({
-      contract,
-      method: resolveMethod("listProperty"),
-      params: [
-        owner,
-        price,
-        _propertyTitle,
-        _images,
-        _propertyAddress,
-        _description,
-      ],
-    });
-    console.log(transaction);
-
-    // const { transactionHash } = await sendTransaction(transaction);
-
-    // return { transactionHash, isLoading, isError };
-  };
-
-  return { listProperty, isLoading, isError };
-};
+export const listingContract = getContract({
+  client,
+  chain,
+  address: "0x256C11fB5d8fe8BBae40F3Bf524fBdb8edCfc860",
+});

@@ -17,7 +17,7 @@ import {
 import { Button } from "./ui/button";
 
 const links = [
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
   // { name: "Get token", path: "https://app.optimism.io/faucet", state: !true },
   {
     name: "Generate E-Flyer",
@@ -73,8 +73,8 @@ const mobileNav = [
     path: "/dashboard/setting",
     img: "/images/setting.svg",
   },
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
+  // { name: "Faucet", path: "/home/testnet/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -99,7 +99,11 @@ const AuthHeader = () => {
           </Link>
           <div className="lg:flex text-lg gap-5 hidden">
             {links.map((link, i) => (
-              <Link key={i} to={link.path}>
+              <Link
+                key={i}
+                to={link.path}
+                target={link.name == "Faucet" ? "_blank" : "_self"}
+              >
                 {link.name}
               </Link>
             ))}
@@ -128,7 +132,11 @@ const AuthHeader = () => {
               <SheetContent>
                 <div className="flex flex-col text-white gap-2 my-2">
                   {mobileNav.map((link, i) => (
-                    <Link key={i} to={link.path}>
+                    <Link
+                      key={i}
+                      to={link.path}
+                      target={link.name == "Faucet" ? "_blank" : "_self"}
+                    >
                       <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
                         {link.name}
                       </div>

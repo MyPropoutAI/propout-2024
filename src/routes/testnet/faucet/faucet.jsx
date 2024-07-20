@@ -13,8 +13,7 @@ const Faucet = () => {
   const [receiver, setReceiver] = useState("");
   const [isAddressValid, setIsAddressValid] = useState(!true);
 
-  const private_Key =
-    "0xb79ccd1b062531869010ac01ed261c26e67f6ef623072818b57c0f25cfe63ffa";
+  const private_Key = import.meta.env.VITE_WALLET_PRIVATE_KEY_FOR_FAUCET;
 
   const handleInput = (e) => {
     setReceiver(e.target.value);
