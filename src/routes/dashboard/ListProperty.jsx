@@ -138,7 +138,7 @@ const ListProperty = () => {
       if (!res) {
         throw new Error("property not uploaded to database");
       }
-      console.log(res, "uploaded data");
+      console.log("uploaded data", res);
       return transaction;
     } catch (error) {
       console.error("Error uploading images or sending transaction: ", error);

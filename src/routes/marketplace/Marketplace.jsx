@@ -19,15 +19,30 @@ import { listingContract } from "../../lib/utils";
 import { resolveMethod } from "thirdweb";
 import Rentsample from "../../components/Rentsample";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Marketplace = () => {
+  const [propertiesData, setPropertiesData] = useState([]);
   const { data, isLoading } = useReadContract({
     contract: listingContract,
     method: resolveMethod("getAllProperties"),
     params: [],
   });
 
-  console.log(data);
+  const getPoperties = async () => {
+    try {
+      const res = await fetch("https://proput-db.onrender.com/all");
+      const propertyData = await res.json();
+      console.log("database property", propertyData);
+      setPropertiesData(propertyData.listing);
+      return propertyData;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getPoperties();
+
+  console.log(propertiesData);
   return (
     <div className="bg-[#2A0144] bg-hero bg-repeat-y bg-center">
       <div className="bg-white py-5 rounded-md">
