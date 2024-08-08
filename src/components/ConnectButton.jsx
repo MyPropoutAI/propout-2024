@@ -1,6 +1,6 @@
 import { ConnectButton } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
-import { createThirdwebClient, defineChain } from "thirdweb";
+import { createThirdwebClient } from "thirdweb";
 
 import { useActiveWallet } from "thirdweb/react";
 
@@ -19,12 +19,12 @@ const client = createThirdwebClient({
 });
 export const Connect = () => {
   const wallet = useActiveWallet();
+  console.log(chain);
   return (
     <div className="relative">
       <ConnectButton
         wallets={wallets}
         client={client}
-        // chain={fuse}
         chain={chain}
         autoConnect={{ timeout: 10000 }}
         switchButton={{

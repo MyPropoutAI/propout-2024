@@ -18,8 +18,8 @@ import {
 } from "./ui/sheet";
 
 const mobileNav = [
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+
   { name: "Explore Propout", path: "/home/list", state: true },
   {
     name: "Join the waitlist",
@@ -52,7 +52,9 @@ const Header = () => {
               />
               <img src="/images/dropdown.svg" alt="" className="w-4" />
             </div> */}
-              <Link to="https://app.optimism.io/faucet">Get token</Link>
+              <Link to="https://sepolia-faucet.lisk.com/" target="_blank">
+                Get token
+              </Link>
 
               <Button variant="propout" size="default">
                 <Link to="/home/list">Explore Propout</Link>

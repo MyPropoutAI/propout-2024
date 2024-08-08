@@ -56,7 +56,11 @@ const Leftsidebar = () => {
     <div className="flex flex-col justify-between gap-10 bg-white p-4 text-[12px] rounded-md font-semibold text-[#320051] w-[200px]">
       <div className="flex flex-col gap-2">
         {links.map((item) => (
-          <Link to={item.path} className="flex items-center gap-1">
+          <Link
+            to={item.path}
+            className="flex items-center gap-1"
+            key={item.name}
+          >
             <div
               className={`${
                 pathname == item.path && "bg-[#964DC3]"
@@ -73,7 +77,7 @@ const Leftsidebar = () => {
             <span
               className={`${
                 pathname == item.path && activeLink
-              } flex-1 h-full flex items-center px-2 rounded-sm`}
+              } flex-1 h-full flex items-center p-1 px-2 rounded-md`}
             >
               {item.name}
             </span>

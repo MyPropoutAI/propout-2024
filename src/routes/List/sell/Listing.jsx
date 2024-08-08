@@ -10,7 +10,7 @@ import { ethers } from "ethers";
 import { useConnectionStatus, ConnectWallet } from "@thirdweb-dev/react";
 import { toast } from "sonner";
 import { prepareContractCall, resolveMethod } from "thirdweb";
-import { listingContract } from "../../../lib/utils";
+import { listingContract } from "../../../lib/constants";
 import { TransactionButton } from "thirdweb/react";
 
 // import { useNavigate } from "react-router-dom";

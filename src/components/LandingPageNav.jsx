@@ -10,11 +10,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+import { util } from "zod";
 
 const mobileNav = [
   { name: "Home", path: "/" },
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+
   { name: "Explore Propout", path: "/home/list", state: true },
   {
     name: "Join the waitlist",
@@ -26,8 +27,8 @@ const navLink = [
   { name: "Home", path: "/" },
   // { name: "Blog", path: "/blog" },
   { name: "Explore Propout", path: "/home/list" },
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -63,7 +64,12 @@ const LandingPageNav = () => {
             <div className="flex space-x-2 items-center">
               {navLink.map((url, i) => (
                 <Button key={i} variant="ghost">
-                  <Link to={url.path}>{url.name}</Link>
+                  <Link
+                    to={url.path}
+                    target={url.name == "Faucet" ? "_blank" : "_self"}
+                  >
+                    {url.name}
+                  </Link>
                 </Button>
               ))}
             </div>
@@ -90,7 +96,11 @@ const LandingPageNav = () => {
               <SheetContent>
                 <div className="flex flex-col text-white gap-2 my-2">
                   {mobileNav.map((link, i) => (
-                    <Link key={i} to={link.path}>
+                    <Link
+                      key={i}
+                      to={link.path}
+                      target={link.name == "Faucet" ? "_blank" : "_self"}
+                    >
                       <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
                         {link.name}
                       </div>
