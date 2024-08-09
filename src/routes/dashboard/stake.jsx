@@ -36,7 +36,7 @@ const Stake = () => {
   }
 
   return (
-    <div className="w-[90%] md:w-full max-w-[600px] rounded-2xl  bg-[#2A0144] p-10">
+    <div className="w-[90%] md:w-full max-w-[100%] rounded-2xl  bg-[#2A0144] p-10">
       <p className="text-white text-center text-xl md:text-2xl">Add Stake</p>
 
       <div className="mt-10 bg-[#40105d] p-4 py-6 rounded-2xl text-white text-lg font-semibold">
@@ -46,7 +46,7 @@ const Stake = () => {
             <span>{bal} Lisk</span>
           </p>
         </div>
-        <div className="rounded-xl bg-[#964CC380] p-3 mt-2 flex items-center gap-3">
+        <div className="rounded-xl bg-[#964CC380] p-3 mt-2 flex items-center gap-3 w-[100%]">
           <img
             src="/images/lisk-logo-3.svg"
             alt=""
@@ -55,7 +55,7 @@ const Stake = () => {
           <input
             type="number"
             placeholder="0.0 Lisk"
-            className="bg-transparent flex-1 outline-none"
+            className="bg-transparent outline-none w-[90%]"
             value={stakeAmount}
             onChange={(e) => setStakeAmount(parseFloat(e.target.value))}
           />
@@ -106,7 +106,7 @@ const Stake = () => {
             <input
               type="number"
               placeholder="90"
-              className="bg-transparent flex-1 outline-none"
+              className="bg-transparent flex-1 outline-none w-[60%]"
             />
             <p className="text-gray-400">DAYS</p>
           </div>
