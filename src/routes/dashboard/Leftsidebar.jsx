@@ -25,7 +25,7 @@ const links = [
   },
   {
     name: " Stake ",
-    path: "/home/testnet/stake",
+    path: "/testnet/stake",
     img: "/images/stake.svg",
   },
   {

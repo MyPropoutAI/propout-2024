@@ -45,6 +45,8 @@ import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
 import About from "../routes/page/About";
 
+import TestnetRoot from "../routes/testnet/root";
+
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
 // import Signup from "../routes/onboarding/Signup";
@@ -61,10 +63,20 @@ export const router = createBrowserRouter([
       { path: "/road-map", element: <RoadMap /> },
       { path: "/guide", element: <Guide /> },
       // {
+      //   path: "/testnet",
+      //   element: <TestnetRoot />,
+      //   children: [{ path: "stake", element: <Stake /> }],
+      // },
+      // {
       //   path: "/property-description",
       //   element: <Propertydesc />,
       // },
     ],
+  },
+  {
+    path: "/testnet",
+    element: <TestnetRoot />,
+    children: [{ path: "stake", element: <Stake /> }],
   },
 
   {
@@ -72,8 +84,6 @@ export const router = createBrowserRouter([
     element: <Root />,
     errorElement: <NotFound />,
     children: [
-      // { index: true, element: <Home /> },
-      // { path: "/", element: <Index /> },
       { path: "/home", element: <Home /> },
       {
         path: "/home/list",
@@ -92,19 +102,18 @@ export const router = createBrowserRouter([
         path: "/home/about",
         element: <About />,
       },
-
-      {
-        path: "/home/testnet/faucet",
-        element: <Faucet />,
-      },
-      {
-        path: "/home/testnet/swap",
-        element: <Swap />,
-      },
-      {
-        path: "/home/testnet/stake",
-        element: <Stake />,
-      },
+      // {
+      //   path: "/home/testnet/faucet",
+      //   element: <Faucet />,
+      // },
+      // {
+      //   path: "/home/testnet/swap",
+      //   element: <Swap />,
+      // },
+      // {
+      //   path: "/home/testnet/stake",
+      //   element: <Stake />,
+      // },
       {
         path: "/home/marketplace",
         element: <Marketplace />,

@@ -19,7 +19,7 @@ const client = createThirdwebClient({
 });
 export const Connect = () => {
   const wallet = useActiveWallet();
-  console.log(chain);
+
   return (
     <div className="relative">
       <ConnectButton

@@ -4,7 +4,7 @@ import Wrapper from "./Wrapper";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#320051]">
+    <footer className="bg-[#320051] ">
       <Wrapper>
         <div className="flex flex-col lg:flex-row justify-between gap-10 py-10 bg-[#320051]">
           <section className="flex-1 text-white">

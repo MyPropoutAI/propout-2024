@@ -7,7 +7,7 @@ import { FaBitcoin, FaEthereum } from "react-icons/fa";
 
 const tokens = [
   {
-    name: "FUSE",
+    name: "LISK",
     logo: <FaBitcoin />,
   },
   {

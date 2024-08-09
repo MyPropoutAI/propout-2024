@@ -1,20 +1,13 @@
 import { Link } from "react-router-dom";
 import { Connect } from "./ConnectButton";
-//import { Button } from "./ui/button";
-//import Wrapper from "./Wrapper";
+
 import User from "./User";
 import jwt from "jsonwebtoken";
-//import { useAuthContext } from "../contexts/hooks/useAuthcontext";
+
 import { useSelector } from "react-redux";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+
+import { cn } from "../lib/utils";
 
 const links = [
   { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
@@ -82,16 +75,21 @@ const mobileNav = [
   },
 ];
 
-const AuthHeader = () => {
+const AuthHeader = ({ bg }) => {
   const user = useSelector((state) => state.auth.user);
-  //console.log(user);
+
   const userToken = user;
   const decodedUser = jwt.decode(userToken);
-  //console.log(decodedUser);
+
   const userAvartar = decodedUser.name.substring(0, 2);
-  //console.log(userAvartar);
+
   return (
-    <div className="bg-white sticky top-0 z-10 text-black px-6">
+    <div
+      className={cn(
+        "sticky top-0 z-10 text-black px-6",
+        bg ? `!text-white ${bg} py-1` : "bg-white"
+      )}
+    >
       <div className="flex justify-between items-center text-whit">
         <div className="flex items-center gap-10">
           <Link to={"/home"}>

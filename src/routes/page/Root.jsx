@@ -8,7 +8,7 @@ const PageRoot = () => {
   return (
     <div>
       <LandingPageNav />
-      <div className="min-h-[60vh]">
+      <div className="">
         <Outlet />
       </div>
       <div className="fixed top-[40%] -translate-y-1/2 right-4">

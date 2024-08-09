@@ -13,7 +13,7 @@ const DashboardRoot = () => {
         <div className="hidden  md:block">
           <Leftsidebar />
         </div>
-        <div className="flex-1 ">
+        <div className="flex-1">
           <Outlet />
         </div>
         <div className="hidden lg:block ">
