@@ -6,29 +6,25 @@ import { TransactionButton } from "thirdweb/react";
 import { prepareContractCall, resolveMethod } from "thirdweb";
 import { toast } from "sonner";
 import axios from "axios";
-import { cn, listingContract } from "../../lib/utils";
+import { cn } from "../../lib/utils";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { PropertyType, ListType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Countries } from "../../lib/Countries";
-import Swal from "sweetalert2";
-// import ethers
+import { listingContract } from "../../lib/constants";
 
 const ListProperty = () => {
-  const userJwt =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJlZjg1YWQ3Yi00MWQ5LTRjNWUtOTk4Zi1lMWQ1ZWRlMzIyMDUiLCJlbWFpbCI6Im9kZWRpcmFuaWZlb2x1d2E3QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiIxN2U5OWFiMWZmOWQ0Y2ZlNWQwMCIsInNjb3BlZEtleVNlY3JldCI6ImIzNjI4MzllMDdhZTQ1ODkzN2RmYzZmMWUzMjFlNTYyM2RiN2Y1OTFmNmQ4OGZmYWM2OGY1Y2JkN2NhMmYzMGIiLCJpYXQiOjE3MTY0MjU4MjR9.6TT4-F72YEzTFQeNDtBlM5wwGZ3z9_nw6H2gvjtHJCI";
+  const userJwt = import.meta.env.VITE_IPFS_JWT;
 
-  // const gateway = "https://white-active-whippet-173.mypinata.cloud/ipfs/"
+  // Initialize state with one empty slot
+  const [images, setImages] = useState([null]);
+  const [imageURLs, setImageURLs] = useState([""]);
 
-  const [images, setImages] = useState([]);
-  const [imageURLs, setImageURLs] = useState([]);
-  // const account = useActiveAccount();
   const user = useSelector((state) => state.auth.user);
-  const verified = useSelector((state) => state.auth.isVerified);
 
   const decodedUser = jwt.decode(user);
-  //console.log(decodedUser.id);
+
   const userAvartar = decodedUser.name.substring(0, 2);
 
   const [form, setForm] = useState({
@@ -89,13 +85,6 @@ const ListProperty = () => {
   };
 
   const handleSubmission = async () => {
-    // Swal.fire({
-    //   icon: "error",
-    //   title: "Oops...",
-    //   text: "You need to compleate your verification before you can list a property",
-    //   footer: '<a href="/dashboard/verification">Verify you account</a>',
-    // });
-
     try {
       const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
       const transaction = prepareContractCall({
@@ -138,7 +127,6 @@ const ListProperty = () => {
       if (!res) {
         throw new Error("property not uploaded to database");
       }
-      console.log("uploaded data", res);
       return transaction;
     } catch (error) {
       console.error("Error uploading images or sending transaction: ", error);
@@ -146,7 +134,6 @@ const ListProperty = () => {
   };
 
   const handleListingSuccessfull = async (trx) => {
-    //console.log(trx);
     toast("Success", {
       description: "Your property has been listed successfully",
       action: {
@@ -251,7 +238,7 @@ const ListProperty = () => {
             </div>
             <div>
               <select
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 "
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 onChange={(e) => handleFormChange("_property_type", e)}
               >
                 <option value="1">Property Type</option>
@@ -288,7 +275,6 @@ const ListProperty = () => {
             <div>
               <TransactionButton
                 transaction={handleSubmission}
-                // transaction={}
                 onTransactionConfirmed={(trx) => {
                   handleListingSuccessfull(trx);
                 }}
@@ -309,7 +295,7 @@ const ListProperty = () => {
           </div>
         </div>
         <div className="flex-[2]">
-          <div className=" bg-[#EBEBEB] rounded-lg">
+          <div className="bg-[#EBEBEB] rounded-lg">
             <p className="pt-5 text-center font-bold text-lg text-[#320051]">
               PREVIEW
             </p>

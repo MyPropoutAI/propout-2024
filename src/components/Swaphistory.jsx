@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -12,38 +11,38 @@ import {
 const transactions = [
   {
     date: "May 8, 4.30pm",
-    from: "FUSE",
+    from: "LISK",
     to: "USDT",
     address: "0x9cBe3..c13",
   },
   {
     date: "May 9, 12.30pm",
     from: "USDT",
-    to: "FUSE",
+    to: "LISK",
     address: "0x9cBe3..c13",
   },
   {
     date: "May 10, 2.30pm",
-    from: "FUSE",
+    from: "LISK",
     to: "USDT",
     address: "0x9cBe3..c13",
   },
   {
     date: "May 10, 2.30pm",
-    from: "FUSE",
+    from: "LISK",
     to: "USDT",
     address: "0x9cBe3..c13",
   },
   {
     date: "May 10, 2.30pm",
-    from: "FUSE",
+    from: "LISK",
     to: "USDT",
     address: "0x9cBe3..c13",
   },
   {
     date: "May 11, 12.30pm",
     from: "USDT",
-    to: "FUSE",
+    to: "LISK",
     address: "0x9cBe3..c13",
   },
 ];
@@ -51,27 +50,34 @@ const transactions = [
 const Swaphistory = () => {
   return (
     <div className="text-[#FFFF]/50">
-      <p className=" text-left text-white px-3 text-lg py-3">Recent trades</p>
+      <p className=" text-left text-gray-900 px-3 text-lg py-3">
+        Recent trades
+      </p>
       <hr />
 
-      <div>
+      <div className="w-full">
         <Table>
           <TableCaption>A list of your recent Transactions.</TableCaption>
-          <TableHeader className="text-[#FFFFFF]">
+          <TableHeader className="text-gray-900">
             <TableRow>
-              <TableHead className="">Date</TableHead>
-              <TableHead>From</TableHead>
-              <TableHead>To</TableHead>
-              <TableHead className="text-right">Address</TableHead>
+              <TableHead className="text-gray-900">Date</TableHead>
+              <TableHead className="text-gray-900">From</TableHead>
+              <TableHead className="text-gray-900">To</TableHead>
+              <TableHead className="text-right text-gray-900">
+                Address
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {transactions.map((items, index) => {
               return (
-                <TableRow className="md:text-[15px] text-[12px] font-light">
+                <TableRow
+                  key={index}
+                  className="md:text-[15px] text-[12px] font-light text-gray-700"
+                >
                   {
                     <TableCell
-                      className="md:font-medium font-light"
+                      className="md:font-medium font-light text-gray-700"
                       key={index}
                     >
                       {items.date}
@@ -79,7 +85,7 @@ const Swaphistory = () => {
                   }
                   {
                     <TableCell
-                      className="md:font-medium font-light"
+                      className="md:font-medium font-light text-gray-700"
                       key={index}
                     >
                       {items.from}
@@ -87,14 +93,14 @@ const Swaphistory = () => {
                   }
                   {
                     <TableCell
-                      className="md:font-medium font-light"
+                      className="md:font-medium font-light text-gray-700"
                       key={index}
                     >
                       {items.to}
                     </TableCell>
                   }
                   {
-                    <TableCell className="md:font-medium font-light text-right">
+                    <TableCell className="md:font-medium font-light text-right text-gray-700">
                       {items.address}
                     </TableCell>
                   }

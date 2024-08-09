@@ -1,6 +1,6 @@
 import { useReadContract } from "thirdweb/react";
 // import Card from "../marketplace/Card";
-import { listingContract } from "../../lib/utils";
+import { listingContract } from "../../lib/constants";
 import { resolveMethod } from "thirdweb";
 import Rentsample from "../../components/Rentsample";
 import { Link } from "react-router-dom";

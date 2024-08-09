@@ -1,10 +1,11 @@
 import { ConnectButton } from "thirdweb/react";
 import { Button } from "/src/components/ui/button";
-import { Connect } from "../../../components/ConnectButton";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { ethers } from "ethers";
+
+import { activeChainName } from "../../../lib/constants";
 
 const Faucet = () => {
   const [canClaim, setCanClaim] = useState(true);
@@ -53,7 +54,7 @@ const Faucet = () => {
         .sendTransaction(tx)
         .then((tx) => {
           toast("You have received 0.001 Lisk token", {
-            description: `View your transaction on Fuse Explorer`,
+            description: `View your transaction on ${activeChainName} Explorer`,
             action: {
               label: "View",
               onClick: () => {

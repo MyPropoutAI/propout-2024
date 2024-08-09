@@ -1,22 +1,13 @@
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useState } from "react";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Rentsample from "../../components/Rentsample";
 import { Link } from "react-router-dom";
 
-import { cn, listingContract } from "../../lib/utils";
+import { cn } from "../../lib/utils";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { resolveMethod } from "thirdweb";
+import { listingContract } from "../../lib/constants";
 
 const Myproperty = () => {
   const [activeTab, setActiveTab] = useState("property");

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Rentsample from "../../components/Rentsample";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import More from "./More";
-import { cn, listingContract } from "../../lib/utils";
+import { cn } from "../../lib/utils";
 import { Button } from "../../components/ui/button";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { resolveMethod } from "thirdweb";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
+import { listingContract } from "../../lib/constants";
 
 const Agent = () => {
   const [activeTab, setActiveTab] = useState("property");

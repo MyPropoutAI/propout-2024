@@ -15,7 +15,7 @@ import { Button } from "../../components/ui/button";
 import Card from "./Card";
 import { PropertyType } from "../../lib/PropertyType";
 import { useReadContract } from "thirdweb/react";
-import { listingContract } from "../../lib/utils";
+import { listingContract } from "../../lib/constants";
 import { resolveMethod } from "thirdweb";
 import Rentsample from "../../components/Rentsample";
 import { Link } from "react-router-dom";
@@ -30,20 +30,7 @@ const Marketplace = () => {
     params: [],
   });
 
-  const getPoperties = async () => {
-    try {
-      const res = await fetch("https://proput-db.onrender.com/all");
-      const propertyData = await res.json();
-      console.log("database property", propertyData);
-      setPropertiesData(propertyData.listing);
-      return propertyData;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getPoperties();
-
-  console.log(propertiesData);
+  console.log(data, "bingo");
   return (
     <div className="bg-[#2A0144] bg-hero bg-repeat-y bg-center">
       <div className="bg-white py-5 rounded-md">

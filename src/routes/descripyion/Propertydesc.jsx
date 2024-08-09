@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { Link, useParams } from "react-router-dom";
 import { useReadContract } from "thirdweb/react";
-import { listingContract } from "../../lib/utils";
+import { listingContract } from "../../lib/constants";
 import { resolveMethod } from "thirdweb";
 import { useNavigate } from "react-router-dom";
 

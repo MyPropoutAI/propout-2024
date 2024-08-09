@@ -1,4 +1,4 @@
-import { Button } from "../../components/ui/button";
+// import { Button } from "../../../components/ui/button";
 import Marquee, { Motion, randomIntFromInterval } from "react-marquee-slider";
 import times from "lodash/times";
 

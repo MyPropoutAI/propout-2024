@@ -7,7 +7,7 @@ import { FaBitcoin, FaEthereum } from "react-icons/fa";
 
 const tokens = [
   {
-    name: "FUSE",
+    name: "LISK",
     logo: <FaBitcoin />,
   },
   {
@@ -18,10 +18,14 @@ const tokens = [
     name: "ETHEREUM",
     logo: <FaEthereum />,
   },
+  {
+    name: "USDT",
+    logo: <FaEthereum />,
+  },
 ];
 const Swapbox = () => {
   return (
-    <div className="min-h-screen/50 mx-auto w-[320px] px-4 md:w-[600px] text-white ">
+    <div className="min-h-screen/50 mx-auto w-[95%] px-4 md:w-[600px] text-white ">
       <div className="bg-[#2A0144] flex flex-col items-center justify-center rounded-md  px-10 py-10">
         <h1 className="text-xl text-center pb-2">Swap Any Asset</h1>
 
