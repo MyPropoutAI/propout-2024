@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
+import { toast } from "sonner";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -24,9 +25,11 @@ export const useLogin = () => {
         }),
       });
       const json = await response.json();
+      //console.log(json);
       if (!json.success) {
         setError(json.error);
         setLoading(false);
+        return json;
       }
       if (json.success) {
         dispatch(login(json.success.token));

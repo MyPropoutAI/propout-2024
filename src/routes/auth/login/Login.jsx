@@ -15,6 +15,8 @@ import { useLogin } from "../../../contexts/hooks/useLogin";
 
 import { Rings } from "react-loader-spinner";
 import { LoginSchema } from "../../../lib/FormSchema";
+import { Toaster } from "../../../components/ui/sonner";
+import { toast } from "sonner";
 const Login = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
@@ -48,10 +50,18 @@ const Login = () => {
       //   }
       // );
 
-      await userLogin(data);
+      const res = await userLogin(data);
+      //console.log(res);
 
-      if (error) {
-        console.log(error);
+      if (res.error) {
+        console.log(res.error);
+        toast.error("Error", {
+          description: "Failed to login please try again",
+        });
+      } else {
+        toast.success("Successful", {
+          description: "Login Successful",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -145,6 +155,7 @@ const Login = () => {
           </div> */}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
