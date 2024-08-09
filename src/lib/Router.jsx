@@ -44,6 +44,7 @@ import Propertydesc from "../routes/descripyion/Propertydesc";
 import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
 import About from "../routes/page/About";
+import KycRoot from "../routes/kyc/Root";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -196,6 +197,16 @@ export const router = createBrowserRouter([
       {
         path: "/auth/register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/kyc",
+    element: <KycRoot />,
+    children: [
+      {
+        index: true,
+        element: <Overview />,
       },
     ],
   },

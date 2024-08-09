@@ -4,6 +4,8 @@ import { createThirdwebClient, defineChain } from "thirdweb";
 
 import { useActiveWallet } from "thirdweb/react";
 
+import { chain } from "../lib/constants";
+
 const wallets = [
   createWallet("io.metamask"),
   createWallet("com.coinbase.wallet"),
@@ -17,22 +19,13 @@ const client = createThirdwebClient({
 });
 export const Connect = () => {
   const wallet = useActiveWallet();
-
-  const fuse = defineChain({
-    id: 122,
-  });
-
-  const lisk = defineChain({
-    id: 4202,
-  });
-
   return (
     <div className="relative">
       <ConnectButton
         wallets={wallets}
         client={client}
         // chain={fuse}
-        chain={lisk}
+        chain={chain}
         autoConnect={{ timeout: 10000 }}
         switchButton={{
           label: "Wrong Network",

@@ -22,7 +22,7 @@ const Task = () => {
           </button>
         </div>
       </div>
-      <div className="bg-white mt-4 p-4 rounded-md">
+      <div className="bg-white mt-4 p-4 rounded-md overflow-hidden">
         <Socialtask />
       </div>
 

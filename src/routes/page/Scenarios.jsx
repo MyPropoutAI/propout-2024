@@ -42,8 +42,10 @@ const scenarios = [
 
 const items = scenarios.map((scenario) => {
   return (
-    <div key={scenario.title} className="min-w-[300px] border rounded-md">
-      <Button variant="orangeBTN">{scenario.title}</Button>
+    <div key={scenario.title} className="min-w-[300px] rounded-md">
+      <Button variant="orangeBTN" className="w-[90%]">
+        {scenario.title}
+      </Button>
       <div className="mt-5 flex flex-col gap-y-4 ">
         <ul className=" list-disc list-inside">
           {scenario.scenes.map((scene, i) => (
@@ -69,10 +71,12 @@ const Scenarios = () => {
             </p>
           </div>
 
-          <div className="flex  gap-[10%] justify-cener mt-16 overflow-auto scroll pb-8 px-[5%]">
+          <div className="flex gap-[10%] justify-center mt-16 overflow-auto scroll pb-8 px-[5%]">
             {/* {scenarios.map((scenario) => (
               <div key={scenario.title} className="min-w-[300px] ">
-                <Button variant="orangeBTN">{scenario.title}</Button>
+                <Button variant="orangeBTN" className="w-full">
+                  {scenario.title}
+                </Button>
                 <div className="mt-5 ">
                   <ul className=" list-disc list-inside">
                     {scenario.scenes.map((scene, i) => (
@@ -113,10 +117,11 @@ const Scenarios = () => {
             Here are few of the properties listed on propout, stand a chance of
             getting to your targeted audiences with propout.
           </p>
-          <Link to="/home/about"></Link>
-          <Button className="py-2 my-3  text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm">
-            Learn More...
-          </Button>
+          <Link to="/home/about">
+            <Button className="py-2 my-3  text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm">
+              Learn More...
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

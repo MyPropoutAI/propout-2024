@@ -1,5 +1,5 @@
 import { useReadContract } from "thirdweb/react";
-import Card from "../marketplace/Card";
+// import Card from "../marketplace/Card";
 import { listingContract } from "../../lib/utils";
 import { resolveMethod } from "thirdweb";
 import Rentsample from "../../components/Rentsample";

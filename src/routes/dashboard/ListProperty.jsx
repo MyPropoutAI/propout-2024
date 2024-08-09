@@ -153,7 +153,7 @@ const ListProperty = () => {
         label: "View",
         onClick: () => {
           window.open(
-            "https://explorer.fuse.io/tx/" + trx.transactionHash,
+            "https://sepolia-blockscout.lisk.com/tx/" + trx.transactionHash,
             "_blank"
           );
         },

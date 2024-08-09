@@ -1,4 +1,3 @@
-import React from "react";
 import Swaphistory from "../../../components/Swaphistory";
 import Swapbox from "../../dashboard/Swapbox";
 const Swap = () => {

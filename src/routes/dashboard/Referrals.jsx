@@ -1,8 +1,8 @@
-import React from "react";
+// import React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
+  // TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -84,9 +84,9 @@ const Referrals = () => {
           </TableRow>
         </TableHeader>
         {theReferrals.map((item) => (
-          <TableBody>
-            <TableRow>
-              <TableCell>
+          <TableBody key={item.points}>
+            <TableRow key={item.date}>
+              <TableCell key={item.name}>
                 <div className="text-[#2A0144] font-semibold">{item.name}</div>
                 <span className="text-[#2A0144]/35 text-[10px] flex gap-1 font-semibold">
                   <span> {item.date}</span>

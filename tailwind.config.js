@@ -42,6 +42,7 @@ module.exports = {
         main: "rgb(var(--background))",
         ring: "rgb(var(--ring))",
         orange: "rgb(var(--orange))",
+        orangeBtn: "rgba(236,167,17,1)",
         lilac: "#2A0144",
       },
       gridTemplateColumns: {

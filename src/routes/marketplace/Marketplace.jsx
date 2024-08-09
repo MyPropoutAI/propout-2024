@@ -19,7 +19,8 @@ import { listingContract } from "../../lib/utils";
 import { resolveMethod } from "thirdweb";
 import Rentsample from "../../components/Rentsample";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import Combobox2 from "../../components/Combobox";
+import { useState } from "react";
 
 const Marketplace = () => {
   const [propertiesData, setPropertiesData] = useState([]);
@@ -56,20 +57,14 @@ const Marketplace = () => {
           </div>
         </Container>
       </div>
+
+      <div className="flex justify-center my-4 rounded-md ">
+        <Combobox2 />
+      </div>
+
       <div className="my-10">
         <Container>
-          <div className=" relative">
-            <Input
-              placeholder=" search your property, location, type, or budget"
-              className="placeholder:text-right text-lg pr-20"
-            />
-            <FaMagnifyingGlass
-              color="gray"
-              size={20}
-              className=" absolute right-10 top-1/2 -translate-y-1/2"
-            />
-          </div>
-          <div className="my-10 p-10 max-w-[800px] mx-auto bg-white rounded-lg flex justify-center items-center gap-5 flex-wrap">
+          {/* <div className="my-10 p-10 max-w-[800px] mx-auto bg-white rounded-lg flex justify-center items-center gap-5 flex-wrap">
             <Select className="bg-white">
               <SelectTrigger className="w-[200px] bg-white text-lg">
                 <SelectValue placeholder="Property Type" className="bg-white" />
@@ -87,18 +82,8 @@ const Marketplace = () => {
               </SelectContent>
             </Select>
             <Button className="px-10 rounded-md text-white ">Find now</Button>
-          </div>
+          </div> */}
           <div className="grid grid-cols-three-columns gap-8 mt-10 justify-center">
-            {/* <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card /> */}
-
             {data?.map((item, i) => (
               <Link
                 to={`/home/property-description/${item.propertyId}`}

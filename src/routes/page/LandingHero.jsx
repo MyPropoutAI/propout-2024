@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/button";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import styled, { keyframes } from "styled-components";
 import { cn } from "../../lib/utils";
+import Combobox2 from "../../components/Combobox";
 
 // const messages = ["Homeownership", "Real Estate", "New Possibilities"];
 
@@ -66,21 +67,7 @@ const LandingHero = () => {
       <TextContent className="mt-36 max-md:mt-10 font-extrabold">
         Welcome to the Future of
       </TextContent>
-      {/* <div>
-        <MarqueeWrapper>
-          <TransitionGroup>
-            {messages.map((message, index) => (
-              <CSSTransition key={index} timeout={500} classNames="fade">
-                <MarqueeText>
-                  <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap min-w-[550px] max-md:text-4xl font-extrabold ">
-                    <GradientText>{message}</GradientText>
-                  </div>
-                </MarqueeText>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </MarqueeWrapper>
-      </div> */}
+
       <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap w-[550px] max-md:text-4xl font-extrabold ">
         <GradientText>Homeownership</GradientText>
       </div>
@@ -101,7 +88,7 @@ const LandingHero = () => {
           </Button>
         </Link>
       </div>
-
+      {/* 
       <div className="p-4 mb-[-8rem] shadow-md mt-[2rem] z-10 md:p-6 bg-white space-x-4 flex flex-wrap justify-center rounded-md">
         <Combobox
           options={[
@@ -140,7 +127,9 @@ const LandingHero = () => {
         <Button className="hover:shadow-md h-[3rem] text-[18px] bg-gradient-to-r from-blue-500 to-purple-500 text-white ">
           Find now
         </Button>
-      </div>
+      </div> */}
+
+      {/* <Combobox2 /> */}
     </div>
   );
 };
