@@ -2,46 +2,56 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
+import { cn } from "../../lib/utils";
+
 const links = [
   {
     name: "Overview",
     path: "/dashboard",
     img: "/images/overview.svg",
+    status: true,
   },
   {
     name: " List Property",
     path: "/dashboard/list",
     img: "/images/List-p.svg",
+    status: true,
   },
   {
     name: " My Property",
     path: "/dashboard/properties",
     img: " /images/my-p.svg",
+    status: true,
   },
   {
     name: " Swap",
     path: "/home/testnet/swap",
     img: "/images/swap.svg",
+    status: false,
   },
   {
     name: " Stake ",
     path: "/testnet/stake",
     img: "/images/stake.svg",
+    status: true,
   },
   {
     name: "Task",
     path: "/dashboard/task",
     img: "/images/task.svg",
+    status: true,
   },
   {
     name: " Refer a friend",
     path: "/dashboard/referral",
     img: "/images/refer.svg",
+    status: true,
   },
   {
     name: "Settings",
     path: "/dashboard/setting",
     img: "/images/setting.svg",
+    status: true,
   },
 ];
 
@@ -58,13 +68,18 @@ const Leftsidebar = () => {
         {links.map((item) => (
           <Link
             to={item.path}
-            className="flex items-center gap-1"
+            className={cn(
+              "flex items-center gap-1",
+              !item.status && "opacity-40 cursor-not-allowed"
+            )}
             key={item.name}
+            title={!item.status && "coming soon"}
           >
             <div
               className={`${
                 pathname == item.path && "bg-[#964DC3]"
               } w-7 rounded-lg`}
+              title={!item.status && "coming soon"}
             >
               <img
                 src={item.img}
