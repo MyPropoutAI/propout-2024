@@ -164,6 +164,8 @@ const Stake = () => {
 
         <div className="mt-10">
           <TransactionBtn
+            transaction={() => {}}
+            onTransactionConfirmed={() => {}}
             text="Stake"
             style={{
               backgroundImage: "linear-gradient(to right, #C064F8, #FF087F)",
