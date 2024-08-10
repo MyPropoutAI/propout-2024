@@ -43,12 +43,12 @@ const mobileNav = [
   },
   {
     name: " Swap",
-    path: "/home/testnet/swap",
+    path: "/dashboard/swap",
     img: "/images/swap.svg",
   },
   {
     name: " Stake ",
-    path: "/home/testnet/stake",
+    path: "/dashboard/stake",
     img: "/images/stake.svg",
   },
   {
