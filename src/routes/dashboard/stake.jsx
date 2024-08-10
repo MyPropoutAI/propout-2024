@@ -36,7 +36,7 @@ const Stake = () => {
   }
 
   return (
-    <div className="w-[90%] md:w-full max-w-[100%] rounded-2xl  bg-[#2A0144] p-10">
+    <div className="w-[100%] md:w-full max-w-[100%] rounded-2xl  bg-[#2A0144] p-10">
       <p className="text-white text-center text-xl md:text-2xl">Add Stake</p>
 
       <div className="mt-10 bg-[#40105d] p-4 py-6 rounded-2xl text-white text-lg font-semibold">
