@@ -2,7 +2,7 @@ import React from "react";
 
 const Socialtask = () => {
   return (
-    <div className="grid gris-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-center">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-center">
       <img src="/images/socialtask.svg" alt="" />
       <img src="/images/socialtask.svg" alt="" />
       <img src="/images/socialtask.svg" alt="" />

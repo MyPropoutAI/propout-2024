@@ -32,6 +32,7 @@ export const useSignup = () => {
         setError(json.error);
         setLoading(false);
         console.log(error);
+        return json;
       }
       if (json.success) {
         // console.log(json);

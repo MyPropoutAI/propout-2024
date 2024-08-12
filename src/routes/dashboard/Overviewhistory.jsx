@@ -70,8 +70,8 @@ const History = [
 
 const Overviewhistory = () => {
   return (
-    <div>
-      <Table>
+    <div className="">
+      <Table className=" overflow-x-auto ">
         <TableHeader>
           <TableRow className="font-semibold text-[#2A0144]">
             <TableHead className="w-[200px]">Transaction History</TableHead>
@@ -80,8 +80,8 @@ const Overviewhistory = () => {
             <TableHead className="text-">Point</TableHead>
           </TableRow>
         </TableHeader>
-        {History.map((item) => (
-          <TableBody>
+        {History.map((item, index) => (
+          <TableBody key={index}>
             <TableRow>
               <TableCell>
                 <div className="text-[#2A0144] font-semibold">{item.name}</div>

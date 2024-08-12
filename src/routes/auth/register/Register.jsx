@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 
 import { useSignup } from "../../../contexts/hooks/useSignup";
+import { Toaster } from "../../../components/ui/sonner";
+import { toast } from "sonner";
 
 const Register = () => {
   const [showPw, setShowPw] = useState(false);
@@ -22,7 +24,7 @@ const Register = () => {
 
   const { signup, error, loading } = useSignup();
   // const queryClient = useQueryClient();
-  const toast = useToast();
+  // const toast = useToast();
 
   const handlePassword = () => {
     if (pwType == "password") {
@@ -42,10 +44,17 @@ const Register = () => {
   const onSubmit = async (data) => {
     //console.log(data.password);
 
-    await signup(data);
-    if (error) {
-      console.log(error);
-      toast.error(error);
+    const res = await signup(data);
+    if (res.error) {
+      console.log(res.error);
+      toast.error("Error", {
+        description: "Failed to sign up please try again",
+      });
+    } else {
+      toast.success("Success", {
+        description: "Signed up successfully",
+      });
+      // queryClient.invalidateQueries("user");
     }
   };
   return (
@@ -170,6 +179,7 @@ const Register = () => {
           </div> */}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
