@@ -169,7 +169,7 @@ const Stake = () => {
 
         {/* reward */}
 
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <p>You will receive</p>
           <div className="rounded-xl bg-[#964CC380] p-3 mt-2 flex items-center gap-3">
             <img src="/images/pro2 1.svg" alt="" className="size-8  " />
@@ -181,7 +181,7 @@ const Stake = () => {
               onChange={(e) => setStakeAmount(parseFloat(e.target.value))}
             />
           </div>
-        </div>
+        </div> */}
 
         {/* info */}
 
