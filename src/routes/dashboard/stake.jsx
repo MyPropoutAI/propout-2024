@@ -1,9 +1,12 @@
-import { useActiveAccount } from "thirdweb/react";
-import { chain, client } from "../../lib/constants";
+import { useActiveAccount, useReadContract } from "thirdweb/react";
+import { chain, client, stakingContract } from "../../lib/constants";
 
 import { getWalletBalance } from "thirdweb/wallets";
 import { useEffect, useState } from "react";
 import TransactionBtn from "../../components/TransactionBtn";
+import { prepareContractCall, toEther, toWei } from "thirdweb";
+import { toast } from "sonner";
+import { ethers } from "ethers";
 
 const Stake = () => {
   const account = useActiveAccount();
@@ -11,7 +14,11 @@ const Stake = () => {
   const [bal, setBal] = useState("0.00");
 
   const [stakeAmount, setStakeAmount] = useState(0);
-  const [duration, setDuration] = useState(90);
+
+  const [duration, setDuration] = useState({
+    day: 90,
+    daysInEpochTime: 7776000,
+  });
 
   async function getBalance() {
     if (account) {
@@ -40,33 +47,11 @@ const Stake = () => {
     setDuration(days);
   }
 
-  function calculateExpectedReward(amount, stakingPeriod) {
-    // Get reward rate and total supply
-    const rewardRateNormal = BigInt("321502057613168724") / BigInt("1e18");
-    const totalSupply = 10000000;
-
-    // Convert rewardRate from scaled value to normal value
-    // const rewardRateNormal = rewardRate / 1e18;
-
-    // Calculate staking duration in seconds based on the staking period selected
-    let stakingDurationInSeconds;
-
-    if (stakingPeriod === 90) {
-      stakingDurationInSeconds = 90 * 24 * 60 * 60;
-    } else if (stakingPeriod === 180) {
-      stakingDurationInSeconds = 180 * 24 * 60 * 60;
-    } else if (stakingPeriod === 365) {
-      stakingDurationInSeconds = 365 * 24 * 60 * 60;
-    } else {
-      throw new Error("Invalid staking period");
-    }
-
-    // Calculate the expected reward
-    const expectedReward =
-      (amount * rewardRateNormal * stakingDurationInSeconds) / totalSupply;
-
-    return expectedReward;
-  }
+  const { data, isLoading } = useReadContract({
+    contract: stakingContract,
+    method: "function getTotalStaked(address account) view returns (uint256)",
+    params: [account && account.address],
+  });
 
   return (
     <div className="w-[100%] md:w-full max-w-[100%] rounded-2xl  bg-[#2A0144] p-10">
@@ -141,7 +126,7 @@ const Stake = () => {
               placeholder="90"
               className="bg-transparent flex-1 outline-none w-[60%]"
               disabled
-              value={duration}
+              value={duration.day}
             />
             <p className="text-gray-400">DAYS</p>
           </div>
@@ -149,7 +134,10 @@ const Stake = () => {
             <span
               className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer"
               onClick={() => {
-                handleDurationChange(90);
+                handleDurationChange({
+                  day: 90,
+                  daysInEpochTime: 7776000,
+                });
               }}
             >
               90 days
@@ -157,7 +145,10 @@ const Stake = () => {
             <span
               className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer"
               onClick={() => {
-                handleDurationChange(180);
+                handleDurationChange({
+                  day: 180,
+                  daysInEpochTime: 15552000,
+                });
               }}
             >
               180 days
@@ -165,7 +156,10 @@ const Stake = () => {
             <span
               className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer"
               onClick={() => {
-                handleDurationChange(365);
+                handleDurationChange({
+                  day: 90,
+                  daysInEpochTime: 31536000,
+                });
               }}
             >
               365 days
@@ -194,28 +188,57 @@ const Stake = () => {
         <div className="flex flex-col gap-2 mt-8 text-gray-400">
           <div className="flex gap-4 justify-between items-center">
             <p>Added stake</p>
-            <p>{stakeAmount}</p>
+            <p>{isLoading ? 0 : toEther(data)}</p>
           </div>
           <div className="flex gap-3 justify-between items-center">
             <p>Current stake</p>
             <p>{stakeAmount}</p>
           </div>
-          <div className="flex gap-3 justify-between items-center">
+          {/* <div className="flex gap-3 justify-between items-center">
             <p>Staking reward</p>
             <p>{stakeAmount}</p>
           </div>
           <div className="flex gap-3 justify-between items-center">
             <p>Staking fee</p>
             <p>{stakeAmount}</p>
-          </div>
+          </div> */}
         </div>
 
         {/* transaction button */}
 
         <div className="mt-10">
           <TransactionBtn
-            transaction={() => {}}
-            onTransactionConfirmed={() => {}}
+            transaction={() => {
+              const transaction = prepareContractCall({
+                contract: stakingContract,
+                method: "function stake(uint256 stakingPeriod) payable",
+                params: [duration.daysInEpochTime],
+                value: toWei(stakeAmount),
+              });
+              return transaction;
+            }}
+            onTransactionConfirmed={(trx) => {
+              toast("Success", {
+                description: "Your token has been staked successfully",
+                action: {
+                  label: "View",
+                  onClick: () => {
+                    window.open(
+                      "https://sepolia-blockscout.lisk.com/tx/" +
+                        trx.transactionHash,
+                      "_blank"
+                    );
+                  },
+                },
+              });
+            }}
+            onError={(err) => {
+              if (err.code == "4001") {
+                toast.error("Transaction rejected");
+              } else {
+                toast.error(err.message);
+              }
+            }}
             text="Stake"
             style={{
               backgroundImage: "linear-gradient(to right, #C064F8, #FF087F)",
