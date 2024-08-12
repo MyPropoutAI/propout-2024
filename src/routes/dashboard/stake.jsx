@@ -11,6 +11,7 @@ const Stake = () => {
   const [bal, setBal] = useState("0.00");
 
   const [stakeAmount, setStakeAmount] = useState(0);
+  const [duration, setDuration] = useState(90);
 
   async function getBalance() {
     if (account) {
@@ -33,6 +34,38 @@ const Stake = () => {
 
   function handleClick(percent) {
     setStakeAmount((parseFloat(bal) * (percent / 100)).toFixed(3));
+  }
+
+  function handleDurationChange(days) {
+    setDuration(days);
+  }
+
+  function calculateExpectedReward(amount, stakingPeriod) {
+    // Get reward rate and total supply
+    const rewardRateNormal = BigInt("321502057613168724") / BigInt("1e18");
+    const totalSupply = 10000000;
+
+    // Convert rewardRate from scaled value to normal value
+    // const rewardRateNormal = rewardRate / 1e18;
+
+    // Calculate staking duration in seconds based on the staking period selected
+    let stakingDurationInSeconds;
+
+    if (stakingPeriod === 90) {
+      stakingDurationInSeconds = 90 * 24 * 60 * 60;
+    } else if (stakingPeriod === 180) {
+      stakingDurationInSeconds = 180 * 24 * 60 * 60;
+    } else if (stakingPeriod === 365) {
+      stakingDurationInSeconds = 365 * 24 * 60 * 60;
+    } else {
+      throw new Error("Invalid staking period");
+    }
+
+    // Calculate the expected reward
+    const expectedReward =
+      (amount * rewardRateNormal * stakingDurationInSeconds) / totalSupply;
+
+    return expectedReward;
   }
 
   return (
@@ -107,17 +140,34 @@ const Stake = () => {
               type="number"
               placeholder="90"
               className="bg-transparent flex-1 outline-none w-[60%]"
+              disabled
+              value={duration}
             />
             <p className="text-gray-400">DAYS</p>
           </div>
           <div className="flex  justify-between gap-6 mt-5">
-            <span className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer">
+            <span
+              className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer"
+              onClick={() => {
+                handleDurationChange(90);
+              }}
+            >
               90 days
             </span>
-            <span className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer">
+            <span
+              className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer"
+              onClick={() => {
+                handleDurationChange(180);
+              }}
+            >
               180 days
             </span>
-            <span className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer">
+            <span
+              className="block py-2 bg-[#964CC380] w-full text-center rounded-md cursor-pointer"
+              onClick={() => {
+                handleDurationChange(365);
+              }}
+            >
               365 days
             </span>
           </div>
