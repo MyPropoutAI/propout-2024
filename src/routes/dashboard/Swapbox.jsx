@@ -151,8 +151,9 @@ function Swap() {
             style={{
               minWidth: "100%",
               margin: "30px 0",
-              background: "",
+              background: "linear-gradient(to right, #964DC3, #F42A8B)",
               color: "white",
+              fontSize: "20px",
             }}
           >
             Swap
