@@ -10,16 +10,16 @@ body {
 .form-container {
   width: 100%;
   max-width: 600px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
+  gap: 20px; /* Add space between step indicator and form */
 }
 
 .step-indicator {
   width: 25%;
-  margin-right: 20px;
+  background-color: #2a0144; /* Background color for step indicator */
+  padding: 20px; /* Padding inside the step indicator */
+  border-radius: 8px;
+  color: white; /* Text color for step indicator */
 }
 
 .step-indicator ul {
@@ -37,8 +37,8 @@ body {
 
 .active-step {
   font-weight: bold;
-  color: blue;
-  border-color: blue;
+  color: #964dc3; /* Change the color for active step */
+  border-color: #964dc3;
 }
 
 .form-step {
@@ -55,12 +55,14 @@ body {
   font-weight: bold;
 }
 
-.form-step input {
+.form-step input,
+.form-step select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
+  background-color: #f0f0f0; /* Light background for inputs */
 }
 
 .form-step button {
@@ -71,11 +73,17 @@ body {
 }
 
 .next-button {
-  background-color: blue;
+  background: linear-gradient(
+    to right,
+    #964dc3,
+    #f42a8b
+  ); /* Gradient for Next button */
   color: white;
 }
 
 .prev-button {
-  background-color: gray;
-  color: white;
+  background-color: white; /* Distinct color for Previous button */
+  color: #2a0144;
+  font-weight: bolder;
+  border: 3px solid black;
 }

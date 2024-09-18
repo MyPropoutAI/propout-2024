@@ -19,10 +19,13 @@ function updateStepIndicator() {
 }
 
 function nextStep() {
-  if (currentStep < 2) {
+  if (currentStep < 5) {
     // Change based on the number of steps
     currentStep++;
     showStep(currentStep);
+  } else {
+    // Final submission logic can go here
+    alert("Verification complete!");
   }
 }
 
