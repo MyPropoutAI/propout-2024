@@ -1,0 +1,76 @@
+Created a new branch for propcoins
+
+
+        <div>
+          <p>Step 5/5</p>
+          <h1>Review Your Information</h1>
+          <p>Fill in the parts inside the completing user's information</p>
+        </div>
+
+
+        
+        <div>
+          <p>Step 4/5</p>
+          <h1>Include a Photo</h1>
+          <p>Fill in the parts inside the completing user's information</p>
+        </div>
+
+
+   <div>
+          <p>Step 3/5</p>
+          <h1>Include a Photo</h1>
+          <p>Fill in the parts inside the completing user's information</p>
+        </div>
+
+
+                <div>
+          <p>Step 2/5</p>
+          <h1>Identity Verification</h1>
+          <p>Fill in the parts inside the completing user's information</p>
+        </div>
+
+
+                <div>
+          <p>Step 1/5</p>
+          <h1>Verify Identity</h1>
+          <p>Fill in the parts inside the completing user's information</p>
+        </div>
+
+
+
+
+
+
+
+
+                <ul>
+          <li class="step-item active-step" data-step="1">
+            <!-- Make the first p bold and the second one just beneath it and smaller than the one at the top -->
+            <p>Personal Information</p>
+            <p>browse and upload</p>
+          </li>
+          <li class="step-item" data-step="2">
+            <!-- Make the first p bold and the second one just beneath it and smaller than the one at the top -->
+            <p>ID Verification</p>
+            <p>browse and upload</p>
+          </li>
+          <li class="step-item" data-step="3">
+            <!-- Make the first p bold and the second one just beneath it and smaller than the one at the top -->
+            <p>Selfie</p>
+            <p>browse and upload</p>
+          </li>
+          <li class="step-item" data-step="4">
+            <!-- Make the first p bold and the second one just beneath it and smaller than the one at the top -->
+            <p>Proof of Address</p>
+            <p>browse and upload</p>
+          </li>
+          <li class="step-item" data-step="5">
+            <!-- Make the first p bold and the second one just beneath it and smaller than the one at the top -->
+            <p>Review</p>
+            <p>Make changes or confirm</p>
+          </li>
+        </ul>
+
+
+        IN THE PHOTO PAGE MAKE IT 
+        UPLOAD A PHOTO , AND TAKEA PHOTO BUTTONS
