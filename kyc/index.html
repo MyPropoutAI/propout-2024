@@ -74,10 +74,18 @@
 
         <!-- Step 2: Identification -->
         <div class="form-step" data-step="2" style="display: none">
-          <h2>Step 2: Identification</h2>
+          <div>
+            <h2 class="form-header1">Step 2/5</h2>
+            <h2 class="form-header2">Identity Verification</h2>
+            <h2 class="form-header3">
+              Fill in the parts inside completing the users personal.
+            </h2>
+          </div>
+          <hr />
           <label for="document-country">Select Document Issue Country:</label>
           <select id="document-country" name="document-country" required>
             <option value="">--Select Country--</option>
+            <option value="ng">Nigeria</option>
             <option value="us">United States</option>
             <option value="ca">Canada</option>
             <option value="uk">United Kingdom</option>
@@ -91,6 +99,15 @@
             <option value="driver-license">Driver License</option>
             <option value="voter-card">Voter Card</option>
           </select>
+
+          <label for="id-number">ID Number:</label>
+          <input
+            type="text"
+            id="id-number"
+            name="id-number"
+            placeholder="Enter Document Number"
+            required
+          />
 
           <label for="document-upload"
             >Upload Document (or take a photo):</label
@@ -113,7 +130,15 @@
 
         <!-- Step 3: Selfie -->
         <div class="form-step" data-step="3" style="display: none">
-          <h2>Step 3: Selfie</h2>
+          <div>
+            <h2 class="form-header1">Step 3/5</h2>
+            <h2 class="form-header2">Facial Verification</h2>
+            <h2 class="form-header3">
+              Fill in the parts inside completing the users personal.
+            </h2>
+          </div>
+          <hr />
+
           <label for="selfie-upload"
             >Take a photo of yourself (or upload a selfie):</label
           >
@@ -135,7 +160,15 @@
 
         <!-- Step 4: Proof of Address -->
         <div class="form-step" data-step="4" style="display: none">
-          <h2>Step 4: Proof of Address</h2>
+          <div>
+            <h2 class="form-header1">Step 4/5</h2>
+            <h2 class="form-header2">Address Verification</h2>
+            <h2 class="form-header3">
+              Fill in the parts inside completing the users personal.
+            </h2>
+          </div>
+          <hr />
+
           <label for="address">Enter Your Address:</label>
           <input
             type="text"
@@ -166,7 +199,14 @@
 
         <!-- Step 5: Review -->
         <div class="form-step" data-step="5" style="display: none">
-          <h2>Step 5: Review Your Information</h2>
+          <div>
+            <h2 class="form-header1">Step 4/5</h2>
+            <h2 class="form-header2">Review Your Information</h2>
+            <h2 class="form-header3">
+              Ensure details are correct before submitting.
+            </h2>
+          </div>
+
           <div id="review-content"></div>
           <button type="button" class="prev-button" onclick="prevStep()">
             Previous
