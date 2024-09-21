@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KYC Multi-Step Form</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -23,40 +27,49 @@
       <form id="kyc-form">
         <!-- Step 1: Personal Information -->
         <div class="form-step" data-step="1">
-          <h2>Step 1: Personal Information</h2>
-          <label for="first-name">First Name:</label>
-          <input
-            type="text"
-            id="first-name"
-            name="first-name"
-            placeholder="Enter your first name"
-            required
-          />
+          <div>
+            <div>
+              <h2 class="form-header1">Step 1/5</h2>
+              <h2 class="form-header2">Verify your identity</h2>
+              <h2 class="form-header3">
+                Fill in the parts inside completing the users personal.
+              </h2>
+            </div>
+            <hr />
+            <label for="first-name">First Name:</label>
+            <input
+              type="text"
+              id="first-name"
+              name="first-name"
+              placeholder="Enter your first name"
+              required
+            />
 
-          <label for="last-name">Last Name:</label>
-          <input
-            type="text"
-            id="last-name"
-            name="last-name"
-            placeholder="Enter your last name"
-            required
-          />
+            <label for="last-name">Last Name:</label>
+            <input
+              type="text"
+              id="last-name"
+              name="last-name"
+              placeholder="Enter your last name"
+              required
+            />
 
-          <label for="phone">Phone Number:</label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            placeholder="Enter your phone number"
-            required
-          />
+            <label for="phone">Phone Number:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Enter your phone number"
+              required
+            />
 
-          <label for="dob">Date of Birth:</label>
-          <input type="date" id="dob" name="dob" required />
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required />
 
-          <button type="button" class="next-button" onclick="nextStep()">
-            Next
-          </button>
+            <button type="button" class="next-button" onclick="nextStep()">
+              Next
+            </button>
+          </div>
         </div>
 
         <!-- Step 2: Identification -->
