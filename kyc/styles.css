@@ -1,22 +1,60 @@
 body {
-  background-color: #f7fafc;
+  font-family: "Poppins";
+  color: #4b5563;
+  box-sizing: border-box;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  font-family: "Poppins";
-  color: #4b5563;
+}
+.for-mobile {
+  display: none;
+}
+
+.kyc-p {
+  font-weight: bolder;
+  font-size: 25px;
+  margin-bottom: -10px;
+}
+
+.kyc-img {
+  background-color: #8638e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 30px;
+  border-radius: 100%;
+  padding: 5px 10px 5px 10px;
+}
+
+.kyc-img img {
+  max-height: 100%; /* Ensure the image fits within the div */
+  max-width: 100%; /* Ensure the image fits within the div */
+}
+
+.header-flex-text {
+  display: flex; /* Use flexbox layout */
+  white-space: nowrap; /* Prevent text from wrapping to a new line */
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
 }
 
 .form-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 900px;
   display: flex;
   gap: 20px;
 }
 
 .step-indicator {
-  width: 25%;
+  width: 30%;
   background-color: #2a0144; /* Background color for step indicator */
   padding: 20px; /* Padding inside the step indicator */
   border-radius: 8px;
@@ -43,7 +81,7 @@ body {
 }
 
 .form-step {
-  width: 75%;
+  width: 100%;
 }
 
 .form-step h2 {
@@ -87,6 +125,14 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+.prev-nd-next-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  margin: 10px;
+}
 
 .next-button {
   background: linear-gradient(
@@ -98,8 +144,114 @@ body {
 }
 
 .prev-button {
-  background-color: white; /* Distinct color for Previous button */
   color: #2a0144;
   font-weight: bolder;
   border: 3px solid black;
+}
+.photo-upload {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 10px; /* Space between elements */
+  max-width: 100%; /* Ensure the container is responsive */
+  padding: 10px; /* Add padding for smaller screens */
+}
+
+.image-preview {
+  margin-bottom: 20px; /* Space below the preview box */
+  border: 1px solid #ccc; /* Border for the preview box */
+  border-radius: 8px;
+  width: 100%; /* Make the preview box responsive */
+  max-width: 300px; /* Set a maximum width for the preview box */
+  height: auto; /* Height will adjust based on content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Ensure content fits within the box */
+}
+
+.image-preview img {
+  max-width: 100%; /* Ensure the image fits within the box */
+  max-height: 300px; /* Limit image height to 300px */
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1; /* Allow buttons to grow */
+}
+
+/* Specific button styles */
+button.upload {
+  background-color: white; /* White background for upload button */
+  color: black; /* Black text color */
+  border: 2px solid black; /* Black border */
+}
+
+button.take-photo {
+  background: linear-gradient(
+    to right,
+    #964dc3,
+    #f42a8b
+  ); /* Gradient for Take Photo button */
+  color: white; /* White text color */
+}
+
+@media (max-width: 600px) {
+  .for-mobile {
+    display: block;
+    color: #2a0144;
+    font-weight: bold;
+  }
+
+  .form-container {
+    flex-direction: column; /* Stack items vertically */
+    gap: 10px; /* Reduce the gap */
+  }
+
+  .step-indicator {
+    display: none; /* Full width for step indicators */
+  }
+
+  .photo-upload {
+    padding: 5px; /* Less padding on smaller screens */
+  }
+
+  button {
+    padding: 8px 10px; /* Adjust padding for buttons */
+  }
+
+  .image-preview {
+    max-width: 100%; /* Allow full width on smaller screens */
+  }
+}
+
+@media (orientation: landscape) and (min-width: 600px) {
+  .for-mobile {
+    display: none;
+  }
+
+  .form-container {
+    flex-direction: row; /* Keep items in a row */
+    gap: 30px; /* Maintain larger gap */
+  }
+
+  .step-indicator {
+    width: 30%; /* Maintain width */
+  }
+
+  .kyc-img {
+    height: 40px; /* Adjust for landscape */
+    width: 40px;
+  }
+
+  .form-header1,
+  .form-header2 {
+    font-size: 20px; /* Maintain text size */
+  }
+
+  .form-header3 {
+    font-size: 15px; /* Maintain consistent size */
+  }
 }

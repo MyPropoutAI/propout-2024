@@ -12,15 +12,60 @@
   </head>
   <body>
     <div class="form-container">
+      <div class="for-mobile">
+        <p class="kyc-p">KYC VERIFICATION</p>
+        <p>Verify Identity and get started</p>
+      </div>
       <div class="step-indicator">
+        <div>
+          <p class="kyc-p">KYC VERIFICATION</p>
+          <p>Verify Identity and get started</p>
+        </div>
         <ul>
           <li class="step-item active-step" data-step="1">
-            Personal Information
+            <div class="header-flex">
+              <p class="header-flex-text">Personal Information</p>
+              <div class="kyc-img">
+                <img src="IMG/personal.svg" alt="Personal Info" />
+              </div>
+            </div>
           </li>
-          <li class="step-item" data-step="2">Step 2: Identification</li>
-          <li class="step-item" data-step="3">Step 3: Selfie</li>
-          <li class="step-item" data-step="4">Step 4: Proof of Address</li>
-          <li class="step-item" data-step="5">Step 5: Review</li>
+
+          <li class="step-item" data-step="2">
+            <div class="header-flex">
+              <p class="header-flex-text">Identity Verification</p>
+              <div class="kyc-img">
+                <img src="IMG/id.svg" alt="ID-verification " />
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item" data-step="3">
+            <div class="header-flex">
+              <p class="header-flex-text">Facial Verification</p>
+              <div class="kyc-img">
+                <img src="IMG/selfie.svg" alt="Selfie Icon" />
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item" data-step="4">
+            <div class="header-flex">
+              <p class="header-flex-text">Address Verification</p>
+              <div class="kyc-img">
+                <img src="IMG/address.svg" alt="Address Icon" />
+              </div>
+            </div>
+          </li>
+
+          <li class="step-item" data-step="5">
+            <div class="header-flex">
+              <p class="header-flex-text">Review Your Information</p>
+              <div class="kyc-img">
+                <img src="IMG/review.svg" alt="Review" />
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
 
@@ -30,7 +75,7 @@
           <div>
             <div>
               <h2 class="form-header1">Step 1/5</h2>
-              <h2 class="form-header2">Verify your identity</h2>
+              <h2 class="form-header2">Personal Information</h2>
               <h2 class="form-header3">
                 Fill in the parts inside completing the users personal.
               </h2>
@@ -84,7 +129,7 @@
           <hr />
           <label for="document-country">Select Document Issue Country:</label>
           <select id="document-country" name="document-country" required>
-            <option value="">--Select Country--</option>
+            <option value="">Select Country</option>
             <option value="ng">Nigeria</option>
             <option value="us">United States</option>
             <option value="ca">Canada</option>
@@ -94,7 +139,7 @@
 
           <label for="document-type">Select Document Type:</label>
           <select id="document-type" name="document-type" required>
-            <option value="">--Select Document Type--</option>
+            <option value="">Select Document Type</option>
             <option value="identity-card">Identity Card</option>
             <option value="driver-license">Driver License</option>
             <option value="voter-card">Voter Card</option>
@@ -112,20 +157,53 @@
           <label for="document-upload"
             >Upload Document (or take a photo):</label
           >
-          <input
-            type="file"
-            id="document-upload"
-            name="document-upload"
-            accept="image/*"
-            required
-          />
+          <div class="photo-upload">
+            <!-- Preview box for the uploaded image -->
+            <div class="image-preview" id="image-preview">
+              <img
+                id="preview"
+                src=""
+                alt="Image Preview"
+                style="display: none"
+              />
+            </div>
 
-          <button type="button" class="prev-button" onclick="prevStep()">
-            Previous
-          </button>
-          <button type="button" class="next-button" onclick="nextStep()">
-            Next
-          </button>
+            <input
+              type="file"
+              id="utility-bill"
+              name="utility-bill"
+              accept="image/*"
+              required
+              style="display: none"
+              onchange="previewImage(event)"
+            />
+
+            <div class="button-class">
+              <button
+                type="button"
+                class="upload"
+                onclick="document.getElementById('utility-bill').click();"
+              >
+                Upload Photo
+              </button>
+              <button
+                type="button"
+                class="take-photo"
+                onclick="document.getElementById('utility-bill').setAttribute('capture', 'environment'); document.getElementById('utility-bill').click();"
+              >
+                Take Photo
+              </button>
+            </div>
+          </div>
+
+          <div class="prev-nd-next-button">
+            <button type="button" class="prev-button" onclick="prevStep()">
+              Previous
+            </button>
+            <button type="button" class="next-button" onclick="nextStep()">
+              Next
+            </button>
+          </div>
         </div>
 
         <!-- Step 3: Selfie -->
@@ -142,20 +220,53 @@
           <label for="selfie-upload"
             >Take a photo of yourself (or upload a selfie):</label
           >
-          <input
-            type="file"
-            id="selfie-upload"
-            name="selfie-upload"
-            accept="image/*"
-            required
-          />
+          <div class="photo-upload">
+            <!-- Preview box for the uploaded image -->
+            <div class="image-preview" id="image-preview">
+              <img
+                id="preview"
+                src=""
+                alt="Image Preview"
+                style="display: none"
+              />
+            </div>
 
-          <button type="button" class="prev-button" onclick="prevStep()">
-            Previous
-          </button>
-          <button type="button" class="next-button" onclick="nextStep()">
-            Next
-          </button>
+            <input
+              type="file"
+              id="utility-bill"
+              name="utility-bill"
+              accept="image/*"
+              required
+              style="display: none"
+              onchange="previewImage(event)"
+            />
+
+            <div class="button-class">
+              <button
+                type="button"
+                class="upload"
+                onclick="document.getElementById('utility-bill').click();"
+              >
+                Upload Photo
+              </button>
+              <button
+                type="button"
+                class="take-photo"
+                onclick="document.getElementById('utility-bill').setAttribute('capture', 'environment'); document.getElementById('utility-bill').click();"
+              >
+                Take Photo
+              </button>
+            </div>
+          </div>
+
+          <div class="prev-nd-next-button">
+            <button type="button" class="prev-button" onclick="prevStep()">
+              Previous
+            </button>
+            <button type="button" class="next-button" onclick="nextStep()">
+              Next
+            </button>
+          </div>
         </div>
 
         <!-- Step 4: Proof of Address -->
@@ -181,26 +292,59 @@
           <label for="utility-bill"
             >Upload Utility Bill (or take a photo):</label
           >
-          <input
-            type="file"
-            id="utility-bill"
-            name="utility-bill"
-            accept="image/*"
-            required
-          />
 
-          <button type="button" class="prev-button" onclick="prevStep()">
-            Previous
-          </button>
-          <button type="button" class="next-button" onclick="nextStep()">
-            Next
-          </button>
+          <div class="photo-upload">
+            <!-- Preview box for the uploaded image -->
+            <div class="image-preview" id="image-preview">
+              <img
+                id="preview"
+                src=""
+                alt="Image Preview"
+                style="display: none"
+              />
+            </div>
+
+            <input
+              type="file"
+              id="utility-bill"
+              name="utility-bill"
+              accept="image/*"
+              required
+              style="display: none"
+              onchange="previewImage(event)"
+            />
+
+            <div class="button-class">
+              <button
+                type="button"
+                class="upload"
+                onclick="document.getElementById('utility-bill').click();"
+              >
+                Upload Photo
+              </button>
+              <button
+                type="button"
+                class="take-photo"
+                onclick="document.getElementById('utility-bill').setAttribute('capture', 'environment'); document.getElementById('utility-bill').click();"
+              >
+                Take Photo
+              </button>
+            </div>
+          </div>
+          <div class="prev-nd-next-button">
+            <button type="button" class="prev-button" onclick="prevStep()">
+              Previous
+            </button>
+            <button type="button" class="next-button" onclick="nextStep()">
+              Next
+            </button>
+          </div>
         </div>
 
         <!-- Step 5: Review -->
         <div class="form-step" data-step="5" style="display: none">
           <div>
-            <h2 class="form-header1">Step 4/5</h2>
+            <h2 class="form-header1">Step 5/5</h2>
             <h2 class="form-header2">Review Your Information</h2>
             <h2 class="form-header3">
               Ensure details are correct before submitting.

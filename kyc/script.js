@@ -38,3 +38,17 @@ function prevStep() {
 
 // Initialize
 showStep(currentStep);
+
+function previewImage(event) {
+  const preview = document.getElementById("preview");
+  const file = event.target.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      preview.src = e.target.result; // Set the source of the image preview
+      preview.style.display = "block"; // Show the image preview
+    };
+    reader.readAsDataURL(file); // Read the file as a data URL
+  }
+}
