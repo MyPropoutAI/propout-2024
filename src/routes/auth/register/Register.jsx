@@ -12,7 +12,7 @@ import RemenberMe from "../../../components/RemenberMe";
 //import { SocialLogin } from "../../../components/SocialLogin";
 import { Link } from "react-router-dom";
 // import { useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
+//import { useToast } from "@/components/ui/use-toast";
 
 import { useSignup } from "../../../contexts/hooks/useSignup";
 import { Toaster } from "../../../components/ui/sonner";
@@ -22,7 +22,7 @@ const Register = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
 
-  const { signup, error, loading } = useSignup();
+  const { signup, loading, success } = useSignup();
   // const queryClient = useQueryClient();
   // const toast = useToast();
 
@@ -42,17 +42,15 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(FormSchema) });
 
   const onSubmit = async (data) => {
-    //console.log(data.password);
-
     const res = await signup(data);
     if (res.error) {
-      console.log(res.error);
+      console.log(res.error.message);
       toast.error("Error", {
-        description: "Failed to sign up please try again",
+        description: res.error.message,
       });
     } else {
       toast.success("Success", {
-        description: "Signed up successfully",
+        description: success,
       });
       // queryClient.invalidateQueries("user");
     }

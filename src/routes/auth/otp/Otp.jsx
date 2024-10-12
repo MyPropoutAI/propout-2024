@@ -1,25 +1,52 @@
 import { useState } from "react";
-import { Input } from "../../../components/ui/input";
 import { Rings } from "react-loader-spinner";
-import { FormSchema } from "../../../lib/FormSchema";
-import { useForm } from "react-hook-form";
+//import { FormSchema } from "../../../lib/FormSchema";
+import { Controller, useForm } from "react-hook-form";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "../../../components/ui/input-otp";
+import { useOtp } from "../../../contexts/hooks/useOtp";
+import { Toaster } from "../../../components/ui/sonner";
+import { toast } from "sonner";
+import { useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+//import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "../../../components/ui/button";
 
-//import { Button } from "../../../components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
-//import { AuthBg } from "../../../components/AuthBg";
-const Register = () => {
+const Otp = () => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const { otp, error, success } = useOtp();
   const {
     register,
     handleSubmit,
+    watch,
+    control,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(FormSchema) });
+  } = useForm();
 
-  const onSubmit = (data) => {
+  const user = useSelector((state) => state.auth.user);
+  const decodedUser = jwt.decode(user);
+
+  const onSubmit = async (data) => {
+    //console.log(data);
     setIsLoading(true);
-    console.log("Form data:", data);
-    // Handle form submission logic here (e.g., send data to server)
+    //console.log("Form data:", data);
+    const res = await otp(decodedUser.id, data.otp);
+    console.log(res);
+    if (error) {
+      console.log(res.error);
+      setIsLoading(false);
+      toast.error("Error", {
+        description: error,
+      });
+    } else {
+      setIsLoading(false);
+      toast.success("Success", {
+        description: success,
+      });
+    }
   };
   return (
     <div className="w-full flex h-screen">
@@ -33,29 +60,54 @@ const Register = () => {
       ></div>
       <div className="w-[100%] lg:w-[60%] flex justify-center items-center">
         <div className="w-[70%]">
-          <h2 className="text-2xl font-semibold mb-2">
-            Please enter you email
+          <h2 className="text-2xl font-semibold mb-2 text-center">
+            Please enter the otp code sent to your email
           </h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col justify-center items-center"
+          >
             <div className="my-2">
-              <Input
-                {...register("email", { required: true })}
-                type="email"
-                placeholder="email"
+              <Controller
+                name="otp"
+                control={control}
+                defaultValue=""
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <div>
+                    <InputOTP
+                      type="text"
+                      id="otp"
+                      name="otp"
+                      onChange={onChange}
+                      onBlur={onBlur}
+                      value={value}
+                      maxLength={6}
+                    >
+                      <InputOTPGroup>
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                      </InputOTPGroup>
+                      {/* <InputOTPSeparator /> */}
+                      <InputOTPGroup>
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
+                )}
               />
-              {errors.email && (
-                <span className="error text-red-500 text-md">
-                  {errors.email.message}
-                </span>
-              )}
             </div>
 
-            <button
-              className="py-2 my-3 w-[100%] text-center font-semibold rounded-md bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
+            <Button
+              className="py-2 my-3 w-[100%] text-center font-semibold rounded-md z-50 bg-gradient-to-r from-[#C064F8] to-[#FF087F] text-white  px-4  shadow-sm"
               type="submit"
+              disables={isLoading}
             >
-              Submit
+              {isLoading ? "" : "Verify your email"}
+
               {isLoading && (
                 <Rings
                   visible={true}
@@ -66,12 +118,13 @@ const Register = () => {
                   wrapperClass=""
                 />
               )}
-            </button>
+            </Button>
           </form>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
 
-export default Register;
+export default Otp;

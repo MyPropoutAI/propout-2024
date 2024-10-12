@@ -49,6 +49,7 @@ import About from "../routes/page/About";
 //import KycRoot from "../routes/kyc/Root";
 
 import TestnetRoot from "../routes/testnet/root";
+import Otp from "../routes/auth/otp/Otp";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -209,6 +210,10 @@ export const router = createBrowserRouter([
       {
         path: "/auth/register",
         element: <Register />,
+      },
+      {
+        path: "/auth/otp",
+        element: <Otp />,
       },
     ],
   },
