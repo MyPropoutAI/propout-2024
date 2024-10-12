@@ -27,7 +27,7 @@ const links = [
     name: " Swap",
     path: "/dashboard/swap",
     img: "/images/swap.svg",
-    status: false,
+    status: true,
   },
   {
     name: " Stake ",
