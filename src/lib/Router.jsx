@@ -50,6 +50,7 @@ import About from "../routes/page/About";
 
 import TestnetRoot from "../routes/testnet/root";
 import Otp from "../routes/auth/otp/Otp";
+import MintNft from "../routes/dashboard/MintNft";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -157,6 +158,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/stake",
         element: <Stake />,
+      },
+      {
+        path: "/dashboard/mint-nft",
+        element: <MintNft />,
       },
       {
         path: "/dashboard/setting",

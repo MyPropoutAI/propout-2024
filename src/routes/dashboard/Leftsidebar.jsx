@@ -36,6 +36,12 @@ const links = [
     status: true,
   },
   {
+    name: " Mint-Nft ",
+    path: "/dashboard/mint-nft",
+    img: "/images/stake.svg",
+    status: true,
+  },
+  {
     name: "Task",
     path: "/dashboard/task",
     img: "/images/task.svg",
