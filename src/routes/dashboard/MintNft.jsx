@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -13,50 +13,95 @@ import {
 } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Eye, Heart } from "lucide-react";
+import { getContract, prepareContractCall } from "thirdweb";
+import { useSendTransaction, useReadContract } from "thirdweb/react";
+
+// import { client, liskSepolia } from "./thirdweb";
+import { client, liskSepolia } from "../../lib/thirdweb";
 
 export default function AdvancedNFTMinting() {
   const [nftImage, setNftImage] = useState(null);
   const [rarity, setRarity] = useState("");
   const [isMinting, setIsMinting] = useState(false);
-  const [tokenId, setTokenId] = useState("");
   const [nftDetails, setNftDetails] = useState(null);
+  const [recipient, setRecipient] = useState("");
+  const [tokenId, setTokenId] = useState("");
+  const [whitelistAddresses, setWhitelistAddresses] = useState("");
+  const [whitelistMembershipType, setWhitelistMembershipType] = useState("0");
+  const contractAddress = "0x12D77B8ea61863E478Aa6B766f489Af5F7a95aa7";
 
-  const generateNFT = async (selectedRarity) => {
-    setIsMinting(true);
-    // Simulating NFT generation based on rarity
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    // For demonstration, we're using placeholder images
-    const images = {
-      common: "/placeholder.svg?height=400&width=400&text=Common+NFT",
-      uncommon: "/placeholder.svg?height=400&width=400&text=Uncommon+NFT",
-      rare: "/placeholder.svg?height=400&width=400&text=Rare+NFT",
-      mythic: "/placeholder.svg?height=400&width=400&text=Mythic+NFT",
-    };
-    setNftImage(images[selectedRarity]);
-    setIsMinting(false);
-  };
+  const { mutate: sendTx } = useSendTransaction();
 
-  const handleMint = () => {
-    if (rarity) {
-      generateNFT(rarity);
+  const mintNFT = async () => {
+    const contract = getContract({
+      client,
+      address: contractAddress,
+      chain: liskSepolia,
+    });
+
+    try {
+      const transaction = prepareContractCall({
+        contract,
+        method: "mintNFT",
+        params: [recipient],
+      });
+      const result = await sendTx(transaction);
+      alert("Minted successfully " + result.transactionHash);
+    } catch (error) {
+      alert(`Error Minting: ${error.message}`);
     }
   };
 
   const fetchNFTDetails = async (id) => {
-    // Simulating API call to fetch NFT details
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setNftDetails({
-      id: id,
-      name: `NFT #${id}`,
-      rarity: ["Common", "Uncommon", "Rare", "Mythic"][
-        Math.floor(Math.random() * 4)
-      ],
-      owner: "0x1234...5678",
+    const contract = getContract({
+      client,
+      address: contractAddress,
+      chain: liskSepolia,
     });
+
+    try {
+      const { data } = await useReadContract({
+        contract,
+        method: "getNFTDetails",
+        params: [id],
+      });
+      setNftDetails(data);
+    } catch (error) {
+      alert(`Error Fetching Details: ${error.message}`);
+    }
+  };
+
+  const openMint = async () => {
+    const contract = getContract({
+      client,
+      address: contractAddress,
+      chain: liskSepolia,
+    });
+
+    const addresses = whitelistAddresses
+      .split(",")
+      .map((address) => address.trim());
+    try {
+      const transaction = prepareContractCall({
+        contract,
+        method: "openMint",
+        params: [
+          addresses,
+          Array(addresses.length).fill(Number(whitelistMembershipType)),
+        ],
+      });
+      const result = await sendTx(transaction);
+      alert(
+        "Minting Opened for Addresses! Transaction Hash: " +
+          result.transactionHash
+      );
+    } catch (error) {
+      alert(`Error Opening Mint: ${error.message}`);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  p-8">
+    <div className="min-h-screen bg-gradient-to-br p-8">
       <main className="flex flex-col md:flex-row gap-8">
         <Card className="w-full md:w-2/3 p-6 bg-white rounded-lg shadow-xl">
           <h1 className="text-3xl font-bold mb-6">Mint Your NFT</h1>
@@ -77,14 +122,14 @@ export default function AdvancedNFTMinting() {
                   <SelectItem value="uncommon">Uncommon</SelectItem>
                   <SelectItem value="rare">Rare</SelectItem>
                   <SelectItem value="mythic">Mythic</SelectItem>
-                  <SelectItem value="mythic">Native</SelectItem>
+                  <SelectItem value="native">Native</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <Button
-              onClick={handleMint}
+              onClick={mintNFT}
               disabled={isMinting || !rarity}
-              className="w-full bg-gradient-to-br from-purple-700 to-indigo-900 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              className="w-full bg-gradient-to-br from-purple-700 to-indigo -900 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
             >
               {isMinting ? "Minting..." : "Mint NFT"}
             </Button>
