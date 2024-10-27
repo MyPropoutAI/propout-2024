@@ -14,8 +14,8 @@ const wallets = [
   createWallet("org.uniswap"),
 ];
 
-const client = createThirdwebClient({
-  clientId: "1639134fe6d77249631aa361f3a9cbe1",
+export const client = createThirdwebClient({
+  clientId: "7689015a7891cb9951eb5e957933ef90",
 });
 export const Connect = () => {
   const wallet = useActiveWallet();

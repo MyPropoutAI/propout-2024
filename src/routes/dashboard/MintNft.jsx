@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
+import { abi } from "../../abi";
 import {
   Select,
   SelectContent,
@@ -13,60 +14,98 @@ import {
 } from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Eye, Heart } from "lucide-react";
-import { getContract, prepareContractCall } from "thirdweb";
-import { useSendTransaction, useReadContract } from "thirdweb/react";
-
+import {
+  getContract,
+  prepareContractCall,
+  resolveMethod,
+  readContract,
+} from "thirdweb";
+import {
+  useSendTransaction,
+  useReadContract,
+  useActiveAccount,
+  ThirdwebProvider,
+  TransactionButton,
+} from "thirdweb/react";
+//import { useAccounts } from "@thirdweb-dev/react";
 // import { client, liskSepolia } from "./thirdweb";
-import { client, liskSepolia } from "../../lib/thirdweb";
+import { liskSepolia } from "../../lib/thirdweb";
+import { client } from "../../lib/constants";
+import { sendAndConfirmTransaction } from "thirdweb";
+//import { useReadContract } from "thirdweb/react";
+import { data } from "autoprefixer";
 
 export default function AdvancedNFTMinting() {
   const [nftImage, setNftImage] = useState(null);
   const [rarity, setRarity] = useState("");
   const [isMinting, setIsMinting] = useState(false);
-  const [nftDetails, setNftDetails] = useState(null);
+  const [nftDetail, setNftDetail] = useState(null);
+  const [nftDetails, setNftDetails] = useState([]);
   const [recipient, setRecipient] = useState("");
   const [tokenId, setTokenId] = useState("");
   const [whitelistAddresses, setWhitelistAddresses] = useState("");
   const [whitelistMembershipType, setWhitelistMembershipType] = useState("0");
-  const contractAddress = "0x12D77B8ea61863E478Aa6B766f489Af5F7a95aa7";
+  const contractAddress = "0x206a0b20f28290D0dAC891996b9B4C71baD549E9";
 
+  const contract = getContract({
+    client,
+    address: contractAddress,
+    chain: liskSepolia,
+  });
+
+  const activeAccount = useActiveAccount();
   const { mutate: sendTx } = useSendTransaction();
 
-  const mintNFT = async () => {
-    const contract = getContract({
-      client,
-      address: contractAddress,
-      chain: liskSepolia,
-    });
+  useEffect(() => {
+    setRecipient(activeAccount?.address);
+    //console.log(activeAccount);
+  }, [activeAccount]);
 
-    try {
-      const transaction = prepareContractCall({
-        contract,
-        method: "mintNFT",
-        params: [recipient],
-      });
-      const result = await sendTx(transaction);
-      alert("Minted successfully " + result.transactionHash);
-    } catch (error) {
-      alert(`Error Minting: ${error.message}`);
-    }
+  const mintNFT = () => {
+    //console.log(recipient);
+
+    const transaction = prepareContractCall({
+      contract,
+      method: "function mintNFT(address to)",
+      params: [recipient],
+    });
+    console.log(transaction);
+    setNftDetail(transaction);
+    return transaction;
   };
 
-  const fetchNFTDetails = async (id) => {
-    const contract = getContract({
-      client,
-      address: contractAddress,
-      chain: liskSepolia,
-    });
-
-    try {
-      const { data } = await useReadContract({
+  const fetchNFTDetails = async () => {
+    function getNftId() {
+      const { data, isPending } = useReadContract({
         contract,
-        method: "getNFTDetails",
-        params: [id],
+        method:
+          "function getNFTsByOwner(address owner) view returns (uint256[])",
+        params: [recipient],
       });
-      setNftDetails(data);
-    } catch (error) {
+      return { data, isPending };
+    }
+
+    const { data: nftIds, isPending: isNftIdsPending } = getNftId();
+    if (nftIds.length != 0) {
+      const contract = getContract({
+        client,
+        address: contractAddress,
+        chain: liskSepolia,
+      });
+
+      try {
+        for (i = 0; i <= nftIds.length; i++) {
+          const data = await readContract({
+            contract,
+            method: "function tokenURI(uint256 tokenId) view returns (string)",
+            params: [nftIds[i]],
+          });
+          console.log("NFT DATA", data);
+          setNftDetails([...data]);
+          setNftImage(data);
+          console.log(nftDetails);
+        }
+      } catch (error) {}
       alert(`Error Fetching Details: ${error.message}`);
     }
   };
@@ -126,13 +165,18 @@ export default function AdvancedNFTMinting() {
                 </SelectContent>
               </Select>
             </div>
-            <Button
-              onClick={mintNFT}
-              disabled={isMinting || !rarity}
-              className="w-full bg-gradient-to-br from-purple-700 to-indigo -900 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+            <TransactionButton
+              transaction={mintNFT}
+              onError={(error) => console.log(error)}
             >
-              {isMinting ? "Minting..." : "Mint NFT"}
-            </Button>
+              <Button
+                // onClick={mintNFT}
+                disabled={isMinting || !rarity}
+                className="w-full bg-gradient-to-br from-purple-700 to-indigo -900 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+              >
+                {isMinting ? "Minting..." : "Mint NFT"}
+              </Button>
+            </TransactionButton>
           </div>
           <div className="mt-8">
             <h2 className="text-2xl font-bold mb-4">NFT Details Lookup</h2>
@@ -142,9 +186,7 @@ export default function AdvancedNFTMinting() {
                 value={tokenId}
                 onChange={(e) => setTokenId(e.target.value)}
               />
-              <Button onClick={() => fetchNFTDetails(tokenId)}>
-                Fetch Details
-              </Button>
+              <Button>Fetch Details</Button>
             </div>
             {nftDetails && (
               <motion.div
