@@ -213,7 +213,7 @@ export default function AdvancedNFTMinting() {
             >
               {nftImage ? (
                 <img
-                  src={nftImage}
+                  src={`https://chronic-sapphire-anaconda.myfilebase.com/ipfs/${nftImage}`}
                   alt="NFT Preview"
                   className="object-cover rounded-lg"
                 />
