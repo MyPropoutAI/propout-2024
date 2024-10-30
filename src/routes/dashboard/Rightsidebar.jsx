@@ -1,10 +1,9 @@
-import path from "path";
+//import path from "path";
 import { Link, useLocation } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -146,8 +145,8 @@ const Rightsidebar = () => {
                       <TableHead className="text-right"> Points</TableHead>
                     </TableRow>
                   </TableHeader>
-                  {Tasks.map((task) => (
-                    <TableBody>
+                  {Tasks.map((task, index) => (
+                    <TableBody key={index}>
                       <TableRow>
                         <TableCell>
                           <div className="text-[#2A0144] font-bold">

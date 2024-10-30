@@ -1,38 +1,23 @@
-import { useSendTransaction } from "thirdweb/react";
-import { prepareContractCall, resolveMethod } from "thirdweb";
-import { contract } from "./utils";
+import { createThirdwebClient, getContract } from "thirdweb";
+import { defineChain } from "thirdweb";
 
-export const useListProperty = () => {
-  const { mutate: sendTransaction, isLoading, isError } = useSendTransaction();
+export const client = createThirdwebClient({
+  clientId: "7689015a7891cb9951eb5e957933ef90",
+});
 
-  const listProperty = async (form) => {
-    const {
-      _propertyTitle,
-      price,
-      _description,
-      _images,
-      _propertyAddress,
-      owner,
-    } = form;
+export const chain = defineChain(4202);
 
-    const transaction = await prepareContractCall({
-      contract,
-      method: resolveMethod("listProperty"),
-      params: [
-        owner,
-        price,
-        _propertyTitle,
-        _images,
-        _propertyAddress,
-        _description,
-      ],
-    });
-    console.log(transaction);
+export const activeChainName = "Lisk";
 
-    // const { transactionHash } = await sendTransaction(transaction);
+export const listingContract = getContract({
+  client,
+  chain,
+  address: "0x05f62c33040C64dd03718A17E477A4b710c1Fbd2", // lisk testnet
+});
+export const stakingContract = getContract({
+  client,
+  chain,
+  address: "0x58ea82992BE75FCCE209956C04e72c9f44AF21FD", // lisk testnet
+});
 
-    // return { transactionHash, isLoading, isError };
-  };
-
-  return { listProperty, isLoading, isError };
-};
+// https://thirdweb.com/lisk-sepolia-testnet/0x05f62c33040C64dd03718A17E477A4b710c1Fbd2

@@ -1,4 +1,5 @@
-import { createBrowserRouter, createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "../middleware/ProtectedRout";
 import DashboardRoot from "../routes/dashboard/Root";
 import Setting from "../routes/dashboard/Setting";
 import Task from "../routes/dashboard/Task";
@@ -13,13 +14,14 @@ import Myproperty from "../routes/dashboard/Myproperty";
 import Overview from "../routes/dashboard/Overview";
 import ListProperty from "../routes/dashboard/ListProperty";
 import Marketplace from "../routes/marketplace/Marketplace";
-import Swap from "../routes/testnet/swap/swap";
-import Stake from "../routes/testnet/stake/stake";
-import Faucet from "../routes/testnet/faucet/faucet";
+import Swap from "../routes/dashboard/swap";
+import Stake from "../routes/dashboard/stake";
+//import Faucet from "../routes/testnet/faucet/faucet";
 import Root from "../routes/root/Root";
 import NotFound from "../routes/errorElement/NotFound";
 import Home from "../routes/home/Home";
-import Testing from "../routes/testing/Testing";
+// import Testing from "../routes/testing/Testing";
+import Testing from "../routes/page/testing/Testing";
 import List from "../routes/List/List";
 import Sell from "../routes/List/sell/Sell";
 import Success from "../routes/list-success/Success";
@@ -44,6 +46,11 @@ import Propertydesc from "../routes/descripyion/Propertydesc";
 import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
 import About from "../routes/page/About";
+//import KycRoot from "../routes/kyc/Root";
+
+import TestnetRoot from "../routes/testnet/root";
+import Otp from "../routes/auth/otp/Otp";
+import MintNft from "../routes/dashboard/MintNft";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -61,19 +68,35 @@ export const router = createBrowserRouter([
       { path: "/road-map", element: <RoadMap /> },
       { path: "/guide", element: <Guide /> },
       // {
+      //   path: "/testnet",
+      //   element: <TestnetRoot />,
+      //   children: [{ path: "stake", element: <Stake /> }],
+      // },
+      // {
       //   path: "/property-description",
       //   element: <Propertydesc />,
       // },
     ],
   },
+  {
+    path: "/testnet",
+    element: (
+      <ProtectedRoute>
+        <TestnetRoot />
+      </ProtectedRoute>
+    ),
+    children: [{ path: "stake", element: <Stake /> }],
+  },
 
   {
     path: "/home",
-    element: <Root />,
+    element: (
+      <ProtectedRoute>
+        <Root />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFound />,
     children: [
-      // { index: true, element: <Home /> },
-      // { path: "/", element: <Index /> },
       { path: "/home", element: <Home /> },
       {
         path: "/home/list",
@@ -92,19 +115,11 @@ export const router = createBrowserRouter([
         path: "/home/about",
         element: <About />,
       },
+      // {
+      //   path: "/home/testnet/faucet",
+      //   element: <Faucet />,
+      // },
 
-      {
-        path: "/home/testnet/faucet",
-        element: <Faucet />,
-      },
-      {
-        path: "/home/testnet/swap",
-        element: <Swap />,
-      },
-      {
-        path: "/home/testnet/stake",
-        element: <Stake />,
-      },
       {
         path: "/home/marketplace",
         element: <Marketplace />,
@@ -122,7 +137,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardRoot />,
+    element: (
+      <ProtectedRoute>
+        <DashboardRoot />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
@@ -143,6 +162,18 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/verification",
         element: <Verification />,
+      },
+      {
+        path: "/dashboard/swap",
+        element: <Swap />,
+      },
+      {
+        path: "/dashboard/stake",
+        element: <Stake />,
+      },
+      {
+        path: "/dashboard/mint-nft",
+        element: <MintNft />,
       },
       {
         path: "/dashboard/setting",
@@ -197,8 +228,22 @@ export const router = createBrowserRouter([
         path: "/auth/register",
         element: <Register />,
       },
+      {
+        path: "/auth/otp",
+        element: <Otp />,
+      },
     ],
   },
+  // {
+  //   path: "/kyc",
+  //   element: <KycRoot />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Overview />,
+  //     },
+  //   ],
+  // },
 ]);
 
 // import About from "../routes/about/About";

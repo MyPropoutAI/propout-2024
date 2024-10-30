@@ -1,8 +1,10 @@
 import { ConnectButton } from "thirdweb/react";
 import { createWallet } from "thirdweb/wallets";
-import { createThirdwebClient, defineChain } from "thirdweb";
+import { createThirdwebClient } from "thirdweb";
 
 import { useActiveWallet } from "thirdweb/react";
+
+import { chain } from "../lib/constants";
 
 const wallets = [
   createWallet("io.metamask"),
@@ -12,27 +14,18 @@ const wallets = [
   createWallet("org.uniswap"),
 ];
 
-const client = createThirdwebClient({
-  clientId: "1639134fe6d77249631aa361f3a9cbe1",
+export const client = createThirdwebClient({
+  clientId: "7689015a7891cb9951eb5e957933ef90",
 });
 export const Connect = () => {
   const wallet = useActiveWallet();
-
-  const fuse = defineChain({
-    id: 122,
-  });
-
-  const lisk = defineChain({
-    id: 4202,
-  });
 
   return (
     <div className="relative">
       <ConnectButton
         wallets={wallets}
         client={client}
-        // chain={fuse}
-        chain={lisk}
+        chain={chain}
         autoConnect={{ timeout: 10000 }}
         switchButton={{
           label: "Wrong Network",

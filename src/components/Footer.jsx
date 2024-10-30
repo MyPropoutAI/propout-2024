@@ -4,7 +4,7 @@ import Wrapper from "./Wrapper";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#320051]">
+    <footer className="bg-[#320051] ">
       <Wrapper>
         <div className="flex flex-col lg:flex-row justify-between gap-10 py-10 bg-[#320051]">
           <section className="flex-1 text-white">
@@ -13,7 +13,7 @@ const Footer = () => {
             </div>
             <p>Own properties on Propout, and flip at your convenience. </p>
             <p>
-              We've enabled properties and other real estate assets further
+              We&apos;ve enabled properties and other real estate assets further
               visibility through the Prop-tech digital market. Hence a safe and
               trusted tool for all kinds of real estate market
             </p>

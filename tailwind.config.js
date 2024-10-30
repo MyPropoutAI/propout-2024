@@ -36,12 +36,18 @@ module.exports = {
           " radial-gradient(circle, rgba(150,76,195,1) 45%, rgba(55,22,76,1) 50%)",
         agentFooter:
           "linear-gradient(180deg, rgba(34, 1, 54, 0.85) 0%, #220136 100%)",
+
+        testnet:
+          "linear-gradient(8deg, rgba(34,1,54,1) 51%, rgba(171,85,223,1) 86%)",
+        eclipse:
+          "radial-gradient(circle, rgba(171,85,223,0.55) 76%, rgba(34,1,54,1) 98%)",
       },
 
       colors: {
         main: "rgb(var(--background))",
         ring: "rgb(var(--ring))",
         orange: "rgb(var(--orange))",
+        orangeBtn: "rgba(236,167,17,1)",
         lilac: "#2A0144",
       },
       gridTemplateColumns: {

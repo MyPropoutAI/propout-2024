@@ -12,17 +12,19 @@ import RemenberMe from "../../../components/RemenberMe";
 //import { SocialLogin } from "../../../components/SocialLogin";
 import { Link } from "react-router-dom";
 // import { useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
+//import { useToast } from "@/components/ui/use-toast";
 
 import { useSignup } from "../../../contexts/hooks/useSignup";
+import { Toaster } from "../../../components/ui/sonner";
+import { toast } from "sonner";
 
 const Register = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
 
-  const { signup, error, loading } = useSignup();
+  const { signup, loading, success } = useSignup();
   // const queryClient = useQueryClient();
-  const toast = useToast();
+  // const toast = useToast();
 
   const handlePassword = () => {
     if (pwType == "password") {
@@ -40,12 +42,17 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(FormSchema) });
 
   const onSubmit = async (data) => {
-    //console.log(data.password);
-
-    await signup(data);
-    if (error) {
-      console.log(error);
-      toast.error(error);
+    const res = await signup(data);
+    if (res.error) {
+      console.log(res.error.message);
+      toast.error("Error", {
+        description: res.error.message,
+      });
+    } else {
+      toast.success("Success", {
+        description: success,
+      });
+      // queryClient.invalidateQueries("user");
     }
   };
   return (
@@ -145,7 +152,7 @@ const Register = () => {
               type="submit"
               disables={loading}
             >
-              {loading ? "" : "Register"}
+              {loading ? "" : "Sign up"}
 
               {loading && (
                 <Rings
@@ -160,7 +167,7 @@ const Register = () => {
             </Button>
           </form>
           <p className="text-center">
-            Already have an account?
+            Already have an account?{"  "}
             <Link to="/auth/login">
               <span className="text-[#9C0AE1] cursor-pointer">Login</span>
             </Link>
@@ -170,6 +177,7 @@ const Register = () => {
           </div> */}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

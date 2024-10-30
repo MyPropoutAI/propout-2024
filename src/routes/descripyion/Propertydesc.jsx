@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { Link, useParams } from "react-router-dom";
 import { useReadContract } from "thirdweb/react";
-import { listingContract } from "../../lib/utils";
+import { listingContract } from "../../lib/constants";
 import { resolveMethod } from "thirdweb";
-
 import { useNavigate } from "react-router-dom";
 
 const Propertydesc = () => {
@@ -58,7 +57,7 @@ const Propertydesc = () => {
           </div>
 
           <div>
-            <p className="font-bold py-5">Property Address</p>
+            <p className="font-bold py-3">Property Address</p>
             <input
               type="text"
               value={data.propertyAddress}
@@ -68,7 +67,7 @@ const Propertydesc = () => {
           </div>
 
           <div>
-            <p className="font-bold py-5">Property Description</p>
+            <p className="font-bold py-3">Property Description</p>
             <textarea
               type="text"
               value={data.description}
@@ -79,49 +78,33 @@ const Propertydesc = () => {
 
           <div className="flex gap-4 items-center justify-between mx-5">
             <div className="flex-1 flex items-center gap-3">
-              <img src="/images/car01.svg" className="w-8 h-7" alt="image" />
-              <p className="text-3xl font-bold underline ">
-                {data.propertySpec.toString()}
-              </p>
-            </div>
-
-            <div className="flex-1 flex items-center gap-3">
-              <img src="/images/car02.svg" className="w-8 h-7" alt="image" />
-              <p className="text-3xl font-bold underline ">2</p>
-            </div>
-
-            <div className="flex-1 flex items-center gap-3">
-              <img src="/images/caro4.svg" className="w-8 h-7" alt="image" />
-              <p className="text-3xl font-bold underline ">32450</p>
-            </div>
-
-            <div className="flex-1 flex items-center gap-3">
-              <img src="/images/car03.svg" className="w-8 h-7" alt="image" />
-              <p className="text-3xl font-bold underline ">1</p>
+              {/* {data.propertySpec.toString()} */}
             </div>
           </div>
 
-          <div className="flex  items-center justify-between">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between ">
+            <div className="flex gap-3 items-center ">
               <div className="w-20 h-20 flex justify-center items-center mb-2 rounded-full border">
                 <h1 className="text-white font-bold text-2xl text-center">
                   {userAvartar}
                 </h1>
               </div>
+
               <div>
                 <p className="font-bold">{decodedUser.name}</p>
-                <p>Estate Agent</p>
+                <p className="text-[12px] md:text-[16px]">Estate Agent</p>
               </div>
             </div>
 
-            <Button
-              size="lg"
-              className=" bg-btnGrad text-white lg mt-4 rounded-md text-xl px-4 flex justify-center items-center gap-2 w-[30%] "
-              asChild
-            >
-              {/* <img src="/images/Vector-1.svg" alt="" /> */}
-              <Link to="/home/agent">Contact Lister</Link>
-            </Button>
+            <div>
+              <Button
+                size="sm"
+                className=" bg-btnGrad  text-white rounded-md text-xs md:text-xl px-4 flex justify-center items-center gap- "
+                asChild
+              >
+                <Link to={"/home/agent"}>Contact Lister</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

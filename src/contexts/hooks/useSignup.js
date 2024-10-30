@@ -3,10 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
+import jwt from "jsonwebtoken";
 
 export const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [user, setUser] = useState(null);
   // const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
@@ -16,22 +19,26 @@ export const useSignup = () => {
     setLoading(true);
     setError(false);
     try {
-      const response = await fetch(`https://proput-db.onrender.com/sign-up`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email_address: data.email,
-          password: data.password,
-          phone_number: data.phone_number,
-        }),
-      });
+      const response = await fetch(
+        `https://proput-db-g4te.onrender.com/sign-up`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: data.name,
+            email_address: data.email,
+            password: data.password,
+            phone_number: data.phone_number,
+          }),
+        }
+      );
       const json = await response.json();
-      //console.log(json);
+      console.log(json);
       if (!json.success) {
-        setError(json.error);
+        setError(json.error.message);
         setLoading(false);
         console.log(error);
+        return json;
       }
       if (json.success) {
         // console.log(json);
@@ -39,12 +46,17 @@ export const useSignup = () => {
         //dispatch({ type: "LOGIN", payload: json });
         dispatch(login(json.success.token));
         setLoading(false);
-        navigate("/home");
+        setSuccess(json.success.success);
+        setUser(json.success.token);
+        const decodedUser = jwt.decode(json.success.token);
+        console.log(decodedUser);
+        setUser(decodedUser);
+        navigate("/auth/otp");
       }
     } catch (error) {
       setError(error);
     }
   };
 
-  return { signup, error, loading };
+  return { signup, error, loading, success, user };
 };

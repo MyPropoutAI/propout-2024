@@ -5,10 +5,11 @@ import Overviewhistory from "./Overviewhistory";
 
 const Overview = () => {
   return (
-    <div>
-      <Overviewhero />
-
-      <div className="bg-white mt-4 rounded-md p-4">
+    <div className=" flex flex-col justify-center overflow-hidden">
+      <div className="flex items-center justify-center">
+        <Overviewhero />
+      </div>
+      <div className="bg-white   mt-4 rounded-md p-4">
         <Overviewhistory />
       </div>
     </div>

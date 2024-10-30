@@ -15,6 +15,8 @@ import { useLogin } from "../../../contexts/hooks/useLogin";
 
 import { Rings } from "react-loader-spinner";
 import { LoginSchema } from "../../../lib/FormSchema";
+import { Toaster } from "../../../components/ui/sonner";
+import { toast } from "sonner";
 const Login = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
@@ -38,25 +40,23 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(LoginSchema) });
 
   const onSubmit = async (data) => {
-    //console.log("Form data:", data);
     try {
-      // const res = await fetch(
-      //   `https://proput-db.onrender.com/log-in?email=${data.email}&password=${data.password}`,
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
-
-      await userLogin(data);
-
-      if (error) {
+      const res = await userLogin(data);
+      //console.log(res);
+      if (!res.success) {
+        // This line is causing the error
         console.log(error);
+        toast.error("Error", {
+          description: "Failed to login please try again",
+        });
+      } else {
+        toast.success("Successful", {
+          description: "Login Successful",
+        });
       }
     } catch (error) {
       console.log(error);
     }
-    // Handle form submission logic here (e.g., send data to server)
   };
   return (
     <div className="w-full flex h-screen">
@@ -135,7 +135,7 @@ const Login = () => {
             </Button>
           </form>
           <p className="text-center">
-            Don&apos;t have an account?
+            Don&apos;t have an account?{" "}
             <Link to="/auth/register">
               <span className="text-[#9C0AE1] cursor-pointer">Sign up</span>
             </Link>
@@ -145,6 +145,7 @@ const Login = () => {
           </div> */}
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

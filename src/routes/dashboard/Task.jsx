@@ -5,7 +5,7 @@ import Taskhistory from "./Taskhistory";
 
 const Task = () => {
   return (
-    <div>
+    <div className="">
       <Taskhero />
 
       <div className="bg-white rounded-md  mt-4 p-4">
@@ -22,7 +22,7 @@ const Task = () => {
           </button>
         </div>
       </div>
-      <div className="bg-white mt-4 p-4 rounded-md">
+      <div className="bg-white mt-4 p-4 rounded-md overflow-hidden">
         <Socialtask />
       </div>
 

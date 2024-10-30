@@ -1,23 +1,16 @@
 import { Link } from "react-router-dom";
 import { Connect } from "./ConnectButton";
-//import { Button } from "./ui/button";
-//import Wrapper from "./Wrapper";
+
 import User from "./User";
 import jwt from "jsonwebtoken";
-//import { useAuthContext } from "../contexts/hooks/useAuthcontext";
+
 import { useSelector } from "react-redux";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+
+import { cn } from "../lib/utils";
 
 const links = [
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
   // { name: "Get token", path: "https://app.optimism.io/faucet", state: !true },
   {
     name: "Generate E-Flyer",
@@ -50,12 +43,12 @@ const mobileNav = [
   },
   {
     name: " Swap",
-    path: "/home/testnet/swap",
+    path: "/dashboard/swap",
     img: "/images/swap.svg",
   },
   {
     name: " Stake ",
-    path: "/home/testnet/stake",
+    path: "/dashboard/stake",
     img: "/images/stake.svg",
   },
   {
@@ -73,8 +66,8 @@ const mobileNav = [
     path: "/dashboard/setting",
     img: "/images/setting.svg",
   },
-  { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Get token", path: "https://app.optimism.io/faucet", state: true },
+  // { name: "Faucet", path: "/home/testnet/faucet", state: true },
+  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -82,16 +75,21 @@ const mobileNav = [
   },
 ];
 
-const AuthHeader = () => {
+const AuthHeader = ({ bg }) => {
   const user = useSelector((state) => state.auth.user);
-  //console.log(user);
+
   const userToken = user;
   const decodedUser = jwt.decode(userToken);
-  //console.log(decodedUser);
+
   const userAvartar = decodedUser.name.substring(0, 2);
-  //console.log(userAvartar);
+
   return (
-    <div className="bg-white sticky top-0 z-10 text-black px-6">
+    <div
+      className={cn(
+        "sticky top-0 z-10 text-black px-6",
+        bg ? `!text-white ${bg} py-1` : "bg-white"
+      )}
+    >
       <div className="flex justify-between items-center text-whit">
         <div className="flex items-center gap-10">
           <Link to={"/home"}>
@@ -99,7 +97,11 @@ const AuthHeader = () => {
           </Link>
           <div className="lg:flex text-lg gap-5 hidden">
             {links.map((link, i) => (
-              <Link key={i} to={link.path}>
+              <Link
+                key={i}
+                to={link.path}
+                target={link.name == "Faucet" ? "_blank" : "_self"}
+              >
                 {link.name}
               </Link>
             ))}
@@ -128,7 +130,11 @@ const AuthHeader = () => {
               <SheetContent>
                 <div className="flex flex-col text-white gap-2 my-2">
                   {mobileNav.map((link, i) => (
-                    <Link key={i} to={link.path}>
+                    <Link
+                      key={i}
+                      to={link.path}
+                      target={link.name == "Faucet" ? "_blank" : "_self"}
+                    >
                       <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
                         {link.name}
                       </div>
