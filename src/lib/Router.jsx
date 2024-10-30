@@ -1,5 +1,5 @@
-import { createBrowserRouter, createHashRouter } from "react-router-dom";
-
+import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "../middleware/ProtectedRout";
 import DashboardRoot from "../routes/dashboard/Root";
 import Setting from "../routes/dashboard/Setting";
 import Task from "../routes/dashboard/Task";
@@ -16,7 +16,7 @@ import ListProperty from "../routes/dashboard/ListProperty";
 import Marketplace from "../routes/marketplace/Marketplace";
 import Swap from "../routes/dashboard/swap";
 import Stake from "../routes/dashboard/stake";
-import Faucet from "../routes/testnet/faucet/faucet";
+//import Faucet from "../routes/testnet/faucet/faucet";
 import Root from "../routes/root/Root";
 import NotFound from "../routes/errorElement/NotFound";
 import Home from "../routes/home/Home";
@@ -80,13 +80,21 @@ export const router = createBrowserRouter([
   },
   {
     path: "/testnet",
-    element: <TestnetRoot />,
+    element: (
+      <ProtectedRoute>
+        <TestnetRoot />
+      </ProtectedRoute>
+    ),
     children: [{ path: "stake", element: <Stake /> }],
   },
 
   {
     path: "/home",
-    element: <Root />,
+    element: (
+      <ProtectedRoute>
+        <Root />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFound />,
     children: [
       { path: "/home", element: <Home /> },
@@ -129,7 +137,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardRoot />,
+    element: (
+      <ProtectedRoute>
+        <DashboardRoot />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,

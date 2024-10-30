@@ -8,7 +8,7 @@ export const useVerify = () => {
     console.log(data);
     try {
       const res = await fetch(
-        `https://proput-db.onrender.com/update_credentials`,
+        `https://proput-db-g4te.onrender.com/update_credentials`,
         {
           method: "POST",
           headers: {

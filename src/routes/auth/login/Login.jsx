@@ -40,21 +40,12 @@ const Login = () => {
   } = useForm({ resolver: zodResolver(LoginSchema) });
 
   const onSubmit = async (data) => {
-    //console.log("Form data:", data);
     try {
-      // const res = await fetch(
-      //   `https://proput-db.onrender.com/log-in?email=${data.email}&password=${data.password}`,
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //   }
-      // );
-
       const res = await userLogin(data);
       //console.log(res);
-
-      if (res.error) {
-        console.log(res.error);
+      if (!res.success) {
+        // This line is causing the error
+        console.log(error);
         toast.error("Error", {
           description: "Failed to login please try again",
         });
@@ -66,7 +57,6 @@ const Login = () => {
     } catch (error) {
       console.log(error);
     }
-    // Handle form submission logic here (e.g., send data to server)
   };
   return (
     <div className="w-full flex h-screen">

@@ -13,17 +13,21 @@ export const useLogin = () => {
   const dispatch = useDispatch();
 
   const userLogin = async (data) => {
+    //console.log(data);
     setLoading(true);
     setError(false);
     try {
-      const response = await fetch(`https://proput-db.onrender.com/log-in`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email_address: data.email,
-          password: data.password,
-        }),
-      });
+      const response = await fetch(
+        `https://proput-db-g4te.onrender.com/log-in`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email_address: data.email,
+            password: data.password,
+          }),
+        }
+      );
       const json = await response.json();
       //console.log(json);
       if (!json.success) {
@@ -35,6 +39,7 @@ export const useLogin = () => {
         dispatch(login(json.success.token));
         setLoading(false);
         navigate("/home");
+        return json;
       }
     } catch (error) {
       setError(error);

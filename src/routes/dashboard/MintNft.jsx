@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { abi } from "../../abi";
+//import { abi } from "../../abi";
 import {
   Select,
   SelectContent,
@@ -17,23 +17,23 @@ import { Eye, Heart } from "lucide-react";
 import {
   getContract,
   prepareContractCall,
-  resolveMethod,
+  //resolveMethod,
   readContract,
 } from "thirdweb";
 import {
   useSendTransaction,
   useReadContract,
   useActiveAccount,
-  ThirdwebProvider,
+  //ThirdwebProvider,
   TransactionButton,
 } from "thirdweb/react";
 //import { useAccounts } from "@thirdweb-dev/react";
 // import { client, liskSepolia } from "./thirdweb";
 import { liskSepolia } from "../../lib/thirdweb";
 import { client } from "../../lib/constants";
-import { sendAndConfirmTransaction } from "thirdweb";
+//import { sendAndConfirmTransaction } from "thirdweb";
 //import { useReadContract } from "thirdweb/react";
-import { data } from "autoprefixer";
+//import { data } from "autoprefixer";
 
 export default function AdvancedNFTMinting() {
   const [nftImage, setNftImage] = useState(null);

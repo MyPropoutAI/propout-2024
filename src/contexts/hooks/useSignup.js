@@ -19,16 +19,19 @@ export const useSignup = () => {
     setLoading(true);
     setError(false);
     try {
-      const response = await fetch(`https://proput-db.onrender.com/sign-up`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email_address: data.email,
-          password: data.password,
-          phone_number: data.phone_number,
-        }),
-      });
+      const response = await fetch(
+        `https://proput-db-g4te.onrender.com/sign-up`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: data.name,
+            email_address: data.email,
+            password: data.password,
+            phone_number: data.phone_number,
+          }),
+        }
+      );
       const json = await response.json();
       console.log(json);
       if (!json.success) {

@@ -15,32 +15,45 @@ export const useOtp = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://proput-db.onrender.com/check-code`,
+        `https://proput-db-g4te.onrender.com/check-code`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             id: id,
-            otp: otp,
+            code: otp,
           }),
         }
       );
+
+      // Check if response is ok
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Check if response is JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new TypeError("Response is not JSON");
+      }
+
       const json = await response.json();
       console.log(json);
+
       if (!json.success) {
-        // setError(json.error);
         setLoading(false);
         console.log(json.error);
         return json;
       }
+
       if (json.success) {
-        //dispatch(login(json.success.token));
         setLoading(false);
         navigate("/home");
       }
     } catch (error) {
       console.log(error);
-      //   setError(error);
+      setLoading(false);
+      return { success: false, error: error.message };
     }
   };
 
