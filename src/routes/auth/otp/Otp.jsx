@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 //import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../../../components/ui/button";
+// import {useRoute}
 
 const Otp = () => {
   const [isLoading, setIsLoading] = useState(false);
