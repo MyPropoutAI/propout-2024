@@ -1,129 +1,38 @@
 {
   "routes": [
-    
-     
-      { "src": "/", "dest": "/" },
-      { "src": "/blog", "dest": "/"},
-      { "src": "/road-map", "dest": "/"},
-      { "src": "/guide", "dest": "/"},
-      
- 
-      { "src": "/stake", "dest": "/" },
- 
-   
-      { "src": "/home", "dest": "/"},
-      {
-        "src": "/home/list",
-        "dest": "/"
-      },
-      {
-        "src": "/home/list/sell",
-        "dest": "/"
-      },
-      {
-        "src": "/home/list/success",
-       "dest": "/"
-      },
-
-      {
-        "src": "/home/about",
-        "dest": "/"
-      },
-      {
-        "src": "/home/marketplace",
-       "dest": "/"
-      },
-      { "src": "/home/test", "dest": "/"},
-      {
-        "src": "/home/property-description/:id",
-        "dest": "/"
-      },
-      {
-        "src": "/home/agent",
-        "dest": "/"
-      },
-    
-  
-      {
-        "src":" /dashboard",
-        "dest": "/"
-      },
-      {
-        "src": "/dashboard/list",
-       "dest": "/"
-      },
-      {
-        "src": "/dashboard/properties",
-        "dest": "/"
-      },
-      {
-        "src": "/dashboard/referral",
-        "dest": "/"
-      },
-      {
-        "src": "/dashboard/verification",
-        "dest": "/"
-      },
-      {
-        "src": "/dashboard/swap",
-        "dest": "/"
-      },
-      {
-        "src": "/dashboard/stake",
-       "dest": "/"
-      },
-      {
-        "src": "/dashboard/mint-nft",
-        "dest": "/"
-      },
-     
-          {
-            "src": "/dashboard/setting/profile",
-           "dest": "/"
-          },
-          {
-            "src": "/dashboard/setting/notification",
-            "dest": "/"
-          },
-          {
-            "src": "/dashboard/setting/help",
-            "dest": "/"
-          },
-          {
-            "src": "/dashboard/setting/account",
-            "dest": "/"
-          },
-       
-      {
-        "src": "/dashboard/task",
-       "dest": "/"
-      },
-   
-  
-      {
-        "src": "/auth",
-       "dest": "/"
-      },
-
-      {
-       "src": "/auth/login",
-        "dest": "/"
-      },
-      {
-        "src": "/auth/forgetPassword",
-        "dest": "/"
-      },
-      {
-       "src": "/auth/createPassword",
-        "dest": "/"
-      },
-      {
-        "src": "/auth/register",
-        "dest": "/"
-      },
-      {
-        "src": "/auth/otp",
-        "dest": "/"
-      }
-   ]
-   }
+    { "src": "/", "status": 200 },
+    { "src": "/blog", "status": 200 },
+    { "src": "/road-map", "status": 200 },
+    { "src": "/guide", "status": 200 },
+    { "src": "/stake", "status": 200 },
+    { "src": "/home", "status": 200 },
+    { "src": "/home/list", "status": 200 },
+    { "src": "/home/list/sell", "status": 200 },
+    { "src": "/home/list/success", "status": 200 },
+    { "src": "/home/about", "status": 200 },
+    { "src": "/home/marketplace", "status": 200 },
+    { "src": "/home/test", "status": 200 },
+    { "src": "/home/property-description/:id", "status": 200 },
+    { "src": "/home/agent", "status": 200 },
+    { "src": "/dashboard", "status": 200 },
+    { "src": "/dashboard/list", "status": 200 },
+    { "src": "/dashboard/properties", "status": 200 },
+    { "src": "/dashboard/referral", "status": 200 },
+    { "src": "/dashboard/verification", "status": 200 },
+    { "src": "/dashboard/swap", "status": 200 },
+    { "src": "/dashboard/stake", "status": 200 },
+    { "src": "/dashboard/mint-nft", "status": 200 },
+    { "src": "/dashboard/setting/profile", "status": 200 },
+    { "src": "/dashboard/setting/notification", "status": 200 },
+    { "src": "/dashboard/setting/help", "status": 200 },
+    { "src": "/dashboard/setting/account", "status": 200 },
+    { "src": "/dashboard/task", "status": 200 },
+    { "src": "/auth", "status": 200 },
+    { "src": "/auth/login", "status": 200 },
+    { "src": "/auth/forgetPassword", "status": 200 },
+    { "src": "/auth/createPassword", "status": 200 },
+    { "src": "/auth/register", "status": 200 },
+    { "src": "/auth/otp", "status": 200 },
+    { "src": "/(.*)", "dest": "/" }
+  ]
+}
