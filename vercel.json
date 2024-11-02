@@ -2,7 +2,7 @@
   "routes": [
     
      
-      { "src": "/"," dest": "/" },
+      { "src": "/", "dest": "/" },
       { "src": "/blog", "dest": "/"},
       { "src": "/road-map", "dest": "/"},
       { "src": "/guide", "dest": "/"},
