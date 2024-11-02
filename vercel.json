@@ -1,5 +1,129 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ]
-}
+  "routes": [
+    
+     
+      { "src": "/"," dest": "/" },
+      { "src": "/blog", "dest": "/"},
+      { "src": "/road-map", "dest": "/"},
+      { "src": "/guide", "dest": "/"},
+      
+ 
+      { "src": "/stake", "dest": "/" },
+ 
+   
+      { "src": "/home", "dest": "/"},
+      {
+        "src": "/home/list",
+        "dest": "/"
+      },
+      {
+        "src": "/home/list/sell",
+        "dest": "/"
+      },
+      {
+        "src": "/home/list/success",
+       "dest": "/"
+      },
+
+      {
+        "src": "/home/about",
+        "dest": "/"
+      },
+      {
+        "src": "/home/marketplace",
+       "dest": "/"
+      },
+      { "src": "/home/test", "dest": "/"},
+      {
+        "src": "/home/property-description/:id",
+        "dest": "/"
+      },
+      {
+        "src": "/home/agent",
+        "dest": "/"
+      },
+    
+  
+      {
+        "src":" /dashboard",
+        "dest": "/"
+      },
+      {
+        "src": "/dashboard/list",
+       "dest": "/"
+      },
+      {
+        "src": "/dashboard/properties",
+        "dest": "/"
+      },
+      {
+        "src": "/dashboard/referral",
+        "dest": "/"
+      },
+      {
+        "src": "/dashboard/verification",
+        "dest": "/"
+      },
+      {
+        "src": "/dashboard/swap",
+        "dest": "/"
+      },
+      {
+        "src": "/dashboard/stake",
+       "dest": "/"
+      },
+      {
+        "src": "/dashboard/mint-nft",
+        "dest": "/"
+      },
+     
+          {
+            "src": "/dashboard/setting/profile",
+           "dest": "/"
+          },
+          {
+            "src": "/dashboard/setting/notification",
+            "dest": "/"
+          },
+          {
+            "src": "/dashboard/setting/help",
+            "dest": "/"
+          },
+          {
+            "src": "/dashboard/setting/account",
+            "dest": "/"
+          },
+       
+      {
+        "src": "/dashboard/task",
+       "dest": "/"
+      },
+   
+  
+      {
+        "src": "/auth",
+       "dest": "/"
+      },
+
+      {
+       "src": "/auth/login",
+        "dest": "/"
+      },
+      {
+        "src": "/auth/forgetPassword",
+        "dest": "/"
+      },
+      {
+       "src": "/auth/createPassword",
+        "dest": "/"
+      },
+      {
+        "src": "/auth/register",
+        "dest": "/"
+      },
+      {
+        "src": "/auth/otp",
+        "dest": "/"
+      }
+   ]
+   }
