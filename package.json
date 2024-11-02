@@ -65,15 +65,17 @@
     "thirdweb": "^5.4.2",
     "viem": "^2.7.8",
     "vite-plugin-node-polyfills": "^0.21.0",
+    "vite-plugin-pwa": "^0.20.5",
     "wagmi": "^2.5.6",
     "web3": "^4.11.1",
+    "workbox-window": "^7.3.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20.11.14",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.17",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",
