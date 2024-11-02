@@ -15,7 +15,7 @@ export const useOtp = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://proput-db-g4t.onrender.com/check-code`,
+        `https://proput-db-g4te.onrender.com/check-code`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
