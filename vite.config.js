@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), nodePolyfills()],
   server: {
     host: "0.0.0.0", // Allow access from any IP address
-    port: 3000, // Specify the port for the dev server
+    port: 5123, // Specify the port for the dev server
     open: true, // Automatically open the app in the browser
     proxy: {
       "/api": {
