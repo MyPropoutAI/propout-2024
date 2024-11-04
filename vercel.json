@@ -1,37 +1,9 @@
 {
-  "headers": [
-    {
-      "source": "/(.*).js",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*).mjs",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*).css",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/css"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    { "source": "/auth/(.*)", "destination": "/" },
-    { "source": "/home/(.*)", "destination": "/" },
-    { "source": "/dashboard/(.*)", "destination": "/" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/auth/(.*)", "dest": "/" },
+    { "src": "/home/(.*)", "dest": "/" },
+    { "src": "/dashboard/(.*)", "dest": "/" },
+    { "src": "/(.*)", "dest": "/" },
+    
   ]
 }
