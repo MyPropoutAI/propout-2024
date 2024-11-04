@@ -211,25 +211,24 @@ export const router = createBrowserRouter([
         index: true,
         element: <Overview />,
       },
-
       {
-        path: "/auth/login",
+        path: "login", // Correct: no leading slash
         element: <LoginPage />,
       },
       {
-        path: "/auth/forgetPassword",
+        path: "forgetPassword", // Correct: no leading slash
         element: <ForgetPassword />,
       },
       {
-        path: "/auth/createPassword",
+        path: "createPassword", // Correct: no leading slash
         element: <NewPassword />,
       },
       {
-        path: "/auth/register",
+        path: "register", // Correct: no leading slash
         element: <Register />,
       },
       {
-        path: "/auth/otp",
+        path: "otp", // Correct: no leading slash
         element: <Otp />,
       },
     ],
