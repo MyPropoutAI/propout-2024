@@ -21,6 +21,7 @@ export default defineConfig({
     outDir: "dist", // Output directory for build files
     sourcemap: true, // Generate source maps for easier debugging
     minify: "esbuild", // Use esbuild for minification
+    chunkSizeWarningLimit: 1000,
   },
   resolve: {
     alias: {
