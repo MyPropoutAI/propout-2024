@@ -10,7 +10,7 @@ export const useFetchUser = () => {
     const storedData = async () => {
       try {
         const res = await fetch(
-          `https://proput-db-g4te.onrender.com/protected
+          `https://proput-db-jlb1.onrender.com/protected
 `,
           {
             method: "GET",
