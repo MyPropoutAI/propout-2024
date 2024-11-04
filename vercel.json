@@ -5,7 +5,7 @@
     { "src": "/dashboard/(.*)", "dest": "/" },
     { "src": "/(.*)", "dest": "/" },
     {
-      "source": "/(.*).js",
+      "src": "/(.*).js",
       "headers": [
         {
           "key": "Content-Type",
