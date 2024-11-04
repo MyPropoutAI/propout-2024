@@ -74,41 +74,29 @@ export default function AdvancedNFTMinting() {
     return transaction;
   };
 
-  const fetchNFTDetails = async () => {
-    function getNftId() {
-      const { data, isPending } = useReadContract({
-        contract,
-        method:
-          "function getNFTsByOwner(address owner) view returns (uint256[])",
-        params: [recipient],
-      });
-      return { data, isPending };
-    }
+const fetchNFTDetails = async () => {
+    const { data: nftIds, isPending: isNftIdsPending } = useReadContract({
+      contract,
+      method: "function getNFTsByOwner(address owner) view returns (uint256[])",
+      params: [recipient],
+    });
 
-    const { data: nftIds, isPending: isNftIdsPending } = getNftId();
-    if (nftIds.length != 0) {
-      const contract = getContract({
-        client,
-        address: contractAddress,
-        chain: liskSepolia,
-      });
-
+    if (nftIds.length > 0) {
+      const lastNftId = nftIds[nftIds.length - 1];
       try {
-        for (i = 0; i <= nftIds.length; i++) {
-          const data = await readContract({
-            contract,
-            method: "function tokenURI(uint256 tokenId) view returns (string)",
-            params: [nftIds[i]],
-          });
-          console.log("NFT DATA", data);
-          setNftDetails([...data]);
-          setNftImage(data);
-          console.log(nftDetails);
-        }
-      } catch (error) {}
-      alert(`Error Fetching Details: ${error.message}`);
-    }
-  };
+        const data = await readContract({
+          contract,
+          method: "function tokenURI(uint256 tokenId) view returns (string)",
+          params: [lastNftId],
+        });
+        console.log("NFT DATA", data);
+        setNftDetails(data); // Assuming data contains the details
+        setNftImage(data);
+      } catch (error) {
+        alert(Error Fetching Details: ${error.message});
+      }
+    }
+  };
 
   const openMint = async () => {
     const contract = getContract({
