@@ -9,13 +9,13 @@ export default defineConfig({
     host: "0.0.0.0", // Allow access from any IP address
     port: 5123, // Specify the port for the dev server
     open: true, // Automatically open the app in the browser
-    proxy: {
-      "/api": {
-        target: "http://localhost:5000", // Proxy API requests to this target
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""), // Rewrite the path
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "http://localhost:5000", // Proxy API requests to this target
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ""), // Rewrite the path
+    //   },
+    // },
   },
   build: {
     outDir: "dist", // Output directory for build files
