@@ -2,21 +2,14 @@ import { Link } from "react-router-dom";
 //import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
 import { Button } from "./ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
-import { util } from "zod";
-
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { useSelector } from "react-redux";
 const mobileNav = [
   { name: "Home", path: "/" },
   { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
-  { name: "Explore Propout", path: "/home/list", state: true },
+  { name: "Explore Propout", path: "/list", state: true },
+  { name: "About Us", path: "/about", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -25,25 +18,24 @@ const mobileNav = [
 ];
 const navLink = [
   { name: "Home", path: "/" },
-  // { name: "Blog", path: "/blog" },
-  { name: "Explore Propout", path: "/home/list" },
   { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
+  { name: "Explore Propout", path: "/list", state: true },
+  { name: "About Us", path: "/about", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
     state: true,
   },
-  // { name: "Road Map", path: "/road-map" },
-  // { name: "Guide", path: "/guide" },
 ];
 
 const LandingPageNav = () => {
+  const user = useSelector((state) => state.auth.user);
   return (
     <div className="bg-purple-900 sticky top-0 z-20">
       <Wrapper>
         <div className="flex justify-between items-center text-white">
-          <Link to={"/"}>
+          <Link to={user ? "/home" : "/"}>
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
 
@@ -77,11 +69,19 @@ const LandingPageNav = () => {
             {/* <div>
               <Connect />
             </div> */}
-            <Link to="/auth/login">
-              <Button className="border border-purple-500 border-solid text-white">
-                Get Started
-              </Button>
-            </Link>
+            {user ? (
+              <Link to="/dashboard">
+                <Button className="border border-purple-500 border-solid text-white">
+                  Continue to dashboard
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/auth/login">
+                <Button className="border border-purple-500 border-solid text-white">
+                  Get Started
+                </Button>
+              </Link>
+            )}
           </div>
 
           <div className="flex lg:hidden">

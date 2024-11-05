@@ -67,6 +67,18 @@ export const router = createBrowserRouter([
       { path: "blog", element: <Blog /> },
       { path: "/road-map", element: <RoadMap /> },
       { path: "/guide", element: <Guide /> },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/list",
+        element: <List />,
+      },
+      {
+        path: "/marketplace",
+        element: <Marketplace />,
+      },
       // {
       //   path: "/testnet",
       //   element: <TestnetRoot />,
@@ -98,10 +110,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { path: "/home", element: <Home /> },
-      {
-        path: "/home/list",
-        element: <List />,
-      },
+
       {
         path: "/home/list/sell",
         element: <Sell />,
@@ -111,19 +120,11 @@ export const router = createBrowserRouter([
         element: <Success />,
       },
 
-      {
-        path: "/home/about",
-        element: <About />,
-      },
       // {
       //   path: "/home/testnet/faucet",
       //   element: <Faucet />,
       // },
 
-      {
-        path: "/home/marketplace",
-        element: <Marketplace />,
-      },
       { path: "/home/test", element: <Testing /> },
       {
         path: "/home/property-description/:id",

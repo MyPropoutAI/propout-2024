@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import Hero from "../../components/Hero";
 import { Button } from "../../components/ui/button";
 import "react-awesome-slider/dist/styles.css";
-import Combobox2 from "../../components/Combobox";
+// import Combobox2 from "../../components/Combobox";
 
-//UN-USED
-import { Combobox } from "../../components/ui/combobox";
-import AwesomeSlider from "react-awesome-slider";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import styled, { keyframes } from "styled-components";
-import { cn } from "../../lib/utils";
+// //UN-USED
+// import { Combobox } from "../../components/ui/combobox";
+// import AwesomeSlider from "react-awesome-slider";
+// import { CSSTransition, TransitionGroup } from "react-transition-group";
+// import styled, { keyframes } from "styled-components";
+// import { cn } from "../../lib/utils";
 
 const TextContent = ({ children, className }) => (
   <div
@@ -46,10 +46,10 @@ const HomeHero = () => {
             <Link to={"/dashboard/list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
-            <Link to={"/home/marketplace"}>Rent</Link>
+            <Link to={"/marketplace"}>Rent</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
-            <Link to={"/home/marketplace"}>Buy</Link>
+            <Link to={"/marketplace"}>Buy</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
             <Link to="/home/testnet/faucet">Testnet</Link>

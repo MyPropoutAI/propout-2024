@@ -1,26 +1,16 @@
 import { Link } from "react-router-dom";
-//import { useState, useEffect, useRef, Suspense } from "react";
 import { Connect } from "./ConnectButton";
 import Wrapper from "./Wrapper";
 import User from "./User";
 import { Button } from "./ui/button";
 import jwt from "jsonwebtoken";
-//import { useAuthContext } from "../contexts/hooks/useAuthcontext";
-//import { useFetchUser } from "../contexts/hooks/useFetchUser";
 import { useSelector } from "react-redux";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const mobileNav = [
   { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
-  { name: "Explore Propout", path: "/home/list", state: true },
+  { name: "Explore Propout", path: "/list", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -58,6 +48,10 @@ const Header = () => {
 
               <Button variant="propout" size="default">
                 <Link to="/home/list">Explore Propout</Link>
+              </Button>
+
+              <Button variant="propout" size="default">
+                <Link to="/about">AboutUs</Link>
               </Button>
 
               <div>

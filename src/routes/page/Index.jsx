@@ -1,6 +1,5 @@
 import NewsLetter from "../../components/NewsLetter";
 import Builtfor from "../home/Builtfor";
-import About from "./About";
 import Info from "./Info";
 import LandingHero from "./LandingHero";
 import Properties from "./Properties";
@@ -13,7 +12,6 @@ function Index() {
       <Info />
       <Properties />
       <Builtfor />
-      <About />
       <NewsLetter />
     </>
   );

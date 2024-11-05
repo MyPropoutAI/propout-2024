@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { Combobox } from "../../components/ui/combobox";
+//import { Combobox } from "../../components/ui/combobox";
 import { Button } from "../../components/ui/button";
-
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import styled, { keyframes } from "styled-components";
-import { cn } from "../../lib/utils";
-import Combobox2 from "../../components/Combobox";
+import { useSelector } from "react-redux";
+// import { CSSTransition, TransitionGroup } from "react-transition-group";
+// import styled, { keyframes } from "styled-components";
+// import { cn } from "../../lib/utils";
+// import Combobox2 from "../../components/Combobox";
 
 // const messages = ["Homeownership", "Real Estate", "New Possibilities"];
 
@@ -25,11 +25,11 @@ import Combobox2 from "../../components/Combobox";
 //   white-space: nowrap;
 // `;
 
-const messages = [
-  "Homeownership",
-  "Real Estate ",
-  // " New Possibilities"
-];
+// const messages = [
+//   "Homeownership",
+//   "Real Estate ",
+//   // " New Possibilities"
+// ];
 
 const TextContent = ({ children, className }) => (
   <div
@@ -47,14 +47,8 @@ const GradientText = ({ children }) => (
   </div>
 );
 
-// const Button = ({ children, className }) => (
-//   <button
-//     className={`flex items-center justify-center px-4 py-2 rounded-xl  ${className}`}
-//   >
-//     {children}
-//   </button>
-// );
 const LandingHero = () => {
+  const user = useSelector((state) => state.auth.user);
   return (
     <div
       className="flex flex-col items-center p-20 text-7xl  leading-[66.24px] max-md:px-5 max-md:text-4xl"
@@ -82,11 +76,19 @@ const LandingHero = () => {
             Join our waitlist
           </Button>
         </Link>
-        <Link to="/auth/login">
-          <Button className="border border-purple-500 border-solid text-white">
-            Get Started
-          </Button>
-        </Link>
+        {user ? (
+          <Link to="/dashboard">
+            <Button className="border border-purple-500 border-solid text-white">
+              Continue to dashboard
+            </Button>
+          </Link>
+        ) : (
+          <Link to="/auth/login">
+            <Button className="border border-purple-500 border-solid text-white">
+              Get Started
+            </Button>
+          </Link>
+        )}
       </div>
       {/* 
       <div className="p-4 mb-[-8rem] shadow-md mt-[2rem] z-10 md:p-6 bg-white space-x-4 flex flex-wrap justify-center rounded-md">

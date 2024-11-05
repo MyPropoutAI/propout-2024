@@ -7,26 +7,23 @@ import {
   Brain,
   Gift,
 } from "lucide-react";
-import Image from "next/image";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white text-gray-800">
       <main>
         {/* Hero Section */}
-        <section className="py-16 px-4 bg-gray-100">
+        <section
+          className="py-16 px-4 bg-gradient-to-r bg-purple-600 to-purple-950 w-full"
+          style={{
+            backgroundImage: "url(/images/propoutAbout.png)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="max-w-7xl mx-auto text-center">
-            <Image
-              src="/placeholder.svg"
-              alt="Team Illustration"
-              width={600}
-              height={400}
-              className="mx-auto mb-12"
-            />
-            <h1 className="text-4xl font-bold mb-6 text-purple-800">
-              ABOUT US
-            </h1>
-            <p className="max-w-4xl mx-auto text-lg leading-relaxed mb-12">
+            <h1 className="text-4xl font-bold mb-6 text-white">ABOUT US</h1>
+            <p className="max-w-4xl mx-auto text-white text-lg leading-relaxed mb-12">
               Propouts emergence as a Real Estate Network Technology (RENT)
               presents a groundbreaking opportunity for Nigeria. As the real
               estate sector evolves into a single marketplace, both on a
