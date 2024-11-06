@@ -51,6 +51,7 @@ import About from "../routes/page/About";
 import TestnetRoot from "../routes/testnet/root";
 import Otp from "../routes/auth/otp/Otp";
 import MintNft from "../routes/dashboard/MintNft";
+import AgentProfile from "../routes/dashboard/Profile";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -167,6 +168,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/swap",
         element: <Swap />,
+      },
+      {
+        path: "/dashboard/agent-profile",
+        element: <AgentProfile />,
       },
       {
         path: "/dashboard/stake",

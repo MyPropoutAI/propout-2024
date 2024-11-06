@@ -4,12 +4,12 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Button } from "./ui/button";
+//import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
 const links = [
   { link: "Home", url: "/" },
-  { link: "About us", url: "/home/about" },
+  { link: "About us", url: "/about" },
   { link: "List", url: "/home/list" },
   { link: "Marketplace", url: "/home/marketplace" },
   { link: "whitepaper", url: "/whitepaper" },

@@ -109,10 +109,15 @@ const AuthHeader = ({ bg }) => {
         </div>
 
         <div className="lg:flex items-center gap-8 hidden">
-          <div className=" h-12 aspect-square rounded-xl bg-[#C064F8] grid place-items-center relative">
-            <img src="/images/bell.svg" className="h-7 aspect-square" />
-            <span className="h-3 aspect-square bg-[#E72BAC] rounded-full absolute right-3 top-3"></span>
-          </div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <div className=" h-12 aspect-square rounded-xl bg-[#C064F8] grid place-items-center relative">
+                <img src="/images/bell.svg" className="h-7 aspect-square" />
+                <span className="h-3 aspect-square bg-[#E72BAC] rounded-full absolute right-3 top-3"></span>
+              </div>
+            </SheetTrigger>
+            <SheetContent></SheetContent>
+          </Sheet>
           <Connect />
         </div>
 
