@@ -3,7 +3,7 @@
     { "source": "/(.*)", "destination": "/" }
   ],
   "functions": {
-    "api/socket.ts": {
+    "api/socket.js": {
       "memory": 1024,
       "maxDuration": 10
     }
