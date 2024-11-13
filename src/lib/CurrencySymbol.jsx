@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const CurrencySymbol = ({ amount }) => {
+const CurrencySymbol = ({ amount, listType }) => {
   const [pay, setPay] = useState(0);
   function formatCurrency(number, currency = "NGN") {
     //   // Use Intl.NumberFormat for locale-aware formatting
@@ -22,11 +22,7 @@ const CurrencySymbol = ({ amount }) => {
     getMoney(amount);
   }, [amount]);
 
-  return (
-    <div>
-      <p>{pay}/month</p>
-    </div>
-  );
+  return <div>{listType === "RENT" ? <p>{pay}/month</p> : <p>{pay}</p>}</div>;
 };
 
 export default CurrencySymbol;

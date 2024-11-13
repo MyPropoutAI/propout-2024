@@ -1,11 +1,11 @@
 export const UploadToCloudinary = async (rawImage) => {
   const formData = new FormData();
   formData.append("file", rawImage);
-  formData.append("upload_preset", "skilldesk"); // Replace with your Cloudinary preset
+  formData.append("upload_preset", "propout"); // Replace with your Cloudinary preset
   // upload image
   try {
     const response = await fetch(
-      "https://api.cloudinary.com/v1_1/laon/image/upload",
+      "https://api.cloudinary.com/v1_1/dttqyhyv5/image/upload",
       {
         method: "POST",
         body: formData,

@@ -1,35 +1,40 @@
 import { useState } from "react";
 //import { useAuthContext } from "./useAuthcontext";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/userSlice";
-import jwt from "jsonwebtoken";
 
-export const useSignup = () => {
+export const useUpdateProfile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [user, setUser] = useState(null);
+
   // const { dispatch } = useAuthContext();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
-  const signup = async (data) => {
+  const updateProfile = async (data) => {
+    console.log(data);
     setLoading(true);
     setError(false);
     try {
       const response = await fetch(
-        `https://proput-db-jlb1.onrender.com/sign-up`,
+        `https://proput-db-jlb1.onrender.com/update-profile`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: data.name,
-            email_address: data.email,
-            referral_code: data?.referral_code,
-            password: data.password,
-            phone_number: data.phone_number,
+            name: data?.name,
+            phone_number: data?.phone_number,
+            address: data?.address,
+            occupation: data?.occupation,
+            email: data?.email,
+            country: data?.country,
+            description: data?.description,
+            city: data?.city,
+            facebook: data?.facebook,
+            instagram: data?.instagram,
+            twitter: data?.twitter,
+            linkedIn: data?.linkedIn,
+            website: data?.website,
+            userId: data?.userId,
           }),
         }
       );
@@ -42,22 +47,14 @@ export const useSignup = () => {
         return json;
       }
       if (json.success) {
-        // console.log(json);
-        //localStorage.setItem("propoutUser", JSON.stringify(json.success.token));
-        //dispatch({ type: "LOGIN", payload: json });
-        dispatch(login(json.success.token));
         setLoading(false);
         setSuccess(json.success.success);
-        setUser(json.success.token);
-        const decodedUser = jwt.decode(json.success.token);
-        console.log(decodedUser);
-        setUser(decodedUser);
-        navigate("/auth/otp");
+        navigate("/dashboard/profile");
       }
     } catch (error) {
       setError(error);
     }
   };
 
-  return { signup, error, loading, success, user };
+  return { updateProfile, error, loading, success };
 };

@@ -22,7 +22,7 @@ const Rightsidebar = () => {
   const verified = useSelector((state) => state.auth.isVerified);
 
   const decodedUser = jwt.decode(user);
-  console.log(decodedUser);
+  //console.log(decodedUser);
   const userAvartar = decodedUser.name.substring(0, 2);
   //console.log(userAvartar);
 

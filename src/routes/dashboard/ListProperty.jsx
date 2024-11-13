@@ -13,6 +13,7 @@ import { PropertyType, ListType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Countries } from "../../lib/Countries";
 import { listingContract } from "../../lib/constants";
+import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 
 const ListProperty = () => {
   const userJwt = import.meta.env.VITE_IPFS_JWT;
@@ -20,7 +21,8 @@ const ListProperty = () => {
   // Initialize state with one empty slot
   const [images, setImages] = useState([null]);
   const [imageURLs, setImageURLs] = useState([""]);
-
+  const [transactionHash, setTransactionHash] = useState(null);
+  const [cloudinaryImageUrls, setCloudinaryImageUrls] = useState([]);
   const user = useSelector((state) => state.auth.user);
 
   const decodedUser = jwt.decode(user);
@@ -39,6 +41,54 @@ const ListProperty = () => {
     _country: "",
     listType: "",
   });
+
+  const handleUploadImages = async () => {
+    try {
+      // Filter out null images
+      const validImages = images.filter((image) => image !== null);
+
+      // Check if there are any images to upload
+      if (validImages.length === 0) {
+        alert("Please select images to upload");
+        return;
+      }
+
+      // Disable upload button and show loading state
+      // setIsUploading(true);
+
+      // Upload images to Cloudinary
+      const uploadPromises = validImages.map(async (image) => {
+        try {
+          const uploadedImageData = await UploadToCloudinary(image);
+          return uploadedImageData; // This should return the Cloudinary image data
+        } catch (uploadError) {
+          console.error("Image upload error:", uploadError);
+          return null;
+        }
+      });
+
+      // Wait for all uploads to complete
+      const uploadResults = await Promise.all(uploadPromises);
+
+      // Filter out successful uploads and extract URLs
+      const cloudinaryUrls = uploadResults
+        .filter((result) => result !== null)
+        .map((result) => result.secure_url); // Use secure_url from Cloudinary response
+
+      // Update state with Cloudinary URLs
+      setCloudinaryImageUrls(cloudinaryUrls);
+
+      // Optional: Reset local image states
+      setImages([null]);
+      setImageURLs([""]);
+    } catch (error) {
+      console.error("Upload process error:", error);
+      alert("Failed to upload images");
+    } finally {
+      // setIsUploading(false);
+      console.log("result");
+    }
+  };
 
   const changeHandler = (event, index) => {
     if (event.target.files && event.target.files[0]) {
@@ -84,9 +134,13 @@ const ListProperty = () => {
     return res.data.IpfsHash;
   };
 
+  //console.log("cloudinaryImageUrls", cloudinaryImageUrls);
+
   const handleSubmission = async () => {
+    await handleUploadImages();
     try {
       const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
+      console.log(imageIPFSHashes);
       const transaction = prepareContractCall({
         contract: listingContract,
         method: resolveMethod("listProperty"),
@@ -106,28 +160,32 @@ const ListProperty = () => {
           },
         ],
       });
-      console.log(transaction);
+      console.log("transaction", transaction);
       if (transaction) {
-        const res = await fetch("https://proput-db.onrender.com/new_listing", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            property_price: form.price,
-            headline: form._propertyTitle,
-            img_urls: imageIPFSHashes,
-            room_spec: form._property_spec,
-            description: form._description,
-            id: decodedUser.id,
-            square_ft: form._square,
-            type: form._property_type,
-            address: form._propertyAddress,
-            city: form._city,
-            country: form._country,
-            listType: form.listType,
-          }),
-        });
+        const res = await fetch(
+          "https://proput-db-jlb1.onrender.com/new_listing",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              property_price: form.price,
+              headline: form._propertyTitle,
+              img_urls: cloudinaryImageUrls,
+              room_spec: form._property_spec,
+              description: form._description,
+              id: decodedUser.id,
+              square_ft: form._square,
+              type: form._property_type,
+              address: form._propertyAddress,
+              city: form._city,
+              country: form._country,
+              listType: form.listType,
+              property_hash: transactionHash,
+            }),
+          }
+        );
 
-        if (!res) {
+        if (!res.ok) {
           throw new Error("property not uploaded to database");
         }
       }
@@ -281,6 +339,8 @@ const ListProperty = () => {
               <TransactionButton
                 transaction={handleSubmission}
                 onTransactionConfirmed={(trx) => {
+                  setTransactionHash(trx.transactionHash);
+                  //console.log(trx);
                   handleListingSuccessfull(trx);
                 }}
                 onError={(err) => {
@@ -322,7 +382,10 @@ const ListProperty = () => {
               </div>
               <div className="bg-white p-5">
                 <p className="text-lg text-[#FF0606]">
-                  <CurrencySymbol amount={form.price} />
+                  <CurrencySymbol
+                    amount={form.price}
+                    listType={form.listType.toLocaleUpperCase()}
+                  />
                 </p>
                 <p className="my-3 font-bold text-xl">{form._propertyTitle}</p>
                 <p>{form._description}</p>

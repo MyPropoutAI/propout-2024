@@ -1,5 +1,11 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
-  ]
+  ],
+  "functions": {
+    "api/socket.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
 }

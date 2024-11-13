@@ -111,6 +111,14 @@ const Register = () => {
 
             <div className="my-2">
               <Input
+                {...register("referral_code", { required: true })}
+                type="text"
+                placeholder="referral code (Optional)"
+              />
+            </div>
+
+            <div className="my-2">
+              <Input
                 {...register("password", { required: true })}
                 type={pwType}
                 placeholder="password"

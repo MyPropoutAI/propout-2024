@@ -52,6 +52,8 @@ import TestnetRoot from "../routes/testnet/root";
 import Otp from "../routes/auth/otp/Otp";
 import MintNft from "../routes/dashboard/MintNft";
 import AgentProfile from "../routes/dashboard/Profile";
+import PropertyDetails from "../routes/marketplace/PropertyDetails";
+import Chat from "../routes/chat/Chat";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -79,6 +81,14 @@ export const router = createBrowserRouter([
       {
         path: "/marketplace",
         element: <Marketplace />,
+      },
+      {
+        path: "/property/:id",
+        element: <PropertyDetails />,
+      },
+      {
+        path: "/profile/:id",
+        element: <AgentProfile />,
       },
       // {
       //   path: "/testnet",
@@ -120,6 +130,18 @@ export const router = createBrowserRouter([
         path: "/home/list/success",
         element: <Success />,
       },
+      {
+        path: "/home/marketplace",
+        element: <Marketplace />,
+      },
+      {
+        path: "/home/about",
+        element: <About />,
+      },
+      {
+        path: "/home/list",
+        element: <List />,
+      },
 
       // {
       //   path: "/home/testnet/faucet",
@@ -130,6 +152,14 @@ export const router = createBrowserRouter([
       {
         path: "/home/property-description/:id",
         element: <Propertydesc />,
+      },
+      {
+        path: "/home/chat/:id",
+        element: <Agent />,
+      },
+      {
+        path: "/home/chat",
+        element: <Chat />,
       },
       {
         path: "/home/agent",
