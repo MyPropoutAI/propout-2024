@@ -54,6 +54,7 @@ import MintNft from "../routes/dashboard/MintNft";
 import AgentProfile from "../routes/dashboard/Profile";
 import PropertyDetails from "../routes/marketplace/PropertyDetails";
 import Chat from "../routes/chat/Chat";
+import AgentDirectory from "../routes/Agent/Agent";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -89,6 +90,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile/:id",
         element: <AgentProfile />,
+      },
+      {
+        path: "/agents",
+        element: <AgentDirectory />,
       },
       // {
       //   path: "/testnet",
@@ -155,7 +160,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/home/chat/:id",
-        element: <Agent />,
+        element: <Chat />,
       },
       {
         path: "/home/chat",
@@ -200,7 +205,7 @@ export const router = createBrowserRouter([
         element: <Swap />,
       },
       {
-        path: "/dashboard/agent-profile",
+        path: "/dashboard/agent-profile/:id",
         element: <AgentProfile />,
       },
       {

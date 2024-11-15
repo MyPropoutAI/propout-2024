@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import {
   Star,
   MapPin,
@@ -15,9 +16,40 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 
 export default function AgentProfile() {
+  const [userData, setUserData] = useState(null);
   const { id } = useParams();
+  const { data: users, isLoading } = useUsers();
+
+  useEffect(() => {
+    if (users && users.user) {
+      const usersData = Array.isArray(users.user) ? users.user : [];
+      const foundUser = usersData.find((user) => user.id == id);
+      setUserData(foundUser);
+    }
+  }, [users, id]);
+
+  // Loading state
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Error state
+  if (!userData) {
+    return <div>User not found</div>;
+  }
+
+  // Safely access user properties with fallback values
+  const safeUserData = {
+    name: userData.name || "Unknown",
+    image: userData.image || "/placeholder.svg",
+    address: userData.address || "No address",
+    phone_number: userData.phone_number || "No phone",
+    email_address: userData.email_address || "No email",
+    description: userData.description || "No description",
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -25,14 +57,23 @@ export default function AgentProfile() {
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
           <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 sm:p-10">
             <div className="flex flex-col sm:flex-row items-center">
-              <img
-                src="/placeholder.svg"
-                alt="Agent Profile"
-                className="rounded-full border-4 border-white shadow-lg mb-4 sm:mb-0 sm:mr-6"
-              />
+              {safeUserData.image ? (
+                <img
+                  src="/placeholder.svg"
+                  alt="Agent Profile"
+                  className="rounded-full border-4 border-white shadow-lg mb-4 sm:mb-0 sm:mr-6"
+                />
+              ) : (
+                <div className="w-16 h-16 rounded-full flex justify-center items-center">
+                  <h1 className="text-[#320051] font-bold text-lg text-center">
+                    {safeUserData.name.substring(0, 2)}
+                  </h1>
+                </div>
+              )}
+
               <div className="text-center sm:text-left">
                 <h1 className="text-3xl font-bold text-white mb-2">
-                  Sarah Johnson
+                  {safeUserData.name}
                 </h1>
                 <p className="text-purple-100 text-lg mb-2">
                   Luxury Real Estate Specialist
@@ -53,15 +94,15 @@ export default function AgentProfile() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex items-center">
                 <MapPin className="h-6 w-6 text-purple-600 mr-2" />
-                <span>New York City, NY</span>
+                <span>{safeUserData.address}</span>
               </div>
               <div className="flex items-center">
                 <Phone className="h-6 w-6 text-purple-600 mr-2" />
-                <span>(555) 123-4567</span>
+                <span>{safeUserData.phone_number}</span>
               </div>
               <div className="flex items-center">
                 <Mail className="h-6 w-6 text-purple-600 mr-2" />
-                <span>sarah.johnson@realestate.com</span>
+                <span>{safeUserData.email_address}</span>
               </div>
             </div>
             <div className="mt-6 flex justify-center sm:justify-start space-x-4">
@@ -83,21 +124,10 @@ export default function AgentProfile() {
 
         {/* About Section */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 p-6 sm:p-10">
-          <h2 className="text-2xl font-bold mb-4">About Sarah</h2>
-          <p className="text-gray-600 mb-4">
-            With over 15 years of experience in the New York real estate market,
-            Sarah Johnson has established herself as a top-performing agent
-            specializing in luxury properties. Her dedication to client
-            satisfaction and extensive market knowledge make her the go-to agent
-            for discerning buyers and sellers.
-          </p>
-          <p className="text-gray-600">
-            Sarahs approach combines cutting-edge technology with personalized
-            service, ensuring that each client receives the attention and
-            expertise they deserve. Whether youre looking to buy your dream home
-            or sell your property for the best possible price, Sarah is
-            committed to exceeding your expectations.
-          </p>
+          <h2 className="text-2xl font-bold mb-4">
+            About {safeUserData.name.split(" ")}
+          </h2>
+          <p className="text-gray-600 mb-4">{safeUserData.description}</p>
         </div>
 
         {/* Stats Section */}

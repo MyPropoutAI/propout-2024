@@ -22,6 +22,7 @@ import Picker from "@emoji-mart/react";
 import { Button } from "../../components/ui/button";
 import { Rings } from "react-loader-spinner";
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
+import { useParams } from "react-router-dom";
 
 export default function Chat() {
   const [messages, setMessages] = useState(() => {
@@ -39,89 +40,160 @@ export default function Chat() {
   const [selectedContact, setSelectedContact] = useState(null);
   const [showMobileChat, setShowMobileChat] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  // Refs
   const messagesEndRef = useRef(null);
   const localVideoRef = useRef(null);
   const remoteVideoRef = useRef(null);
 
+  // User Authentication
   const user = useSelector((state) => state.auth.user);
   const decodedUser = jwt.decode(user);
-  //console.log(decodedUser);
-  const userAvartar = decodedUser.name.substring(0, 2);
+  const userAvatar = decodedUser.name.substring(0, 2);
+
+  const { id } = useParams();
+
+  // Fetch Users
+  const { data: users } = useUsers();
+  console.log(users);
+  const userData = users ? users.user : [];
+
+  useEffect(() => {
+    // Check if we have users data and an ID in the URL
+    if (id && Array.isArray(userData)) {
+      // Find the contact whose ID matches the URL param
+      const contactFromUrl = userData.find((user) => user.id.toString() === id);
+
+      // If a matching contact is found, set it as the selected contact
+      if (contactFromUrl) {
+        setSelectedContact(contactFromUrl);
+        setShowMobileChat(true); // Ensure mobile chat view is shown
+      }
+    }
+  }, [id, userData]);
+
+  const contacts = Array.isArray(userData)
+    ? userData.filter((user) => user.id !== decodedUser.id)
+    : [];
 
   const handleSign = () => {
     console.log("Agreement signed");
     setIsOpen(false);
   };
 
-  const { data: users } = useUsers();
-  //console.log("contacts", users.user[0]);
-  const contacts = users?.user;
-
+  // Socket Connection and Event Handling
   useEffect(() => {
-    const newSocket = io([
-      "http://localhost:5173",
-      "https://www.mypropout.com",
-      "https://mypropout.com",
-    ]);
+    // Create Socket Connection
+    const newSocket = io("http://localhost:3001", {
+      auth: {
+        token: user, // Optional: pass user token for authentication
+      },
+    });
     setSocket(newSocket);
 
-    newSocket.on("message", (message) => {
-      setMessages((prev) => ({
-        ...prev,
-        [selectedContact?.id || ""]: [
-          ...(prev[selectedContact?.id || ""] || []),
-          { ...message, isMe: false },
-        ],
-      }));
+    // User Join Event
+    newSocket.emit("user_join", decodedUser.id);
+
+    // Receive Message Event
+    newSocket.on("receive_message", (message) => {
+      // Update messages for the specific contact
+      setMessages((prev) => {
+        const contactId =
+          message.senderId === decodedUser.id
+            ? message.receiverId
+            : message.senderId;
+
+        return {
+          ...prev,
+          [contactId]: [
+            ...(prev[contactId] || []),
+            {
+              ...message,
+              isMe: message.senderId === decodedUser.id,
+            },
+          ],
+        };
+      });
     });
 
-    newSocket.on("typing", (isTyping) => {
-      setIsTyping(isTyping);
+    // Typing Status Event
+    newSocket.on("typing_status", ({ senderId, isTyping }) => {
+      if (selectedContact && senderId === selectedContact.id) {
+        setIsTyping(isTyping);
+      }
     });
 
+    // Cleanup on unmount
     return () => {
-      newSocket.close();
+      newSocket.disconnect();
     };
   }, [selectedContact]);
 
+  // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, selectedContact]);
 
+  // Save messages to local storage
   useEffect(() => {
     localStorage.setItem("chatMessages", JSON.stringify(messages));
   }, [messages]);
 
+  // Message Sending Handler
   const handleSend = (e) => {
     e.preventDefault();
-    if (!newMessage.trim() || !selectedContact) return;
+    if (!newMessage.trim() || !selectedContact || !socket) return;
 
-    const message = {
-      id: Date.now().toString(),
+    const messageData = {
+      senderId: decodedUser.id,
+      receiverId: selectedContact.id,
       content: newMessage,
-      sender: "me",
-      timestamp: new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      isMe: true,
     };
 
+    // Emit message through socket
+    socket.emit("send_message", messageData);
+
+    // Update local messages
     setMessages((prev) => ({
       ...prev,
-      [selectedContact.id]: [...(prev[selectedContact.id] || []), message],
+      [selectedContact.id]: [
+        ...(prev[selectedContact.id] || []),
+        {
+          id: Date.now().toString(),
+          content: newMessage,
+          sender: "me",
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          isMe: true,
+        },
+      ],
     }));
+
     setNewMessage("");
-    socket?.emit("message", message);
   };
 
+  // Typing Indicator Handler
   const handleTyping = (e) => {
-    setNewMessage(e.target.value);
-    socket?.emit("typing", true);
+    const message = e.target.value;
+    setNewMessage(message);
 
-    setTimeout(() => {
-      socket?.emit("typing", false);
-    }, 2000);
+    // Emit typing start
+    if (socket && selectedContact) {
+      socket.emit("typing_start", {
+        senderId: decodedUser.id,
+        receiverId: selectedContact.id,
+      });
+
+      // Stop typing after 2 seconds
+      setTimeout(() => {
+        socket.emit("typing_end", {
+          senderId: decodedUser.id,
+          receiverId: selectedContact.id,
+        });
+      }, 2000);
+    }
   };
 
   const handleSearch = (e) => {
@@ -152,11 +224,21 @@ export default function Chat() {
         }),
         isMe: true,
       };
+
+      // Update local messages
       setMessages((prev) => ({
         ...prev,
         [selectedContact.id]: [...(prev[selectedContact.id] || []), message],
       }));
-      socket?.emit("message", message);
+
+      // Optionally emit file message through socket
+      if (socket) {
+        socket.emit("send_message", {
+          senderId: decodedUser.id,
+          receiverId: selectedContact.id,
+          content: message.content,
+        });
+      }
     }
     setShowFileUpload(false);
   };
@@ -203,7 +285,7 @@ export default function Chat() {
           <h1 className="font-semibold">PropChat</h1>
           <div className="w-12 h-12 flex justify-center items-center mb-2 rounded-full border">
             <h1 className="text-[#320051] font-bold text-2xl text-center">
-              {userAvartar}
+              {userAvatar}
             </h1>
           </div>
         </div>
@@ -399,9 +481,9 @@ export default function Chat() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4">
-              {messages[selectedContact.id]?.map((message) => (
+              {messages[selectedContact.id]?.map((message, index) => (
                 <div
-                  key={message.id}
+                  key={index}
                   className={`flex ${
                     message.isMe ? "justify-end" : "justify-start"
                   } mb-4`}
@@ -436,7 +518,7 @@ export default function Chat() {
                   {message.isMe && (
                     <div className="w-8 h-8 flex justify-center items-center mb-2 rounded-full border">
                       <h1 className="text-[#320051] font-semibold text-lg text-center">
-                        {userAvartar}
+                        {userAvatar}
                       </h1>
                     </div>
                   )}

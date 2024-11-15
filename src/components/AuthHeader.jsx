@@ -22,6 +22,11 @@ const links = [
     path: "http://waitlist-propout.onrender.com",
     state: true,
   },
+  {
+    name: "Market Place",
+    path: "/marketplace",
+    state: true,
+  },
   // { name: "Faucet", path: "/testnet/faucet", state: true },
 ];
 

@@ -11,7 +11,7 @@ const links = [
   { link: "Home", url: "/" },
   { link: "About us", url: "/about" },
   { link: "List", url: "/home/list" },
-  { link: "Marketplace", url: "/home/marketplace" },
+  { link: "Marketplace", url: "marketplace" },
   { link: "whitepaper", url: "/whitepaper" },
   { link: "airdrop", url: "/airdrop" },
   { link: "blog", url: "/blog" },

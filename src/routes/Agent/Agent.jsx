@@ -1,167 +1,138 @@
-import React, { useState } from "react";
-import Rentsample from "../../components/Rentsample";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import More from "./More";
-import { cn } from "../../lib/utils";
-import { Button } from "../../components/ui/button";
-import { useActiveAccount, useReadContract } from "thirdweb/react";
-import { resolveMethod } from "thirdweb";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import jwt from "jsonwebtoken";
-import { listingContract } from "../../lib/constants";
+import { useState, useEffect } from "react";
+import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 
-const Agent = () => {
-  const [activeTab, setActiveTab] = useState("property");
-  const user = useSelector((state) => state.auth.user);
-  //const verified = useSelector((state) => state.auth.isVerified);
+const ITEMS_PER_PAGE = 9;
 
-  const decodedUser = jwt.decode(user);
+export default function AgentDirectory() {
+  const [agents, setAgents] = useState([]);
+  const [filteredAgents, setFilteredAgents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const userAvartar = decodedUser.name.substring(0, 2);
+  const { data: users } = useUsers();
+  const agentsData = users ? users.user : []; // Use optional chaining to prevent errors
+  console.log(agentsData);
 
-  const { address } = useActiveAccount();
+  useEffect(() => {
+    // Check if agentsData is defined and has the agents property
+    if (agentsData && Array.isArray(agentsData)) {
+      setAgents(agentsData);
+      setFilteredAgents(agentsData);
+    }
+  }, []); // Add agentsData as a dependency
 
-  const { data, isLoading } = useReadContract({
-    contract: listingContract,
-    method: resolveMethod("getUserProperties"),
-    params: [address && address],
-  });
+  useEffect(() => {
+    const filtered = agents.filter(
+      (agent) =>
+        agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        agent.specialization.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    console.log(filtered);
+    setFilteredAgents(filtered);
+    setCurrentPage(1);
+  }, [searchTerm, agents]);
 
-  if (isLoading) return <p>Loading.....</p>;
+  const totalPages = Math.ceil(filteredAgents.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentAgents = filteredAgents.slice(startIndex, endIndex);
+  //console.log(filteredAgents);
+
+  const handleViewProfile = (agentId) => {
+    // This function would typically navigate to the agent's profile page
+    console.log(`Viewing profile of agent with ID: ${agentId}`);
+  };
 
   return (
-    <div className="bg-[#37164c] text-white ">
-      <div className="md:flex md:justify-center mb-5 ">
-        <div className="md:mx-10 mx-3 md:w-4/4">
-          <div className="md:h-[80vh h-[60vh ">
-            <div className="flex flex-col gap-3 items-center justify-center py-10 md:py-20">
-              <div className="flex justify-center">
-                <div className="w-20 h-20 flex justify-center items-center mb-2 rounded-full border">
-                  <h1 className="text-white font-bold text-2xl text-center">
-                    {userAvartar}
-                  </h1>
-                </div>
-              </div>
-              <div>
-                <p className="font-bold">{decodedUser.name}</p>
-                <p>Estate Agent</p>
-              </div>
-            </div>
-            <div className="text-left">
-              <p className="flex gap-3 md:text-2xl items-center">
-                Account Verification Status:{" "}
-                <span className="font-bold py-1 px-4 bg-green-200 text-green-400 rounded-md ">
-                  {" "}
-                  Verified{" "}
-                </span>
-              </p>
-              <p className="flex gap-3 md:text-2xl mb-10">
-                Email:
-                <span className="font-bold">{decodedUser.email}</span>
-              </p>
-            </div>
-          </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8 text-center text-blue-800">
+        Agent Directory
+      </h1>
 
-          <div>
-            <Tabs defaultValue="Property Listed" className="">
-              <TabsList className="md:w-full flex gap-1 md:gap-3 ">
-                <TabsTrigger
-                  value="Property Listed"
-                  className={cn(
-                    "flex-1 md:font-bold text-[13px] md:text-[17px]",
-                    activeTab == "Property Listed"
-                      ? "bg-[#964CC3] text-white"
-                      : "bg-white text-[#964CC3]"
-                  )}
-                  onClick={() => setActiveTab("Property Listed")}
-                >
-                  Properties Listed
-                </TabsTrigger>
-
-                {/* <TabsTrigger
-                  value="Closed Deals"
-                  className={cn(
-                    "flex-1 md:font-bold text-[13px] md:text-[17px]",
-                    activeTab == "Closed Deals"
-                      ? "bg-[#964CC3] text-white"
-                      : "bg-white text-[#964CC3]"
-                  )}
-                  onClick={() => setActiveTab("Closed Deals")}
-                >
-                  Closed Deals
-                </TabsTrigger> */}
-              </TabsList>
-              <div>
-                {/* <TabsContent value="Assets">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 flex-1 w-full">
-                    <More />
-                    <More />
-                    <More />
-                  </div>
-                </TabsContent> */}
-                <TabsContent value="Property Listed">
-                  {" "}
-                  <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 flex-1 w-full">
-                    {data?.map((item, i) => (
-                      <Link
-                        to={`/home/property-description/${item.propertyId}`}
-                        key={i}
-                      >
-                        <Rentsample data={item} />
-                      </Link>
-                    ))}
-                  </div>
-                </TabsContent>
-
-                {/* <TabsContent value="Closed Deals">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-3 gap-4 flex-1 w-full">
-                    <More />
-                    <More />
-                    <More />
-                    <More />
-                    <More />
-                  </div>
-                </TabsContent> */}
-              </div>
-            </Tabs>
-          </div>
+      {/* Search Bar */}
+      <div className="mb-8 max-w-md mx-auto">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search agents..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <svg
+            className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
         </div>
       </div>
-      <div className="bg-agentFooter p-10 mx-10">
-        <div className=" md:w-2/3 mb-3 text-justify md:mb-10">
-          <p className="md:text-2xl py-4 font-bold text-xl ">About Agent</p>
-          <p className="md:text-xl text-[13px]">
-            I am a passionate and trustworthy person, i work as a computer
-            engineer at watchman technology limited i rent houses and also act
-            as a real estate agent. You can contact for your house renting and
-            property buying.
-          </p>
-        </div>
-        <div className="md:flex md:justify-between grid gap-3  items-center">
-          <div className="flex gap-5 items-center">
-            <img src="/images/adams.svg" className="md:h-[8rem] h-10" alt="" />
-            <div>
-              <p className="md:text-2xl md:py-3 font-bold text-[13px]">
-                Adams Cane
-              </p>
-              <p className="text-[10px] md:text-xl">Estate Agent</p>
+
+      {/* Agent Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {currentAgents.map((agent) => (
+          <div
+            key={agent.id}
+            className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col"
+          >
+            {console.log(agent.name)}
+            {agent.image ? (
+              <img
+                src={agent.image}
+                alt={agent.name}
+                className="w-full h-48 object-cover"
+              />
+            ) : (
+              <></>
+            )}
+            <div className="p-4 flex-grow">
+              <h2 className="text-xl font-semibold mb-2">{agent.name}</h2>
+              <p className="text-gray-600 mb-1">{agent.email_address}</p>
+              <p className="text-gray-600 mb-1">{agent.phone_number}</p>
+              <p className="text-blue-600 font-medium mb-4">{agent.address}</p>
+            </div>
+            <div className="px-4 pb-4">
+              <button
+                onClick={() => handleViewProfile(agent.id)}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+              >
+                View Profile
+              </button>
             </div>
           </div>
+        ))}
+      </div>
 
-          <div className="flex md:gap-7 gap-3">
-            <Button variant="rent" size="footer">
-              Call Lister
-            </Button>
-
-            <Button variant="rent" size="footer" md:size="property">
-              Message Lister
-            </Button>
-          </div>
-        </div>
+      {/* Pagination */}
+      <div className="flex justify-center items-center space-x-2">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-4 py-2 border border-gray-300 rounded-md disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="text-gray-600">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 border border-gray-300 rounded-md disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
-};
-
-export default Agent;
+}

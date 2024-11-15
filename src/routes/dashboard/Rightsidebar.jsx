@@ -124,7 +124,7 @@ const Rightsidebar = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              <Link to="/dashboard/agent-profile">
+              <Link to={`/dashboard/agent-profile/${decodedUser.id}`}>
                 <button className="bg-[#964CC3] text-[#ffff] py-1 px-5 mt-2 rounded-md">
                   View Profile
                 </button>

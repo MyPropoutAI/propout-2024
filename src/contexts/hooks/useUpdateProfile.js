@@ -1,11 +1,15 @@
 import { useState } from "react";
 //import { useAuthContext } from "./useAuthcontext";
 import { useNavigate } from "react-router-dom";
-
+import jwt from "jsonwebtoken";
+import { useSelector } from "react-redux";
 export const useUpdateProfile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+
+  const user = useSelector((state) => state.auth.user);
+  const decodedUser = jwt.decode(user);
 
   // const { dispatch } = useAuthContext();
   const navigate = useNavigate();
@@ -49,7 +53,7 @@ export const useUpdateProfile = () => {
       if (json.success) {
         setLoading(false);
         setSuccess(json.success.success);
-        navigate("/dashboard/profile");
+        navigate(`/dashboard/agent-profile/${decodedUser.id}`);
       }
     } catch (error) {
       setError(error);

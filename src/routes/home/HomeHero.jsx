@@ -46,10 +46,10 @@ const HomeHero = () => {
             <Link to={"/dashboard/list"}>List</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
-            <Link to={"/marketplace"}>Rent</Link>
+            <Link to={"/marketplace"}>Marketplace</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
-            <Link to={"/marketplace"}>Buy</Link>
+            <Link to={"/agents"}>Agents</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
             <Link to="/home/testnet/faucet">Testnet</Link>

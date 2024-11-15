@@ -49,7 +49,7 @@ export default function PropertyDetails() {
       }
     }
   }, [properties, id]);
-  console.log(property);
+  //console.log(property);
   // Loading state
   if (isLoading) {
     return (
@@ -233,12 +233,14 @@ export default function PropertyDetails() {
                 >
                   <Phone className="mr-2" /> Call
                 </button>
-                <button
-                  onClick={() => openModal("chat")}
-                  className="flex-1 bg-green-500 text-white py-2 rounded-md flex items-center justify-center"
-                >
-                  <MessageCircle className="mr-2" /> Chat
-                </button>
+                <Link to={`/home/chat/${safeProperty.agent_id}`}>
+                  <button
+                    // onClick={() => openModal("chat")}
+                    className="flex-1 bg-green-500 text-white py-2 rounded-md flex items-center justify-center"
+                  >
+                    <MessageCircle className="mr-2" /> Chat
+                  </button>
+                </Link>
               </div>
             </div>
 

@@ -15,6 +15,11 @@ const mobileNav = [
     path: "http://waitlist-propout.onrender.com",
     state: true,
   },
+  {
+    name: "Marketplace",
+    path: "/marketplace",
+    state: true,
+  },
 ];
 const navLink = [
   { name: "Home", path: "/" },
@@ -25,6 +30,11 @@ const navLink = [
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
+    state: true,
+  },
+  {
+    name: "Marketplace",
+    path: "/marketplace",
     state: true,
   },
 ];

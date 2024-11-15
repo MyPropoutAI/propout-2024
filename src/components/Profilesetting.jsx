@@ -1,40 +1,40 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Countries } from "../lib/Countries";
 import { Rings } from "react-loader-spinner";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { useUpdateProfile } from "../contexts/hooks/useUpdateProfile";
 import { toast } from "sonner";
+
 const Profilesetting = () => {
-  const [form, setForm] = useState({
-    name: "",
-    phone_number: "",
-    address: "",
-    occupation: "",
-    email: "",
-    country: "",
-    description: "",
-    city: "",
-    facebook: "",
-    instagram: "",
-    twitter: "",
-    linkedIn: "",
-    website: "",
+  const { register, handleSubmit, setValue } = useForm({
+    defaultValues: {
+      name: "",
+      phone_number: "",
+      address: "",
+      occupation: "",
+      email: "",
+      country: "",
+      description: "",
+      city: "",
+      facebook: "",
+      instagram: "",
+      twitter: "",
+      linkedIn: "",
+      website: "",
+    },
   });
+
   const { updateProfile, loading, success } = useUpdateProfile();
   const user = useSelector((state) => state.auth.user);
   const decodedUser = jwt.decode(user);
 
-  const handleFormChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
-  };
-  const handleSubmit = async () => {
-    const data = { ...form, userId: decodedUser?.id };
-    //console.log(data);
-    const res = await updateProfile(data);
-    console.log(res);
+  const onSubmit = async (data) => {
+    const profileData = { ...data, userId: decodedUser?.id };
+
+    const res = await updateProfile(profileData);
+
     if (res.error) {
-      console.log(res.error.message);
       toast.error("Error", {
         description: res.error.message,
       });
@@ -42,7 +42,6 @@ const Profilesetting = () => {
       toast.success("Success", {
         description: success,
       });
-      // queryClient.invalidateQueries("user");
     }
   };
 
@@ -52,16 +51,15 @@ const Profilesetting = () => {
         Profile settings
       </h1>
       <hr />
-      <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="md:flex gap-5">
           <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg ">Full name</p>
             <input
               type="text"
               placeholder="Full name"
-              name="name"
+              {...register("name")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_name", e)}
             />
           </div>
           <div className="flex-1">
@@ -69,9 +67,8 @@ const Profilesetting = () => {
             <input
               type="tel"
               placeholder="+234 *****"
-              name="phone_number"
+              {...register("phone_number")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_phone_number", e)}
             />
           </div>
         </div>
@@ -82,9 +79,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Address..."
-              name="address"
+              {...register("address")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_address", e)}
             />
           </div>
           <div className="flex-1">
@@ -92,9 +88,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Designer"
-              name="occupation"
+              {...register("occupation")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_occupation", e)}
             />
           </div>
         </div>
@@ -105,9 +100,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Facebook url..."
-              name="facebook"
+              {...register("facebook")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_facebook", e)}
             />
           </div>
           <div className="flex-1">
@@ -115,9 +109,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Instagram url..."
-              name="instagram"
+              {...register("instagram")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_instagram", e)}
             />
           </div>
         </div>
@@ -128,9 +121,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Twitter url..."
-              name="twitter"
+              {...register("twitter")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_twitter", e)}
             />
           </div>
           <div className="flex-1">
@@ -138,9 +130,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Linkedin url..."
-              name="linkedin"
+              {...register("linkedIn")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_linkedin", e)}
             />
           </div>
         </div>
@@ -151,9 +142,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="Website url..."
-              name="website"
+              {...register("website")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_website", e)}
             />
           </div>
         </div>
@@ -164,9 +154,8 @@ const Profilesetting = () => {
             <input
               type="email"
               placeholder="Joelpillar@gmail.com"
-              name="email"
+              {...register("email")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_email", e)}
             />
           </div>
           <div className="flex-1">
@@ -174,9 +163,8 @@ const Profilesetting = () => {
             <input
               type="text"
               placeholder="City..."
-              name="city"
+              {...register("city")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_city", e)}
             />
           </div>
         </div>
@@ -185,8 +173,8 @@ const Profilesetting = () => {
           <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg ">Country</p>
             <select
+              {...register("country")}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              onChange={(e) => handleFormChange("_country", e)}
             >
               <option value="1">Country</option>
               {Countries.map((country, i) => (
@@ -198,27 +186,24 @@ const Profilesetting = () => {
           </div>
           <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg">Description</p>
-            <input
-              type="text"
+            <textarea
               placeholder="Sent 14m for those houses on rent"
-              name="description"
-              className="outline-[#320051] border rounded-md px-2 py-2 w-full"
-              onChange={(e) => handleFormChange("_description", e)}
+              {...register("description")}
+              className="outline-[#320051] border rounded-md px-2 py-2 w-full h-24"
             />
           </div>
         </div>
 
         <div className="flex justify-center mx-5 mt-4 ">
           <button
-            type="button"
-            onClick={handleSubmit}
-            className=" bg-btnGrad text-white rounded-md font-bold px-5 py-2 flex-1"
+            type="submit"
+            className="bg-btnGrad text-white rounded-md font-bold px-5 py-2 flex-1"
           >
             {loading ? (
               <Rings
                 visible={true}
                 height="40"
-                width="844fa94d"
+                width="40"
                 ariaLabel="rings-loading"
                 wrapperStyle={{}}
                 wrapperClass=""
@@ -228,7 +213,7 @@ const Profilesetting = () => {
             )}
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

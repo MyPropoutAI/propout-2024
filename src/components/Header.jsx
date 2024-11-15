@@ -16,6 +16,11 @@ const mobileNav = [
     path: "http://waitlist-propout.onrender.com",
     state: true,
   },
+  {
+    name: "Marketplace",
+    path: "/marketplace",
+    state: true,
+  },
 ];
 const Header = () => {
   const user = useSelector((state) => state.auth.user);
