@@ -9,10 +9,6 @@ import {
   Twitter,
   Instagram,
   Globe,
-  // Home,
-  // DollarSign,
-  // Award,
-  // Users,
   ChevronRight,
   Linkedin,
 } from "lucide-react";
@@ -44,20 +40,20 @@ export default function AgentProfile() {
   console.log(userData);
   // Safely access user properties with fallback values
   const safeUserData = {
-    name: userData.name || "Unknown",
-    image: userData.pfp || "/placeholder.svg",
-    address: userData.address || "No address",
-    phone_number: userData.phone_number || "No phone",
-    email_address: userData.email_address || "No email",
-    description: userData.description || "No description",
-    twitter: userData.social_media.twitter || "twitter",
-    linkedin: userData.social_media.linkedin || "linkedin",
-    instagram: userData.social_media.instagram || "instagram",
-    facebook: userData.social_media.facebook || "facebook",
-    city: userData.city || "city",
-    country: userData.country || "country",
-    occupation: userData.occupation || "occupation",
-    website: userData.social_media.website || "website",
+    name: userData?.name || "Unknown",
+    image: userData?.pfp || "/placeholder.svg",
+    address: userData?.address || "No address",
+    phone_number: userData?.phone_number || "No phone",
+    email_address: userData?.email_address || "No email",
+    description: userData?.description || "No description",
+    twitter: userData.social_media?.twitter || "twitter",
+    linkedin: userData.social_media?.linkedin || "linkedin",
+    instagram: userData.social_media?.instagram || "instagram",
+    facebook: userData.social_media?.facebook || "facebook",
+    city: userData?.city || "city",
+    country: userData?.country || "country",
+    occupation: userData?.occupation || "occupation",
+    website: userData?.social_media?.website || "website",
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200">
@@ -123,7 +119,7 @@ export default function AgentProfile() {
                   <Facebook className="h-6 w-6" />
                 </a>
               )}
-              {safeUserData.twitter && (
+              {safeUserData?.twitter && (
                 <a
                   href={safeUserData.twitter}
                   className="text-gray-400 hover:text-purple-600"
@@ -131,13 +127,13 @@ export default function AgentProfile() {
                   <Twitter className="h-6 w-6" />
                 </a>
               )}
-              {safeUserData.linkedin && (
+              {safeUserData?.linkedin && (
                 <a href="#" className="text-gray-400 hover:text-purple-600">
                   <Linkedin className="h-6 w-6" />
                 </a>
               )}
 
-              {safeUserData.instagram && (
+              {safeUserData?.instagram && (
                 <a
                   href={safeUserData.linkedin}
                   className="text-gray-400 hover:text-purple-600"
@@ -145,7 +141,7 @@ export default function AgentProfile() {
                   <Instagram className="h-6 w-6" />
                 </a>
               )}
-              {safeUserData.website && (
+              {safeUserData?.website && (
                 <a
                   href={safeUserData.website}
                   className="text-gray-400 hover:text-purple-600"
