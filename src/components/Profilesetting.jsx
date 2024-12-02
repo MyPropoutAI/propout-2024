@@ -5,7 +5,10 @@ import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { useUpdateProfile } from "../contexts/hooks/useUpdateProfile";
 import { toast } from "sonner";
-
+import { useDropzone } from "react-dropzone";
+import { useState } from "react";
+//import { UploadToCloudinary } from "../../components/UploadToCloudinary";
+import { UploadToCloudinary } from "./UploadToCloudinary";
 const Profilesetting = () => {
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -25,16 +28,38 @@ const Profilesetting = () => {
     },
   });
 
-  const { updateProfile, loading, success } = useUpdateProfile();
+  const { updateProfile, loading, success, error } = useUpdateProfile();
   const user = useSelector((state) => state.auth.user);
   const decodedUser = jwt.decode(user);
+  const [profileImage, setProfileImage] = useState(null);
 
+  const onDrop = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    const profileImageUrl = await UploadToCloudinary(file);
+    console.log("profileImageUrl", profileImageUrl.secure_url);
+    if (profileImageUrl) {
+      setProfileImage(URL.createObjectURL(file));
+      setValue("profilePicture", profileImageUrl?.secure_url); // Set the file in form state
+    }
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: {
+      "image/*": [], // Accept image files only
+    },
+  });
+  //console.log("raw profile image", profileImage);
   const onSubmit = async (data) => {
-    const profileData = { ...data, userId: decodedUser?.id };
+    //
+    const profileData = {
+      ...data,
+      userId: decodedUser?.id,
+    };
 
     const res = await updateProfile(profileData);
 
-    if (res.error) {
+    if (error) {
       toast.error("Error", {
         description: res.error.message,
       });
@@ -52,6 +77,27 @@ const Profilesetting = () => {
       </h1>
       <hr />
       <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Profile Image Upload */}
+        <div className="flex flex-col items-center mb-5 mt-3">
+          <div
+            {...getRootProps()}
+            className="border-2 border-dashed border-[#320051] rounded-full w-[10rem] h-[10rem] p-5 flex justify-center items-center flex-col items-center cursor-pointer hover:bg-gray-100 transition"
+          >
+            <input {...getInputProps()} />
+            {profileImage ? (
+              <img
+                src={profileImage}
+                alt="Profile"
+                className="w-32 h-32 rounded-full object-cover"
+              />
+            ) : (
+              <p className="text-[#320051] text-center">
+                Upload profile picture
+              </p>
+            )}
+          </div>
+        </div>
+
         <div className="md:flex gap-5">
           <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg ">Full name</p>

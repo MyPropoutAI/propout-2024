@@ -39,6 +39,7 @@ export const useUpdateProfile = () => {
             linkedIn: data?.linkedIn,
             website: data?.website,
             userId: data?.userId,
+            profile_picture: data?.profilePicture,
           }),
         }
       );

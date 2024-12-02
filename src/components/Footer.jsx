@@ -1,114 +1,93 @@
+import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
-import { FaTelegramPlane } from "react-icons/fa";
-import Wrapper from "./Wrapper";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-[#320051] ">
-      <Wrapper>
-        <div className="flex flex-col lg:flex-row justify-between gap-10 py-10 bg-[#320051]">
-          <section className="flex-1 text-white">
-            <div>
-              <img src="/images/pro2 1.svg" alt="" />
-            </div>
-            <p>Own properties on Propout, and flip at your convenience. </p>
-            <p>
+    <footer className="bg-purple-900 text-white py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <img src="/images/pro2 1.svg" alt="" />
+            <p className="text-sm">
               We&apos;ve enabled properties and other real estate assets further
               visibility through the Prop-tech digital market. Hence a safe and
               trusted tool for all kinds of real estate market
             </p>
-          </section>
-          <section className="flex-1 flex flex-col gap-5 lg:text-center text-white">
-            <div>
-              <Link to="/home/about" className="underline">
-                About us
-              </Link>
-            </div>
-            <div>
-              <Link to="" className="underline">
-                Contact us
-              </Link>
-            </div>
-            <div>
-              <Link
-                to="https://waitlist-propout.onrender.com/"
-                className="underline"
-                title="waitlist"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Join waitlist
-              </Link>
-            </div>
-          </section>
-          <section className="flex-1">
-            <p className="text-[#E08400] font-poppins  md:font-bold text-2xl">
-              Follow Us
-            </p>
-            <div className="flex mt-5 gap-4">
-              <Link
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link to="#how-it-works" className="hover:text-purple-300">
+                  How It Works
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-purple-300">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-purple-300">
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-purple-300">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Legal</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="hover:text-purple-300">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-purple-300">
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
+            <div className="flex space-x-4">
+              <a
                 to="https://www.facebook.com/profile.php?id=100090156995333&mibextid=JRoKGi"
-                title="social"
-                target="_blank"
-                rel="noreferrer"
+                className="hover:text-purple-300"
               >
-                <img
-                  className="h-5 w5 mx-1"
-                  src="/images/logos_facebook.svg"
-                  alt="Facebook"
-                />
-              </Link>
-              <Link
-                to="https://www.linkedin.com/in/propout-nft-37966028a/"
-                title="social"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  className="h-5 w-5 mx-1"
-                  src="/images/bi_linkedin.svg"
-                  alt="linkedin"
-                />
-              </Link>
-              <Link
+                <Facebook />
+              </a>
+              <a
                 to="https://twitter.com/myPropoutAI "
-                title="social"
-                target="_blank"
-                rel="noreferrer"
+                className="hover:text-purple-300"
               >
-                <img
-                  className="h-5 w-5 mx-1"
-                  src="/images/formkit_twitter.svg"
-                  alt="X(Twitter)"
-                />
-              </Link>
-
-              <Link
+                <Twitter />
+              </a>
+              <a
                 to="https://www.instagram.com/mypropoutai/"
-                title="social"
-                target="_blank"
-                rel="noreferrer"
+                className="hover:text-purple-300"
               >
-                <img
-                  className="h-5 w-5 mx-1"
-                  src="/images/ri_instagram-fill.svg"
-                  alt="Instagram"
-                />
-              </Link>
-              <Link
-                to="https://t.me/+0THrDm5u1CUwZTU0"
-                title="social"
-                target="_blank"
-                rel="noreferrer"
+                <Instagram />
+              </a>
+              <a
+                to="https://www.linkedin.com/in/propout-nft-37966028a/"
+                className="hover:text-purple-300"
               >
-                <FaTelegramPlane className="h-5 w5 mx-1 text-purple-500" />
-              </Link>
+                <Linkedin />
+              </a>
             </div>
-          </section>
+          </div>
         </div>
-      </Wrapper>
+        <div className="mt-8 pt-8 border-t border-purple-800 text-center">
+          <p>&copy; {new Date().getFullYear()} PropOut. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
   );
-};
-
-export default Footer;
+}

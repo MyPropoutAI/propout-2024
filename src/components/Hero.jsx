@@ -4,7 +4,7 @@ import Wrapper from "./Wrapper";
 const Hero = ({ children }) => {
   return (
     <div
-      className="bg-hero bg-top bg-cover"
+      className="bg-hero bg-top bg-cover overflow-hidden"
       style={{
         backgroundImage: "url('/images/Propout Landing Page.png')",
         backgroundSize: "cover",

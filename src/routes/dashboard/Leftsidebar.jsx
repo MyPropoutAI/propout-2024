@@ -1,4 +1,4 @@
-import React from "react";
+//import React from "react";
 import { Button } from "../../components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
@@ -45,17 +45,23 @@ const links = [
     name: "Task",
     path: "/dashboard/task",
     img: "/images/task.svg",
-    status: true,
+    status: false,
   },
   {
     name: " Refer a friend",
     path: "/dashboard/referral",
     img: "/images/refer.svg",
-    status: true,
+    status: false,
   },
   {
     name: "Settings",
     path: "/dashboard/setting",
+    img: "/images/setting.svg",
+    status: true,
+  },
+  {
+    name: "Agent Availability",
+    path: "/dashboard/agent-availability",
     img: "/images/setting.svg",
     status: true,
   },

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertCircle, X } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { Button } from "../components/ui/button";
 
@@ -25,7 +25,6 @@ export default function InfoBar() {
           size="icon"
           className="h-6 w-6 shrink-0 rounded-full"
         >
-          <X className="h-4 w-4" />
           <span className="sr-only">Dismiss</span>
         </Button>
       </AlertDescription>

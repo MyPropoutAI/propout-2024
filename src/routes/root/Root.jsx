@@ -12,7 +12,7 @@ const Root = () => {
   const decodedUser = jwt.decode(user);
 
   const { data: users } = useUsers();
-  console.log(users);
+  //console.log(users);
   const usersData = users ? users.user : [];
 
   const userData = Array.isArray(usersData)
@@ -20,7 +20,7 @@ const Root = () => {
     : [];
   return (
     <div>
-      {userData?.status ? <></> : <InfoBar />}
+      {userData?.status == false ? <InfoBar /> : <></>}
       <Header />
       <div className="min-h-[60vh]">
         <Outlet />

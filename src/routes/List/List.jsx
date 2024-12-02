@@ -1,12 +1,8 @@
-import Image from "next/image";
 import {
   Building2,
   MessageCircle,
   Search,
   User,
-  Bath,
-  Bed,
-  Square,
   FileText,
   Briefcase,
   Users,
@@ -15,6 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "../../components/ui/button";
+import Newsletter from "../../components/NewsLetter";
 
 export default function List() {
   const user = useSelector((state) => state.auth.user);
@@ -212,72 +209,6 @@ export default function List() {
         </div>
       </section>
 
-      {/* Featured Listings */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-16">
-            Featured Listings
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div
-                key={item}
-                className="bg-white rounded-lg overflow-hidden shadow-lg"
-              >
-                <div className="relative h-48">
-                  <Image
-                    src="/placeholder.svg"
-                    alt="Property"
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                  <span className="absolute top-4 left-4 bg-green-500 text-white px-2 py-1 rounded-md text-sm">
-                    For Rent
-                  </span>
-                </div>
-                <div className="p-6">
-                  <p className="text-xl font-bold mb-2">$3400/month</p>
-                  <h3 className="text-lg font-semibold mb-2">
-                    New Apartment Nice view
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    Beautiful huge 1 family house in heart of westbury. Newly
-                    renovated with new woods
-                  </p>
-                  <div className="flex justify-between mb-4">
-                    <span className="flex items-center text-sm text-gray-500">
-                      <Bed className="h-4 w-4 mr-2" />3
-                    </span>
-                    <span className="flex items-center text-sm text-gray-500">
-                      <Bath className="h-4 w-4 mr-2" />2
-                    </span>
-                    <span className="flex items-center text-sm text-gray-500">
-                      <Square className="h-4 w-4 mr-2" />
-                      3450 ft²
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Image
-                        src="/placeholder.svg"
-                        alt="Agent"
-                        width={40}
-                        height={40}
-                        className="rounded-full mr-2"
-                      />
-                      <span className="text-sm font-medium">Adams Cope</span>
-                    </div>
-                    <button className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm">
-                      Contact Lister
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -303,6 +234,7 @@ export default function List() {
           <MessageCircle className="h-6 w-6" />
         </button>
       </div>
+      <Newsletter />
     </div>
   );
 }

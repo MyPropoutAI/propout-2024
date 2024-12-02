@@ -13,8 +13,8 @@ import { PropertyType, ListType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Countries } from "../../lib/Countries";
 import { listingContract } from "../../lib/constants";
+// import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 import { UploadToCloudinary } from "../../components/UploadToCloudinary";
-
 const ListProperty = () => {
   const userJwt = import.meta.env.VITE_IPFS_JWT;
 
@@ -46,7 +46,7 @@ const ListProperty = () => {
     try {
       // Filter out null images
       const validImages = images.filter((image) => image !== null);
-
+      console.log("validImages", validImages);
       // Check if there are any images to upload
       if (validImages.length === 0) {
         alert("Please select images to upload");
@@ -60,13 +60,14 @@ const ListProperty = () => {
       const uploadPromises = validImages.map(async (image) => {
         try {
           const uploadedImageData = await UploadToCloudinary(image);
+          console.log("uploadedImageData", uploadedImageData);
           return uploadedImageData; // This should return the Cloudinary image data
         } catch (uploadError) {
           console.error("Image upload error:", uploadError);
           return null;
         }
       });
-
+      console.log("uploadPromises", uploadPromises);
       // Wait for all uploads to complete
       const uploadResults = await Promise.all(uploadPromises);
 
@@ -134,8 +135,6 @@ const ListProperty = () => {
     return res.data.IpfsHash;
   };
 
-  //console.log("cloudinaryImageUrls", cloudinaryImageUrls);
-
   const handleSubmission = async () => {
     await handleUploadImages();
     try {
@@ -162,6 +161,7 @@ const ListProperty = () => {
       });
       console.log("transaction", transaction);
       if (transaction) {
+        console.log("cloudinaryImageUrls", cloudinaryImageUrls);
         const res = await fetch(
           "https://proput-db-jlb1.onrender.com/new_listing",
           {
@@ -170,7 +170,7 @@ const ListProperty = () => {
             body: JSON.stringify({
               property_price: form.price,
               headline: form._propertyTitle,
-              img_urls: cloudinaryImageUrls,
+              img_urls: cloudinaryImageUrls ? cloudinaryImageUrls : null,
               room_spec: form._property_spec,
               description: form._description,
               id: decodedUser.id,

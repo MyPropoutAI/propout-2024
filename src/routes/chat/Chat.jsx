@@ -55,7 +55,7 @@ export default function Chat() {
 
   // Fetch Users
   const { data: users } = useUsers();
-  console.log(users);
+  //console.log(users);
   const userData = users ? users.user : [];
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function Chat() {
   // Socket Connection and Event Handling
   useEffect(() => {
     // Create Socket Connection
-    const newSocket = io("http://localhost:3001", {
+    const newSocket = io("https://propout-chat.onrender.com", {
       auth: {
         token: user, // Optional: pass user token for authentication
       },
@@ -312,11 +312,11 @@ export default function Chat() {
               }`}
               onClick={() => handleContactClick(contact)}
             >
-              {contact.image ? (
+              {contact.pfp ? (
                 <img
-                  src={contact.image}
+                  src={contact.pfp}
                   alt={contact.name}
-                  className="rounded-full mr-3"
+                  className="rounded-full mr-3 w-[2rem] h-[2rem]"
                 />
               ) : (
                 <div className="w-12 h-12 flex justify-center items-center mb-2 rounded-full border">
@@ -352,11 +352,11 @@ export default function Chat() {
                 >
                   <ArrowLeft className="h-6 w-6" />
                 </button>
-                {selectedContact.image ? (
+                {selectedContact.pfp ? (
                   <img
-                    src={selectedContact.image}
+                    src={selectedContact.pfp}
                     alt={selectedContact.name}
-                    className="rounded-full mr-3"
+                    className="rounded-full mr-3 w-[2rem] h-[2rem]"
                   />
                 ) : (
                   <div className="w-8 h-8 flex justify-center items-center mb-2 rounded-full border">

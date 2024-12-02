@@ -13,7 +13,7 @@ import RemenberMe from "../../../components/RemenberMe";
 import { Link } from "react-router-dom";
 // import { useQueryClient } from "@tanstack/react-query";
 //import { useToast } from "@/components/ui/use-toast";
-
+import { useParams } from "react-router-dom";
 import { useSignup } from "../../../contexts/hooks/useSignup";
 import { Toaster } from "../../../components/ui/sonner";
 import { toast } from "sonner";
@@ -21,11 +21,16 @@ import { toast } from "sonner";
 const Register = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
-
+  const [reCode, setRefCode] = useState("");
   const { signup, loading, success } = useSignup();
   // const queryClient = useQueryClient();
   // const toast = useToast();
-
+  const { referralCode } = useParams();
+  if (referralCode) {
+    setRefCode(referralCode);
+    console.log("referralCode", referralCode);
+  }
+  console.log(referralCode);
   const handlePassword = () => {
     if (pwType == "password") {
       setPwType("text");
@@ -113,6 +118,7 @@ const Register = () => {
               <Input
                 {...register("referral_code", { required: true })}
                 type="text"
+                value={reCode}
                 placeholder="referral code (Optional)"
               />
             </div>

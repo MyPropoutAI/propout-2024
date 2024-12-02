@@ -7,6 +7,7 @@ import {
   Brain,
   Gift,
 } from "lucide-react";
+import Newsletter from "../../components/NewsLetter";
 
 export default function AboutPage() {
   return (
@@ -192,6 +193,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+        <Newsletter />
       </main>
     </div>
   );

@@ -55,6 +55,7 @@ import AgentProfile from "../routes/dashboard/Profile";
 import PropertyDetails from "../routes/marketplace/PropertyDetails";
 import Chat from "../routes/chat/Chat";
 import AgentDirectory from "../routes/Agent/Agent";
+import AgentAvailability from "../routes/dashboard/InspectionAvaleibility";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -242,6 +243,10 @@ export const router = createBrowserRouter([
         path: "/dashboard/task",
         element: <Task />,
       },
+      {
+        path: "/dashboard/agent-availability",
+        element: <AgentAvailability />,
+      },
     ],
   },
   {
@@ -266,7 +271,7 @@ export const router = createBrowserRouter([
         element: <NewPassword />,
       },
       {
-        path: "/auth/register",
+        path: "/auth/register/:referralCode?",
         element: <Register />,
       },
       {

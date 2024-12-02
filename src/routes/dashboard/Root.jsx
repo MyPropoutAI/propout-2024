@@ -12,15 +12,17 @@ const DashboardRoot = () => {
   const decodedUser = jwt.decode(user);
 
   const { data: users } = useUsers();
-  console.log(users);
+  //console.log(users);
   const usersData = users ? users.user : [];
 
   const userData = Array.isArray(usersData)
     ? usersData.filter((user) => user.id === decodedUser.id)
     : [];
+
+  console.log(userData);
   return (
     <div>
-      {userData?.status ? <></> : <InfoBar />}
+      {userData?.status == false ? <InfoBar /> : <></>}
       <AuthHeader />
 
       <div className="flex bg-slate-100 min-h-[calc(100vh-100px)] p-6 gap-10">

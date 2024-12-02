@@ -1,61 +1,18 @@
-//import * as React from "react";
 import { useState } from "react";
 import {
-  //Building,
   BedDouble,
-  //Bath,
   Square,
-  //MapPin,
   Search,
   SlidersHorizontal,
   X,
   MapPin,
-  //MapPinHouse,
   Castle,
-  //ChevronDown,
 } from "lucide-react";
 import { useGetProperties } from "../../contexts/hooks/useProperty";
-import { Rings } from "react-loader-spinner";
+import { FidgetSpinner } from "react-loader-spinner";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
-// Mock data for properties
-// const properties = [
-//   {
-//     id: 1,
-//     title: "Modern Apartment in Downtown",
-//     type: "Apartment",
-//     price: 250000,
-//     bedrooms: 2,
-//     bathrooms: 2,
-//     sqft: 1000,
-//     address: "123 Main St, Anytown, USA",
-//     image: "/placeholder.svg",
-//   },
-//   {
-//     id: 2,
-//     title: "Spacious Family Home",
-//     type: "House",
-//     price: 450000,
-//     bedrooms: 4,
-//     bathrooms: 3,
-//     sqft: 2500,
-//     address: "456 Oak Ave, Someplace, USA",
-//     image: "/placeholder.svg",
-//   },
-//   {
-//     id: 3,
-//     title: "Cozy Studio Near University",
-//     type: "Studio",
-//     price: 150000,
-//     bedrooms: 1,
-//     bathrooms: 1,
-//     sqft: 500,
-//     address: "789 College Blvd, Collegetown, USA",
-//     image: "/placeholder.svg",
-//   },
-//   // Add more properties as needed
-// ];
 
 export default function MarketplacePage() {
   const [showFilters, setShowFilters] = useState(false);
@@ -63,35 +20,35 @@ export default function MarketplacePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [propertyType, setPropertyType] = useState("Any");
   const [bedrooms, setBedrooms] = useState(0);
-  const [bathrooms, setBathrooms] = useState(0);
-  const [petFriendly, setPetFriendly] = useState(false);
-  const [activeTab, setActiveTab] = useState("list");
-  const [location, setLocation] = useState(null);
-
-  console.log(location);
+  const [currentPage, setCurrentPage] = useState(1);
+  const propertiesPerPage = 9;
 
   const { properties, loading } = useGetProperties();
-  //console.log("properrties", properties.listing);
-  const listedProperties = properties.listing;
-
-  const filteredProperties = Array.isArray(listedProperties)
-    ? listedProperties.filter((property) => {
-        return (
-          property?.property_price >= priceRange[0] &&
-          property?.property_price <= priceRange[1] &&
-          (propertyType === "Any" || property.type === propertyType) &&
-          property?.room_spec >= bedrooms &&
-          (searchTerm === "" ||
-            property?.headline
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase()) ||
-            property?.address.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
-      })
+  const listedProperties = Array.isArray(properties?.listing)
+    ? properties.listing
+    : properties?.listing
+    ? [properties.listing]
     : [];
 
+  //console.log("Listing properties:", listedProperties);
+
+  const filteredProperties = listedProperties;
+  //console.log("Filtered properties:", filteredProperties);
+
+  // Pagination logic
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const currentProperties = filteredProperties.slice(
+    indexOfFirstProperty,
+    indexOfLastProperty
+  );
+
+  const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
@@ -105,6 +62,7 @@ export default function MarketplacePage() {
                 <div className="bg-white p-6 rounded-lg shadow-md">
                   <h2 className="text-xl font-bold mb-4">Filters</h2>
                   <form className="space-y-4">
+                    {/* Price Range Filter */}
                     <div className="space-y-2">
                       <label
                         htmlFor="price-range"
@@ -125,10 +83,12 @@ export default function MarketplacePage() {
                         className="w-full"
                       />
                       <div className="flex justify-between text-sm text-gray-500">
-                        <span>$0</span>
-                        <span>${priceRange[1].toLocaleString()}</span>
+                        <span>₦0</span>
+                        <span>₦{priceRange[1].toLocaleString()}</span>
                       </div>
                     </div>
+
+                    {/* Property Type Filter */}
                     <div className="space-y-2">
                       <label
                         htmlFor="property-type"
@@ -143,11 +103,21 @@ export default function MarketplacePage() {
                         className="w-full p-2 border rounded-md"
                       >
                         <option value="Any">Any</option>
-                        <option value="House">House</option>
-                        <option value="Apartment">Apartment</option>
-                        <option value="Studio">Studio</option>
+                        <option value="home">Home</option>
+                        <option value="school">School</option>
+                        <option value="office">Office</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="condo">Condo</option>
+                        <option value="industrial">Industrial</option>
+                        <option value="retail">Retail</option>
+                        <option value="hospitality">Hospitality</option>
+                        <option value="land">Land</option>
+                        <option value="garage">Garage</option>
+                        <option value="commercial">Commercial</option>
                       </select>
                     </div>
+
+                    {/* Bedrooms Filter */}
                     <div className="space-y-2">
                       <label
                         htmlFor="bedrooms"
@@ -168,49 +138,15 @@ export default function MarketplacePage() {
                         ))}
                       </select>
                     </div>
-                    <div className="space-y-2">
-                      <label
-                        htmlFor="bathrooms"
-                        className="block text-sm font-medium"
-                      >
-                        Bathrooms
-                      </label>
-                      <select
-                        id="bathrooms"
-                        value={bathrooms}
-                        onChange={(e) => setBathrooms(parseInt(e.target.value))}
-                        className="w-full p-2 border rounded-md"
-                      >
-                        {[0, 1, 2, 3, 4, 5].map((num) => (
-                          <option key={num} value={num}>
-                            {num}+
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="pet-friendly"
-                        checked={petFriendly}
-                        onChange={(e) => setPetFriendly(e.target.checked)}
-                        className="rounded"
-                      />
-                      <label
-                        htmlFor="pet-friendly"
-                        className="text-sm font-medium"
-                      >
-                        Pet Friendly
-                      </label>
-                    </div>
                   </form>
                 </div>
               </div>
+
               {/* Main Content */}
               <div className="w-full md:w-3/4">
                 {/* Search Bar */}
                 <div className="mb-6">
-                  <form className="flex space-x-2">
+                  <div className="flex space-x-2">
                     <input
                       type="text"
                       placeholder="Search by location, property name, or address"
@@ -220,7 +156,7 @@ export default function MarketplacePage() {
                     />
                     <button
                       type="submit"
-                      className="px-4 py-2 bg-gradient-to-br from-purple-700 to-indigo -900 hover:bg-purple-700 text-white rounded-md flex items-center"
+                      className="px-4 py-2 bg-purple-600 text-white rounded-md flex items-center"
                     >
                       <Search className="mr-2 h-4 w-4" />
                       Search
@@ -236,48 +172,31 @@ export default function MarketplacePage() {
                         <SlidersHorizontal className="h-4 w-4" />
                       )}
                     </button>
-                  </form>
-                </div>
-                {/* Tabs for List and Map Views */}
-                <div className="mb-6">
-                  <div className="flex border-b">
-                    <button
-                      className={`px-4 py-2 ${
-                        activeTab === "list"
-                          ? "border-b-2 bg-gradient-to-br from-purple-700 to-indigo -900 hover:bg-purple-700 font-semibold"
-                          : ""
-                      }`}
-                      onClick={() => setActiveTab("list")}
-                    >
-                      List View
-                    </button>
-                    <button
-                      className={`px-4 py-2 ${
-                        activeTab === "map"
-                          ? "border-b-2 border-blue-600 font-semibold"
-                          : ""
-                      }`}
-                      onClick={() => setActiveTab("map")}
-                    >
-                      Map View
-                    </button>
                   </div>
                 </div>
-                {activeTab === "list" ? (
+
+                {/* Properties Grid */}
+                {loading ? (
+                  <div className="w-full flex items-center justify-center">
+                    <FidgetSpinner />
+                  </div>
+                ) : (
                   <>
-                    {loading ? (
-                      <Rings visible={true} height="40" />
+                    {currentProperties.length === 0 ? (
+                      <div className="text-center py-10 text-gray-500">
+                        No properties found matching your search criteria.
+                      </div>
                     ) : (
                       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                        {filteredProperties.map((property) => (
+                        {currentProperties.map((property, index) => (
                           <div
-                            key={property.id}
+                            key={property.id || index}
                             className="relative bg-white rounded-lg shadow-md overflow-hidden"
                           >
                             <span
                               className={cn(
-                                "absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold",
-                                property.list_type == "Sell"
+                                "absolute py-2 px-5 top- 0 right-0 bg-[#0EFC25] text-white font-semibold",
+                                property.list_type === "Sell"
                                   ? "bg-blue-900"
                                   : "bg-[#0EFC25]"
                               )}
@@ -285,7 +204,7 @@ export default function MarketplacePage() {
                               {property.list_type.toLocaleUpperCase()}
                             </span>
                             <img
-                              src={property.img_urls?.replace(/,\s*$/, "")}
+                              src={property.img_urls?.split(", ")[0]}
                               alt={property.headline}
                               className="w-full h-48 object-cover"
                             />
@@ -293,19 +212,14 @@ export default function MarketplacePage() {
                               <h3 className="text-lg font-semibold mb-1">
                                 {property.headline}
                               </h3>
-                              <p
-                                onClick={() => {
-                                  setLocation(property.address);
-                                }}
-                                className="text-sm text-gray-500 mb-2 flex gap-2 items-center"
-                              >
+                              <p className="text-sm text-gray-500 mb-2 flex gap-2 items-center">
                                 <MapPin className="text-red-500 w-8 h-8" />
                                 {property.address}
                               </p>
                               <span className="inline-block px-2 py-1 text-xs font-semibold bg-gray-200 rounded-full mb-2">
                                 {property.type}
                               </span>
-                              <p className="text-2xl font-bold mb-4">
+                              <p className="text-lg font-bold mb-4">
                                 <CurrencySymbol
                                   amount={Number(property.property_price)}
                                   listType={property.list_type.toLocaleUpperCase()}
@@ -328,7 +242,7 @@ export default function MarketplacePage() {
                             </div>
                             <div className="px-4 py-3 bg-gray-50">
                               <Link to={`/property/${property.id}`}>
-                                <button className="w-full px-4 py-2 bg-gradient-to-br from-purple-700 to-indigo -900 hover:bg-purple-700 text-white rounded-md">
+                                <button className="w-full px-4 py-2 bg-gradient-to-br from-purple-700 to-indigo-900 hover:bg-purple-700 text-white rounded-md">
                                   View Details
                                 </button>
                               </Link>
@@ -338,57 +252,23 @@ export default function MarketplacePage() {
                       </div>
                     )}
                   </>
-                ) : (
-                  <div className="bg-white rounded-lg shadow-md p-4">
-                    <h2 className="text-xl font-bold mb-2">Property Map</h2>
-                    <p className="text-sm text-gray-500 mb-4">
-                      View properties on the map
-                    </p>
-                    <div className="w-full h-[500px] bg-gray-200 flex items-center justify-center">
-                      <p className="text-gray-500">
-                        Google Maps integration goes here
-                      </p>
-                    </div>
-                  </div>
                 )}
-                {/* Nearby Properties */}
-                <div className="mt-12">
-                  <div className="bg-white rounded-lg shadow-md p-4">
-                    <h2 className="text-xl font-bold mb-2">
-                      Nearby Properties
-                    </h2>
-                    <p className="text-sm text-gray-500 mb-4">
-                      Discover properties in the vicinity
-                    </p>
-                    <div className="overflow-x-auto">
-                      <div className="flex space-x-4 pb-4">
-                        {Array.isArray(properties) &&
-                          listedProperties?.map((property) => (
-                            <div
-                              key={property.id}
-                              className="w-64 flex-shrink-0 bg-white rounded-lg shadow-md overflow-hidden"
-                            >
-                              <img
-                                src={property.image}
-                                alt={property.title}
-                                className="w-full h-32 object-cover"
-                              />
-                              <div className="p-4">
-                                <h3 className="text-sm font-semibold mb-1">
-                                  {property.title}
-                                </h3>
-                                <p className="text-xs text-gray-500 mb-2">
-                                  {property.address}
-                                </p>
-                                <p className="text-lg font-bold">
-                                  ${property.price.toLocaleString()}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  </div>
+
+                {/* Pagination */}
+                <div className="flex justify-center mt-6">
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => paginate(index + 1)}
+                      className={`mx-1 px-3 py-1 rounded-md ${
+                        currentPage === index + 1
+                          ? "bg-purple-600 text-white"
+                          : "bg-gray-200 text-gray-700"
+                      }`}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -398,11 +278,3 @@ export default function MarketplacePage() {
     </div>
   );
 }
-
-// function Link({ href, children, ...props }) {
-//   return (
-//     <a href={href} {...props}>
-//       {children}
-//     </a>
-//   );
-// }

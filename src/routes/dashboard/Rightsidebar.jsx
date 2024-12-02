@@ -1,6 +1,6 @@
 //import path from "path";
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -12,18 +12,63 @@ import {
 import jwt from "jsonwebtoken";
 //import { useAuthContext } from "../../contexts/hooks/useAuthcontext";
 import { useSelector } from "react-redux";
-
+//import { useGetUser } from "../../contexts/hooks/useGetUser";
+import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 const Rightsidebar = () => {
+  const [userData, setUserData] = useState(null);
   const location = useLocation();
   const { pathname } = location;
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
+  const { data: users, isLoading } = useUsers();
   const user = useSelector((state) => state.auth.user);
-  const verified = useSelector((state) => state.auth.isVerified);
-
   const decodedUser = jwt.decode(user);
+  const id = decodedUser.id;
+  //const verified = useSelector((state) => state.auth.isVerified);
+
+  useEffect(() => {
+    if (users && users.user) {
+      const usersData = Array.isArray(users.user) ? users.user : [];
+      const foundUser = usersData.find((user) => user.id == id);
+      setUserData(foundUser);
+    }
+  }, [users]);
+
+  // Loading state
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Error state
+  if (!userData) {
+    return <div>User not found</div>;
+  }
+  console.log(userData);
+  // Safely access user properties with fallback values
+  const safeUserData = {
+    name: userData.name || "Unknown",
+    image: userData.pfp || "/placeholder.svg",
+    address: userData.address || "No address",
+    phone_number: userData.phone_number || "No phone",
+    email_address: userData.email_address || "No email",
+    description: userData.description || "No description",
+    twitter: userData.social_media.twitter || "twitter",
+    linkedin: userData.social_media.linkedin || "linkedin",
+    instagram: userData.social_media.instagram || "instagram",
+    facebook: userData.social_media.facebook || "facebook",
+    city: userData.city || "city",
+    country: userData.country || "country",
+    occupation: userData.occupation || "occupation",
+    website: userData.social_media.website || "website",
+    status: userData.status || "status",
+  };
+
+  // const user = useSelector((state) => state.auth.user);
+  //const verified = useSelector((state) => state.auth.isVerified);
+
+  // const decodedUser = jwt.decode(user);
   //console.log(decodedUser);
-  const userAvartar = decodedUser.name.substring(0, 2);
+  //const userAvartar = decodedUser.name.substring(0, 2);
   //console.log(userAvartar);
 
   const Tasks = [
@@ -92,19 +137,27 @@ const Rightsidebar = () => {
           <div className="bg-[#FFFF] p-5 h-fit rounded-md">
             <div className="bg-[#FFFF] text-[#320051] flex flex-col ">
               <div className="justify-center flex flex-col items-center">
-                <div className="w-20 h-20 flex justify-center items-center mb-2 rounded-full border">
-                  <h1 className="text-[#320051] font-bold text-2xl text-center">
-                    {userAvartar}
-                  </h1>
-                </div>
+                {safeUserData.image ? (
+                  <img
+                    src={safeUserData.image}
+                    alt="Agent Profile"
+                    className="rounded-full border-4 border-white w-[5rem] h-[5rem] shadow-lg mb-4 sm:mb-0 sm:mr-6"
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-full flex justify-center items-center">
+                    <h1 className="text-[#320051] font-bold text-lg text-center">
+                      {safeUserData.name.substring(0, 2)}
+                    </h1>
+                  </div>
+                )}
                 <div
                   className={
-                    verified === false
+                    safeUserData.status == false
                       ? "bg-red-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-red-600"
                       : "bg-green-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-green-600"
                   }
                 >
-                  {verified === false ? (
+                  {safeUserData.status == false ? (
                     <Link to="/dashboard/verification">
                       <h2>Not Verified</h2>
                     </Link>
@@ -113,7 +166,9 @@ const Rightsidebar = () => {
                   )}
                 </div>
                 <p className="font-bold">{decodedUser.name}</p>
-                <p className="italic ">Lord of real estate asset worldwide</p>
+                <p className="italic line-clamp-2 ">
+                  {safeUserData.occupation}
+                </p>
               </div>
 
               <div className="flex text-[12px] justify-center font-semibold">

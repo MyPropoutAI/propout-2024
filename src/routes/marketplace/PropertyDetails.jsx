@@ -11,21 +11,29 @@ import {
   X,
   MapPin,
   Castle,
+  Globe,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Facebook,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useGetProperties } from "../../contexts/hooks/useProperty";
 import { cn } from "../../lib/utils";
 import CurrencySymbol from "../../lib/CurrencySymbol";
+import { FidgetSpinner } from "react-loader-spinner";
 //import { UseGetOneProperty } from "../../contexts/hooks/useGetOneProperty";
-
+import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 export default function PropertyDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const { properties } = useGetProperties();
+  const [userData, setUserData] = useState(null);
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { data: users } = useUsers();
 
   useEffect(() => {
     // Safely find property when properties or id changes
@@ -49,12 +57,20 @@ export default function PropertyDetails() {
       }
     }
   }, [properties, id]);
-  //console.log(property);
+
+  useEffect(() => {
+    if (users && users.user) {
+      const usersData = Array.isArray(users.user) ? users.user : [];
+      const foundUser = usersData.find((user) => user.id == property?.agent_id);
+      setUserData(foundUser);
+    }
+  }, [users]);
+  console.log(property);
   // Loading state
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        Loading...
+        <FidgetSpinner />
       </div>
     );
   }
@@ -82,6 +98,24 @@ export default function PropertyDetails() {
     agent_info: property?.agent_info || {},
     description: property?.description || "No Description",
   };
+  console.log(userData);
+  const safeUserData = {
+    name: userData?.name || "Unknown",
+    image: userData?.pfp || "/placeholder.svg",
+    address: userData?.address || "No address",
+    phone_number: userData?.phone_number || "No phone",
+    email_address: userData?.email_address || "No email",
+    description: userData?.description || "No description",
+    twitter: userData?.social_media?.twitter || "twitter",
+    linkedin: userData?.social_media?.linkedin || "linkedin",
+    instagram: userData?.social_media?.instagram || "instagram",
+    facebook: userData?.social_media?.facebook || "facebook",
+    city: userData?.city || "city",
+    country: userData?.country || "country",
+    occupation: userData?.occupation || "occupation",
+    website: userData?.social_media?.website || "website",
+  };
+
   const openModal = (content) => {
     setModalContent(content);
     setIsModalOpen(true);
@@ -101,7 +135,7 @@ export default function PropertyDetails() {
           <div className="lg:col-span-2 relative">
             <span
               className={cn(
-                "absolute py-2 px-5 z-40 top-0 right-0 bg-[#0EFC25] text-white font-semibold",
+                "absolute py-2 px-5 z-10 top-0 right-0 bg-[#0EFC25] text-white font-semibold",
                 safeProperty.list_type == "Sell"
                   ? "bg-blue-900"
                   : "bg-[#0EFC25]"
@@ -112,26 +146,36 @@ export default function PropertyDetails() {
             {/* Main Image */}
             <div className="relative h-[400px] lg:h-[500px] mb-8">
               <img
-                src={safeProperty.img_urls?.replace(/,\s*$/, "")}
+                src={safeProperty.img_urls?.split(", ")[0]}
                 alt="The Crystal Hyatt Place"
                 className="rounded-lg w-full h-full object-cover"
               />
             </div>
 
             {/* Image Gallery */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-              {[1, 2, 3, 4].map((img) => (
-                <div
-                  key={img}
-                  className="relative h-24 border shadow-sm rounded-md"
-                >
-                  <img
-                    src="/placeholder.svg"
-                    alt={`Interior`}
-                    className="rounded-md"
-                  />
-                </div>
-              ))}
+            <div
+              className="overflow-x-auto mb-12 [&::-webkit-scrollbar]:w-2 
+  [&::-webkit-scrollbar-track]:bg-gray-100 
+  [&::-webkit-scrollbar-thumb]:bg-gray-300 
+  [&::-webkit-scrollbar-thumb:hover]:bg-gray-400"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 min-w-full">
+                {safeProperty.img_urls
+                  .split(", ")
+                  .filter((item) => item.trim() !== "")
+                  .map((img) => (
+                    <div
+                      key={img}
+                      className="relative h-24 border shadow-sm rounded-md flex-shrink-0"
+                    >
+                      <img
+                        src={img}
+                        alt={`Interior`}
+                        className="rounded-md w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+              </div>
             </div>
 
             {/* Property Info */}
@@ -190,11 +234,19 @@ export default function PropertyDetails() {
             {/* Agent Info */}
             <div className="bg-gray-100 p-6 rounded-lg mb-8">
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 flex justify-center items-center mb-2 rounded-full border">
-                  <h1 className="text-[#320051] font-bold text-2xl text-center">
-                    {safeProperty.agent_info.name.substring(0, 2)}
-                  </h1>
-                </div>
+                {safeUserData.image ? (
+                  <img
+                    src={safeUserData.image}
+                    alt="Agent Profile"
+                    className="rounded-full border-4 border-white w-[5rem] h-[5rem] shadow-lg mb-4 sm:mb-0 sm:mr-6"
+                  />
+                ) : (
+                  <div className="w-16 h-16 rounded-full flex justify-center items-center">
+                    <h1 className="text-[#320051] font-bold text-lg text-center">
+                      {safeUserData.name.substring(0, 2)}
+                    </h1>
+                  </div>
+                )}
                 <div>
                   <h3 className="font-bold">{safeProperty.agent_info.name}</h3>
                   <Link to={`/profile/${safeProperty.agent_id}`}>
@@ -202,23 +254,60 @@ export default function PropertyDetails() {
                   </Link>
                 </div>
               </div>
-              <p className="mb-4">
-                Im a positive, creative person with a passion for real estate.
-                Just moved to San Francisco from New York to pursue a new
-                opportunity. Always looking for new challenges and learning
-                experiences.
-              </p>
+              <p className="mb-4 line-clamp-5">{safeUserData.description}</p>
               <div className="mb-4">
                 <p>
-                  <span className="font-bold">Languages:</span> English
+                  <span className="font-bold">
+                    <MapPin className="h-6 w-6 text-purple-600 mr-2" />
+                  </span>
+                  {safeUserData.address}
                 </p>
                 <p>
-                  <span className="font-bold">Response rate:</span> 100%
+                  <span className="font-bold">
+                    <Phone className="h-6 w-6 text-purple-600 mr-2" />
+                  </span>
+                  {safeUserData.phone_number}
                 </p>
-                <p>
-                  <span className="font-bold">Response time:</span> within an
-                  hour
-                </p>
+                <div className="mt-6 flex justify-center sm:justify-start space-x-4">
+                  {safeUserData.facebook && (
+                    <a
+                      href={safeUserData.facebook}
+                      className="text-gray-400 hover:text-purple-600"
+                    >
+                      <Facebook className="h-6 w-6" />
+                    </a>
+                  )}
+                  {safeUserData.twitter && (
+                    <a
+                      href={safeUserData.twitter}
+                      className="text-gray-400 hover:text-purple-600"
+                    >
+                      <Twitter className="h-6 w-6" />
+                    </a>
+                  )}
+                  {safeUserData.linkedin && (
+                    <a href="#" className="text-gray-400 hover:text-purple-600">
+                      <Linkedin className="h-6 w-6" />
+                    </a>
+                  )}
+
+                  {safeUserData.instagram && (
+                    <a
+                      href={safeUserData.linkedin}
+                      className="text-gray-400 hover:text-purple-600"
+                    >
+                      <Instagram className="h-6 w-6" />
+                    </a>
+                  )}
+                  {safeUserData.website && (
+                    <a
+                      href={safeUserData.website}
+                      className="text-gray-400 hover:text-purple-600"
+                    >
+                      <Globe className="h-6 w-6" />
+                    </a>
+                  )}
+                </div>
               </div>
               <div className="flex space-x-4">
                 <button
@@ -245,7 +334,7 @@ export default function PropertyDetails() {
             </div>
 
             {/* Nearby Properties */}
-            <div>
+            {/* <div>
               <h3 className="font-bold mb-4">Properties Nearby</h3>
               {[1, 2, 3].map((property) => (
                 <div
@@ -274,6 +363,66 @@ export default function PropertyDetails() {
                   </div>
                 </div>
               ))}
+            </div> */}
+            {/* Nearby Properties */}
+            <div>
+              <h3 className="font-bold mb-4">Properties Nearby</h3>
+              {properties?.listing
+                ?.filter((nearbyProperty) => nearbyProperty.id !== property.id)
+                .slice(0, 3) // Limit to 3 nearby properties
+                .map((nearbyProperty) => (
+                  <div
+                    key={nearbyProperty.id}
+                    className="flex mb-4 border rounded-md shadow-sm"
+                  >
+                    <img
+                      src={
+                        nearbyProperty.img_urls?.split(", ")[0] ||
+                        "/placeholder.svg"
+                      }
+                      alt={nearbyProperty.headline}
+                      className="w-24 h-24 rounded-md mr-4 object-cover"
+                    />
+                    <div>
+                      <p className="font-bold">
+                        <CurrencySymbol
+                          amount={Number(nearbyProperty.property_price)}
+                          listType={nearbyProperty.list_type.toLocaleUpperCase()}
+                        />
+                      </p>
+                      <p className="text-gray-500">
+                        {nearbyProperty.city}, {nearbyProperty.address}
+                      </p>
+                      <div className="flex space-x-4 text-sm">
+                        <span className="flex items-center">
+                          <Bath className="mr-1 w-4 h-4" />{" "}
+                          {nearbyProperty.room_spec}
+                        </span>
+                        <span className="flex items-center">
+                          <Bed className="mr-1 w-4 h-4" />{" "}
+                          {nearbyProperty.room_spec}
+                        </span>
+                        <span className="flex items-center">
+                          <Maximize className="mr-1 w-4 h-4" />{" "}
+                          {nearbyProperty.square_ft} ft²
+                        </span>
+                      </div>
+                      <Link
+                        to={`/property/${nearbyProperty.id}`}
+                        className="text-blue-500 hover:underline mt-2 inline-block"
+                      >
+                        View Details
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+
+              {/* Fallback if no nearby properties */}
+              {(!properties?.listing ||
+                properties.listing.filter((p) => p.id !== property.id)
+                  .length === 0) && (
+                <p className="text-gray-500">No nearby properties found</p>
+              )}
             </div>
           </div>
         </div>

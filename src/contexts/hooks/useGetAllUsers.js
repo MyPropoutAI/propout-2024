@@ -13,6 +13,7 @@ const fetchUsers = async () => {
       },
     }
   );
+  console.log("user data", data);
   return data;
 };
 
@@ -28,6 +29,7 @@ export const useUsers = () => {
     // Transform or filter data if needed
     select: (data) => {
       // Optional: Transform data before returning
+      console.log(data);
       return data;
     },
   });

@@ -9,11 +9,12 @@ import {
   Twitter,
   Instagram,
   Globe,
-  Home,
-  DollarSign,
-  Award,
-  Users,
+  // Home,
+  // DollarSign,
+  // Award,
+  // Users,
   ChevronRight,
+  Linkedin,
 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
@@ -40,15 +41,23 @@ export default function AgentProfile() {
   if (!userData) {
     return <div>User not found</div>;
   }
-
+  console.log(userData);
   // Safely access user properties with fallback values
   const safeUserData = {
     name: userData.name || "Unknown",
-    image: userData.image || "/placeholder.svg",
+    image: userData.pfp || "/placeholder.svg",
     address: userData.address || "No address",
     phone_number: userData.phone_number || "No phone",
     email_address: userData.email_address || "No email",
     description: userData.description || "No description",
+    twitter: userData.social_media.twitter || "twitter",
+    linkedin: userData.social_media.linkedin || "linkedin",
+    instagram: userData.social_media.instagram || "instagram",
+    facebook: userData.social_media.facebook || "facebook",
+    city: userData.city || "city",
+    country: userData.country || "country",
+    occupation: userData.occupation || "occupation",
+    website: userData.social_media.website || "website",
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200">
@@ -56,12 +65,12 @@ export default function AgentProfile() {
         {/* Header Section */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
           <div className="bg-gradient-to-r from-purple-500 to-indigo-600 p-6 sm:p-10">
-            <div className="flex flex-col sm:flex-row items-center">
+            <div className="flex flex-col sm:flex-row  items-center">
               {safeUserData.image ? (
                 <img
-                  src="/placeholder.svg"
+                  src={safeUserData.image}
                   alt="Agent Profile"
-                  className="rounded-full border-4 border-white shadow-lg mb-4 sm:mb-0 sm:mr-6"
+                  className="rounded-full border-4 border-white w-[5rem] h-[5rem] shadow-lg mb-4 sm:mb-0 sm:mr-6"
                 />
               ) : (
                 <div className="w-16 h-16 rounded-full flex justify-center items-center">
@@ -75,8 +84,8 @@ export default function AgentProfile() {
                 <h1 className="text-3xl font-bold text-white mb-2">
                   {safeUserData.name}
                 </h1>
-                <p className="text-purple-100 text-lg mb-2">
-                  Luxury Real Estate Specialist
+                <p className="text-purple-100 text-lg mb-2 line-clamp-1">
+                  {safeUserData.description}
                 </p>
                 <div className="flex items-center justify-center sm:justify-start">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -94,7 +103,7 @@ export default function AgentProfile() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex items-center">
                 <MapPin className="h-6 w-6 text-purple-600 mr-2" />
-                <span>{safeUserData.address}</span>
+                <span className="line-clamp-1">{safeUserData.address}</span>
               </div>
               <div className="flex items-center">
                 <Phone className="h-6 w-6 text-purple-600 mr-2" />
@@ -106,18 +115,44 @@ export default function AgentProfile() {
               </div>
             </div>
             <div className="mt-6 flex justify-center sm:justify-start space-x-4">
-              <a href="#" className="text-gray-400 hover:text-purple-600">
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-purple-600">
-                <Twitter className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-purple-600">
-                <Instagram className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-purple-600">
-                <Globe className="h-6 w-6" />
-              </a>
+              {safeUserData.facebook && (
+                <a
+                  href={safeUserData.facebook}
+                  className="text-gray-400 hover:text-purple-600"
+                >
+                  <Facebook className="h-6 w-6" />
+                </a>
+              )}
+              {safeUserData.twitter && (
+                <a
+                  href={safeUserData.twitter}
+                  className="text-gray-400 hover:text-purple-600"
+                >
+                  <Twitter className="h-6 w-6" />
+                </a>
+              )}
+              {safeUserData.linkedin && (
+                <a href="#" className="text-gray-400 hover:text-purple-600">
+                  <Linkedin className="h-6 w-6" />
+                </a>
+              )}
+
+              {safeUserData.instagram && (
+                <a
+                  href={safeUserData.linkedin}
+                  className="text-gray-400 hover:text-purple-600"
+                >
+                  <Instagram className="h-6 w-6" />
+                </a>
+              )}
+              {safeUserData.website && (
+                <a
+                  href={safeUserData.website}
+                  className="text-gray-400 hover:text-purple-600"
+                >
+                  <Globe className="h-6 w-6" />
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -131,7 +166,7 @@ export default function AgentProfile() {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
             { icon: Home, label: "Properties Sold", value: "250+" },
             { icon: DollarSign, label: "Value Sold", value: "$100M+" },
@@ -147,7 +182,7 @@ export default function AgentProfile() {
               <p className="text-2xl font-bold text-purple-600">{stat.value}</p>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Featured Listings */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 p-6 sm:p-10">
@@ -190,7 +225,7 @@ export default function AgentProfile() {
         </div>
 
         {/* Testimonials */}
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 sm:p-10">
+        {/* <div className="bg-white rounded-lg shadow-lg overflow-hidden p-6 sm:p-10">
           <h2 className="text-2xl font-bold mb-6">Client Testimonials</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[1, 2].map((testimonial) => (
@@ -226,7 +261,7 @@ export default function AgentProfile() {
               <ChevronRight className="h-5 w-5 ml-1" />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

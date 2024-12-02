@@ -50,7 +50,7 @@ const items = cards.map((card, index) => {
 
 const Overviewhero = () => {
   return (
-    <div className=" bg-refer-hero p-4 pb-10  bg-lilac   rounded-md text-white">
+    <div className=" bg-refer-hero p-4 pb-10  bg-lilac   rounded-md text-white w-[100%]">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5  h-full justify-center">
         {items}
 

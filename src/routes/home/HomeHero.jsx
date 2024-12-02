@@ -59,7 +59,7 @@ const HomeHero = () => {
           <img
             src="/images/home-hero.svg"
             alt=""
-            className="w-full max-w-[500px] mx-auto"
+            className="w-full max-w-[50rem] mx-auto mb-[-5rem]"
           />
           {/* <Combobox2 /> */}
         </div>
