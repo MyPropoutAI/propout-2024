@@ -43,7 +43,7 @@ const Rightsidebar = () => {
   if (!userData) {
     return <div>User not found</div>;
   }
-  //console.log(userData);
+  console.log(userData);
   // Safely access user properties with fallback values
   const safeUserData = {
     name: userData?.name || "Unknown",
@@ -51,7 +51,7 @@ const Rightsidebar = () => {
     address: userData?.address || "No address",
     phone_number: userData?.phone_number || "No phone",
     occupation: userData?.occupation || "occupation",
-    status: userData.status || "status",
+    kyc_status: userData.kyc_status || null,
   };
 
   // const user = useSelector((state) => state.auth.user);
@@ -143,12 +143,12 @@ const Rightsidebar = () => {
                 )}
                 <div
                   className={
-                    safeUserData.status == false
+                    safeUserData.kyc_status === null
                       ? "bg-red-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-red-600"
                       : "bg-green-300 rounded-md py-1 px-6 font-semibold flex justify-center items-center text-green-600"
                   }
                 >
-                  {safeUserData.status == false ? (
+                  {safeUserData.kyc_status === null ? (
                     <Link to="/dashboard/verification">
                       <h2>Not Verified</h2>
                     </Link>
