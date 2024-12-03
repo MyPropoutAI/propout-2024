@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
+import { Link } from "react-router-dom";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -100,12 +101,11 @@ export default function AgentDirectory() {
               <p className="text-blue-600 font-medium mb-4">{agent.address}</p>
             </div>
             <div className="px-4 pb-4">
-              <button
-                onClick={() => handleViewProfile(agent.id)}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-              >
-                View Profile
-              </button>
+              <Link to={`/profile/${agent.id}`}>
+                <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+                  View Profile
+                </button>
+              </Link>
             </div>
           </div>
         ))}
