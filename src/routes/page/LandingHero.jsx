@@ -48,7 +48,7 @@ const GradientText = ({ children }) => (
 );
 
 const LandingHero = () => {
-  const user = useSelector((state) => state.auth.user);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   return (
     <div
       className="flex flex-col items-center p-20 text-7xl  leading-[66.24px] max-md:px-5 max-md:text-4xl"
@@ -76,7 +76,7 @@ const LandingHero = () => {
             Join our waitlist
           </Button>
         </Link>
-        {user ? (
+        {isAuthenticated ? (
           <Link to="/dashboard">
             <Button className="border border-purple-500 border-solid text-white">
               Continue to dashboard

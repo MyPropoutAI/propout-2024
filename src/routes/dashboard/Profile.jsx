@@ -39,23 +39,23 @@ export default function AgentProfile() {
   }
   console.log(userData);
   // Safely access user properties with fallback values
-  const safeUserData = {
-    name: userData?.name || "Unknown",
-    image: userData?.pfp || "/placeholder.svg",
-    address: userData?.address || "No address",
-    phone_number: userData?.phone_number || "No phone",
-    email_address: userData?.email_address || "No email",
-    description: userData?.description || "No description",
-    twitter: userData?.social_media.twitter || "twitter",
-    linkedin: userData.social_media?.linkedin || "linkedin",
-    instagram: userData.social_media?.instagram || "instagram",
-    facebook: userData.social_media?.facebook || "facebook",
-    city: userData?.city || "city",
-    country: userData?.country || "country",
-    occupation: userData?.occupation || "occupation",
-    website: userData?.social_media?.website || "website",
-  };
-  console.log(safeUserData.twitter);
+  // const safeUserData = {
+  //   name: userData?.name || "Unknown",
+  //   image: userData?.pfp || "/placeholder.svg",
+  //   address: userData?.address || "No address",
+  //   phone_number: userData?.phone_number || "No phone",
+  //   email_address: userData?.email_address || "No email",
+  //   description: userData?.description || "No description",
+  //   twitter: userData?.social_media.twitter || "twitter",
+  //   linkedin: userData.social_media?.linkedin || "linkedin",
+  //   instagram: userData.social_media?.instagram || "instagram",
+  //   facebook: userData.social_media?.facebook || "facebook",
+  //   city: userData?.city || "city",
+  //   country: userData?.country || "country",
+  //   occupation: userData?.occupation || "occupation",
+  //   website: userData?.social_media?.website || "website",
+  // };
+  //console.log(safeUserData.twitter);
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -100,31 +100,31 @@ export default function AgentProfile() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex items-center">
                 <MapPin className="h-6 w-6 text-purple-600 mr-2" />
-                <span className="line-clamp-1">{safeUserData.address}</span>
+                <span className="line-clamp-1">{userData?.address}</span>
               </div>
               <div className="flex items-center">
                 <Phone className="h-6 w-6 text-purple-600 mr-2" />
-                <span>{safeUserData.phone_number}</span>
+                <span>{userData?.phone_number}</span>
               </div>
               <div className="flex items-center">
                 <Mail className="h-6 w-6 text-purple-600 mr-2" />
-                <span>{safeUserData.email_address}</span>
+                <span>{userData?.email_address}</span>
               </div>
             </div>
             <div className="mt-6 flex justify-center sm:justify-start space-x-4">
-              {safeUserData.facebook && (
+              {userData.social_media?.facebook ? (
                 <a
-                  href={safeUserData.facebook}
+                  href={userData.social_media.facebook}
                   className="text-gray-400 hover:text-purple-600"
                 >
                   <Facebook className="h-6 w-6" />
                 </a>
+              ) : (
+                <></>
               )}
               {userData.social_media?.twitter ? (
                 <a
                   href={userData.social_media.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-purple-600"
                 >
                   <Twitter className="h-5 w-5" />
@@ -132,27 +132,36 @@ export default function AgentProfile() {
               ) : (
                 <></>
               )}
-              {safeUserData?.linkedin && (
-                <a href="#" className="text-gray-400 hover:text-purple-600">
+              {userData.social_media?.linkedin ? (
+                <a
+                  href={userData.social_media.linkedin}
+                  className="text-gray-400 hover:text-purple-600"
+                >
                   <Linkedin className="h-6 w-6" />
                 </a>
+              ) : (
+                <></>
               )}
 
-              {safeUserData?.instagram && (
+              {userData.social_media?.instagram ? (
                 <a
-                  href={safeUserData.linkedin}
+                  href={userData.social_media.instagram}
                   className="text-gray-400 hover:text-purple-600"
                 >
                   <Instagram className="h-6 w-6" />
                 </a>
+              ) : (
+                <></>
               )}
-              {safeUserData?.website && (
+              {userData.social_media?.website ? (
                 <a
-                  href={safeUserData.website}
+                  href={userData.social_media.website}
                   className="text-gray-400 hover:text-purple-600"
                 >
                   <Globe className="h-6 w-6" />
                 </a>
+              ) : (
+                <></>
               )}
             </div>
           </div>
@@ -161,9 +170,9 @@ export default function AgentProfile() {
         {/* About Section */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8 p-6 sm:p-10">
           <h2 className="text-2xl font-bold mb-4">
-            About {safeUserData.name.split(" ")}
+            About {userData?.name.substring(0, 2)}
           </h2>
-          <p className="text-gray-600 mb-4">{safeUserData.description}</p>
+          <p className="text-gray-600 mb-4">{userData?.description}</p>
         </div>
 
         {/* Stats Section */}

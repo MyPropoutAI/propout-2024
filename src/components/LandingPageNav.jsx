@@ -40,12 +40,12 @@ const navLink = [
 ];
 
 const LandingPageNav = () => {
-  const user = useSelector((state) => state.auth.user);
+  const { isAuthenticated } = useSelector((state) => state.auth);
   return (
     <div className="bg-purple-900 sticky top-0 z-20">
       <Wrapper>
         <div className="flex justify-between items-center text-white">
-          <Link to={user ? "/home" : "/"}>
+          <Link to={isAuthenticated ? "/home" : "/"}>
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
 
@@ -79,7 +79,7 @@ const LandingPageNav = () => {
             {/* <div>
               <Connect />
             </div> */}
-            {user ? (
+            {isAuthenticated ? (
               <Link to="/dashboard">
                 <Button className="border border-purple-500 border-solid text-white">
                   Continue to dashboard
@@ -119,11 +119,19 @@ const LandingPageNav = () => {
                 </div>
 
                 <div className="lg:flex items-center gap-8 mt-24">
-                  <Link to="/auth/login">
-                    <Button className="border border-purple-500 border-solid text-white">
-                      Get Started
-                    </Button>
-                  </Link>
+                  {isAuthenticated ? (
+                    <Link to="/dashboard">
+                      <Button className="border border-purple-500 border-solid text-white">
+                        Continue to dashboard
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to="/auth/login">
+                      <Button className="border border-purple-500 border-solid text-white">
+                        Get Started
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
