@@ -7,9 +7,8 @@ import AgentPropertyStats from "../../components/AgentPropertyStats";
 const Overview = () => {
   return (
     <div className=" flex flex-col justify-center overflow-hidden">
-      <div className="flex items-center justify-center">
-        <AgentPropertyStats />
-      </div>
+      <AgentPropertyStats />
+
       {/* <div className="bg-white   mt-4 rounded-md p-4">
         <Overviewhistory />
       </div> */}
