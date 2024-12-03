@@ -289,38 +289,38 @@ const MyProperties = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {safeProperty?.data.listing.map((property) => (
+                  {safeProperty.data?.listing?.map((property) => (
                     <tr key={property.id} className="hover:bg-gray-100">
                       <td className="px-4 py-2">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-16 w-16 mr-4">
                             <img
-                              src={property.img_urls?.split(", ")[0]}
-                              alt={property.headline}
+                              src={property?.img_urls?.split(", ")[0]}
+                              alt={property?.headline}
                               className="rounded-lg object-cover w-full h-full"
                             />
                           </div>
                           <span className="text-lg font-medium text-foreground">
-                            {property.headline}
+                            {property?.headline}
                           </span>
                         </div>
                       </td>
                       <td className="px-4 py-2 text-sm text-muted-foreground">
-                        {property.address}
+                        {property?.address}
                       </td>
                       <td className="px-4 py-2 text-lg font-medium text-foreground">
                         <CurrencySymbol
-                          amount={Number(property.property_price)}
-                          listType={property.list_type.toLocaleUpperCase()}
+                          amount={Number(property?.property_price)}
+                          listType={property?.list_type.toLocaleUpperCase()}
                         />
                       </td>
                       <td className="px-4 py-2">
                         <span
                           className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(
-                            property.status
+                            property?.status
                           )}`}
                         >
-                          {property.status}
+                          {property?.status}
                         </span>
                       </td>
                       <td className="px-4 py-2">
