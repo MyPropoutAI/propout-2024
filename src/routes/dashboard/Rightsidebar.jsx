@@ -43,23 +43,14 @@ const Rightsidebar = () => {
   if (!userData) {
     return <div>User not found</div>;
   }
-  console.log(userData);
+  //console.log(userData);
   // Safely access user properties with fallback values
   const safeUserData = {
-    name: userData.name || "Unknown",
-    image: userData.pfp || "/placeholder.svg",
-    address: userData.address || "No address",
-    phone_number: userData.phone_number || "No phone",
-    email_address: userData.email_address || "No email",
-    description: userData.description || "No description",
-    twitter: userData.social_media.twitter || "twitter",
-    linkedin: userData.social_media.linkedin || "linkedin",
-    instagram: userData.social_media.instagram || "instagram",
-    facebook: userData.social_media.facebook || "facebook",
-    city: userData.city || "city",
-    country: userData.country || "country",
-    occupation: userData.occupation || "occupation",
-    website: userData.social_media.website || "website",
+    name: userData?.name || "Unknown",
+    image: userData?.pfp || "/placeholder.svg",
+    address: userData?.address || "No address",
+    phone_number: userData?.phone_number || "No phone",
+    occupation: userData?.occupation || "occupation",
     status: userData.status || "status",
   };
 
@@ -165,7 +156,7 @@ const Rightsidebar = () => {
                     <h2>Verified</h2>
                   )}
                 </div>
-                <p className="font-bold">{decodedUser.name}</p>
+                <p className="font-bold">{safeUserData.name}</p>
                 <p className="italic line-clamp-2 ">
                   {safeUserData.occupation}
                 </p>
