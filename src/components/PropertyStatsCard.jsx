@@ -32,11 +32,11 @@ export function PropertyStatsCard() {
   //console.log("properties", safeProperty.data.listing.length);
   const properties = safeProperty?.data?.listing;
   //console.log(properties);
-  const rentedProperties = properties.filter(
+  const rentedProperties = properties?.filter(
     (property) => property.list_type.toLowerCase() === "rent"
   );
 
-  const propertiesForSell = properties.filter(
+  const propertiesForSell = properties?.filter(
     (property) => property.list_type.toLowerCase() === "sell"
   );
 
@@ -69,19 +69,19 @@ export function PropertyStatsCard() {
   const stats = [
     {
       title: "Total Properties",
-      value: properties.length,
+      value: properties?.length,
       icon: <Home className="w-4 h-4" />,
       color: "bg-blue-100 text-blue-600",
     },
     {
       title: "Properties For Sell",
-      value: propertiesForSell.length,
+      value: propertiesForSell?.length,
       icon: <ListChecks className="w-4 h-4" />,
       color: "bg-green-100 text-green-600",
     },
     {
       title: "Properties For Rent",
-      value: rentedProperties.length,
+      value: rentedProperties?.length,
       icon: <Key className="w-4 h-4" />,
       color: "bg-yellow-100 text-yellow-600",
     },
