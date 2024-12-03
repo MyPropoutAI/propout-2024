@@ -29,9 +29,9 @@ export function PropertyStatsCard() {
     refetch,
   } = usePropertyDetails(decodedUser?.id);
 
-  console.log("properties", safeProperty.data.listing.length);
-  const properties = safeProperty.data.listing;
-  console.log(properties);
+  //console.log("properties", safeProperty.data.listing.length);
+  const properties = safeProperty?.data?.listing;
+  //console.log(properties);
   const rentedProperties = properties.filter(
     (property) => property.list_type.toLowerCase() === "rent"
   );
