@@ -23,13 +23,13 @@ const Rightsidebar = () => {
   const { data: users, isLoading } = useUsers();
   const user = useSelector((state) => state.auth.user);
   const decodedUser = jwt.decode(user);
-  const id = decodedUser.id;
+  const userId = decodedUser.id;
   //const verified = useSelector((state) => state.auth.isVerified);
 
   useEffect(() => {
     if (users && users.user) {
       const usersData = Array.isArray(users.user) ? users.user : [];
-      const foundUser = usersData.find((user) => user.id == id);
+      const foundUser = usersData.find((user) => user.id == userId);
       setUserData(foundUser);
     }
   }, [users]);
@@ -149,7 +149,9 @@ const Rightsidebar = () => {
                   }
                 >
                   {safeUserData.kyc_status === null ? (
-                    <Link to="/dashboard/verification">
+                    <Link
+                      to={`https://proput-db-jlb1.onrender.com/kyc?userId=${userId}`}
+                    >
                       <h2>Not Verified</h2>
                     </Link>
                   ) : (

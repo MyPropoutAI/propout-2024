@@ -16,7 +16,7 @@ export const UploadToCloudinary = async (rawImage) => {
       console.log("Failed to upload image to cloud");
     }
     const imageData = await response.json();
-    console.log("Image uploaded:", imageData);
+    //console.log("Image uploaded:", imageData);
     return imageData;
   } catch (error) {
     console.log(error);

@@ -16,7 +16,7 @@ const CurrencySymbol = ({ amount, listType }) => {
   useEffect(() => {
     const getMoney = () => {
       const res = formatCurrency(amount);
-      console.log(res);
+      //console.log(res);
       setPay(res);
     };
     getMoney(amount);

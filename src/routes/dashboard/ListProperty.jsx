@@ -20,7 +20,7 @@ const ListProperty = () => {
   const [imageURLs, setImageURLs] = useState([""]);
   const [isLoading, setIsLoading] = useState(false);
   //const [transactionHash, setTransactionHash] = useState(null);
-  const [cloudinaryImageUrls, setCloudinaryImageUrls] = useState([]);
+  //const [cloudinaryImageUrls, setCloudinaryImageUrls] = useState([]);
   const user = useSelector((state) => state.auth.user);
 
   const decodedUser = jwt.decode(user);
@@ -210,13 +210,18 @@ const ListProperty = () => {
       const cloudinaryUrls = uploadResults
         .filter((result) => result !== null)
         .map((result) => result.secure_url);
-
+      //console.log(cloudinaryUrls);
+      // if (cloudinaryUrls) {
+      //   setCloudinaryImageUrls(cloudinaryUrls);
+      //   console.log("the set cloudinaryImageUrls", cloudinaryImageUrls);
+      // }
       // Update state with Cloudinary URLs
-      setCloudinaryImageUrls(cloudinaryUrls);
+      //setCloudinaryImageUrls(cloudinaryUrls);
 
       // Optional: Reset local image states
-      setImages([null]);
-      setImageURLs([""]);
+      // setImages([null]);
+      // setImageURLs([""]);
+      return cloudinaryUrls;
     } catch (error) {
       console.error("Upload process error:", error);
       alert("Failed to upload images");
@@ -351,10 +356,11 @@ const ListProperty = () => {
 
   const handleSubmission = async () => {
     setIsLoading(true);
-    await handleUploadImages();
+    const imagesUri = await handleUploadImages();
+    //console.log("this is the updated image url", imagesUri);
     try {
       // Check if cloudinaryImageUrls is empty
-      if (cloudinaryImageUrls.length === 0) {
+      if (imagesUri.length === 0) {
         setIsLoading(false);
         toast("Error", {
           description: "No images uploaded. Please try again.",
@@ -370,7 +376,7 @@ const ListProperty = () => {
           body: JSON.stringify({
             property_price: form.price,
             headline: form._propertyTitle,
-            img_urls: cloudinaryImageUrls,
+            img_urls: imagesUri,
             room_spec: form._property_spec,
             description: form._description,
             id: decodedUser.id,
