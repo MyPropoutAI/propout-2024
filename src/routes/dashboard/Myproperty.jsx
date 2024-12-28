@@ -31,12 +31,14 @@ import { listingContract } from "@/lib/constants";
 import { usePropertyDetails } from "@/contexts/hooks/useGetOneUserProperties";
 import { UseDeleteProperty } from "@/contexts/hooks/useDeleteProperty";
 import CurrencySymbol from "@/lib/CurrencySymbol";
+import { useRoutes } from "react-router-dom";
 
 const MyProperties = () => {
   const [activeTab, setActiveTab] = useState("property");
   const user = useSelector((state) => state.auth.user);
   const decodedUser = jwt.decode(user);
   const account = useActiveAccount();
+  const routes = useRoutes();
 
   const {
     handleDeleteProperty,
@@ -79,6 +81,9 @@ const MyProperties = () => {
 
   const handleGenerateFlyer = (propertyId) => {
     // Implement generate flyer functionality
+    routes.push(
+      `https://propout-eflyer.onrender.com/e-flyer?propertyId=${propertyId}`
+    );
   };
 
   const handleToggleStatus = (propertyId) => {
