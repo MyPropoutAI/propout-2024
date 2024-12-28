@@ -87,40 +87,130 @@ const ListProperty = () => {
     });
   };
 
+  // const handleUploadImages = async () => {
+
+  //   try {
+  //     // Filter out null images
+  //     const validImages = images.filter((image) => image !== null);
+  //     console.log("validImages", validImages);
+  //     // Check if there are any images to upload
+  //     if (validImages.length === 0) {
+  //       alert("Please select images to upload");
+  //       return;
+  //     }
+
+  //     // Disable upload button and show loading state
+  //     // setIsUploading(true);
+
+  //     // Upload images to Cloudinary
+  //     const uploadPromises = validImages.map(async (image) => {
+  //       try {
+  //         const uploadedImageData = await UploadToCloudinary(image);
+  //         console.log("uploadedImageData", uploadedImageData);
+  //         return uploadedImageData; // This should return the Cloudinary image data
+  //       } catch (uploadError) {
+  //         // console.error("Image upload error:", uploadError);
+  //         return null;
+  //       }
+  //     });
+  //     //console.log("uploadPromises", uploadPromises);
+  //     // Wait for all uploads to complete
+  //     const uploadResults = await Promise.all(uploadPromises);
+  //     console.log(up)
+
+  //     // Filter out successful uploads and extract URLs
+  //     const cloudinaryUrls = uploadResults
+  //       .filter((result) => result !== null)
+  //       .map((result) => result.secure_url); // Use secure_url from Cloudinary response
+  //     console.log("before db cloudinaryUrls", cloudinaryUrls);
+  //     // Update state with Cloudinary URLs
+  //     setCloudinaryImageUrls(cloudinaryUrls);
+
+  //     // Optional: Reset local image states
+  //     setImages([null]);
+  //     setImageURLs([""]);
+  //   } catch (error) {
+  //     //console.error("Upload process error:", error);
+  //     alert("Failed to upload images");
+  //   } finally {
+  //     // setIsUploading(false);
+  //     //console.log("result");
+  //   }
+  // };
+
+  // const handleUploadImages = async () => {
+  //   try {
+  //     // Filter out null images
+  //     const validImages = images.filter((image) => image !== null);
+  //     //console.log("validImages", validImages);
+  //     // Check if there are any images to upload
+  //     if (validImages.length === 0) {
+  //       alert("Please select images to upload");
+  //       return;
+  //     }
+
+  //     // Disable upload button and show loading state
+  //     // setIsUploading(true);
+
+  //     // Upload images to Cloudinary
+  //     const uploadPromises = validImages.map(async (image) => {
+  //       try {
+  //         const uploadedImageData = await UploadToCloudinary(image);
+  //         //console.log("uploadedImageData", uploadedImageData);
+  //         return uploadedImageData; // This should return the Cloudinary image data
+  //       } catch (uploadError) {
+  //         // console.error("Image upload error:", uploadError);
+  //         return null;
+  //       }
+  //     });
+  //     //console.log("uploadPromises", uploadPromises);
+  //     // Wait for all uploads to complete
+  //     const uploadResults = await Promise.all(uploadPromises);
+
+  //     // Filter out successful uploads and extract URLs
+  //     const cloudinaryUrls = uploadResults
+  //       .filter((result) => result !== null)
+  //       .map((result) => result.secure_url); // Use secure_url from Cloudinary response
+  //     console.log(cloudinaryUrls);
+  //     // Update state with Cloudinary URLs
+  //     setCloudinaryImageUrls(cloudinaryUrls);
+  //     console.log("the set cloudinaryImageUrls", cloudinaryImageUrls);
+
+  //     // Optional: Reset local image states
+  //     setImages([null]);
+  //     setImageURLs([""]);
+  //   } catch (error) {
+  //     console.error("Upload process error:", error);
+  //     alert("Failed to upload images");
+  //   } finally {
+  //     // setIsUploading(false);
+  //     //console.log("result");
+  //   }
+  // };
+
   const handleUploadImages = async () => {
     try {
-      // Filter out null images
       const validImages = images.filter((image) => image !== null);
-      //console.log("validImages", validImages);
-      // Check if there are any images to upload
       if (validImages.length === 0) {
         alert("Please select images to upload");
         return;
       }
 
-      // Disable upload button and show loading state
-      // setIsUploading(true);
-
-      // Upload images to Cloudinary
       const uploadPromises = validImages.map(async (image) => {
         try {
           const uploadedImageData = await UploadToCloudinary(image);
-          //console.log("uploadedImageData", uploadedImageData);
           return uploadedImageData; // This should return the Cloudinary image data
         } catch (uploadError) {
-          // console.error("Image upload error:", uploadError);
+          console.error("Image upload error:", uploadError);
           return null;
         }
       });
-      //console.log("uploadPromises", uploadPromises);
-      // Wait for all uploads to complete
-      const uploadResults = await Promise.all(uploadPromises);
 
-      // Filter out successful uploads and extract URLs
+      const uploadResults = await Promise.all(uploadPromises);
       const cloudinaryUrls = uploadResults
         .filter((result) => result !== null)
-        .map((result) => result.secure_url); // Use secure_url from Cloudinary response
-      //console.log(cloudinaryUrls);
+        .map((result) => result.secure_url);
+
       // Update state with Cloudinary URLs
       setCloudinaryImageUrls(cloudinaryUrls);
 
@@ -128,11 +218,8 @@ const ListProperty = () => {
       setImages([null]);
       setImageURLs([""]);
     } catch (error) {
-      //console.error("Upload process error:", error);
+      console.error("Upload process error:", error);
       alert("Failed to upload images");
-    } finally {
-      // setIsUploading(false);
-      //console.log("result");
     }
   };
 
@@ -180,34 +267,101 @@ const ListProperty = () => {
   //   return res.data.IpfsHash;
   // };
 
+  // const handleSubmission = async () => {
+  //   setIsLoading(true);
+  //   await handleUploadImages();
+  //   try {
+  //     // const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
+  //     // console.log(imageIPFSHashes);
+  //     // const transaction = prepareContractCall({
+  //     //   contract: listingContract,
+  //     //   method: resolveMethod("listProperty"),
+  //     //   params: [
+  //     //     {
+  //     //       price: form.price.toString(),
+  //     //       propertyTitle: form._propertyTitle,
+  //     //       images: [...imageIPFSHashes],
+  //     //       propertyAddress: form._propertyAddress,
+  //     //       description: form._description,
+  //     //       propertyType: form._property_type,
+  //     //       propertySpec: form._property_spec.toString(),
+  //     //       square: form._square.toString(),
+  //     //       city: form._city,
+  //     //       country: form._country,
+  //     //       listType: form.listType,
+  //     //     },
+  //     //   ],
+  //     // });
+  //     // console.log("transaction", transaction);
+
+  //     console.log("cloudinaryImageUrls", cloudinaryImageUrls);
+  //     if (cloudinaryImageUrls) {
+  //       const res = await fetch(
+  //         "https://proput-db-jlb1.onrender.com/new_listing",
+  //         {
+  //           method: "POST",
+  //           headers: { "Content-Type": "application/json" },
+  //           body: JSON.stringify({
+  //             property_price: form.price,
+  //             headline: form._propertyTitle,
+  //             img_urls: cloudinaryImageUrls,
+  //             room_spec: form._property_spec,
+  //             description: form._description,
+  //             id: decodedUser.id,
+  //             square_ft: form._square,
+  //             type: form._property_type,
+  //             address: form._propertyAddress,
+  //             city: form._city,
+  //             country: form._country,
+  //             listType: form.listType,
+  //             bathroom: form._bathroom,
+  //             isLand: form.isLand,
+  //             inspection_availability: form.availability,
+  //             parking_space: form._parking_space,
+  //             //property_hash: transactionHash,
+  //           }),
+  //         }
+  //       );
+
+  //       if (!res.ok) {
+  //         setIsLoading(false);
+  //         toast("Error", {
+  //           description: "Failed to list property",
+  //         });
+  //         throw new Error("property not uploaded to database");
+  //       }
+  //       setIsLoading(false);
+  //       toast("Success", {
+  //         description: "Your property has been listed successfully",
+  //       });
+  //       return res;
+  //     } else {
+  //       toast("Error", {
+  //         description: "Failed to upload images to the cloud please try again",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     setIsLoading(false);
+  //     toast("Error", {
+  //       description: "Error uploading images or sending transaction: ",
+  //     });
+  //     //console.error("Error uploading images or sending transaction: ", error);
+  //   }
+  // };
+
   const handleSubmission = async () => {
     setIsLoading(true);
     await handleUploadImages();
     try {
-      // const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
-      // console.log(imageIPFSHashes);
-      // const transaction = prepareContractCall({
-      //   contract: listingContract,
-      //   method: resolveMethod("listProperty"),
-      //   params: [
-      //     {
-      //       price: form.price.toString(),
-      //       propertyTitle: form._propertyTitle,
-      //       images: [...imageIPFSHashes],
-      //       propertyAddress: form._propertyAddress,
-      //       description: form._description,
-      //       propertyType: form._property_type,
-      //       propertySpec: form._property_spec.toString(),
-      //       square: form._square.toString(),
-      //       city: form._city,
-      //       country: form._country,
-      //       listType: form.listType,
-      //     },
-      //   ],
-      // });
-      // console.log("transaction", transaction);
+      // Check if cloudinaryImageUrls is empty
+      if (cloudinaryImageUrls.length === 0) {
+        setIsLoading(false);
+        toast("Error", {
+          description: "No images uploaded. Please try again.",
+        });
+        return;
+      }
 
-      //console.log("cloudinaryImageUrls", cloudinaryImageUrls);
       const res = await fetch(
         "https://proput-db-jlb1.onrender.com/new_listing",
         {
@@ -216,7 +370,7 @@ const ListProperty = () => {
           body: JSON.stringify({
             property_price: form.price,
             headline: form._propertyTitle,
-            img_urls: cloudinaryImageUrls ? cloudinaryImageUrls : null,
+            img_urls: cloudinaryImageUrls,
             room_spec: form._property_spec,
             description: form._description,
             id: decodedUser.id,
@@ -230,7 +384,6 @@ const ListProperty = () => {
             isLand: form.isLand,
             inspection_availability: form.availability,
             parking_space: form._parking_space,
-            //property_hash: transactionHash,
           }),
         }
       );
@@ -240,7 +393,7 @@ const ListProperty = () => {
         toast("Error", {
           description: "Failed to list property",
         });
-        throw new Error("property not uploaded to database");
+        throw new Error("Property not uploaded to database");
       }
       setIsLoading(false);
       toast("Success", {
@@ -250,9 +403,9 @@ const ListProperty = () => {
     } catch (error) {
       setIsLoading(false);
       toast("Error", {
-        description: "Error uploading images or sending transaction: ",
+        description: "Error uploading images or sending transaction.",
       });
-      //console.error("Error uploading images or sending transaction: ", error);
+      console.error("Error uploading images or sending transaction: ", error);
     }
   };
 
