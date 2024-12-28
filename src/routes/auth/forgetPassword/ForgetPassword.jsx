@@ -1,25 +1,38 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { Input } from "../../../components/ui/input";
 import { Rings } from "react-loader-spinner";
-import { FormSchema } from "../../../lib/FormSchema";
+import { ForgotPasswordSchema } from "../../../lib/FormSchema";
 import { useForm } from "react-hook-form";
-
+import useForgotPassword from "../../../contexts/hooks/useForgetPassword";
 //import { Button } from "../../../components/ui/button";
+import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 //import { AuthBg } from "../../../components/AuthBg";
 const Register = () => {
-  const [isLoading, setIsLoading] = useState(false);
-
+  // const [isLoading, setIsLoading] = useState(false);
+  const { forgotPassword, loading, error, success } = useForgotPassword();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(FormSchema) });
+  } = useForm({ resolver: zodResolver(ForgotPasswordSchema) });
 
-  const onSubmit = (data) => {
-    setIsLoading(true);
+  const onSubmit = async (data) => {
     console.log("Form data:", data);
     // Handle form submission logic here (e.g., send data to server)
+    const res = await forgotPassword(data.email);
+    if (error) {
+      toast("Error", {
+        description: "Could not send email please try again",
+      });
+      return;
+    }
+    if (success) {
+      toast.success("Success", {
+        description: "Email sent successfully, please check your inbox",
+      });
+      return res;
+    }
   };
   return (
     <div className="w-full flex h-screen">
@@ -56,7 +69,7 @@ const Register = () => {
               type="submit"
             >
               Submit
-              {isLoading && (
+              {loading && (
                 <Rings
                   visible={true}
                   height="40"

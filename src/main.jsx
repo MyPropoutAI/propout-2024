@@ -33,7 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <PersistGate loading={null} persistor={persistor}>
             <AuthProvider>
               <RouterProvider router={router} />
-              <ReactQueryDevtools initialIsOpen={false} />
+              {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             </AuthProvider>
           </PersistGate>
         </Provider>

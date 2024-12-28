@@ -12,6 +12,7 @@ import { Countries } from "../../lib/Countries";
 import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 import { Rings } from "react-loader-spinner";
 import { X } from "lucide-react";
+import { Label } from "../../components/ui/label";
 const ListProperty = () => {
   //const userJwt = import.meta.env.VITE_IPFS_JWT;
 
@@ -627,14 +628,18 @@ const ListProperty = () => {
                       </option>
                     ))}
                   </select>
-                  <Input
-                    type="date"
-                    value={slot.date}
-                    onChange={(e) =>
-                      handleAvailabilityChange(index, "date", e.target.value)
-                    }
-                    className="flex-1 min-w-[120px]"
-                  />
+
+                  <div>
+                    <Label>Date (optional)</Label>
+                    <Input
+                      type="date"
+                      value={slot.date}
+                      onChange={(e) =>
+                        handleAvailabilityChange(index, "date", e.target.value)
+                      }
+                      className="flex-1 min-w-[120px]"
+                    />
+                  </div>
                   <Input
                     type="time"
                     value={slot.startTime}
