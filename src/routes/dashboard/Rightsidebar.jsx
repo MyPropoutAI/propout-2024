@@ -43,7 +43,7 @@ const Rightsidebar = () => {
   if (!userData) {
     return <div>User not found</div>;
   }
-  console.log(userData);
+  //console.log(userData);
   // Safely access user properties with fallback values
   const safeUserData = {
     name: userData?.name || "Unknown",

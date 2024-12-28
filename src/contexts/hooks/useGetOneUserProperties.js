@@ -16,7 +16,7 @@ const fetchPropertyDetails = async (propertyId) => {
       },
     }
   );
-  console.log(data);
+  //console.log(data);
   return data;
 };
 
@@ -35,7 +35,7 @@ export const usePropertyDetails = (propertyId) => {
 
       // Error handling
       onError: (error) => {
-        console.error("Error fetching property details:", error);
+        //console.error("Error fetching property details:", error);
         // Optional: Add error handling (e.g., toast notification)
       },
 

@@ -2,26 +2,24 @@ import { useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
 import { Textarea } from "../../components/ui/textarea";
-import { TransactionButton } from "thirdweb/react";
-import { prepareContractCall, resolveMethod } from "thirdweb";
 import { toast } from "sonner";
-import axios from "axios";
 import { cn } from "../../lib/utils";
 import { useSelector } from "react-redux";
 import jwt from "jsonwebtoken";
 import { PropertyType, ListType } from "../../lib/PropertyType";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 import { Countries } from "../../lib/Countries";
-import { listingContract } from "../../lib/constants";
-// import { UploadToCloudinary } from "../../components/UploadToCloudinary";
 import { UploadToCloudinary } from "../../components/UploadToCloudinary";
+import { Rings } from "react-loader-spinner";
+import { X } from "lucide-react";
 const ListProperty = () => {
-  const userJwt = import.meta.env.VITE_IPFS_JWT;
+  //const userJwt = import.meta.env.VITE_IPFS_JWT;
 
   // Initialize state with one empty slot
   const [images, setImages] = useState([null]);
   const [imageURLs, setImageURLs] = useState([""]);
-  const [transactionHash, setTransactionHash] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  //const [transactionHash, setTransactionHash] = useState(null);
   const [cloudinaryImageUrls, setCloudinaryImageUrls] = useState([]);
   const user = useSelector((state) => state.auth.user);
 
@@ -40,13 +38,60 @@ const ListProperty = () => {
     _city: "",
     _country: "",
     listType: "",
+    _bathroom: "",
+    _parking_space: "",
+    isLand: false, // New state for isLand
+    availability: [{ day: "", date: "", startTime: "", endTime: "" }],
   });
+
+  const handleToggleLand = () => {
+    setForm((prev) => ({ ...prev, isLand: !prev.isLand }));
+  };
+
+  const handleFormChange = (fieldName, e) => {
+    setForm({ ...form, [fieldName]: e.target.value });
+  };
+
+  const handleAvailabilityChange = (index, field, value) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      availability: prevForm.availability.map((slot, i) =>
+        i === index ? { ...slot, [field]: value } : slot
+      ),
+    }));
+  };
+
+  const addAvailabilitySlot = () => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      availability: [
+        ...prevForm.availability,
+        { day: "", date: "", startTime: "", endTime: "" },
+      ],
+    }));
+  };
+
+  const removeAvailabilitySlot = (index) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      availability: prevForm.availability.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleDayChange = (day) => {
+    setForm((prev) => {
+      const days = prev.availability.days.includes(day)
+        ? prev.availability.days.filter((d) => d !== day)
+        : [...prev.availability.days, day];
+      return { ...prev, availability: { ...prev.availability, days } };
+    });
+  };
 
   const handleUploadImages = async () => {
     try {
       // Filter out null images
       const validImages = images.filter((image) => image !== null);
-      console.log("validImages", validImages);
+      //console.log("validImages", validImages);
       // Check if there are any images to upload
       if (validImages.length === 0) {
         alert("Please select images to upload");
@@ -60,14 +105,14 @@ const ListProperty = () => {
       const uploadPromises = validImages.map(async (image) => {
         try {
           const uploadedImageData = await UploadToCloudinary(image);
-          console.log("uploadedImageData", uploadedImageData);
+          //console.log("uploadedImageData", uploadedImageData);
           return uploadedImageData; // This should return the Cloudinary image data
         } catch (uploadError) {
-          console.error("Image upload error:", uploadError);
+          // console.error("Image upload error:", uploadError);
           return null;
         }
       });
-      console.log("uploadPromises", uploadPromises);
+      //console.log("uploadPromises", uploadPromises);
       // Wait for all uploads to complete
       const uploadResults = await Promise.all(uploadPromises);
 
@@ -75,7 +120,7 @@ const ListProperty = () => {
       const cloudinaryUrls = uploadResults
         .filter((result) => result !== null)
         .map((result) => result.secure_url); // Use secure_url from Cloudinary response
-
+      //console.log(cloudinaryUrls);
       // Update state with Cloudinary URLs
       setCloudinaryImageUrls(cloudinaryUrls);
 
@@ -83,11 +128,11 @@ const ListProperty = () => {
       setImages([null]);
       setImageURLs([""]);
     } catch (error) {
-      console.error("Upload process error:", error);
+      //console.error("Upload process error:", error);
       alert("Failed to upload images");
     } finally {
       // setIsUploading(false);
-      console.log("result");
+      //console.log("result");
     }
   };
 
@@ -109,110 +154,122 @@ const ListProperty = () => {
     setImageURLs([...imageURLs, ""]);
   };
 
-  const handleFormChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
-  };
+  // const handleFormChange = (fieldName, e) => {
+  //   setForm({ ...form, [fieldName]: e.target.value });
+  // };
 
-  const uploadToIPFS = async (file) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    const metadata = JSON.stringify({ name: file.name });
-    formData.append("pinataMetadata", metadata);
-    const options = JSON.stringify({ cidVersion: 0 });
-    formData.append("pinataOptions", options);
+  // const uploadToIPFS = async (file) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   const metadata = JSON.stringify({ name: file.name });
+  //   formData.append("pinataMetadata", metadata);
+  //   const options = JSON.stringify({ cidVersion: 0 });
+  //   formData.append("pinataOptions", options);
 
-    const res = await axios.post(
-      "https://api.pinata.cloud/pinning/pinFileToIPFS",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${userJwt}`,
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+  //   const res = await axios.post(
+  //     "https://api.pinata.cloud/pinning/pinFileToIPFS",
+  //     formData,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${userJwt}`,
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     }
+  //   );
 
-    return res.data.IpfsHash;
-  };
+  //   return res.data.IpfsHash;
+  // };
 
   const handleSubmission = async () => {
+    setIsLoading(true);
     await handleUploadImages();
     try {
-      const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
-      console.log(imageIPFSHashes);
-      const transaction = prepareContractCall({
-        contract: listingContract,
-        method: resolveMethod("listProperty"),
-        params: [
-          {
-            price: form.price.toString(),
-            propertyTitle: form._propertyTitle,
-            images: [...imageIPFSHashes],
-            propertyAddress: form._propertyAddress,
+      // const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
+      // console.log(imageIPFSHashes);
+      // const transaction = prepareContractCall({
+      //   contract: listingContract,
+      //   method: resolveMethod("listProperty"),
+      //   params: [
+      //     {
+      //       price: form.price.toString(),
+      //       propertyTitle: form._propertyTitle,
+      //       images: [...imageIPFSHashes],
+      //       propertyAddress: form._propertyAddress,
+      //       description: form._description,
+      //       propertyType: form._property_type,
+      //       propertySpec: form._property_spec.toString(),
+      //       square: form._square.toString(),
+      //       city: form._city,
+      //       country: form._country,
+      //       listType: form.listType,
+      //     },
+      //   ],
+      // });
+      // console.log("transaction", transaction);
+
+      //console.log("cloudinaryImageUrls", cloudinaryImageUrls);
+      const res = await fetch(
+        "https://proput-db-jlb1.onrender.com/new_listing",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            property_price: form.price,
+            headline: form._propertyTitle,
+            img_urls: cloudinaryImageUrls ? cloudinaryImageUrls : null,
+            room_spec: form._property_spec,
             description: form._description,
-            propertyType: form._property_type,
-            propertySpec: form._property_spec.toString(),
-            square: form._square.toString(),
+            id: decodedUser.id,
+            square_ft: form._square,
+            type: form._property_type,
+            address: form._propertyAddress,
             city: form._city,
             country: form._country,
             listType: form.listType,
-          },
-        ],
-      });
-      console.log("transaction", transaction);
-      if (transaction) {
-        console.log("cloudinaryImageUrls", cloudinaryImageUrls);
-        const res = await fetch(
-          "https://proput-db-jlb1.onrender.com/new_listing",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              property_price: form.price,
-              headline: form._propertyTitle,
-              img_urls: cloudinaryImageUrls ? cloudinaryImageUrls : null,
-              room_spec: form._property_spec,
-              description: form._description,
-              id: decodedUser.id,
-              square_ft: form._square,
-              type: form._property_type,
-              address: form._propertyAddress,
-              city: form._city,
-              country: form._country,
-              listType: form.listType,
-              property_hash: transactionHash,
-            }),
-          }
-        );
-
-        if (!res.ok) {
-          throw new Error("property not uploaded to database");
+            bathroom: form._bathroom,
+            isLand: form.isLand,
+            inspection_availability: form.availability,
+            parking_space: form._parking_space,
+            //property_hash: transactionHash,
+          }),
         }
-      }
+      );
 
-      return transaction;
+      if (!res.ok) {
+        setIsLoading(false);
+        toast("Error", {
+          description: "Failed to list property",
+        });
+        throw new Error("property not uploaded to database");
+      }
+      setIsLoading(false);
+      toast("Success", {
+        description: "Your property has been listed successfully",
+      });
+      return res;
     } catch (error) {
-      console.error("Error uploading images or sending transaction: ", error);
+      setIsLoading(false);
+      toast("Error", {
+        description: "Error uploading images or sending transaction: ",
+      });
+      //console.error("Error uploading images or sending transaction: ", error);
     }
   };
 
-  const handleListingSuccessfull = async (trx) => {
-    toast("Success", {
-      description: "Your property has been listed successfully",
-      action: {
-        label: "View",
-        onClick: () => {
-          window.open(
-            "https://sepolia-blockscout.lisk.com/tx/" + trx.transactionHash,
-            "_blank"
-          );
-        },
-      },
-    });
-  };
+  // const handleListingSuccessfull = async (trx) => {
+
+  // };
 
   return (
     <div className="bg-white p-8 rounded-md max-w-full">
+      <div className="flex items-center mb-4">
+        <label className="mr-2">Is Land:</label>
+        <input
+          type="checkbox"
+          checked={form.isLand}
+          onChange={handleToggleLand}
+        />
+      </div>
       <div className="border-2 p-4 rounded-md flex gap-5 relative">
         <div className="flex gap-4 overflow-x-auto">
           {imageURLs.map((image, i) => (
@@ -238,95 +295,142 @@ const ListProperty = () => {
       <div className="flex gap-20 flex-col lg:flex-row mt-10">
         <div className="flex-[3] flex">
           <div className="flex flex-col gap-5 w-full">
-            <div>
-              <Input
-                type="text"
-                placeholder="Headline"
-                className="w-full texl-lg"
-                onChange={(e) => handleFormChange("_propertyTitle", e)}
-              />
-            </div>
-            <div>
-              <Input
-                type="number"
-                placeholder="Property Price"
-                className="w-full texl-lg"
-                onChange={(e) => handleFormChange("price", e)}
-              />
-            </div>
-            <div>
-              <Input
-                type="text"
-                placeholder="Property Address"
-                className="w-full texl-lg"
-                onChange={(e) => handleFormChange("_propertyAddress", e)}
-              />
-            </div>
-            <div>
-              <Input
-                type="text"
-                placeholder="City"
-                className="w-full texl-lg"
-                onChange={(e) => handleFormChange("_city", e)}
-              />
-            </div>
-            <div>
-              <select
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                onChange={(e) => handleFormChange("_country", e)}
-              >
-                <option value="1">Country</option>
-                {Countries.map((country, i) => (
-                  <option key={i} value={country}>
-                    {country}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <Input
-                type="number"
-                placeholder="Bedroom"
-                className="w-full texl-lg"
-                onChange={(e) => handleFormChange("_property_spec", e)}
-              />
-            </div>
-            <div>
-              <Input
-                type="number"
-                placeholder="Square foot"
-                className="w-full texl-lg"
-                onChange={(e) => handleFormChange("_square", e)}
-              />
-            </div>
-            <div>
-              <select
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                onChange={(e) => handleFormChange("_property_type", e)}
-              >
-                <option value="1">Property Type</option>
-                {PropertyType.map((type, i) => (
-                  <option key={i} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                onChange={(e) => handleFormChange("listType", e)}
-              >
-                <option value="1" hidden>
-                  List Type
-                </option>
-                {ListType.map((type, i) => (
-                  <option key={i} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {form.isLand ? (
+              <>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Land Title"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_propertyTitle", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    placeholder="Square Feet"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_square", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Property Address"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_propertyAddress", e)}
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Headline"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_propertyTitle", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    placeholder="Property Price"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("price", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="Property Address"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_propertyAddress", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="City"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_city", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    placeholder="Bedroom"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_property_spec", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    placeholder="Bathroom"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_bathroom", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    placeholder="parking space"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_parking_space", e)}
+                  />
+                </div>
+                <div>
+                  <Input
+                    type="number"
+                    placeholder="Square foot"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_square", e)}
+                  />
+                </div>
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => handleFormChange("listType", e)}
+                  >
+                    <option value="1" hidden>
+                      List Type
+                    </option>
+                    {ListType.map((type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => handleFormChange("_country", e)}
+                  >
+                    <option value="1">Country</option>
+                    {Countries.map((country, i) => (
+                      <option key={i} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                    onChange={(e) => handleFormChange("_property_type", e)}
+                  >
+                    <option value="1">Property Type</option>
+                    {PropertyType.map((type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
             <div>
               <Textarea
                 type="text"
@@ -336,26 +440,100 @@ const ListProperty = () => {
               />
             </div>
             <div>
-              <TransactionButton
-                transaction={handleSubmission}
-                onTransactionConfirmed={(trx) => {
-                  setTransactionHash(trx.transactionHash);
-                  //console.log(trx);
-                  handleListingSuccessfull(trx);
-                }}
-                onError={(err) => {
-                  if (err.code == "4001") {
-                    toast.error("Transaction rejected");
-                  } else {
-                    toast.error(err.message);
-                  }
-                }}
-                style={{ background: "transparent", padding: 0 }}
+              <h3 className="font-bold mb-2">Availability for Inspection:</h3>
+              {form.availability.map((slot, index) => (
+                <div
+                  key={index}
+                  className="flex flex-wrap items-center gap-2 mb-4 p-4 border rounded-md relative"
+                >
+                  <select
+                    className="flex-1 h-10 min-w-[120px] rounded-md border border-input bg-background px-3 py-2 text-sm"
+                    value={slot.day}
+                    onChange={(e) =>
+                      handleAvailabilityChange(index, "day", e.target.value)
+                    }
+                  >
+                    <option value="">Select Day</option>
+                    {[
+                      "Monday",
+                      "Tuesday",
+                      "Wednesday",
+                      "Thursday",
+                      "Friday",
+                      "Saturday",
+                      "Sunday",
+                    ].map((day) => (
+                      <option key={day} value={day}>
+                        {day}
+                      </option>
+                    ))}
+                  </select>
+                  <Input
+                    type="date"
+                    value={slot.date}
+                    onChange={(e) =>
+                      handleAvailabilityChange(index, "date", e.target.value)
+                    }
+                    className="flex-1 min-w-[120px]"
+                  />
+                  <Input
+                    type="time"
+                    value={slot.startTime}
+                    onChange={(e) =>
+                      handleAvailabilityChange(
+                        index,
+                        "startTime",
+                        e.target.value
+                      )
+                    }
+                    className="flex-1 min-w-[120px]"
+                  />
+                  <Input
+                    type="time"
+                    value={slot.endTime}
+                    onChange={(e) =>
+                      handleAvailabilityChange(index, "endTime", e.target.value)
+                    }
+                    className="flex-1 min-w-[120px]"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2"
+                    onClick={() => removeAvailabilitySlot(index)}
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
+                </div>
+              ))}
+              <Button
+                type="button"
+                variant="outline"
+                onClick={addAvailabilitySlot}
+                className="mt-2"
               >
-                <Button className="text-white px-12 bg-[#964CC3]">
-                  List Property
-                </Button>
-              </TransactionButton>
+                Add Availability Slot
+              </Button>
+            </div>
+            <div>
+              <Button
+                className="text-white px-12 bg-[#964CC3]"
+                onClick={handleSubmission}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Rings
+                    visible={true}
+                    height="40"
+                    width="40"
+                    color="#FFF"
+                    ariaLabel="rings-loading"
+                  />
+                ) : (
+                  "List Property"
+                )}
+              </Button>
             </div>
           </div>
         </div>
@@ -416,8 +594,8 @@ const ListProperty = () => {
                     </div>
                   </div>
                   {/* <Button className="rounded-md text-white px-8 bg-[#964CC3]">
-                    See more
-                  </Button> */}
+                        See more
+                      </Button> */}
                 </div>
               </div>
             </div>

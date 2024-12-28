@@ -52,7 +52,7 @@ const HomeHero = () => {
             <Link to={"/agents"}>Agents</Link>
           </Button>
           <Button className="px-8 rounded-md text-white" variant="outline">
-            <Link to="/home/testnet/faucet">Testnet</Link>
+            <Link to="/dashboard/task">Testnet</Link>
           </Button>
         </div>
         <div>

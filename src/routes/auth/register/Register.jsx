@@ -7,12 +7,8 @@ import { Eye } from "lucide-react";
 import { EyeOff } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-//import { AuthBg } from "../../../components/AuthBg";
 import RemenberMe from "../../../components/RemenberMe";
-//import { SocialLogin } from "../../../components/SocialLogin";
 import { Link } from "react-router-dom";
-// import { useQueryClient } from "@tanstack/react-query";
-//import { useToast } from "@/components/ui/use-toast";
 import { useParams } from "react-router-dom";
 import { useSignup } from "../../../contexts/hooks/useSignup";
 import { Toaster } from "../../../components/ui/sonner";
@@ -22,17 +18,16 @@ const Register = () => {
   const [showPw, setShowPw] = useState(false);
   const [pwType, setPwType] = useState("password");
   const [reCode, setRefCode] = useState("");
-  const { signup, loading, success } = useSignup();
-  // const queryClient = useQueryClient();
-  // const toast = useToast();
+  const { signup, loading, success, error } = useSignup();
   const { referralCode } = useParams();
+
   if (referralCode) {
     setRefCode(referralCode);
     console.log("referralCode", referralCode);
   }
-  console.log(referralCode);
+
   const handlePassword = () => {
-    if (pwType == "password") {
+    if (pwType === "password") {
       setPwType("text");
       setShowPw(true);
     } else {
@@ -40,6 +35,7 @@ const Register = () => {
       setShowPw(false);
     }
   };
+
   const {
     register,
     handleSubmit,
@@ -47,8 +43,9 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(FormSchema) });
 
   const onSubmit = async (data) => {
+    console.log(data);
     const res = await signup(data);
-    if (res.error) {
+    if (error) {
       console.log(res.error.message);
       toast.error("Error", {
         description: res.error.message,
@@ -57,9 +54,9 @@ const Register = () => {
       toast.success("Success", {
         description: success,
       });
-      // queryClient.invalidateQueries("user");
     }
   };
+
   return (
     <div className="w-full flex h-screen">
       <div
@@ -92,7 +89,7 @@ const Register = () => {
               <Input
                 {...register("email", { required: true })}
                 type="email"
-                placeholder="email"
+                placeholder="Email"
               />
               {errors.email && (
                 <span className="error text-red-500 text-md">
@@ -119,7 +116,7 @@ const Register = () => {
                 {...register("referral_code", { required: true })}
                 type="text"
                 value={reCode}
-                placeholder="referral code (Optional)"
+                placeholder="Referral code (Optional)"
               />
             </div>
 
@@ -127,7 +124,7 @@ const Register = () => {
               <Input
                 {...register("password", { required: true })}
                 type={pwType}
-                placeholder="password"
+                placeholder="Password"
               />
               {errors.password && (
                 <span className="error text-red-500 text-md">
@@ -158,6 +155,31 @@ const Register = () => {
                 </span>
               )}
             </div>
+
+            <div className="my-2">
+              <label
+                htmlFor="role"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Select Role
+              </label>
+              <select
+                {...register("userType", { required: true })}
+                id="role"
+                className="mt-1 block w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">Select your role</option>
+                <option value="agent">Agent</option>
+                <option value="property_evaluator">Property Evaluator</option>
+                <option value="property_lawyer">Property Lawyer</option>
+              </select>
+              {errors.role && (
+                <span className="error text-red-500 text-md">
+                  {errors.role.message}
+                </span>
+              )}
+            </div>
+
             <div className="my-3 ">
               <RemenberMe />
             </div>
@@ -186,9 +208,6 @@ const Register = () => {
               <span className="text-[#9C0AE1] cursor-pointer">Login</span>
             </Link>
           </p>
-          {/* <div className="w-full flex justify-center items-center items-center">
-            <SocialLogin />
-          </div> */}
         </div>
       </div>
       <Toaster />

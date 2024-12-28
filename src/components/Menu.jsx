@@ -15,7 +15,6 @@ const links = [
   { link: "whitepaper", url: "/whitepaper" },
   { link: "airdrop", url: "/airdrop" },
   { link: "blog", url: "/blog" },
-  { link: "Rent API", url: "https://www.rentglobal.xyz" },
 ];
 
 export function Menu() {

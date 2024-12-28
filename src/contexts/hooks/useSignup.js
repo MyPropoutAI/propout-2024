@@ -30,6 +30,7 @@ export const useSignup = () => {
             referral_code: data?.referral_code,
             password: data.password,
             phone_number: data.phone_number,
+            user_type: data.userType,
           }),
         }
       );

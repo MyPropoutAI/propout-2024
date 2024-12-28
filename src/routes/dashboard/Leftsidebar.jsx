@@ -59,12 +59,12 @@ const links = [
     img: "/images/setting.svg",
     status: true,
   },
-  {
-    name: "Agent Availability",
-    path: "/dashboard/agent-availability",
-    img: "/images/setting.svg",
-    status: true,
-  },
+  // {
+  //   name: "Agent Availability",
+  //   path: "/dashboard/agent-availability",
+  //   img: "/images/setting.svg",
+  //   status: true,
+  // },
 ];
 
 const Leftsidebar = () => {

@@ -13,7 +13,7 @@ const fetchUsers = async () => {
       },
     }
   );
-  console.log("user data", data);
+  //console.log("user data", data);
   return data;
 };
 
@@ -23,13 +23,13 @@ export const useUsers = () => {
     // Additional configuration
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
     onError: (error) => {
-      console.error("Error fetching users:", error);
+      //console.error("Error fetching users:", error);
       // Optional: Add error handling (e.g., toast notification)
     },
     // Transform or filter data if needed
     select: (data) => {
       // Optional: Transform data before returning
-      console.log(data);
+      // console.log(data);
       return data;
     },
   });

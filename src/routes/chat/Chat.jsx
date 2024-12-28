@@ -89,6 +89,7 @@ export default function Chat() {
         token: user, // Optional: pass user token for authentication
       },
     });
+    console.log(newSocket);
     setSocket(newSocket);
 
     // User Join Event

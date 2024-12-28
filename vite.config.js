@@ -5,6 +5,10 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig({
   plugins: [react(), nodePolyfills()],
+  server: {
+    host: "0.0.0.0",
+    port: 5173, // default Vite port
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

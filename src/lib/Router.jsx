@@ -56,6 +56,8 @@ import PropertyDetails from "../routes/marketplace/PropertyDetails";
 import Chat from "../routes/chat/Chat";
 import AgentDirectory from "../routes/Agent/Agent";
 import AgentAvailability from "../routes/dashboard/InspectionAvaleibility";
+import WhitepaperContent from "../routes/WhitePapper";
+import TestnetActivities from "../routes/Airdrop";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -83,6 +85,14 @@ export const router = createBrowserRouter([
       {
         path: "/marketplace",
         element: <Marketplace />,
+      },
+      {
+        path: "/whitepaper",
+        element: <WhitepaperContent />,
+      },
+      {
+        path: "/airdrop",
+        element: <TestnetActivities />,
       },
       {
         path: "/property/:id",
@@ -148,11 +158,6 @@ export const router = createBrowserRouter([
         path: "/home/list",
         element: <List />,
       },
-
-      // {
-      //   path: "/home/testnet/faucet",
-      //   element: <Faucet />,
-      // },
 
       { path: "/home/test", element: <Testing /> },
       {

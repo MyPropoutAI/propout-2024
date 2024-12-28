@@ -12,7 +12,7 @@ export default function AgentDirectory() {
 
   const { data: users } = useUsers();
   const agentsData = users ? users.user : []; // Use optional chaining to prevent errors
-  console.log(agentsData);
+  //console.log(agentsData);
 
   useEffect(() => {
     // Check if agentsData is defined and has the agents property
@@ -28,7 +28,7 @@ export default function AgentDirectory() {
         agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         agent.specialization.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    console.log(filtered);
+    //console.log(filtered);
     setFilteredAgents(filtered);
     setCurrentPage(1);
   }, [searchTerm, agents]);
@@ -37,12 +37,6 @@ export default function AgentDirectory() {
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const currentAgents = filteredAgents.slice(startIndex, endIndex);
-  //console.log(filteredAgents);
-
-  const handleViewProfile = (agentId) => {
-    // This function would typically navigate to the agent's profile page
-    console.log(`Viewing profile of agent with ID: ${agentId}`);
-  };
 
   return (
     <div className="container mx-auto px-4 py-8">

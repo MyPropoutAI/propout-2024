@@ -5,6 +5,7 @@ export const FormSchema = z
     name: z.string().trim().min(3, "Name must be at least 3 characters long"),
     email: z.string().email("Invalid email address"),
     phone_number: z.string().min(9, "Name must be at least 11 characters long"),
+    userType: z.string().nonempty("Please select a user type"),
     password: z
       .string()
       .min(8, "Password must be at least 8 characters long")
