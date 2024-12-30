@@ -185,6 +185,7 @@ export const router = createBrowserRouter([
         <DashboardRoot />
       </ProtectedRoute>
     ),
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
@@ -195,7 +196,7 @@ export const router = createBrowserRouter([
         element: <ListProperty />,
       },
       {
-        path: "/dashboard/properties",
+        path: "/dashboard/properties/",
         element: <Myproperty />,
       },
       {
