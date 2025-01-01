@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { BiLogoTelegram } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -17,26 +18,26 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li>
+              {/* <li>
                 <Link to="#how-it-works" className="hover:text-purple-300">
                   How It Works
                 </Link>
-              </li>
+              </li> */}
               <li>
-                <Link to="/about" className="hover:text-purple-300">
+                <Link to="/home/about" className="hover:text-purple-300">
                   About Us
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/about" className="hover:text-purple-300">
                   FAQs
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link to="/about" className="hover:text-purple-300">
                   Contact Us
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div>
@@ -58,28 +59,34 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
               <a
-                to="https://www.facebook.com/profile.php?id=100090156995333&mibextid=JRoKGi"
+                href="https://www.facebook.com/profile.php?id=100090156995333&mibextid=JRoKGi"
                 className="hover:text-purple-300"
               >
                 <Facebook />
               </a>
               <a
-                to="https://twitter.com/myPropoutAI "
+                href="https://x.com/mypropout?s=21"
                 className="hover:text-purple-300"
               >
                 <Twitter />
               </a>
               <a
-                to="https://www.instagram.com/mypropoutai/"
+                href="https://www.instagram.com/mypropout/profilecard/?igsh=MXBmemFoYjZ5eTlyaw=="
                 className="hover:text-purple-300"
               >
                 <Instagram />
               </a>
               <a
-                to="https://www.linkedin.com/in/propout-nft-37966028a/"
+                href="https://ng.linkedin.com/company/propout"
                 className="hover:text-purple-300"
               >
                 <Linkedin />
+              </a>
+              <a
+                href="https://t.me/+0THrDm5u1CUwZTU0"
+                className="hover:text-purple-300 w-6 h-6"
+              >
+                <BiLogoTelegram />
               </a>
             </div>
           </div>

@@ -56,7 +56,7 @@ const Header = () => {
               </Button>
 
               <Button variant="propout" size="default">
-                <Link to="/about">AboutUs</Link>
+                <Link to="/about">About Us</Link>
               </Button>
 
               <div>

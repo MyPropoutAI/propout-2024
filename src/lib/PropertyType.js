@@ -1,15 +1,11 @@
 export const PropertyType = [
-  "home",
-  "school",
-  "office",
-  "apartment",
-  "condo",
-  "industrial",
-  "retail",
-  "hospitality", // Hotels, resorts, etc.
-  "land",
-  "garage",
-  "commercial",
+  "Lands",
+  "Shops",
+  "Apartments",
+  "Hostels",
+  "Office space",
+  "Short lets",
+  "Others",
 ];
 
 export const ListType = ["Rent", "Sell"];

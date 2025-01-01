@@ -448,7 +448,7 @@ const ListProperty = () => {
   return (
     <div className="bg-white p-8 rounded-md max-w-full">
       <div className="flex items-center mb-4">
-        <label className="mr-2">Is Land:</label>
+        <label className="mr-2">Is this a land property?</label>
         <input
           type="checkbox"
           checked={form.isLand}
@@ -494,6 +494,22 @@ const ListProperty = () => {
                   />
                 </div>
                 <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => handleFormChange("listType", e)}
+                  >
+                    <option value="1" hidden>
+                      List Type
+                    </option>
+                    {ListType.map((type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
                   <Input
                     type="number"
                     placeholder="Square Feet"
@@ -509,6 +525,27 @@ const ListProperty = () => {
                     onChange={(e) => handleFormChange("_propertyAddress", e)}
                   />
                 </div>
+                <div>
+                  <Input
+                    type="text"
+                    placeholder="City"
+                    className="w-full texl-lg"
+                    onChange={(e) => handleFormChange("_city", e)}
+                  />
+                </div>
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => handleFormChange("_country", e)}
+                  >
+                    <option value="1">Country</option>
+                    {Countries.map((country, i) => (
+                      <option key={i} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </>
             ) : (
               <>
@@ -519,6 +556,35 @@ const ListProperty = () => {
                     className="w-full texl-lg"
                     onChange={(e) => handleFormChange("_propertyTitle", e)}
                   />
+                </div>
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => handleFormChange("listType", e)}
+                  >
+                    <option value="1" hidden>
+                      List Type
+                    </option>
+                    {ListType.map((type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                    onChange={(e) => handleFormChange("_property_type", e)}
+                  >
+                    <option value="1">Property Type</option>
+                    {PropertyType.map((type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <Input
@@ -543,6 +609,19 @@ const ListProperty = () => {
                     className="w-full texl-lg"
                     onChange={(e) => handleFormChange("_city", e)}
                   />
+                </div>
+                <div>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    onChange={(e) => handleFormChange("_country", e)}
+                  >
+                    <option value="1">Country</option>
+                    {Countries.map((country, i) => (
+                      <option key={i} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div>
                   <Input
@@ -575,47 +654,6 @@ const ListProperty = () => {
                     className="w-full texl-lg"
                     onChange={(e) => handleFormChange("_square", e)}
                   />
-                </div>
-                <div>
-                  <select
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    onChange={(e) => handleFormChange("listType", e)}
-                  >
-                    <option value="1" hidden>
-                      List Type
-                    </option>
-                    {ListType.map((type, i) => (
-                      <option key={i} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <select
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    onChange={(e) => handleFormChange("_country", e)}
-                  >
-                    <option value="1">Country</option>
-                    {Countries.map((country, i) => (
-                      <option key={i} value={country}>
-                        {country}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <select
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
-                    onChange={(e) => handleFormChange("_property_type", e)}
-                  >
-                    <option value="1">Property Type</option>
-                    {PropertyType.map((type, i) => (
-                      <option key={i} value={type}>
-                        {type}
-                      </option>
-                    ))}
-                  </select>
                 </div>
               </>
             )}

@@ -23,7 +23,7 @@ const links = [
     state: true,
   },
   {
-    name: "Market Place",
+    name: "Marketplace",
     path: "/marketplace",
     state: true,
   },
@@ -46,16 +46,16 @@ const mobileNav = [
     path: "/dashboard/properties",
     img: " /images/my-p.svg",
   },
-  {
-    name: " Swap",
-    path: "/dashboard/swap",
-    img: "/images/swap.svg",
-  },
-  {
-    name: " Stake ",
-    path: "/dashboard/stake",
-    img: "/images/stake.svg",
-  },
+  // {
+  //   name: " Swap",
+  //   path: "/dashboard/swap",
+  //   img: "/images/swap.svg",
+  // },
+  // {
+  //   name: " Stake ",
+  //   path: "/dashboard/stake",
+  //   img: "/images/stake.svg",
+  // },
   {
     name: "Task",
     path: "/dashboard/task",
