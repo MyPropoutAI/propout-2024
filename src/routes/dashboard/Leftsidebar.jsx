@@ -1,7 +1,6 @@
 //import React from "react";
 import { Button } from "../../components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-
 import { cn } from "../../lib/utils";
 
 const links = [
@@ -27,13 +26,13 @@ const links = [
     name: " Swap",
     path: "/dashboard/swap",
     img: "/images/swap.svg",
-    status: true,
+    status: false,
   },
   {
     name: " Stake ",
     path: "/dashboard/stake",
     img: "/images/stake.svg",
-    status: true,
+    status: false,
   },
   {
     name: " Mint-Nft ",
@@ -78,37 +77,49 @@ const Leftsidebar = () => {
     <div className="flex flex-col justify-between gap-10 bg-white p-4 text-[12px] rounded-md font-semibold text-[#320051] w-[200px]">
       <div className="flex flex-col gap-2">
         {links.map((item) => (
-          <Link
-            to={item.path}
+          <div
+            key={item.name}
             className={cn(
               "flex items-center gap-1",
               !item.status && "opacity-40 cursor-not-allowed"
             )}
-            key={item.name}
-            title={!item.status && "coming soon"}
+            title={!item.status ? "coming soon" : undefined}
           >
-            <div
-              className={`${
-                pathname == item.path && "bg-[#964DC3]"
-              } w-7 rounded-lg`}
-              title={!item.status && "coming soon"}
-            >
-              <img
-                src={item.img}
-                alt="icon"
-                className={`${
-                  pathname == item.path && "invert brightness-50 contrast-200"
-                }`}
-              />
-            </div>
-            <span
-              className={`${
-                pathname == item.path && activeLink
-              } flex-1 h-full flex items-center p-1 px-2 rounded-md`}
-            >
-              {item.name}
-            </span>
-          </Link>
+            {item.status ? (
+              <Link to={item.path} className="flex items-center gap-1 w-full">
+                <div
+                  className={`${
+                    pathname == item.path && "bg-[#964DC3]"
+                  } w-7 rounded-lg`}
+                >
+                  <img
+                    src={item.img}
+                    alt="icon"
+                    className={`${
+                      pathname == item.path &&
+                      "invert brightness-50 contrast-200"
+                    }`}
+                  />
+                </div>
+                <span
+                  className={`${
+                    pathname == item.path && activeLink
+                  } flex-1 h-full flex items-center p-1 px-2 rounded-md`}
+                >
+                  {item.name}
+                </span>
+              </Link>
+            ) : (
+              <div className="flex items-center gap-1 w-full">
+                <div className="w-7 rounded-lg">
+                  <img src={item.img} alt="icon" />
+                </div>
+                <span className="flex-1 h-full flex items-center p-1 px-2 rounded-md">
+                  {item.name}
+                </span>
+              </div>
+            )}
+          </div>
         ))}
       </div>
       <div>

@@ -19,7 +19,7 @@ const DashboardRoot = () => {
     ? usersData.filter((user) => user.id === decodedUser.id)
     : [];
 
-  console.log(userData);
+  //console.log(userData);
   return (
     <div>
       {userData?.status == false ? <InfoBar /> : <></>}

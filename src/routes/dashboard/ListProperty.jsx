@@ -437,7 +437,7 @@ const ListProperty = () => {
       toast("Error", {
         description: "Error uploading images or sending transaction.",
       });
-      console.error("Error uploading images or sending transaction: ", error);
+      //console.error("Error uploading images or sending transaction: ", error);
     }
   };
 
@@ -455,6 +455,9 @@ const ListProperty = () => {
           onChange={handleToggleLand}
         />
       </div>
+      <p className="text-gray py-2">
+        Please ensure your video is not more than one minuet long
+      </p>
       <div className="border-2 p-4 rounded-md flex gap-5 relative">
         <div className="flex gap-4 overflow-x-auto">
           {mediaURLs.map((url, i) => (
