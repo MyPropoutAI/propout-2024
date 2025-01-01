@@ -17,8 +17,8 @@ const ListProperty = () => {
   //const userJwt = import.meta.env.VITE_IPFS_JWT;
 
   // Initialize state with one empty slot
-  const [images, setImages] = useState([null]);
-  const [imageURLs, setImageURLs] = useState([""]);
+  const [mediaFiles, setMediaFiles] = useState([{ file: null, type: null }]);
+  const [mediaURLs, setMediaURLs] = useState([""]);
   const [isLoading, setIsLoading] = useState(false);
   //const [transactionHash, setTransactionHash] = useState(null);
   //const [cloudinaryImageUrls, setCloudinaryImageUrls] = useState([]);
@@ -191,18 +191,18 @@ const ListProperty = () => {
 
   const handleUploadImages = async () => {
     try {
-      const validImages = images.filter((image) => image !== null);
-      if (validImages.length === 0) {
-        alert("Please select images to upload");
+      const validFiles = mediaFiles.filter((media) => media.file !== null);
+      if (validFiles.length === 0) {
+        alert("Please select media files to upload");
         return;
       }
 
-      const uploadPromises = validImages.map(async (image) => {
+      const uploadPromises = validFiles.map(async (media) => {
         try {
-          const uploadedImageData = await UploadToCloudinary(image);
-          return uploadedImageData; // This should return the Cloudinary image data
+          const uploadedData = await UploadToCloudinary(media.file);
+          return uploadedData;
         } catch (uploadError) {
-          console.error("Image upload error:", uploadError);
+          console.error("Media upload error:", uploadError);
           return null;
         }
       });
@@ -211,40 +211,65 @@ const ListProperty = () => {
       const cloudinaryUrls = uploadResults
         .filter((result) => result !== null)
         .map((result) => result.secure_url);
-      //console.log(cloudinaryUrls);
-      // if (cloudinaryUrls) {
-      //   setCloudinaryImageUrls(cloudinaryUrls);
-      //   console.log("the set cloudinaryImageUrls", cloudinaryImageUrls);
-      // }
-      // Update state with Cloudinary URLs
-      //setCloudinaryImageUrls(cloudinaryUrls);
 
-      // Optional: Reset local image states
-      // setImages([null]);
-      // setImageURLs([""]);
       return cloudinaryUrls;
     } catch (error) {
       console.error("Upload process error:", error);
-      alert("Failed to upload images");
+      alert("Failed to upload media files");
     }
   };
 
   const changeHandler = (event, index) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      const newImages = [...images];
-      newImages[index] = file;
-      setImages(newImages);
+      const fileType = file.type.split("/")[0]; // 'image' or 'video'
 
-      const newImageURLs = [...imageURLs];
-      newImageURLs[index] = URL.createObjectURL(file);
-      setImageURLs(newImageURLs);
+      const newMediaFiles = [...mediaFiles];
+      newMediaFiles[index] = {
+        file: file,
+        type: fileType,
+      };
+      setMediaFiles(newMediaFiles);
+
+      const newMediaURLs = [...mediaURLs];
+      newMediaURLs[index] = URL.createObjectURL(file);
+      setMediaURLs(newMediaURLs);
     }
   };
 
-  const handleAddImage = () => {
-    setImages([...images, null]);
-    setImageURLs([...imageURLs, ""]);
+  // Add a new loading state for deletion
+  const [deletingIndex, setDeletingIndex] = useState(null);
+
+  // Update the removeMedia function to handle loading state
+  const removeMedia = async (index) => {
+    setDeletingIndex(index);
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      const newMediaFiles = mediaFiles.filter((_, i) => i !== index);
+      const newMediaURLs = mediaURLs.filter((_, i) => i !== index);
+
+      if (newMediaFiles.length === 0) {
+        newMediaFiles.push({ file: null, type: null });
+        newMediaURLs.push("");
+      }
+
+      setMediaFiles(newMediaFiles);
+      setMediaURLs(newMediaURLs);
+    } catch (error) {
+      console.error("Error removing media:", error);
+      toast("Error", {
+        description: "Failed to remove media",
+      });
+    } finally {
+      setDeletingIndex(null);
+    }
+  };
+
+  const handleAddMedia = () => {
+    setMediaFiles([...mediaFiles, { file: null, type: null }]);
+    setMediaURLs([...mediaURLs, ""]);
   };
 
   // const handleFormChange = (fieldName, e) => {
@@ -370,7 +395,7 @@ const ListProperty = () => {
       }
 
       const res = await fetch(
-        "https://proput-db-jlb1.onrender.com/new_listing",
+        "https://proput-db-4vtf.onrender.com/new_listing",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -432,10 +457,13 @@ const ListProperty = () => {
       </div>
       <div className="border-2 p-4 rounded-md flex gap-5 relative">
         <div className="flex gap-4 overflow-x-auto">
-          {imageURLs.map((image, i) => (
-            <UploadImage
-              image={image}
+          {mediaURLs.map((url, i) => (
+            <UploadMedia
+              image={url}
               handleUpload={changeHandler}
+              mediaFiles={mediaFiles}
+              onRemove={removeMedia}
+              isDeleting={deletingIndex === i}
               key={i}
               i={i}
             />
@@ -443,7 +471,7 @@ const ListProperty = () => {
         </div>
         <div
           className="absolute right-0 top-0 bg-white h-full p-6 flex place-items-center cursor-pointer shadow-2xl"
-          onClick={handleAddImage}
+          onClick={handleAddMedia}
         >
           <img
             src="/images/Add Image.svg"
@@ -717,7 +745,7 @@ const ListProperty = () => {
                   {form.listType.toLocaleUpperCase()}
                 </span>
                 <img
-                  src={imageURLs[0]}
+                  src={mediaURLs[0]}
                   alt=""
                   className="h-full object-cover object-top w-full "
                 />
@@ -772,16 +800,46 @@ const ListProperty = () => {
 
 export default ListProperty;
 
-const UploadImage = ({ image, handleUpload, i }) => {
+const UploadMedia = ({
+  image,
+  handleUpload,
+  i,
+  mediaFiles,
+  onRemove,
+  isDeleting,
+}) => {
+  const mediaType = mediaFiles[i]?.type;
+
   return (
     <div className="relative w-36 aspect-square md:min-w-48">
       <div className="w-full aspect-square bg-[#F2F4F8] grid place-items-center rounded-2xl">
         {image ? (
-          <img
-            src={image}
-            alt="Uploaded Image"
-            className="w-full h-[250px] max-h-[250px] object-cover object-center"
-          />
+          <>
+            {mediaType === "video" ? (
+              <video
+                src={image}
+                className="w-full h-[250px] max-h-[250px] object-cover object-center"
+                controls
+              />
+            ) : (
+              <img
+                src={image}
+                alt="Uploaded Media"
+                className="w-full h-[250px] max-h-[250px] object-cover object-center"
+              />
+            )}
+            <button
+              onClick={() => onRemove(i)}
+              disabled={isDeleting}
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 disabled:opacity-50"
+            >
+              {isDeleting ? (
+                <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                "×"
+              )}
+            </button>
+          </>
         ) : (
           <img src="/images/image-upload.svg" alt="" className="w-1/2" />
         )}
@@ -789,12 +847,12 @@ const UploadImage = ({ image, handleUpload, i }) => {
       <input
         className="hidden"
         type="file"
-        id={`img-${i}`}
-        accept="image/*"
+        id={`media-${i}`}
+        accept="image/*,video/*"
         onChange={(e) => handleUpload(e, i)}
       />
       <label
-        htmlFor={`img-${i}`}
+        htmlFor={`media-${i}`}
         className="cursor-pointer absolute inset-0 appearance-none"
       ></label>
     </div>

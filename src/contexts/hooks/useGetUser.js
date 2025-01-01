@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 // Fetch user function
 const fetchUser = async (userId) => {
   const response = await axios.get(
-    `https://proput-db-jlb1.onrender.com/user/${userId}`
+    `https://proput-db-4vtf.onrender.com/user/${userId}`
   );
   console.log(response.data);
   return response.data;

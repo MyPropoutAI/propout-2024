@@ -12,7 +12,7 @@ const useForgotPassword = () => {
 
     try {
       const response = await fetch(
-        "https://proput-db-jlb1.onrender.com/forgot-password",
+        "https://proput-db-4vtf.onrender.com/forgot-password",
         {
           method: "POST",
           headers: {

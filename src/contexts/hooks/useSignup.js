@@ -20,7 +20,7 @@ export const useSignup = () => {
     setError(false);
     try {
       const response = await fetch(
-        `https://proput-db-jlb1.onrender.com/sign-up`,
+        `https://proput-db-4vtf.onrender.com/sign-up`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -1,7 +1,7 @@
 export const UseGetOneProperty = () => {
   const getOneProperty = async (id) => {
     console.log("property id", id);
-    const res = await fetch(`https://proput-db-jlb1.onrender.com/one/${id}`);
+    const res = await fetch(`https://proput-db-4vtf.onrender.com/one/${id}`);
 
     if (!res.ok) {
       throw new Error("Failed to fetch property");

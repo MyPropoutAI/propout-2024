@@ -20,7 +20,7 @@ export const useUpdateProfile = () => {
     setError(false);
     try {
       const response = await fetch(
-        `https://proput-db-jlb1.onrender.com/update-profile`,
+        `https://proput-db-4vtf.onrender.com/update-profile`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

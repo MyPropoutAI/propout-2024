@@ -4,7 +4,7 @@ import axios from "axios";
 // API function to fetch property details
 const fetchPropertyDetails = async (propertyId) => {
   const { data } = await axios.get(
-    `https://proput-db-jlb1.onrender.com/user_uploads`,
+    `https://proput-db-4vtf.onrender.com/user_uploads`,
     {
       params: {
         userId: propertyId,

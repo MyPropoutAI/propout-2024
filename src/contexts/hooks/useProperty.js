@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const url = "https://proput-db-jlb1.onrender.com/all";
+const url = "https://proput-db-4vtf.onrender.com/all";
 
 export const useGetProperties = () => {
   const [properties, setProperties] = useState([]);

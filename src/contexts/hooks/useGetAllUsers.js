@@ -4,7 +4,7 @@ import axios from "axios";
 // API function to fetch users
 const fetchUsers = async () => {
   const { data } = await axios.get(
-    "https://proput-db-jlb1.onrender.com/all_users",
+    "https://proput-db-4vtf.onrender.com/all_users",
     {
       // Optional: Add headers if needed
       headers: {

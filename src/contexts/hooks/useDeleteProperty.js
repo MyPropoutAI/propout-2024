@@ -5,7 +5,7 @@ const deleteProperty = async (data) => {
   console.log(data.userId);
   try {
     const response = await axios.delete(
-      `https://proput-db-jlb1.onrender.com/delete`,
+      `https://proput-db-4vtf.onrender.com/delete`,
       {
         headers: {
           "Content-Type": "application/json",
