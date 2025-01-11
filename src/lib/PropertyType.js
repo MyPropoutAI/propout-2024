@@ -1,6 +1,6 @@
 export const PropertyType = [
-  "Lands",
   "Shops",
+  "Home",
   "Apartments",
   "Hostels",
   "Office space",

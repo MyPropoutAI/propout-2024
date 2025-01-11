@@ -1,4 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  DirectionsRenderer,
+  useJsApiLoader,
+} from "@react-google-maps/api";
 
 import {
   //MapPin,
@@ -24,6 +31,11 @@ import CurrencySymbol from "../../lib/CurrencySymbol";
 import { FidgetSpinner } from "react-loader-spinner";
 //import { UseGetOneProperty } from "../../contexts/hooks/useGetOneProperty";
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
+import { useDispatch } from "react-redux";
+import { openInspectionModal } from "../../redux/features/inspectionSlice";
+import { InspectionModal } from "../../components/InspectionModal";
+import { Button } from "../../components/ui/button";
+
 export default function PropertyDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -34,6 +46,31 @@ export default function PropertyDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { data: users } = useUsers();
+  const [coordinates, setCoordinates] = useState(null);
+  const [directions, setDirections] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    libraries: ["places"],
+  });
+
+  const [map, setMap] = useState(null);
+
+  const onLoad = useCallback((map) => {
+    setMap(map);
+  }, []);
+
+  const onUnmount = useCallback(() => {
+    setMap(null);
+  }, []);
+
+  // Map container styles
+  const mapContainerStyle = {
+    width: "100%",
+    height: "400px",
+  };
 
   useEffect(() => {
     // Safely find property when properties or id changes
@@ -65,7 +102,101 @@ export default function PropertyDetails() {
       setUserData(foundUser);
     }
   }, [users]);
-  console.log(property);
+
+  // Get property coordinates from address
+  const getPropertyCoordinates = useCallback(async () => {
+    if (!property?.address) return;
+
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+          `${property.address}, ${property.city}`
+        )}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`
+      );
+      const data = await response.json();
+
+      if (data.results && data.results[0]) {
+        setCoordinates(data.results[0].geometry.location);
+      }
+    } catch (error) {
+      console.error("Error getting coordinates:", error);
+    }
+  }, [property]);
+
+  // Get user's current location
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting user location:", error);
+        }
+      );
+    }
+  };
+
+  // Get directions
+  const getDirections = useCallback(async () => {
+    if (!userLocation || !coordinates || !isLoaded) return;
+
+    const directionsService = new window.google.maps.DirectionsService();
+
+    try {
+      const result = await directionsService.route({
+        origin: userLocation,
+        destination: coordinates,
+        travelMode: window.google.maps.TravelMode.DRIVING,
+      });
+
+      setDirections(result);
+    } catch (error) {
+      console.error("Error getting directions:", error);
+    }
+  }, [userLocation, coordinates, isLoaded]);
+
+  useEffect(() => {
+    getPropertyCoordinates();
+    getUserLocation();
+  }, [getPropertyCoordinates]);
+
+  useEffect(() => {
+    if (userLocation && coordinates) {
+      getDirections();
+    }
+  }, [userLocation, coordinates, getDirections]);
+
+  // Replace your existing map div with this:
+  const renderMap = () => {
+    if (!isLoaded || !coordinates) return null;
+
+    return (
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        center={coordinates}
+        zoom={15}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        {/* Property Marker */}
+        <Marker
+          position={coordinates}
+          icon={{
+            url: "/images/house-marker.png",
+            scaledSize: new window.google.maps.Size(40, 40),
+          }}
+        />
+
+        {/* Directions */}
+        {directions && <DirectionsRenderer directions={directions} />}
+      </GoogleMap>
+    );
+  };
+
   // Loading state
   if (isLoading) {
     return (
@@ -124,6 +255,15 @@ export default function PropertyDetails() {
   const closeModal = () => {
     setIsModalOpen(false);
     setModalContent(null);
+  };
+
+  const dispatch = useDispatch();
+  //console.log(property?.inspection_availability)
+  const handleInspectionRequest = () => {
+    //console.log('Opening inspection modal...');
+    const agentAvailability = property?.inspection_availability;
+    //console.log(agentAvailability)
+    dispatch(openInspectionModal(agentAvailability));
   };
 
   return (
@@ -220,12 +360,26 @@ export default function PropertyDetails() {
             </div>
 
             {/* Map */}
-            <div className="relative h-64 mb-8">
-              <img
-                src="/placeholder.svg"
-                alt="Property Location Map"
-                className="rounded-lg"
-              />
+            <div className="relative h-[400px] mb-8 rounded-lg overflow-hidden">
+              {!isLoaded ? (
+                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                  <FidgetSpinner />
+                </div>
+              ) : (
+                <>
+                  {renderMap()}
+                  {coordinates && userLocation && (
+                    <div className="absolute bottom-4 right-4 z-10">
+                      <button
+                        onClick={getDirections}
+                        className="bg-purple-600 text-white px-4 py-2 rounded-md shadow-lg hover:bg-purple-700 transition-colors"
+                      >
+                        Get Directions
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
@@ -310,25 +464,25 @@ export default function PropertyDetails() {
                 </div>
               </div>
               <div className="flex space-x-4">
-                <button
-                  onClick={() => openModal("email")}
-                  className="flex-1 bg-blue-500 text-white py-2 rounded-md flex items-center justify-center"
+                <Button
+                  onClick={handleInspectionRequest}
+                  className=" bg-purple-600 text-white py-2  hover:bg-purple-700"
                 >
-                  <Mail className="mr-2" /> Email
-                </button>
-                <button
+                  <Castle className="mr-2" /> Request Inspection
+                </Button>
+
+                <Button
                   onClick={() => openModal("call")}
-                  className="flex-1 border border-blue-500 text-blue-500 py-2 rounded-md flex items-center justify-center"
+                  className=" border border-blue-500 text-blue-500 "
+                  size="icon"
                 >
-                  <Phone className="mr-2" /> Call
-                </button>
+                  <Phone className="mr-2" />
+                </Button>
+
                 <Link to={`/home/chat/${safeProperty.agent_id}`}>
-                  <button
-                    // onClick={() => openModal("chat")}
-                    className="flex-1 bg-green-500 text-white py-2 rounded-md flex items-center justify-center"
-                  >
-                    <MessageCircle className="mr-2" /> Chat
-                  </button>
+                  <Button className=" bg-green-500 text-white " size="icon">
+                    <MessageCircle className="mr-2" />
+                  </Button>
                 </Link>
               </div>
             </div>
@@ -520,6 +674,8 @@ export default function PropertyDetails() {
           </div>
         </div>
       )}
+
+      <InspectionModal />
     </div>
   );
 }

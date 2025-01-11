@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BedDouble,
   Square,
@@ -30,10 +30,48 @@ export default function MarketplacePage() {
     ? [properties.listing]
     : [];
 
-  //console.log("Listing properties:", listedProperties);
+  // Filter properties based on all criteria
+  const filteredProperties = listedProperties.filter((property) => {
+    // Search term filter (check headline, address, city)
+    const searchMatch =
+      searchTerm === "" ||
+      property.headline?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      property.address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      property.city?.toLowerCase().includes(searchTerm.toLowerCase());
 
-  const filteredProperties = listedProperties;
-  //console.log("Filtered properties:", filteredProperties);
+    // Price range filter
+    const priceMatch =
+      Number(property.property_price) >= priceRange[0] &&
+      Number(property.property_price) <= priceRange[1];
+
+    // Property type filter
+    const typeMatch =
+      propertyType === "Any" ||
+      property.type?.toLowerCase() === propertyType.toLowerCase();
+
+    // Bedrooms filter
+    const bedroomMatch =
+      bedrooms === 0 || Number(property.room_spec) >= bedrooms;
+
+    return searchMatch && priceMatch && typeMatch && bedroomMatch;
+  });
+
+  // Reset pagination when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, priceRange, propertyType, bedrooms]);
+
+  // Get maximum price for range input
+  const maxPrice = Math.max(
+    ...listedProperties.map((p) => Number(p.property_price))
+  );
+
+  // Update price range max based on available properties
+  useEffect(() => {
+    if (maxPrice > 0) {
+      setPriceRange([0, maxPrice]);
+    }
+  }, [maxPrice]);
 
   // Pagination logic
   const indexOfLastProperty = currentPage * propertiesPerPage;
@@ -46,6 +84,21 @@ export default function MarketplacePage() {
   const totalPages = Math.ceil(filteredProperties.length / propertiesPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Handle search submit
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setCurrentPage(1); // Reset to first page on new search
+  };
+
+  // Reset all filters
+  const resetFilters = () => {
+    setPriceRange([0, maxPrice]);
+    setPropertyType("Any");
+    setBedrooms(0);
+    setSearchTerm("");
+    setCurrentPage(1);
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -60,80 +113,87 @@ export default function MarketplacePage() {
                 }`}
               >
                 <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h2 className="text-xl font-bold mb-4">Filters</h2>
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-bold">Filters</h2>
+                    <button
+                      onClick={resetFilters}
+                      className="text-sm text-purple-600 hover:text-purple-800"
+                    >
+                      Reset All
+                    </button>
+                  </div>
                   <form className="space-y-4">
                     {/* Price Range Filter */}
                     <div className="space-y-2">
-                      <label
-                        htmlFor="price-range"
-                        className="block text-sm font-medium"
-                      >
-                        Price Range
+                      <label className="block text-sm font-medium">
+                        Price Range (₦)
                       </label>
-                      <input
-                        type="range"
-                        id="price-range"
-                        min="0"
-                        max="1000000"
-                        step="10000"
-                        value={priceRange[1]}
-                        onChange={(e) =>
-                          setPriceRange([0, parseInt(e.target.value)])
-                        }
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-sm text-gray-500">
-                        <span>₦0</span>
-                        <span>₦{priceRange[1].toLocaleString()}</span>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="number"
+                          value={priceRange[0]}
+                          onChange={(e) =>
+                            setPriceRange([
+                              Number(e.target.value),
+                              priceRange[1],
+                            ])
+                          }
+                          className="w-1/2 p-2 border rounded-md"
+                        />
+                        <span>to</span>
+                        <input
+                          type="number"
+                          value={priceRange[1]}
+                          onChange={(e) =>
+                            setPriceRange([
+                              priceRange[0],
+                              Number(e.target.value),
+                            ])
+                          }
+                          className="w-1/2 p-2 border rounded-md"
+                        />
                       </div>
                     </div>
 
                     {/* Property Type Filter */}
                     <div className="space-y-2">
-                      <label
-                        htmlFor="property-type"
-                        className="block text-sm font-medium"
-                      >
+                      <label className="block text-sm font-medium">
                         Property Type
                       </label>
                       <select
-                        id="property-type"
                         value={propertyType}
                         onChange={(e) => setPropertyType(e.target.value)}
                         className="w-full p-2 border rounded-md"
                       >
                         <option value="Any">Any</option>
-                        <option value="home">Home</option>
-                        <option value="school">School</option>
-                        <option value="office">Office</option>
-                        <option value="apartment">Apartment</option>
-                        <option value="condo">Condo</option>
-                        <option value="industrial">Industrial</option>
-                        <option value="retail">Retail</option>
-                        <option value="hospitality">Hospitality</option>
-                        <option value="land">Land</option>
-                        <option value="garage">Garage</option>
-                        <option value="commercial">Commercial</option>
+                        <option value="Home">Home</option>
+                        <option value="School">School</option>
+                        <option value="Office">Office</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="Condo">Condo</option>
+                        <option value="Industrial">Industrial</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Hospitality">Hospitality</option>
+                        <option value="Land">Land</option>
+                        <option value="Garage">Garage</option>
+                        <option value="Commercial">Commercial</option>
                       </select>
                     </div>
 
                     {/* Bedrooms Filter */}
                     <div className="space-y-2">
-                      <label
-                        htmlFor="bedrooms"
-                        className="block text-sm font-medium"
-                      >
+                      <label className="block text-sm font-medium">
                         Bedrooms
                       </label>
                       <select
-                        id="bedrooms"
                         value={bedrooms}
-                        onChange={(e) => setBedrooms(parseInt(e.target.value))}
+                        onChange={(e) => setBedrooms(Number(e.target.value))}
                         className="w-full p-2 border rounded-md"
                       >
-                        {[0, 1, 2, 3, 4, 5].map((num) => (
+                        <option value={0}>Any</option>
+                        {[1, 2, 3, 4, 5].map((num) => (
                           <option key={num} value={num}>
-                            {num}+
+                            {num}+ Beds
                           </option>
                         ))}
                       </select>
@@ -146,7 +206,7 @@ export default function MarketplacePage() {
               <div className="w-full md:w-3/4">
                 {/* Search Bar */}
                 <div className="mb-6">
-                  <div className="flex space-x-2">
+                  <form onSubmit={handleSearch} className="flex space-x-2">
                     <input
                       type="text"
                       placeholder="Search by location, property name, or address"
@@ -172,7 +232,12 @@ export default function MarketplacePage() {
                         <SlidersHorizontal className="h-4 w-4" />
                       )}
                     </button>
-                  </div>
+                  </form>
+                </div>
+
+                {/* Results Summary */}
+                <div className="mb-4 text-sm text-gray-600">
+                  Found {filteredProperties.length} properties
                 </div>
 
                 {/* Properties Grid */}
@@ -187,67 +252,88 @@ export default function MarketplacePage() {
                         No properties found matching your search criteria.
                       </div>
                     ) : (
-                      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                         {currentProperties.map((property, index) => (
-                          <div
+                          <Link
+                            to={`/property/${property.id}`}
                             key={property.id || index}
-                            className="relative bg-white rounded-lg shadow-md overflow-hidden"
+                            className="block"
                           >
-                            <span
-                              className={cn(
-                                "absolute py-2 px-5 top- 0 right-0 bg-[#0EFC25] text-white font-semibold",
-                                property.list_type === "Sell"
-                                  ? "bg-blue-900"
-                                  : "bg-[#0EFC25]"
-                              )}
-                            >
-                              {property.list_type.toLocaleUpperCase()}
-                            </span>
-                            <img
-                              src={property.img_urls?.split(", ")[0]}
-                              alt={property.headline}
-                              className="w-full h-48 object-cover"
-                            />
-                            <div className="p-4">
-                              <h3 className="text-lg font-semibold mb-1">
-                                {property.headline}
-                              </h3>
-                              <p className="text-sm text-gray-500 mb-2 flex gap-2 items-center">
-                                <MapPin className="text-red-500 w-8 h-8" />
-                                {property.address}
-                              </p>
-                              <span className="inline-block px-2 py-1 text-xs font-semibold bg-gray-200 rounded-full mb-2">
-                                {property.type}
+                            <div className="relative bg-white rounded-lg shadow-md overflow-hidden h-full">
+                              <span
+                                className={cn(
+                                  "absolute py-1 md:py-2 px-2 md:px-5 top-0 right-0 text-xs md:text-sm bg-[#0EFC25] text-white font-semibold",
+                                  property.list_type === "Sell"
+                                    ? "bg-blue-900"
+                                    : "bg-[#0EFC25]"
+                                )}
+                              >
+                                {property.list_type.toLocaleUpperCase()}
                               </span>
-                              <p className="text-lg font-bold mb-4">
-                                <CurrencySymbol
-                                  amount={Number(property.property_price)}
-                                  listType={property.list_type.toLocaleUpperCase()}
-                                />
-                              </p>
-                              <div className="flex justify-between text-sm text-gray-500">
-                                <span className="flex items-center">
-                                  <BedDouble className="mr-1 h-4 w-4" />
-                                  {property.room_spec} bd
+                              <img
+                                src={property.img_urls?.split(", ")[0]}
+                                alt={property.headline}
+                                className="w-full h-32 md:h-48 object-cover"
+                              />
+                              <div className="p-2 md:p-4">
+                                <h3 className="text-sm md:text-lg font-semibold mb-1 truncate">
+                                  {property.headline}
+                                </h3>
+                                <p className="text-xs md:text-sm text-gray-500 mb-2 flex gap-1 md:gap-2 items-center">
+                                  <MapPin className="text-red-500 w-4 md:w-8 h-4 md:h-8 flex-shrink-0" />
+                                  <span className="truncate">
+                                    {property.address}
+                                  </span>
+                                </p>
+                                <span className="inline-block px-2 py-1 text-xs font-semibold bg-gray-200 rounded-full mb-2 truncate max-w-full">
+                                  {property.type}
                                 </span>
-                                <span className="flex items-center">
-                                  <Castle className="mr-1 h-4 w-4" />
-                                  {property.city}
-                                </span>
-                                <span className="flex items-center">
-                                  <Square className="mr-1 h-4 w-4" />
-                                  {property.square_ft} sqft
-                                </span>
+                                <p className="text-sm md:text-lg font-bold mb-2 md:mb-4">
+                                  <CurrencySymbol
+                                    amount={Number(property.property_price)}
+                                    listType={property.list_type.toLocaleUpperCase()}
+                                  />
+                                </p>
+                                <div className="hidden md:flex justify-between text-sm text-gray-500">
+                                  <span className="flex items-center truncate">
+                                    <BedDouble className="mr-1 h-4 w-4 flex-shrink-0" />
+                                    <span className="truncate">
+                                      {property.room_spec} bd
+                                    </span>
+                                  </span>
+                                  <span className="flex items-center truncate">
+                                    <Castle className="mr-1 h-4 w-4 flex-shrink-0" />
+                                    <span className="truncate">
+                                      {property.city}
+                                    </span>
+                                  </span>
+                                  <span className="flex items-center truncate">
+                                    <Square className="mr-1 h-4 w-4 flex-shrink-0" />
+                                    <span className="truncate">
+                                      {property.square_ft} sqft
+                                    </span>
+                                  </span>
+                                </div>
+                                {/* Mobile specs - simplified version */}
+                                <div className="flex md:hidden justify-between text-xs text-gray-500 mt-2">
+                                  <span className="flex items-center">
+                                    <BedDouble className="mr-1 h-3 w-3" />
+                                    {property.room_spec}
+                                  </span>
+                                  <span className="flex items-center">
+                                    <Square className="mr-1 h-3 w-3" />
+                                    {property.square_ft}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                            <div className="px-4 py-3 bg-gray-50">
-                              <Link to={`/property/${property.id}`}>
+                              {/* View Details button - hidden on mobile */}
+                              <div className="hidden md:block px-4 py-3 bg-gray-50">
                                 <button className="w-full px-4 py-2 bg-gradient-to-br from-purple-700 to-indigo-900 hover:bg-purple-700 text-white rounded-md">
                                   View Details
                                 </button>
-                              </Link>
+                              </div>
                             </div>
-                          </div>
+                          </Link>
                         ))}
                       </div>
                     )}

@@ -58,6 +58,7 @@ import AgentDirectory from "../routes/Agent/Agent";
 import AgentAvailability from "../routes/dashboard/InspectionAvaleibility";
 import WhitepaperContent from "../routes/WhitePapper";
 import TestnetActivities from "../routes/Airdrop";
+import EditProperty from "../routes/dashboard/EditProperty";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -212,6 +213,10 @@ export const router = createBrowserRouter([
         element: <Swap />,
       },
       {
+        path: "/dashboard/edit-property/:propertyId",
+        element: <EditProperty />,
+      },
+      {
         path: "/dashboard/agent-profile/:id",
         element: <AgentProfile />,
       },
@@ -296,6 +301,7 @@ export const router = createBrowserRouter([
   //     },
   //   ],
   // },
+  
 ]);
 
 // import About from "../routes/about/About";

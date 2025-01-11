@@ -1,28 +1,44 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 const CurrencySymbol = ({ amount, listType }) => {
   const [pay, setPay] = useState(0);
+
   function formatCurrency(number, currency = "NGN") {
-    //   // Use Intl.NumberFormat for locale-aware formatting
+    // Remove commas from input if they exist
+    const cleanAmount =
+      typeof number === "string" ? number.replace(/,/g, "") : number;
+
+    // Use Intl.NumberFormat for locale-aware formatting
     const formatter = new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: currency,
     });
-    setPay(formatter.format(number));
-    // Format the number and return the result
-    return formatter.format(number);
+
+    const formattedValue = formatter.format(cleanAmount);
+    setPay(formattedValue);
+    return formattedValue;
   }
 
   useEffect(() => {
     const getMoney = () => {
       const res = formatCurrency(amount);
-      //console.log(res);
       setPay(res);
     };
-    getMoney(amount);
+    getMoney();
   }, [amount]);
 
-  return <div>{listType === "RENT" ? <p>{pay}/month</p> : <p>{pay}</p>}</div>;
+  return (
+    <div className="text-sm md:text-md">
+      {listType === "RENT" ? <p>{pay}/year</p> : <p>{pay}</p>}
+    </div>
+  );
+};
+
+// Add prop types validation
+CurrencySymbol.propTypes = {
+  amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  listType: PropTypes.string.isRequired,
 };
 
 export default CurrencySymbol;

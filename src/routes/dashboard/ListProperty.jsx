@@ -20,8 +20,7 @@ const ListProperty = () => {
   const [mediaFiles, setMediaFiles] = useState([{ file: null, type: null }]);
   const [mediaURLs, setMediaURLs] = useState([""]);
   const [isLoading, setIsLoading] = useState(false);
-  //const [transactionHash, setTransactionHash] = useState(null);
-  //const [cloudinaryImageUrls, setCloudinaryImageUrls] = useState([]);
+  
   const user = useSelector((state) => state.auth.user);
 
   const decodedUser = jwt.decode(user);
@@ -49,10 +48,32 @@ const ListProperty = () => {
     setForm((prev) => ({ ...prev, isLand: !prev.isLand }));
   };
 
+  // const handleFormChange = (fieldName, e) => {
+  //   setForm({ ...form, [fieldName]: e.target.value });
+  // };
   const handleFormChange = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: e.target.value });
-  };
+    const value = e.target.value;
 
+    // Check if the field is a numeric field (e.g., "price")
+    if (fieldName === "price") {
+      const rawValue = value.replace(/,/g, ""); // Remove existing commas
+      const numericValue = rawValue.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+      const formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Add commas
+
+      setForm({
+        ...form,
+        [fieldName]: numericValue, // Store the raw numeric value in state
+      });
+
+      e.target.value = formattedValue; // Update the input field with the formatted value
+    } else {
+      // For non-numeric fields, update the state directly
+      setForm({
+        ...form,
+        [fieldName]: value,
+      });
+    }
+  };
   const handleAvailabilityChange = (index, field, value) => {
     setForm((prevForm) => ({
       ...prevForm,
@@ -87,107 +108,6 @@ const ListProperty = () => {
       return { ...prev, availability: { ...prev.availability, days } };
     });
   };
-
-  // const handleUploadImages = async () => {
-
-  //   try {
-  //     // Filter out null images
-  //     const validImages = images.filter((image) => image !== null);
-  //     console.log("validImages", validImages);
-  //     // Check if there are any images to upload
-  //     if (validImages.length === 0) {
-  //       alert("Please select images to upload");
-  //       return;
-  //     }
-
-  //     // Disable upload button and show loading state
-  //     // setIsUploading(true);
-
-  //     // Upload images to Cloudinary
-  //     const uploadPromises = validImages.map(async (image) => {
-  //       try {
-  //         const uploadedImageData = await UploadToCloudinary(image);
-  //         console.log("uploadedImageData", uploadedImageData);
-  //         return uploadedImageData; // This should return the Cloudinary image data
-  //       } catch (uploadError) {
-  //         // console.error("Image upload error:", uploadError);
-  //         return null;
-  //       }
-  //     });
-  //     //console.log("uploadPromises", uploadPromises);
-  //     // Wait for all uploads to complete
-  //     const uploadResults = await Promise.all(uploadPromises);
-  //     console.log(up)
-
-  //     // Filter out successful uploads and extract URLs
-  //     const cloudinaryUrls = uploadResults
-  //       .filter((result) => result !== null)
-  //       .map((result) => result.secure_url); // Use secure_url from Cloudinary response
-  //     console.log("before db cloudinaryUrls", cloudinaryUrls);
-  //     // Update state with Cloudinary URLs
-  //     setCloudinaryImageUrls(cloudinaryUrls);
-
-  //     // Optional: Reset local image states
-  //     setImages([null]);
-  //     setImageURLs([""]);
-  //   } catch (error) {
-  //     //console.error("Upload process error:", error);
-  //     alert("Failed to upload images");
-  //   } finally {
-  //     // setIsUploading(false);
-  //     //console.log("result");
-  //   }
-  // };
-
-  // const handleUploadImages = async () => {
-  //   try {
-  //     // Filter out null images
-  //     const validImages = images.filter((image) => image !== null);
-  //     //console.log("validImages", validImages);
-  //     // Check if there are any images to upload
-  //     if (validImages.length === 0) {
-  //       alert("Please select images to upload");
-  //       return;
-  //     }
-
-  //     // Disable upload button and show loading state
-  //     // setIsUploading(true);
-
-  //     // Upload images to Cloudinary
-  //     const uploadPromises = validImages.map(async (image) => {
-  //       try {
-  //         const uploadedImageData = await UploadToCloudinary(image);
-  //         //console.log("uploadedImageData", uploadedImageData);
-  //         return uploadedImageData; // This should return the Cloudinary image data
-  //       } catch (uploadError) {
-  //         // console.error("Image upload error:", uploadError);
-  //         return null;
-  //       }
-  //     });
-  //     //console.log("uploadPromises", uploadPromises);
-  //     // Wait for all uploads to complete
-  //     const uploadResults = await Promise.all(uploadPromises);
-
-  //     // Filter out successful uploads and extract URLs
-  //     const cloudinaryUrls = uploadResults
-  //       .filter((result) => result !== null)
-  //       .map((result) => result.secure_url); // Use secure_url from Cloudinary response
-  //     console.log(cloudinaryUrls);
-  //     // Update state with Cloudinary URLs
-  //     setCloudinaryImageUrls(cloudinaryUrls);
-  //     console.log("the set cloudinaryImageUrls", cloudinaryImageUrls);
-
-  //     // Optional: Reset local image states
-  //     setImages([null]);
-  //     setImageURLs([""]);
-  //   } catch (error) {
-  //     console.error("Upload process error:", error);
-  //     alert("Failed to upload images");
-  //   } finally {
-  //     // setIsUploading(false);
-  //     //console.log("result");
-  //   }
-  // };
 
   const handleUploadImages = async () => {
     try {
@@ -272,119 +192,24 @@ const ListProperty = () => {
     setMediaURLs([...mediaURLs, ""]);
   };
 
-  // const handleFormChange = (fieldName, e) => {
-  //   setForm({ ...form, [fieldName]: e.target.value });
-  // };
-
-  // const uploadToIPFS = async (file) => {
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   const metadata = JSON.stringify({ name: file.name });
-  //   formData.append("pinataMetadata", metadata);
-  //   const options = JSON.stringify({ cidVersion: 0 });
-  //   formData.append("pinataOptions", options);
-
-  //   const res = await axios.post(
-  //     "https://api.pinata.cloud/pinning/pinFileToIPFS",
-  //     formData,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${userJwt}`,
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     }
-  //   );
-
-  //   return res.data.IpfsHash;
-  // };
-
-  // const handleSubmission = async () => {
-  //   setIsLoading(true);
-  //   await handleUploadImages();
-  //   try {
-  //     // const imageIPFSHashes = await Promise.all(images.map(uploadToIPFS));
-  //     // console.log(imageIPFSHashes);
-  //     // const transaction = prepareContractCall({
-  //     //   contract: listingContract,
-  //     //   method: resolveMethod("listProperty"),
-  //     //   params: [
-  //     //     {
-  //     //       price: form.price.toString(),
-  //     //       propertyTitle: form._propertyTitle,
-  //     //       images: [...imageIPFSHashes],
-  //     //       propertyAddress: form._propertyAddress,
-  //     //       description: form._description,
-  //     //       propertyType: form._property_type,
-  //     //       propertySpec: form._property_spec.toString(),
-  //     //       square: form._square.toString(),
-  //     //       city: form._city,
-  //     //       country: form._country,
-  //     //       listType: form.listType,
-  //     //     },
-  //     //   ],
-  //     // });
-  //     // console.log("transaction", transaction);
-
-  //     console.log("cloudinaryImageUrls", cloudinaryImageUrls);
-  //     if (cloudinaryImageUrls) {
-  //       const res = await fetch(
-  //         "https://proput-db-jlb1.onrender.com/new_listing",
-  //         {
-  //           method: "POST",
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify({
-  //             property_price: form.price,
-  //             headline: form._propertyTitle,
-  //             img_urls: cloudinaryImageUrls,
-  //             room_spec: form._property_spec,
-  //             description: form._description,
-  //             id: decodedUser.id,
-  //             square_ft: form._square,
-  //             type: form._property_type,
-  //             address: form._propertyAddress,
-  //             city: form._city,
-  //             country: form._country,
-  //             listType: form.listType,
-  //             bathroom: form._bathroom,
-  //             isLand: form.isLand,
-  //             inspection_availability: form.availability,
-  //             parking_space: form._parking_space,
-  //             //property_hash: transactionHash,
-  //           }),
-  //         }
-  //       );
-
-  //       if (!res.ok) {
-  //         setIsLoading(false);
-  //         toast("Error", {
-  //           description: "Failed to list property",
-  //         });
-  //         throw new Error("property not uploaded to database");
-  //       }
-  //       setIsLoading(false);
-  //       toast("Success", {
-  //         description: "Your property has been listed successfully",
-  //       });
-  //       return res;
-  //     } else {
-  //       toast("Error", {
-  //         description: "Failed to upload images to the cloud please try again",
-  //       });
-  //     }
-  //   } catch (error) {
-  //     setIsLoading(false);
-  //     toast("Error", {
-  //       description: "Error uploading images or sending transaction: ",
-  //     });
-  //     //console.error("Error uploading images or sending transaction: ", error);
-  //   }
-  // };
+  // Add this computed value
+  const hasValidAvailability = form.availability.some(
+    (slot) => slot.day && slot.date && slot.startTime && slot.endTime
+  );
 
   const handleSubmission = async () => {
+    if (!hasValidAvailability) {
+      toast.error("Please set your availability", {
+        description: "You must set at least one availability slot before listing a property"
+      });
+      return;
+    }
+
     setIsLoading(true);
-    const imagesUri = await handleUploadImages();
-    //console.log("this is the updated image url", imagesUri);
     try {
+      const imagesUri = await handleUploadImages();
+      //console.log("this is the updated image url", imagesUri);
+
       // Check if cloudinaryImageUrls is empty
       if (imagesUri.length === 0) {
         setIsLoading(false);
@@ -456,7 +281,7 @@ const ListProperty = () => {
         />
       </div>
       <p className="text-gray py-2">
-        Please ensure your video is not more than one minuet long
+        Please ensure your video is not more than one minute long
       </p>
       <div className="border-2 p-4 rounded-md flex gap-5 relative">
         <div className="flex gap-4 overflow-x-auto">
@@ -511,7 +336,15 @@ const ListProperty = () => {
                     ))}
                   </select>
                 </div>
-
+                <div>
+                  <Input
+                    type="text" // Change to text to allow commas
+                    placeholder="Property Price"
+                    className="w-full text-lg"
+                    onChange={(e) => handleFormChange("price", e)}
+                    value={form.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} // Display formatted value
+                  />
+                </div>
                 <div>
                   <Input
                     type="number"
@@ -591,10 +424,11 @@ const ListProperty = () => {
                 </div>
                 <div>
                   <Input
-                    type="number"
+                    type="text" // Change to text to allow commas
                     placeholder="Property Price"
-                    className="w-full texl-lg"
+                    className="w-full text-lg"
                     onChange={(e) => handleFormChange("price", e)}
+                    value={form.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} // Display formatted value
                   />
                 </div>
                 <div>
@@ -751,9 +585,14 @@ const ListProperty = () => {
             </div>
             <div>
               <Button
-                className="text-white px-12 bg-[#964CC3]"
+                className={cn(
+                  "text-white px-12",
+                  hasValidAvailability 
+                    ? "bg-[#964CC3] hover:bg-[#8744B0]" 
+                    : "bg-gray-400 cursor-not-allowed"
+                )}
                 onClick={handleSubmission}
-                disabled={isLoading}
+                disabled={isLoading || !hasValidAvailability}
               >
                 {isLoading ? (
                   <Rings
@@ -767,6 +606,11 @@ const ListProperty = () => {
                   "List Property"
                 )}
               </Button>
+              {!hasValidAvailability && (
+                <p className="text-red-500 text-sm mt-2">
+                  Please set your availability before listing the property
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -785,16 +629,25 @@ const ListProperty = () => {
                 >
                   {form.listType.toLocaleUpperCase()}
                 </span>
-                <img
-                  src={mediaURLs[0]}
-                  alt=""
-                  className="h-full object-cover object-top w-full "
-                />
+                {mediaFiles[0]?.type === "video" ? (
+                  <video
+                    src={mediaURLs[0]}
+                    className="h-full object-cover object-top w-full"
+                    controls
+                    controlsList="nodownload nofullscreen noremoteplayback"
+                  />
+                ) : (
+                  <img
+                    src={mediaURLs[0]}
+                    alt="Preview"
+                    className="h-full object-cover object-top w-full"
+                  />
+                )}
               </div>
               <div className="bg-white p-5">
                 <p className="text-lg text-[#FF0606]">
                   <CurrencySymbol
-                    amount={form.price}
+                    amount={form.price.replace(/,/g, "")}
                     listType={form.listType.toLocaleUpperCase()}
                   />
                 </p>
@@ -872,7 +725,7 @@ const UploadMedia = ({
             <button
               onClick={() => onRemove(i)}
               disabled={isDeleting}
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 disabled:opacity-50"
+              className="absolute top-2 right-2 z-10 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 disabled:opacity-50"
             >
               {isDeleting ? (
                 <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
