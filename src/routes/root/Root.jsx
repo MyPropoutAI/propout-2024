@@ -33,7 +33,8 @@ const Root = () => {
   }, [userData, hasSeenOnboarding, dispatch]);
 
   return (
-    <div>
+
+    <div className="overflow-x-hidden">
       {/* Show InfoBar only if status is false and user has seen onboarding */}
       {userData?.status === false && hasSeenOnboarding ? <InfoBar /> : null}
       <Header />

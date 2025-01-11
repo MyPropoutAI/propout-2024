@@ -20,8 +20,8 @@ const TextContent = ({ children, className }) => (
 );
 
 const GradientText = ({ children }) => (
-  <div className="flex flex-cl justify-center max-md:max-w-full max-md:text-4xl">
-    <div className="bg-gradient-to-r from-[#E08400] to-[#FF087F] text-transparent bg-clip-text px-3  max-md:max-w-full max-md:text-4xl">
+  <div className="flex flex-cl justify-center max-md:max-w-full max-md:text-5xl">
+    <div className="bg-gradient-to-r from-[#E08400] to-[#FF087F] text-transparent bg-clip-text   max-md:max-w-full max-md:text-4xl">
       {children}
     </div>
   </div>
@@ -35,7 +35,7 @@ const HomeHero = () => {
           Welcome to the Future of
         </TextContent>
 
-        <div className="flex flex-col justify-center px-3 pt-3 max-w-full text-center whitespace-nowrap w-[550px] max-md:text-4xl font-extrabold ">
+        <div className="flex flex-col justify-center px-3 pt-2 max-w-full text-center whitespace-nowrap w-[550px] max-md:text-4xl font-extrabold ">
           <GradientText>Home ownership</GradientText>
         </div>
         <TextContent className="hidden md:block mt-10 text-sm lg:text-lg text-center w-[80%] lg:w-[70%]">
