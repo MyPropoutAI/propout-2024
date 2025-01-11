@@ -150,7 +150,7 @@ const Rightsidebar = () => {
                 >
                   {safeUserData.kyc_status === null ? (
                     <Link
-                      to={`https://proput-db-jlb1.onrender.com/kyc?userId=${userId}`}
+                      to={`https://proput-db-4vtf.onrender.com/kyc?userId=${userId}`}
                     >
                       <h2>Not Verified</h2>
                     </Link>

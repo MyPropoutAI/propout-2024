@@ -37,6 +37,7 @@ import { usePropertyDetails } from "../../contexts/hooks/useGetOneUserProperties
 import { UseDeleteProperty } from "../../contexts/hooks/useDeleteProperty";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 //import { useRoutes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MyProperties = () => {
   const [activeTab, setActiveTab] = useState("property");
@@ -44,6 +45,7 @@ const MyProperties = () => {
   const decodedUser = jwt.decode(user);
   //const account = useActiveAccount();
   //const routes = useRoutes();
+  const navigate = useNavigate();
 
   const {
     handleDeleteProperty,
@@ -79,8 +81,7 @@ const MyProperties = () => {
   };
 
   const handleEdit = (propertyId) => {
-    console.log("Editing property:", propertyId);
-    toast.info("Edit functionality not implemented yet");
+    navigate(`/dashboard/edit-property/${propertyId}`);
   };
 
   // const handleGenerateFlyer = (propertyId) => {

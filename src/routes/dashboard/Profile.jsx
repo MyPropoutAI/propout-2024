@@ -14,11 +14,16 @@ import {
 } from "lucide-react";
 import { useParams } from "react-router-dom";
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
+// import { useDispatch, useSelector } from "react-redux";
+// import { openInspectionModal } from "../../redux/features/inspectionSlice";
+// import { InspectionModal } from "../../components/InspectionModal";
 
 export default function AgentProfile() {
   const [userData, setUserData] = useState(null);
   const { id } = useParams();
   const { data: users, isLoading } = useUsers();
+  //const dispatch = useDispatch();
+  //const { inspectionRequested } = useSelector((state) => state.inspection);
 
   useEffect(() => {
     if (users && users.user) {
@@ -37,7 +42,7 @@ export default function AgentProfile() {
   if (!userData) {
     return <div>User not found</div>;
   }
-  console.log(userData);
+  //console.log(userData);
   // Safely access user properties with fallback values
   // const safeUserData = {
   //   name: userData?.name || "Unknown",
@@ -56,6 +61,30 @@ export default function AgentProfile() {
   //   website: userData?.social_media?.website || "website",
   // };
   //console.log(safeUserData.twitter);
+
+  // const handleInspectionRequest = () => {
+  //   // Assuming you have agent's availability data
+  //   const agentAvailability = [
+  //     {
+  //       id: 1,
+  //       day: "Monday",
+  //       date: "2024-03-25",
+  //       startTime: "10:00",
+  //       endTime: "12:00",
+  //     },
+  //     {
+  //       id: 2,
+  //       day: "Wednesday",
+  //       date: "2024-03-27",
+  //       startTime: "14:00",
+  //       endTime: "16:00",
+  //     },
+  //     // ... more dates
+  //   ];
+
+  //   dispatch(openInspectionModal(agentAvailability));
+  // };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 to-indigo-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -272,6 +301,9 @@ export default function AgentProfile() {
             </a>
           </div>
         </div> */}
+
+       
+       
       </div>
     </div>
   );
