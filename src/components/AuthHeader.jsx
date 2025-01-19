@@ -27,6 +27,11 @@ const links = [
     path: "/marketplace",
     state: true,
   },
+  {
+    name: "Agents",
+    path: "/agents",
+    state: true,
+  },
   // { name: "Faucet", path: "/testnet/faucet", state: true },
 ];
 
@@ -76,6 +81,11 @@ const mobileNav = [
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
+    state: true,
+  },
+  {
+    name: "Agents",
+    path: "/agent",
     state: true,
   },
 ];

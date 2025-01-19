@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 // API function to fetch users
@@ -19,7 +19,9 @@ const fetchUsers = async () => {
 
 // Custom hook for users
 export const useUsers = () => {
-  return useQuery("users", fetchUsers, {
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: fetchUsers,
     // Additional configuration
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
     onError: (error) => {

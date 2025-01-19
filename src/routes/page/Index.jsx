@@ -3,6 +3,7 @@ import Features from "../../components/Features";
 import HowItWorks from "../../components/HowItWorks";
 import Newsletter from "../../components/NewsLetter";
 import Partners from "../../components/Partners";
+import PropertyCarousel from "../../components/PropertyCarousel";
 //import NewsLetter from "../../components/NewsLetter";
 import PropertyListing from "../../components/PropertyListed";
 import WhatPropOutIsFor from "../../components/WhatPropoutIsFor";
@@ -16,6 +17,9 @@ function Index() {
   return (
     <>
       <LandingHero />
+      <div className="">
+        <PropertyCarousel />
+      </div>
       <PropertyListing />
       <HowItWorks />
       <WhatPropOutIsFor />

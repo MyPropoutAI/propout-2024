@@ -24,7 +24,7 @@ export default function NotFound({ reset }) {
             Try again
           </button>
           <Link
-            href="/"
+            to="/"
             className="block w-full border border-gray-300 text-gray-700 font-semibold py-3 px-4 rounded hover:bg-gray-50 transition duration-300 ease-in-out"
           >
             Go back home

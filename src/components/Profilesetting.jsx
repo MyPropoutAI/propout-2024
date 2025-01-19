@@ -12,11 +12,8 @@ import { UploadToCloudinary } from "./UploadToCloudinary";
 const Profilesetting = () => {
   const { register, handleSubmit, setValue } = useForm({
     defaultValues: {
-      name: "",
-      phone_number: "",
       address: "",
       occupation: "",
-      email: "",
       country: "",
       description: "",
       city: "",
@@ -99,7 +96,7 @@ const Profilesetting = () => {
         </div>
 
         <div className="md:flex gap-5">
-          <div className="flex-1">
+          {/* <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg ">Full name</p>
             <input
               type="text"
@@ -107,8 +104,8 @@ const Profilesetting = () => {
               {...register("name")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
             />
-          </div>
-          <div className="flex-1">
+          </div> */}
+          {/* <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg">Phone number</p>
             <input
               type="tel"
@@ -116,7 +113,7 @@ const Profilesetting = () => {
               {...register("phone_number")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="md:flex gap-5">
@@ -195,7 +192,7 @@ const Profilesetting = () => {
         </div>
 
         <div className="md:flex gap-5">
-          <div className="flex-1">
+          {/* <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg ">Email address</p>
             <input
               type="email"
@@ -203,7 +200,7 @@ const Profilesetting = () => {
               {...register("email")}
               className="outline-[#320051] border rounded-md px-2 py-2 w-full"
             />
-          </div>
+          </div> */}
           <div className="flex-1">
             <p className="text-[#320051] py-2 text-lg">City</p>
             <input

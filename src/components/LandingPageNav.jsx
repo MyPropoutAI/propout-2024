@@ -37,6 +37,11 @@ const navLink = [
     path: "/marketplace",
     state: true,
   },
+  {
+    name: "Agents",
+    path: "/agents",
+    state: true,
+  },
 ];
 
 const LandingPageNav = () => {

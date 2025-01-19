@@ -8,20 +8,19 @@ export const useUpdateProperty = () => {
   const handleUpdateProperty = async ({ propertyData, propertyId, userId }) => {
     setIsLoading(true);
     setError(null);
+    console.log("object update property", propertyData);
 
     try {
       const response = await fetch(
         `https://proput-db-4vtf.onrender.com/edit-listing`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            userId: userId,
+            propertyId: propertyId,
           },
-          body: JSON.stringify({
-            ...propertyData,
-            propertyId,
-            userId,
-          }),
+          body: JSON.stringify(propertyData),
         }
       );
 

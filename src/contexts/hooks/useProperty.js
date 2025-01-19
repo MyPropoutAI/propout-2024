@@ -23,7 +23,7 @@ export const useGetProperties = () => {
       }
       setLoading(false);
       const data = await res.json();
-      console.log(data);
+      //console.log(data);
       setProperties(data);
     };
 
