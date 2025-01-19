@@ -1,30 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { BedDouble, Castle, Heart, MapPin, Search, Square } from "lucide-react";
+import { BedDouble, Castle, MapPin, Search, Square } from "lucide-react";
 import { useGetProperties } from "../contexts/hooks/useProperty";
 import CurrencySymbol from "../lib/CurrencySymbol";
 import { cn } from "../lib/utils";
 import { FidgetSpinner } from "react-loader-spinner";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import jwt from "jsonwebtoken";
-import useLikeProperty from "../contexts/hooks/useLikeProperty";
+// import { useSelector } from "react-redux";
+// import jwt from "jsonwebtoken";
+// import useLikeProperty from "../contexts/hooks/useLikeProperty";
 // Assume we have a user context or auth service
 // import { useUser } from "../contexts/UserContext";
 
 export default function PropertyListing() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [likedProperties, setLikedProperties] = useState({});
+  // const [likedProperties, setLikedProperties] = useState({});
 
-  const { likeMutation } = useLikeProperty();
+  // const { likeMutation } = useLikeProperty();
 
-  const user = useSelector((state) => state.auth.user);
-  const decodedUser = jwt.decode(user);
-  const userId = decodedUser.id;
+  // const user = useSelector((state) => state.auth?.user);
+  // const decodedUser = jwt.decode(user);
+  // const userId = decodedUser?.id;
 
   const { properties, loading } = useGetProperties();
   // Assume this hook provides the current user
@@ -45,43 +45,43 @@ export default function PropertyListing() {
   });
 
   // Show only first 6 properties
-  const displayedProperties = filteredProperties.slice(0, 6);
+  const displayedProperties = filteredProperties.slice(0, 8);
 
-  useEffect(() => {
-    // Initialize liked properties from API or local storage
-    // This is a placeholder and should be replaced with actual data fetching
-    const initialLikes = displayedProperties.reduce((acc, property) => {
-      acc[property.id] = property.likes || 0;
-      return acc;
-    }, {});
-    setLikedProperties(initialLikes);
-  }, [displayedProperties]);
+  // useEffect(() => {
+  // Initialize liked properties from API or local storage
+  // This is a placeholder and should be replaced with actual data fetching
+  //   const initialLikes = displayedProperties.reduce((acc, property) => {
+  //     acc[property.id] = property.likes || 0;
+  //     return acc;
+  //   }, {});
+  //   setLikedProperties(initialLikes);
+  // }, [displayedProperties]);
 
-  const handleLike = async (propertyId) => {
-    if (!user) {
-      console.log("Please log in to like properties");
-      return;
-    }
+  // const handleLike = async (propertyId) => {
+  //   if (!user) {
+  //     console.log("Please log in to like properties");
+  //     return;
+  //   }
 
-    setLikedProperties((prev) => ({
-      ...prev,
-      [propertyId]: (prev[propertyId] || 0) + 1,
-    }));
+  //   setLikedProperties((prev) => ({
+  //     ...prev,
+  //     [propertyId]: (prev[propertyId] || 0) + 1,
+  //   }));
 
-    try {
-      const response = await likeMutation.mutateAsync({ userId, propertyId });
+  //   try {
+  //     const response = await likeMutation.mutateAsync({ userId, propertyId });
 
-      if (!response.ok) {
-        throw new Error("Failed to like property");
-      }
-    } catch (error) {
-      //console.error("Error liking property:", error);
-      setLikedProperties((prev) => ({
-        ...prev,
-        [propertyId]: (prev[propertyId] || 1) - 1,
-      }));
-    }
-  };
+  //     if (!response.ok) {
+  //       throw new Error("Failed to like property");
+  //     }
+  //   } catch (error) {
+  //     //console.error("Error liking property:", error);
+  //     setLikedProperties((prev) => ({
+  //       ...prev,
+  //       [propertyId]: (prev[propertyId] || 1) - 1,
+  //     }));
+  //   }
+  // };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -175,7 +175,7 @@ export default function PropertyListing() {
                           View Details
                         </button>
                       </Link>
-                      <button
+                      {/* <button
                         onClick={() => handleLike(property.id)}
                         className="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-colors duration-200"
                       >
@@ -187,7 +187,7 @@ export default function PropertyListing() {
                           )}
                         />
                         <span>{likedProperties[property.id] || 0}</span>
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 </motion.div>

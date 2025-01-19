@@ -59,6 +59,7 @@ import AgentAvailability from "../routes/dashboard/InspectionAvaleibility";
 import WhitepaperContent from "../routes/WhitePapper";
 import TestnetActivities from "../routes/Airdrop";
 import EditProperty from "../routes/dashboard/EditProperty";
+import MyStorePage from "../routes/marketplace/MyStore";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
       {
         path: "/marketplace",
         element: <Marketplace />,
+      },
+      {
+        path: "/properties/store/:id",
+        element: <MyStorePage />,
       },
       {
         path: "/whitepaper",
@@ -301,7 +306,6 @@ export const router = createBrowserRouter([
   //     },
   //   ],
   // },
-  
 ]);
 
 // import About from "../routes/about/About";

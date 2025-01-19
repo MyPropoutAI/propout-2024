@@ -11,24 +11,40 @@ import {
 import { useGetProperties } from "../../contexts/hooks/useProperty";
 import { FidgetSpinner } from "react-loader-spinner";
 import CurrencySymbol from "../../lib/CurrencySymbol";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { cn } from "../../lib/utils";
+import { usePropertyDetails } from "../../contexts/hooks/useGetOneUserProperties";
+import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 import { PropertyType } from "../../lib/PropertyType";
 
-export default function MarketplacePage() {
+export default function MyStorePage() {
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [searchTerm, setSearchTerm] = useState("");
   const [propertyType, setPropertyType] = useState("Any");
   const [bedrooms, setBedrooms] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const { id } = useParams();
+  const { data: users } = useUsers();
+  const { properties } = useGetProperties();
+  const [userData, setUserData] = useState(null);
   const propertiesPerPage = 9;
 
-  const { properties, loading } = useGetProperties();
-  const listedProperties = Array.isArray(properties?.listing)
-    ? properties.listing
-    : properties?.listing
-    ? [properties.listing]
+  useEffect(() => {
+    if (users?.user && properties?.listing) {
+      const foundUser = users.user.find((user) => user.id == id);
+      setUserData(foundUser);
+    }
+  }, [users, properties, id]);
+
+  const { data: safeProperty, isLoading: propertyLoading } = usePropertyDetails(
+    userData?.id
+  );
+
+  const listedProperties = Array.isArray(safeProperty?.listing)
+    ? safeProperty.listing
+    : safeProperty?.listing
+    ? [safeProperty.listing]
     : [];
 
   // Filter properties based on all criteria
@@ -238,13 +254,13 @@ export default function MarketplacePage() {
                 </div>
 
                 {/* Properties Grid */}
-                {loading ? (
+                {propertyLoading ? (
                   <div className="w-full flex items-center justify-center">
                     <FidgetSpinner />
                   </div>
                 ) : (
                   <>
-                    {currentProperties.length === 0 ? (
+                    {currentProperties?.length === 0 ? (
                       <div className="text-center py-10 text-gray-500">
                         No properties found matching your search criteria.
                       </div>

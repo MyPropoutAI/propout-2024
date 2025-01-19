@@ -23,13 +23,14 @@ import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 import { useGetProperties } from "../../contexts/hooks/useProperty";
 import CurrencySymbol from "../../lib/CurrencySymbol";
 //import { Button } from "../../components/ui/button";
-// import { useSelector } from "react-redux";
-// import jwt from "jsonwebtoken";
+import { useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
 import { FidgetSpinner } from "react-loader-spinner";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 import { usePropertyDetails } from "../../contexts/hooks/useGetOneUserProperties";
+import ReferralCodeCopy from "../../components/RefferalCode";
 //import { useNavigate } from "react-router-dom";
 
 export default function AgentProfile() {
@@ -40,6 +41,9 @@ export default function AgentProfile() {
   const { properties } = useGetProperties();
   const [likes, setLikes] = useState(0);
   const [rating] = useState((Math.random() * 2 + 3).toFixed(1)); // Random rating between 3-5
+  const user = useSelector((state) => state.auth.user);
+  const decodedUser = jwt.decode(user);
+  const userId = decodedUser?.id;
 
   useEffect(() => {
     if (users?.user && properties?.listing) {
@@ -57,7 +61,7 @@ export default function AgentProfile() {
     }
   }, [users, properties, id]);
 
-  //console.log(userData.id);
+  //console.log(userData?.referral_code);
   const { data: safeProperty, isLoading: propertyLoading } = usePropertyDetails(
     userData?.id
   );
@@ -134,6 +138,19 @@ export default function AgentProfile() {
               </div>
             </div>
           </div>
+          {/* referral_code */}
+          {userId === userData.id && (
+            <div className="grid grid-cols-2 justify-evenly items-center py-6 mt-4">
+              <ReferralCodeCopy
+                code={`https://www.mypropout.com/auth/register/${userData?.referral_code}`}
+                title="Your Referral Code"
+              />
+              <ReferralCodeCopy
+                code={`https://www.mypropout.com/properties/store/${userData?.id}`}
+                title="Your Store Link"
+              />
+            </div>
+          )}
 
           {/* Contact Info */}
           <div className="p-6">
