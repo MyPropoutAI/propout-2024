@@ -1,17 +1,17 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 // API function to fetch property details
-const fetchPropertyDetails = async (propertyId) => {
+const fetchPropertyDetails = async (userId) => {
   const { data } = await axios.get(
     `https://proput-db-4vtf.onrender.com/user_uploads`,
     {
       params: {
-        userId: propertyId,
+        userId: userId,
       },
       headers: {
         "Content-Type": "application/json",
-        userId: propertyId,
+        userId: userId,
         // Add any additional headers if needed
       },
     }
@@ -21,38 +21,21 @@ const fetchPropertyDetails = async (propertyId) => {
 };
 
 // Custom hook for property details
-export const usePropertyDetails = (propertyId) => {
-  //console.log(propertyId);
-  return useQuery(
-    ["property", propertyId],
-    () => fetchPropertyDetails(propertyId),
-    {
-      // Refetch every 5 minutes
-      refetchInterval: 5 * 60 * 1000,
-
-      // Only run the query if propertyId is provided
-      enabled: !!propertyId,
-
-      // Error handling
-      onError: (error) => {
-        //console.error("Error fetching property details:", error);
-        // Optional: Add error handling (e.g., toast notification)
-      },
-
-      // Optional: Transform or filter data
-      select: (data) => {
-        // Example of data transformation
-        //console.log(data);
-        return {
-          data,
-        };
-      },
-
-      // Retry failed requests
-      retry: 3,
-
-      // Keep previous data while fetching
-      keepPreviousData: true,
-    }
-  );
+export const usePropertyDetails = (userId) => {
+  return useQuery({
+    queryKey: ["propertyDetails", userId],
+    queryFn: () => fetchPropertyDetails(userId),
+    // Additional configuration
+    refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
+    onError: (error) => {
+      console.error("Error fetching property details:", error);
+      // Optional: Add error handling (e.g., toast notification)
+    },
+    // Transform or filter data if needed
+    select: (data) => {
+      // Optional: Transform data before returning
+      // console.log(data);
+      return data;
+    },
+  });
 };

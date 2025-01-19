@@ -20,7 +20,7 @@ const ListProperty = () => {
   const [mediaFiles, setMediaFiles] = useState([{ file: null, type: null }]);
   const [mediaURLs, setMediaURLs] = useState([""]);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const user = useSelector((state) => state.auth.user);
 
   const decodedUser = jwt.decode(user);
@@ -193,17 +193,18 @@ const ListProperty = () => {
   };
 
   // Add this computed value
-  const hasValidAvailability = form.availability.some(
-    (slot) => slot.day && slot.date && slot.startTime && slot.endTime
-  );
+  // const hasValidAvailability = form.availability.some(
+  //   (slot) => slot.day && slot.date && slot.startTime && slot.endTime
+  // );
 
   const handleSubmission = async () => {
-    if (!hasValidAvailability) {
-      toast.error("Please set your availability", {
-        description: "You must set at least one availability slot before listing a property"
-      });
-      return;
-    }
+    // if (!hasValidAvailability) {
+    //   toast.error("Please set your availability", {
+    //     description:
+    //       "You must set at least one availability slot before listing a property",
+    //   });
+    //   return;
+    // }
 
     setIsLoading(true);
     try {
@@ -585,14 +586,9 @@ const ListProperty = () => {
             </div>
             <div>
               <Button
-                className={cn(
-                  "text-white px-12",
-                  hasValidAvailability 
-                    ? "bg-[#964CC3] hover:bg-[#8744B0]" 
-                    : "bg-gray-400 cursor-not-allowed"
-                )}
+                className="text-white px-12 bg-[#964CC3] hover:bg-[#8744B0]"
                 onClick={handleSubmission}
-                disabled={isLoading || !hasValidAvailability}
+                disabled={isLoading}
               >
                 {isLoading ? (
                   <Rings
@@ -606,11 +602,6 @@ const ListProperty = () => {
                   "List Property"
                 )}
               </Button>
-              {!hasValidAvailability && (
-                <p className="text-red-500 text-sm mt-2">
-                  Please set your availability before listing the property
-                </p>
-              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 import { Link } from "react-router-dom";
-import { Heart, Star } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useGetProperties } from "../../contexts/hooks/useProperty";
 
 const ITEMS_PER_PAGE = 9;
@@ -20,7 +20,7 @@ export default function AgentDirectory() {
   useEffect(() => {
     if (agentsData && Array.isArray(agentsData)) {
       const initialLikes = {};
-      agentsData.forEach(agent => {
+      agentsData.forEach((agent) => {
         initialLikes[agent.id] = Math.floor(Math.random() * 50);
       });
       setLikes(initialLikes);
@@ -31,21 +31,23 @@ export default function AgentDirectory() {
 
   const getAgentPropertyCount = (agentId) => {
     if (!properties?.listing) return 0;
-    return properties.listing.filter(property => property.agent_id === agentId).length;
+    return properties.listing.filter(
+      (property) => property.agent_id === agentId
+    ).length;
   };
 
   const handleLike = (agentId) => {
-    setLikes(prev => {
+    setLikes((prev) => {
       const newLikes = {
         ...prev,
-        [agentId]: (prev[agentId] || 0) + 1
+        [agentId]: (prev[agentId] || 0) + 1,
       };
-      console.log('Agent Likes:', newLikes);
+      console.log("Agent Likes:", newLikes);
       return newLikes;
     });
   };
 
-  const getRandomRating = () => (Math.random() * 2 + 3).toFixed(1);
+  //const getRandomRating = () => (Math.random() * 2 + 3).toFixed(1);
 
   useEffect(() => {
     const filtered = agents.filter(
@@ -95,9 +97,9 @@ export default function AgentDirectory() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         {currentAgents.map((agent) => {
-          const rating = getRandomRating();
+          //const rating = getRandomRating();
           const propertyCount = getAgentPropertyCount(agent.id);
-          
+
           return (
             <div
               key={agent.id}
@@ -123,7 +125,9 @@ export default function AgentDirectory() {
                 >
                   <Heart
                     className={`w-5 h-5 ${
-                      likes[agent.id] > 0 ? "text-purple-500 fill-current" : "text-gray-400"
+                      likes[agent.id] > 0
+                        ? "text-purple-500 fill-current"
+                        : "text-gray-400"
                     }`}
                   />
                 </button>
@@ -131,17 +135,25 @@ export default function AgentDirectory() {
 
               <div className="p-4 flex-grow">
                 <div className="flex justify-between items-start mb-2">
-                  <h2 className="text-xl font-semibold truncate">{agent.name}</h2>
-                  <div className="flex items-center">
+                  <h2 className="text-xl font-semibold truncate">
+                    {agent.name}
+                  </h2>
+                  {/* <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-400 fill-current" />
                     <span className="ml-1 text-sm font-medium">{rating}</span>
-                  </div>
+                  </div> */}
                 </div>
-                
+
                 <div className="space-y-1">
-                  <p className="text-gray-600 text-sm truncate">{agent.email_address}</p>
-                  <p className="text-gray-600 text-sm truncate">{agent.phone_number}</p>
-                  <p className="text-purple-600 text-sm font-medium truncate">{agent.address}</p>
+                  <p className="text-gray-600 text-sm truncate">
+                    {agent.email_address}
+                  </p>
+                  <p className="text-gray-600 text-sm truncate">
+                    {agent.phone_number}
+                  </p>
+                  <p className="text-purple-600 text-sm font-medium truncate">
+                    {agent.address}
+                  </p>
                 </div>
 
                 <div className="mt-4 flex justify-between items-center text-sm">
@@ -178,7 +190,9 @@ export default function AgentDirectory() {
           Page {currentPage} of {totalPages}
         </span>
         <button
-          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
           disabled={currentPage === totalPages}
           className="px-4 py-2 border border-purple-300 rounded-md disabled:opacity-50 hover:bg-purple-50"
         >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "../../../components/ui/input";
 import { Rings } from "react-loader-spinner";
 import { FormSchema } from "../../../lib/FormSchema";
@@ -21,10 +21,12 @@ const Register = () => {
   const { signup, loading, success, error } = useSignup();
   const { referralCode } = useParams();
 
-  if (referralCode) {
-    setRefCode(referralCode);
-    console.log("referralCode", referralCode);
-  }
+  useEffect(() => {
+    if (referralCode) {
+      setRefCode(referralCode);
+      //console.log("referralCode", referralCode);
+    }
+  }, [referralCode]);
 
   const handlePassword = () => {
     if (pwType === "password") {
@@ -43,7 +45,7 @@ const Register = () => {
   } = useForm({ resolver: zodResolver(FormSchema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    //console.log(data);
     const res = await signup(data);
     if (error) {
       console.log(res.error.message);

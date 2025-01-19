@@ -16,7 +16,7 @@ import { X } from "lucide-react";
 import { Label } from "../../components/ui/label";
 import { useUpdateProperty } from "../../contexts/hooks/useUpdateProperty";
 import { usePropertyDetails } from "../../contexts/hooks/useGetOneUserProperties";
-
+//import { UseGetOneProperty } from "../../contexts/hooks/useGetOneProperty";
 const EditProperty = () => {
   const { propertyId } = useParams();
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ const EditProperty = () => {
   const { handleUpdateProperty, isLoading: isUpdating } = useUpdateProperty();
   const { data: propertyData, isLoading: isLoadingProperty } =
     usePropertyDetails(decodedUser?.id);
+  //console.log("one user property data:", propertyData);
 
   // States similar to ListProperty component
   const [mediaFiles, setMediaFiles] = useState([{ file: null, type: null }]);
@@ -49,11 +50,11 @@ const EditProperty = () => {
 
   // Load existing property data
   useEffect(() => {
-    if (propertyData?.data?.listing) {
-      const property = propertyData.data.listing.find(
+    if (propertyData && propertyData.listing) {
+      const property = propertyData.listing.find(
         (p) => p.id === Number(propertyId)
       );
-
+      console.log("one property", property);
       if (property) {
         setForm({
           _propertyTitle: property.headline || "",
@@ -383,6 +384,28 @@ const EditProperty = () => {
                 <Label>Inspection Availability</Label>
                 {form.availability.map((slot, index) => (
                   <div key={index} className="flex gap-2 items-center mb-2">
+                    <select
+                      className="flex-1 h-10 min-w-[120px] rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      value={slot.day}
+                      onChange={(e) =>
+                        handleFormChange(index, "day", e.target.value)
+                      }
+                    >
+                      <option value="">Select Day</option>
+                      {[
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday",
+                      ].map((day) => (
+                        <option key={day} value={day}>
+                          {day}
+                        </option>
+                      ))}
+                    </select>
                     <Input
                       type="date"
                       value={slot.date}

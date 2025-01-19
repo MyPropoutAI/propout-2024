@@ -21,6 +21,11 @@ const mobileNav = [
     path: "/marketplace",
     state: true,
   },
+  {
+    name: "Agents",
+    path: "/agent",
+    state: true,
+  },
 ];
 const Header = () => {
   const user = useSelector((state) => state.auth.user);

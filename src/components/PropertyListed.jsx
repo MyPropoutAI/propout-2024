@@ -1,19 +1,34 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 import { BedDouble, Castle, MapPin, Search, Square } from "lucide-react";
 import { useGetProperties } from "../contexts/hooks/useProperty";
 import CurrencySymbol from "../lib/CurrencySymbol";
 import { cn } from "../lib/utils";
 import { FidgetSpinner } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+// import { useSelector } from "react-redux";
+// import jwt from "jsonwebtoken";
+// import useLikeProperty from "../contexts/hooks/useLikeProperty";
+// Assume we have a user context or auth service
+// import { useUser } from "../contexts/UserContext";
 
 export default function PropertyListing() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [showAll, setShowAll] = useState(false);
+  // const [likedProperties, setLikedProperties] = useState({});
+
+  // const { likeMutation } = useLikeProperty();
+
+  // const user = useSelector((state) => state.auth?.user);
+  // const decodedUser = jwt.decode(user);
+  // const userId = decodedUser?.id;
 
   const { properties, loading } = useGetProperties();
+  // Assume this hook provides the current user
+
   const listedProperties = Array.isArray(properties?.listing)
     ? properties.listing
     : properties?.listing
@@ -29,10 +44,44 @@ export default function PropertyListing() {
     );
   });
 
-  // Show only first 6 properties on mobile
-  const displayedProperties = showAll
-    ? filteredProperties
-    : filteredProperties.slice(0, 6);
+  // Show only first 6 properties
+  const displayedProperties = filteredProperties.slice(0, 8);
+
+  // useEffect(() => {
+  // Initialize liked properties from API or local storage
+  // This is a placeholder and should be replaced with actual data fetching
+  //   const initialLikes = displayedProperties.reduce((acc, property) => {
+  //     acc[property.id] = property.likes || 0;
+  //     return acc;
+  //   }, {});
+  //   setLikedProperties(initialLikes);
+  // }, [displayedProperties]);
+
+  // const handleLike = async (propertyId) => {
+  //   if (!user) {
+  //     console.log("Please log in to like properties");
+  //     return;
+  //   }
+
+  //   setLikedProperties((prev) => ({
+  //     ...prev,
+  //     [propertyId]: (prev[propertyId] || 0) + 1,
+  //   }));
+
+  //   try {
+  //     const response = await likeMutation.mutateAsync({ userId, propertyId });
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to like property");
+  //     }
+  //   } catch (error) {
+  //     //console.error("Error liking property:", error);
+  //     setLikedProperties((prev) => ({
+  //       ...prev,
+  //       [propertyId]: (prev[propertyId] || 1) - 1,
+  //     }));
+  //   }
+  // };
 
   return (
     <section className="py-20 bg-gray-50">
@@ -78,7 +127,9 @@ export default function PropertyListing() {
                       {property.list_type.toLocaleUpperCase()}
                     </span>
                     <img
-                      src={property.img_urls?.split(", ")[0]}
+                      src={
+                        property.img_urls?.split(", ")[0] || "/placeholder.svg"
+                      }
                       alt={property.headline}
                       className="w-full h-48 object-cover"
                     />
@@ -118,12 +169,25 @@ export default function PropertyListing() {
                         </span>
                       </div>
                     </div>
-                    <div className="hidden lg:block px-4 py-3 bg-gray-50">
+                    <div className="hidden px-4 py-3 bg-gray-50 lg:flex justify-between items-center">
                       <Link to={`/property/${property.id}`}>
-                        <button className="w-full px-4 py-2 bg-gradient-to-br from-purple-700 to-indigo-900 hover:bg-purple-700 text-white rounded-md">
+                        <button className="px-4 py-2 bg-gradient-to-br from-purple-700 to-indigo-900 hover:bg-purple-700 text-white rounded-md">
                           View Details
                         </button>
                       </Link>
+                      {/* <button
+                        onClick={() => handleLike(property.id)}
+                        className="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-colors duration-200"
+                      >
+                        <Heart
+                          className={cn(
+                            "h-5 w-5",
+                            likedProperties[property.id] > 0 &&
+                              "fill-current text-red-500"
+                          )}
+                        />
+                        <span>{likedProperties[property.id] || 0}</span>
+                      </button> */}
                     </div>
                   </div>
                 </motion.div>
@@ -132,16 +196,6 @@ export default function PropertyListing() {
           </div>
         )}
         <div className="text-center">
-          {filteredProperties.length > 6 && !showAll && (
-            <Button
-              onClick={() => setShowAll(true)}
-              variant="link"
-              size="lg"
-              className="bg-gradient-to-br from-purple-700 to-indigo-900 hover:bg-purple-700 text-white mb-4"
-            >
-              Show More
-            </Button>
-          )}
           <Link to="/marketplace">
             <Button
               variant="link"

@@ -4,6 +4,7 @@ import Features from "../../components/Features";
 import HowItWorks from "../../components/HowItWorks";
 import Newsletter from "../../components/NewsLetter";
 import Partners from "../../components/Partners";
+import PropertyCarousel from "../../components/PropertyCarousel";
 import PropertyListing from "../../components/PropertyListed";
 import WhatPropOutIsFor from "../../components/WhatPropoutIsFor";
 //import Builtfor from "./Builtfor";
@@ -12,8 +13,11 @@ import HomeHero from "./HomeHero";
 
 const Home = () => {
   return (
-    <div className=" bg-main">
+    <div className="">
       <HomeHero />
+      <div className="">
+        <PropertyCarousel />
+      </div>
       <PropertyListing />
       <HowItWorks />
       <WhatPropOutIsFor />

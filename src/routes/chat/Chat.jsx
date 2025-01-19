@@ -84,7 +84,7 @@ export default function Chat() {
   // Socket Connection and Event Handling
   useEffect(() => {
     // Create Socket Connection
-    const newSocket = io("https://propout-chat.onrender.com", {
+    const newSocket = io("https://propout-chat-server.onrender.com", {
       auth: {
         token: user, // Optional: pass user token for authentication
       },

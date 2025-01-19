@@ -67,6 +67,7 @@ const MyProperties = () => {
     error,
     refetch,
   } = usePropertyDetails(decodedUser?.id);
+  //console.log("safe property", safeProperty?.listing);
 
   const handleDelete = (propertyId) => {
     handleDeleteProperty({ propertyId, userid: decodedUser.id });
@@ -84,11 +85,11 @@ const MyProperties = () => {
     navigate(`/dashboard/edit-property/${propertyId}`);
   };
 
-  // const handleGenerateFlyer = (propertyId) => {
-  //   routes.push(
-  //     `https://propout-eflyer.onrender.com/e-flyer?propertyId=${propertyId}`
-  //   );
-  // };
+  const handleGenerateFlyer = (propertyId) => {
+    navigate(
+      `https://propout-eflyer.onrender.com/e-flyer?propertyId=${propertyId}`
+    );
+  };
 
   const handleToggleStatus = (propertyId) => {
     console.log("Toggling status for property:", propertyId);
@@ -248,7 +249,7 @@ const MyProperties = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {safeProperty?.data?.listing?.map((property) => (
+                  {safeProperty?.listing?.map((property) => (
                     <tr key={property.id} className="hover:bg-gray-100">
                       <td className="px-4 py-2">
                         <div className="flex items-center">

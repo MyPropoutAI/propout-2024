@@ -34,6 +34,12 @@ const propertyData = [
   { month: "Apr", listings: 10, sales: 7, revenue: 35000 },
   { month: "May", listings: 12, sales: 8, revenue: 40000 },
   { month: "Jun", listings: 15, sales: 10, revenue: 50000 },
+  { month: "Jul", listings: 15, sales: 10, revenue: 50000 },
+  { month: "Aug", listings: 15, sales: 10, revenue: 50000 },
+  { month: "Sep", listings: 15, sales: 10, revenue: 50000 },
+  { month: "Oct", listings: 15, sales: 10, revenue: 50000 },
+  { month: "Nov", listings: 15, sales: 10, revenue: 50000 },
+  { month: "Des", listings: 15, sales: 10, revenue: 50000 },
 ];
 
 export default function AgentPropertyStats() {
@@ -87,7 +93,7 @@ export default function AgentPropertyStats() {
                     ?.color,
                 },
               }}
-              className="h-[300px]"
+              className="h-[300px] w-[90%]"
             >
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
