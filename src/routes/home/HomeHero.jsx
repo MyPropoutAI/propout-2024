@@ -51,9 +51,9 @@ const HomeHero = () => {
           <Button className="px-8 rounded-md text-white" variant="outline">
             <Link to={"/agents"}>Agents</Link>
           </Button>
-          <Button className="px-8 rounded-md text-white" variant="outline">
+          {/* <Button className="px-8 rounded-md text-white" variant="outline">
             <Link to="/dashboard/task">Testnet</Link>
-          </Button>
+          </Button> */}
         </div>
         <div>
           <img
