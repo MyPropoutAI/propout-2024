@@ -21,16 +21,16 @@ import Root from "../routes/root/Root";
 import NotFound from "../routes/errorElement/NotFound";
 import Home from "../routes/home/Home";
 // import Testing from "../routes/testing/Testing";
-import Testing from "../routes/page/testing/Testing";
+// import Testing from "../routes/page/testing/Testing";
 import List from "../routes/List/List";
-import Sell from "../routes/List/sell/Sell";
-import Success from "../routes/list-success/Success";
+// import Sell from "../routes/List/sell/Sell";
+// import Success from "../routes/list-success/Success";
 // import AboutUs from "../routes/about/AboutUs";
 import LoginPage from "../routes/auth/login/Login";
 import Register from "../routes/auth/register/Register";
 import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
 import NewPassword from "../routes/auth/newPassword/NewPassword";
-import Index from "../routes/page/Index";
+// import Index from "../routes/page/Index";
 import PageRoot from "../routes/page/Root";
 import Blog from "../routes/blog/Blog";
 import RoadMap from "../routes/road-map/RoadMap";
@@ -42,13 +42,13 @@ import Notification from "../components/Notification";
 import Helpsetting from "../components/Helpsetting";
 import Profilesetting from "../components/Profilesetting";
 
-import Propertydesc from "../routes/descripyion/Propertydesc";
-import Agent from "../routes/Agent/Agent";
+// import Propertydesc from "../routes/descripyion/Propertydesc";
+// import Agent from "../routes/Agent/Agent";
 import Verification from "../routes/dashboard/Verification";
 import About from "../routes/page/About";
 //import KycRoot from "../routes/kyc/Root";
 
-import TestnetRoot from "../routes/testnet/root";
+// import TestnetRoot from "../routes/testnet/root";
 import Otp from "../routes/auth/otp/Otp";
 import MintNft from "../routes/dashboard/MintNft";
 import AgentProfile from "../routes/dashboard/Profile";
@@ -72,7 +72,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       // { index: true, element: <Home /> },
-      { path: "/", element: <Index /> },
+      { path: "/", element: <Home /> },
       { path: "blog", element: <Blog /> },
       { path: "/road-map", element: <RoadMap /> },
       { path: "/guide", element: <Guide /> },
@@ -112,26 +112,17 @@ export const router = createBrowserRouter([
         path: "/agents",
         element: <AgentDirectory />,
       },
-      // {
-      //   path: "/testnet",
-      //   element: <TestnetRoot />,
-      //   children: [{ path: "stake", element: <Stake /> }],
-      // },
-      // {
-      //   path: "/property-description",
-      //   element: <Propertydesc />,
-      // },
     ],
   },
-  {
-    path: "/testnet",
-    element: (
-      <ProtectedRoute>
-        <TestnetRoot />
-      </ProtectedRoute>
-    ),
-    children: [{ path: "stake", element: <Stake /> }],
-  },
+  // {
+  //   path: "/testnet",
+  //   element: (
+  //     <ProtectedRoute>
+  //       <TestnetRoot />
+  //     </ProtectedRoute>
+  //   ),
+  //   children: [{ path: "stake", element: <Stake /> }],
+  // },
 
   {
     path: "/home",
@@ -142,34 +133,6 @@ export const router = createBrowserRouter([
     ),
     errorElement: <NotFound />,
     children: [
-      { path: "/home", element: <Home /> },
-
-      {
-        path: "/home/list/sell",
-        element: <Sell />,
-      },
-      {
-        path: "/home/list/success",
-        element: <Success />,
-      },
-      {
-        path: "/home/marketplace",
-        element: <Marketplace />,
-      },
-      {
-        path: "/home/about",
-        element: <About />,
-      },
-      {
-        path: "/home/list",
-        element: <List />,
-      },
-
-      { path: "/home/test", element: <Testing /> },
-      {
-        path: "/home/property-description/:id",
-        element: <Propertydesc />,
-      },
       {
         path: "/home/chat/:id",
         element: <Chat />,
@@ -177,10 +140,6 @@ export const router = createBrowserRouter([
       {
         path: "/home/chat",
         element: <Chat />,
-      },
-      {
-        path: "/home/agent",
-        element: <Agent />,
       },
     ],
   },

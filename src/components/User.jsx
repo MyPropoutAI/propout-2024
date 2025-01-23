@@ -30,7 +30,10 @@ const User = ({ userAvartar }) => {
             <Link to="/dashboard">Dashboard</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <Link to="/dashboard/setting">Profile</Link>
+            <Link to="/dashboard/setting/profile">Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link to="/dashboard/setting">Settings</Link>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleLogout}>Log out</DropdownMenuItem>
         </DropdownMenuContent>

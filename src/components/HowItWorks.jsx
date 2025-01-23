@@ -30,9 +30,12 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          How PropOut Works
-        </h2>
+        <div className=" mb-12">
+          <h2 className="text-3xl font-bold text-center">How PropOut Works</h2>
+          <p className="text-gray-500 text-center mb-2">
+            Discover How PropOut Works
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <motion.div

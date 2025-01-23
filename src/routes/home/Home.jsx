@@ -8,8 +8,9 @@ import PropertyCarousel from "../../components/PropertyCarousel";
 import PropertyListing from "../../components/PropertyListed";
 import WhatPropOutIsFor from "../../components/WhatPropoutIsFor";
 //import Builtfor from "./Builtfor";
-import HomeHero from "./HomeHero";
+// import { HomeHero } from "./HomeHero";
 //import Mobilesneak from "./Mobilesneak";
+import HomeHero from "./HomeHero";
 
 const Home = () => {
   return (

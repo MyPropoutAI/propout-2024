@@ -86,9 +86,14 @@ export default function PropertyListing() {
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">
-          Featured Properties
-        </h2>
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-center mb-2 ">
+            Featured Properties
+          </h2>
+          <p className="text-gray-500 text-center">
+            Explore Our Featured Properties
+          </p>
+        </div>
         <div className="flex justify-center mb-8">
           <div className="relative w-full max-w-md">
             <Input

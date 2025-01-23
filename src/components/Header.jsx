@@ -8,9 +8,11 @@ import { useSelector } from "react-redux";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const mobileNav = [
+  { name: "Home", path: "/" },
   { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
   { name: "Explore Propout", path: "/list", state: true },
+  { name: "About Us", path: "/about", state: true },
   {
     name: "Join the waitlist",
     path: "http://waitlist-propout.onrender.com",
@@ -27,7 +29,30 @@ const mobileNav = [
     state: true,
   },
 ];
+const navLink = [
+  { name: "Home", path: "/" },
+  // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+
+  { name: "Explore Propout", path: "/list", state: true },
+  { name: "About Us", path: "/about", state: true },
+  // {
+  //   name: "Join the waitlist",
+  //   path: "http://waitlist-propout.onrender.com",
+  //   state: true,
+  // },
+  {
+    name: "Marketplace",
+    path: "/marketplace",
+    state: true,
+  },
+  {
+    name: "Agents",
+    path: "/agents",
+    state: true,
+  },
+];
 const Header = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const user = useSelector((state) => state.auth.user);
 
   const decodedUser = jwt.decode(user);
@@ -35,16 +60,15 @@ const Header = () => {
   const userAvartar = decodedUser.name.substring(0, 2);
 
   return (
-    <>
-      <div className="bg-purple-900 sticky top-0 z-10">
-        <Wrapper>
-          <div className="flex justify-between items-center text-white">
-            <Link to={"/home"}>
-              <img src="/images/pro2 1.svg" alt="Prop Logo" />
-            </Link>
+    <div className="bg-purple-900 sticky top-0 z-20">
+      <Wrapper>
+        <div className="flex justify-between items-center text-white">
+          <Link to="/">
+            <img src="/images/pro2 1.svg" alt="Prop Logo" />
+          </Link>
 
-            <div className="hidden lg:flex items-center gap-6">
-              {/* <div className="flex gap-2 items-center cursor-pointer">
+          <div className="hidden lg:flex items-center gap-6">
+            {/* <div className="flex gap-2 items-center cursor-pointer">
               <img
                 src="/images/Ellipse 10.svg"
                 alt="Eclipse"
@@ -52,59 +76,90 @@ const Header = () => {
               />
               <img src="/images/dropdown.svg" alt="" className="w-4" />
             </div> */}
-              <Link to="https://sepolia-faucet.lisk.com/" target="_blank">
-                Get token
+
+            {/* <Button variant="propout" size="default">
+              <Link to="/list">Explore Propout</Link>
+            </Button> */}
+
+            <div className="flex space-x-2 items-center">
+              {navLink.map((url, i) => (
+                <Button key={i} variant="ghost">
+                  <Link
+                    to={url.path}
+                    target={url.name == "Faucet" ? "_blank" : "_self"}
+                  >
+                    {url.name}
+                  </Link>
+                </Button>
+              ))}
+            </div>
+
+            {/* <div>
+              <Connect />
+            </div> */}
+            {isAuthenticated ? (
+              <div className="flex space-x-6 items-center">
+                <div>
+                  <Connect />
+                </div>
+                <div>
+                  <User userAvartar={userAvartar} />
+                </div>
+              </div>
+            ) : (
+              <Link to="/auth/login">
+                <Button className="border border-purple-500 border-solid text-white">
+                  Get Started
+                </Button>
               </Link>
-
-              <Button variant="propout" size="default">
-                <Link to="/home/list">Explore Propout</Link>
-              </Button>
-
-              <Button variant="propout" size="default">
-                <Link to="/about">About Us</Link>
-              </Button>
-
-              <div>
-                <Connect />
-              </div>
-              <div>
-                <User userAvartar={userAvartar} />
-              </div>
-            </div>
-
-            <div className="flex gap-x-4 lg:hidden">
-              <div>
-                <User userAvartar={userAvartar} />
-              </div>
-              <Sheet>
-                <SheetTrigger asChild>
-                  <img
-                    src="/images/menu-icon.svg"
-                    className="cursor-pointer"
-                    alt="images"
-                  />
-                </SheetTrigger>
-                <SheetContent>
-                  <div className="flex flex-col text-white gap-2 my-2">
-                    {mobileNav.map((link, i) => (
-                      <Link key={i} to={link.path}>
-                        <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
-                          {link.name}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-
-                  <div className="lg:flex items-center gap-8 mt-24">
-                    <Connect />
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+            )}
           </div>
-        </Wrapper>
-      </div>
-    </>
+
+          <div className="flex lg:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <img
+                  src="/images/menu-icon.svg"
+                  className="cursor-pointer"
+                  alt="hamburger"
+                />
+              </SheetTrigger>
+              <SheetContent>
+                <div className="flex flex-col text-white gap-2 my-2">
+                  {mobileNav.map((link, i) => (
+                    <Link
+                      key={i}
+                      to={link.path}
+                      target={link.name == "Faucet" ? "_blank" : "_self"}
+                    >
+                      <div className="hover:bg-gray-50 rounded-md hover:text-gray-900 pl-3 py-2">
+                        {link.name}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="lg:flex items-center gap-8 mt-24">
+                  {isAuthenticated ? (
+                    <Link to="/dashboard">
+                      <Button className="border border-purple-500 border-solid text-white">
+                        Continue to dashboard
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to="/auth/login">
+                      <Button className="border border-purple-500 border-solid text-white">
+                        Get Started
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </Wrapper>
+    </div>
   );
 };
 
