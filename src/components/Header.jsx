@@ -23,6 +23,11 @@ const mobileNav = [
     path: "/marketplace",
     state: true,
   },
+  {
+    name: "Agents",
+    path: "/agent",
+    state: true,
+  },
 ];
 const navLink = [
   { name: "Home", path: "/" },
