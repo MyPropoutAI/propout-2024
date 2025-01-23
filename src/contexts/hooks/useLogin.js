@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/userSlice";
-import { toast } from "sonner";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -38,7 +37,7 @@ export const useLogin = () => {
       if (json.success) {
         dispatch(login(json.success.token));
         setLoading(false);
-        navigate("/home");
+        navigate("/");
         return json;
       }
     } catch (error) {

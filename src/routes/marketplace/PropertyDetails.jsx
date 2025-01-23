@@ -13,7 +13,6 @@ import {
   Bed,
   Maximize,
   Phone,
-  Mail,
   MessageCircle,
   X,
   MapPin,
@@ -229,7 +228,7 @@ export default function PropertyDetails() {
     agent_info: property?.agent_info || {},
     description: property?.description || "No Description",
   };
-  console.log(userData);
+  //console.log(userData);
   const safeUserData = {
     name: userData?.name || "Unknown",
     image: userData?.pfp || "/placeholder.svg",

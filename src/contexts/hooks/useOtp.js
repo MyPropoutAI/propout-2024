@@ -48,7 +48,7 @@ export const useOtp = () => {
 
       if (json.success) {
         setLoading(false);
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);

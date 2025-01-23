@@ -4,6 +4,9 @@ import Wrapper from "./Wrapper";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { useSelector } from "react-redux";
+import jwt from "jsonwebtoken";
+import { Connect } from "./ConnectButton";
+import User from "./User";
 const mobileNav = [
   { name: "Home", path: "/" },
   { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
@@ -23,15 +26,15 @@ const mobileNav = [
 ];
 const navLink = [
   { name: "Home", path: "/" },
-  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+  // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
   { name: "Explore Propout", path: "/list", state: true },
   { name: "About Us", path: "/about", state: true },
-  {
-    name: "Join the waitlist",
-    path: "http://waitlist-propout.onrender.com",
-    state: true,
-  },
+  // {
+  //   name: "Join the waitlist",
+  //   path: "http://waitlist-propout.onrender.com",
+  //   state: true,
+  // },
   {
     name: "Marketplace",
     path: "/marketplace",
@@ -46,11 +49,16 @@ const navLink = [
 
 const LandingPageNav = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
+
+  const decodedUser = jwt.decode(user);
+
+  const userAvartar = decodedUser?.name.substring(0, 2);
   return (
     <div className="bg-purple-900 sticky top-0 z-20">
       <Wrapper>
         <div className="flex justify-between items-center text-white">
-          <Link to={isAuthenticated ? "/home" : "/"}>
+          <Link to="/">
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
 
@@ -85,11 +93,14 @@ const LandingPageNav = () => {
               <Connect />
             </div> */}
             {isAuthenticated ? (
-              <Link to="/dashboard">
-                <Button className="border border-purple-500 border-solid text-white">
-                  Continue to dashboard
-                </Button>
-              </Link>
+              <div className="flex gap-6 items-center">
+                <div>
+                  <Connect />
+                </div>
+                <div>
+                  <User userAvartar={userAvartar} />
+                </div>
+              </div>
             ) : (
               <Link to="/auth/login">
                 <Button className="border border-purple-500 border-solid text-white">

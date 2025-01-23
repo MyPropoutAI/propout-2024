@@ -34,9 +34,15 @@ export default function WhatPropOutIsFor() {
   return (
     <section className="py-20 bg-purple-900 text-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          What PropOut is Built For
-        </h2>
+        <div className=" mb-12">
+          <h2 className="text-3xl font-bold text-center">
+            What PropOut is Built For
+          </h2>
+          <p className="text-gray-200 text-center mb-2">
+            Explore how propout is changing the real estate industry
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <motion.div

@@ -3,7 +3,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const PropertyCarousel = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
+    <div className="hidden lg:block max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 my-10">
       <Carousel
         showArrows={true}
         infiniteLoop={true}
