@@ -10,18 +10,18 @@ import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { cn } from "../lib/utils";
 
 const links = [
-  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
-  // { name: "Get token", path: "https://app.optimism.io/faucet", state: !true },
-  {
-    name: "Generate E-Flyer",
-    path: "https://propout-eflyer.onrender.com",
-    state: !true,
-  },
-  {
-    name: "Join the waitlist",
-    path: "http://waitlist-propout.onrender.com",
-    state: true,
-  },
+  // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+  // // { name: "Get token", path: "https://app.optimism.io/faucet", state: !true },
+  // {
+  //   name: "Generate E-Flyer",
+  //   path: "https://propout-eflyer.onrender.com",
+  //   state: !true,
+  // },
+  // {
+  //   name: "Join the waitlist",
+  //   path: "http://waitlist-propout.onrender.com",
+  //   state: true,
+  // },
   {
     name: "Marketplace",
     path: "/marketplace",
@@ -107,7 +107,7 @@ const AuthHeader = ({ bg }) => {
     >
       <div className="flex justify-between items-center text-whit">
         <div className="flex items-center gap-10">
-          <Link to={"/home"}>
+          <Link to={"/"}>
             <img src="/images/pro2 1.svg" alt="Prop Logo" />
           </Link>
           <div className="lg:flex text-lg gap-5 hidden">
