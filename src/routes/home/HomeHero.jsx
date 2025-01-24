@@ -16,6 +16,7 @@ export default function HomeHero() {
       {/* Purple Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-blue-600/70"></div>
 
+
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-8">
         <motion.h1
@@ -30,6 +31,7 @@ export default function HomeHero() {
           </span>
         </motion.h1>
 
+
         <motion.p
           className="text-md sm:text-xl text-white mb-8 max-w-3xl"
           initial={{ opacity: 0 }}
@@ -40,6 +42,7 @@ export default function HomeHero() {
           properties effortlessly. Experience smart home technology and
           AI-powered market insights at your fingertips.
         </motion.p>
+
 
         <motion.div
           className="flex flex-col sm:flex-row gap-4"
@@ -63,6 +66,7 @@ export default function HomeHero() {
             </Button>
           </Link>
         </motion.div>
+
       </div>
     </div>
   );
