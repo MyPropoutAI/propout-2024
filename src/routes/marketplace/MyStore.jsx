@@ -17,6 +17,14 @@ import { usePropertyDetails } from "../../contexts/hooks/useGetOneUserProperties
 import { useUsers } from "../../contexts/hooks/useGetAllUsers";
 import { PropertyType } from "../../lib/PropertyType";
 
+// Helper function to determine media type based on file extension
+const getMediaType = (url) => {
+  if (!url) return "image"; // Default to image if no URL
+  const extension = url.split(".").pop().toLowerCase();
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "m4v"];
+  return videoExtensions.includes(extension) ? "video" : "image";
+};
+
 export default function MyStorePage() {
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
@@ -265,47 +273,55 @@ export default function MyStorePage() {
                         No properties found matching your search criteria.
                       </div>
                     ) : (
-                      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                        {currentProperties.map((property, index) => (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {currentProperties.map((property) => (
                           <Link
                             to={`/property/${property.id}`}
-                            key={property.id || index}
+                            key={property.id}
                             className="block"
                           >
-                            <div className="relative bg-white rounded-lg shadow-md overflow-hidden h-full">
-                              <span
-                                className={cn(
-                                  "absolute py-1 md:py-2 px-2 md:px-5 top-0 right-0 text-xs md:text-sm bg-[#0EFC25] text-white font-semibold",
-                                  property.list_type === "Sell"
-                                    ? "bg-blue-900"
-                                    : "bg-[#0EFC25]"
-                                )}
-                              >
-                                {property.list_type.toLocaleUpperCase()}
-                              </span>
-                              <div className="relative w-full h-32 md:h-48">
-                                {property.mediaType === "video" ? (
-                                  <video
-                                    src={property.img_urls?.split(", ")[0]}
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                    controls
-                                    playsInline
-                                    controlsList="nodownload"
-                                    disablePictureInPicture
-                                    onContextMenu={(e) => e.preventDefault()}
-                                  >
-                                    Your browser does not support the video tag.
-                                  </video>
-                                ) : (
-                                  <img
-                                    src={property.img_urls?.split(", ")[0]}
-                                    alt={property.headline}
-                                    className="absolute inset-0 w-full h-full object-cover"
-                                    onError={(e) => {
-                                      e.target.src = "/placeholder.svg";
-                                    }}
-                                  />
-                                )}
+                            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                              <div className="relative">
+                                <span
+                                  className={cn(
+                                    "absolute py-2 px-5 top-0 right-0 text-white font-semibold z-10",
+                                    property.list_type === "Sell"
+                                      ? "bg-blue-900"
+                                      : "bg-[#0EFC25]"
+                                  )}
+                                >
+                                  {property.list_type.toLocaleUpperCase()}
+                                </span>
+                                <div className="relative w-full h-48">
+                                  {getMediaType(
+                                    property.img_urls?.split(", ")[0]
+                                  ) === "video" ? (
+                                    <video
+                                      src={property.img_urls?.split(", ")[0]}
+                                      className="w-full h-full object-cover"
+                                      controls
+                                      playsInline
+                                      controlsList="nodownload"
+                                      disablePictureInPicture
+                                      onContextMenu={(e) => e.preventDefault()}
+                                    >
+                                      Your browser does not support the video
+                                      tag.
+                                    </video>
+                                  ) : (
+                                    <img
+                                      src={
+                                        property.img_urls?.split(", ")[0] ||
+                                        "/placeholder.svg"
+                                      }
+                                      alt={property.headline}
+                                      className="w-full h-full object-cover"
+                                      onError={(e) => {
+                                        e.target.src = "/placeholder.svg";
+                                      }}
+                                    />
+                                  )}
+                                </div>
                               </div>
                               <div className="p-2 md:p-4">
                                 <h3 className="text-sm md:text-lg font-semibold mb-1 truncate">

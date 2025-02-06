@@ -15,6 +15,14 @@ import { Link } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import { PropertyType } from "../../lib/PropertyType";
 
+// Helper function to determine media type based on file extension
+const getMediaType = (url) => {
+  if (!url) return "image"; // Default to image if no URL
+  const extension = url.split(".").pop().toLowerCase();
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "m4v"];
+  return videoExtensions.includes(extension) ? "video" : "image";
+};
+
 export default function MarketplacePage() {
   const [showFilters, setShowFilters] = useState(false);
   const [priceRange, setPriceRange] = useState([0, 1000000]);
@@ -100,6 +108,8 @@ export default function MarketplacePage() {
     setSearchTerm("");
     setCurrentPage(1);
   };
+
+  //console.log("currentProperties", currentProperties);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
@@ -268,7 +278,9 @@ export default function MarketplacePage() {
                                 {property.list_type.toLocaleUpperCase()}
                               </span>
                               <div className="relative w-full h-32 md:h-48">
-                                {property.mediaType === "video" ? (
+                                {getMediaType(
+                                  property.img_urls?.split(", ")[0]
+                                ) === "video" ? (
                                   <video
                                     src={property.img_urls?.split(", ")[0]}
                                     className="absolute inset-0 w-full h-full object-cover"

@@ -9,6 +9,14 @@ import { cn } from "../lib/utils";
 import CurrencySymbol from "../lib/CurrencySymbol";
 import PropTypes from "prop-types";
 
+// Helper function to determine media type based on file extension
+const getMediaType = (url) => {
+  if (!url) return "image"; // Default to image if no URL
+  const extension = url.split(".").pop().toLowerCase();
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "m4v"];
+  return videoExtensions.includes(extension) ? "video" : "image";
+};
+
 export function PropertyCard({
   title,
   price,
@@ -17,9 +25,10 @@ export function PropertyCard({
   address,
   city,
   country,
-  mediaType,
 }) {
   const renderMedia = () => {
+    const mediaType = getMediaType(image);
+
     if (mediaType === "video") {
       return (
         <video
@@ -87,10 +96,8 @@ PropertyCard.propTypes = {
   address: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-  mediaType: PropTypes.oneOf(["video", "image"]),
 };
 
 PropertyCard.defaultProps = {
   image: "/placeholder.svg",
-  mediaType: "image",
 };

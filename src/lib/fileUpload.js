@@ -62,9 +62,18 @@ const MIME_TYPE_FALLBACK = {
 
 const getCloudinaryConfig = () => ({
   cloudName: "dttqyhyv5",
-  apiKey: "468958649223754",
   uploadPreset: "propout",
-  uploadUrl: `https://api.cloudinary.com/v1_1/dttqyhyv5/auto/upload`,
+  apiKey: "468958649223754",
+  folder: "property_uploads",
+  resourceType: "auto",
+  multiple: true,
+  maxFileSize: 10485760, // 10MB
+  sources: ["local"],
+  clientAllowedFormats: ["jpg", "jpeg", "png", "gif", "mp4", "mov", "webm"],
+  maxImageWidth: 2000,
+  maxImageHeight: 2000,
+  maxVideoFileSize: 104857600, // 100MB for videos
+  maxVideoLength: 60, // 60 seconds
 });
 
 const validateFile = (fileObj) => {
@@ -274,156 +283,52 @@ const handleUploadMedia = async ({
   concurrentUploads = 3,
 }) => {
   try {
-    const uploadQueue = mediaFiles.map((fileObj) => {
+    const config = getCloudinaryConfig();
+    const validFiles = mediaFiles.filter((media) => media.file !== null);
+
+    if (validFiles.length === 0) {
+      throw new Error("No valid files to upload");
+    }
+
+    const uploadPromises = validFiles.map(async (media) => {
+      const formData = new FormData();
+      formData.append("file", media.file);
+      formData.append("upload_preset", config.uploadPreset);
+      formData.append("cloud_name", config.cloudName);
+      formData.append("folder", config.folder);
+      formData.append("resource_type", "auto");
+
       try {
-        // Ensure proper file object structure
-        const file = fileObj.file;
-        if (!file) {
-          throw new Error(
-            `${UPLOAD_ERRORS.FILE_TYPE}: No file provided in media object`
-          );
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${config.cloudName}/auto/upload`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Upload failed: ${response.statusText}`);
         }
 
-        // Create a properly structured object for validation
-        const validationObj = { file };
-        const typeCategory = validateFile(validationObj);
-
-        // Create chunks after validation
-        const { chunks, totalChunks, uploadId } = createChunks(validationObj);
-
+        const data = await response.json();
         return {
-          chunks,
-          totalChunks,
-          uploadId,
-          id: fileObj.id,
-          file,
-          progress: 0,
-          completedChunks: new Set(),
-          typeCategory,
+          id: media.id,
+          result: data.secure_url,
+          type: data.resource_type,
         };
       } catch (error) {
-        console.error("File validation error:", {
-          file: fileObj?.file?.name,
-          error: error.message,
-        });
-        throw new Error(
-          `File validation failed for "${fileObj?.file?.name}": ${error.message}`
-        );
+        console.error("Upload error:", error);
+        throw error;
       }
     });
 
-    const updateProgress = (uploadId, chunkIndex, totalChunks, progress) => {
-      const upload = uploadQueue.find((u) => u.id === uploadId);
-      if (!upload) return;
-
-      upload.completedChunks.add(chunkIndex);
-      upload.progress = progress;
-
-      const totalProgress = uploadQueue.reduce((sum, u) => sum + u.progress, 0);
-
-      console.log("Progress update:", {
-        uploadId,
-        progress,
-        chunkIndex,
-        totalChunks,
-        completedChunks: upload.completedChunks.size,
-        totalUploadProgress: Math.round(totalProgress / uploadQueue.length),
-      });
-
-      onProgress?.(
-        uploadQueue.map((u) => ({
-          id: u.id,
-          fileName: u.file.name,
-          progress: Math.round(u.progress),
-          type: u.typeCategory,
-        }))
-      );
-    };
-
-    const processUpload = async (upload) => {
-      try {
-        console.log("Starting upload process for:", {
-          fileName: upload.file.name,
-          id: upload.id,
-          chunks: upload.chunks.length,
-        });
-
-        // Upload all chunks
-        const chunkResults = await Promise.all(
-          upload.chunks.map((chunk) =>
-            retryOperation(
-              () =>
-                uploadChunk(
-                  chunk,
-                  upload.file.name,
-                  upload.uploadId,
-                  chunk.index,
-                  upload.chunks.length,
-                  upload.typeCategory,
-                  (chunkIndex, totalChunks, progress) => {
-                    console.log("Chunk upload progress:", {
-                      chunkIndex,
-                      totalChunks,
-                      progress,
-                    });
-                    updateProgress(
-                      upload.id,
-                      chunkIndex,
-                      totalChunks,
-                      progress
-                    );
-                  }
-                ),
-              3,
-              1000
-            )
-          )
-        );
-
-        // Finalize the upload
-        const finalUrl = await finalizeUpload(
-          upload.uploadId,
-          upload.typeCategory
-        );
-
-        return {
-          id: upload.id,
-          fileName: upload.file.name,
-          type: upload.typeCategory,
-          result: finalUrl,
-          chunkResults,
-        };
-      } catch (error) {
-        console.error("Upload process error:", {
-          fileName: upload.file.name,
-          error: error.message,
-          details: error.details,
-        });
-        await cancelUpload(upload.uploadId);
-        throw error;
-      }
-    };
-
-    const results = [];
-    for (let i = 0; i < uploadQueue.length; i += concurrentUploads) {
-      const chunk = uploadQueue.slice(i, i + concurrentUploads);
-      const chunkResults = await Promise.all(chunk.map(processUpload));
-      results.push(...chunkResults);
-    }
-
-    onComplete?.(
-      results.map((r) => ({
-        id: r.id,
-        fileName: r.fileName,
-        type: r.type,
-        result: r.result,
-      }))
-    );
-
+    const results = await Promise.all(uploadPromises);
+    onComplete(results);
     return results;
   } catch (error) {
-    console.error("Upload media error:", error);
-    onError?.(error);
+    console.error("Upload error:", error);
+    onError(error);
     throw error;
   }
 };
