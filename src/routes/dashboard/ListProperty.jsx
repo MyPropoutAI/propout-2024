@@ -268,6 +268,9 @@ const ListProperty = () => {
     try {
       const imagesUri = await handleUploadImages();
 
+      //console.log("db image url", imagesUri);
+
+
       const res = await fetch(
         "https://proput-db-4vtf.onrender.com/new_listing",
         {
@@ -275,6 +278,9 @@ const ListProperty = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...form,
+
+            headline: form._propertyTitle,
+
             property_price: form.price.replace(/,/g, ""),
             img_urls: imagesUri,
             id: decodedUser.id,

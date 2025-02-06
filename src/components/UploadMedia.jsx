@@ -41,12 +41,15 @@ const UploadMedia = ({
       if (!file) return;
 
       try {
-        // Update parent with preview first
-        onFileSelect(event, index);
+
+        // Create object URL for preview
+        const previewUrl = URL.createObjectURL(file);
+        onFileSelect({ target: { files: [file] } }, index);
 
         setUploadStatus(UploadStatus.UPLOADING);
         setErrorMessage("");
-        setUploadProgress(0); // Reset progress
+        setUploadProgress(0);
+
 
         console.log("Starting upload for file:", {
           name: file.name,
@@ -57,20 +60,10 @@ const UploadMedia = ({
 
         await handleUploadMedia({
           mediaFiles: [{ file, id: uploadId }],
-          onProgress: (uploads) => {
-            const current = uploads.find((u) => u.id === uploadId);
-            if (current) {
-              const progress = Math.round(current.progress);
-              console.log("Upload progress update:", {
-                fileName: current.fileName,
-                progress,
-                type: current.type,
-                uploadId,
-              });
-              setUploadProgress(progress);
-            } else {
-              console.warn("No progress data found for uploadId:", uploadId);
-            }
+
+          onProgress: (progress) => {
+            setUploadProgress(progress);
+
           },
           onComplete: (results) => {
             const result = results.find((r) => r.id === uploadId);
@@ -84,12 +77,9 @@ const UploadMedia = ({
               setUploadProgress(100);
               onUploadComplete(result.result, index);
             } else {
-              console.error("Upload completed but no result found:", {
-                uploadId,
-                results,
-              });
-              setUploadStatus(UploadStatus.ERROR);
-              setErrorMessage("Upload completed but no URL returned");
+
+              throw new Error("Upload completed but no URL returned");
+
             }
           },
           onError: (error) => {
@@ -97,11 +87,11 @@ const UploadMedia = ({
               error,
               fileName: file.name,
               uploadId,
-              errorMessage: error.message,
-              errorStack: error.stack,
+
             });
             setUploadStatus(UploadStatus.ERROR);
-            setErrorMessage(error.message);
+            setErrorMessage(error.message || "Upload failed");
+
             setUploadProgress(0);
             onUploadComplete("", index);
           },
@@ -109,13 +99,15 @@ const UploadMedia = ({
       } catch (error) {
         console.error("File upload error:", {
           error,
-          errorMessage: error.message,
-          errorStack: error.stack,
+
+
           fileName: file?.name,
           uploadId,
         });
         setUploadStatus(UploadStatus.ERROR);
-        setErrorMessage(error.message);
+
+        setErrorMessage(error.message || "Upload failed");
+
         setUploadProgress(0);
       }
     },

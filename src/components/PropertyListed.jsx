@@ -16,6 +16,14 @@ import { Link } from "react-router-dom";
 // Assume we have a user context or auth service
 // import { useUser } from "../contexts/UserContext";
 
+// Helper function to determine media type based on file extension
+const getMediaType = (url) => {
+  if (!url) return "image"; // Default to image if no URL
+  const extension = url.split(".").pop().toLowerCase();
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "m4v"];
+  return videoExtensions.includes(extension) ? "video" : "image";
+};
+
 export default function PropertyListing() {
   const [searchTerm, setSearchTerm] = useState("");
   // const [likedProperties, setLikedProperties] = useState({});
@@ -132,7 +140,10 @@ export default function PropertyListing() {
                       {property.list_type.toLocaleUpperCase()}
                     </span>
                     <div className="relative w-full h-48">
-                      {property.mediaType === "video" ? (
+
+                      {getMediaType(property.img_urls?.split(", ")[0]) ===
+                      "video" ? (
+
                         <video
                           src={property.img_urls?.split(", ")[0]}
                           className="absolute inset-0 w-full h-full object-cover"

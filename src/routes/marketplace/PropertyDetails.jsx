@@ -21,6 +21,8 @@ import {
   Linkedin,
   Twitter,
   Facebook,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useGetProperties } from "../../contexts/hooks/useProperty";
@@ -33,6 +35,14 @@ import { useDispatch } from "react-redux";
 import { openInspectionModal } from "../../redux/features/inspectionSlice";
 import { InspectionModal } from "../../components/InspectionModal";
 import { Button } from "../../components/ui/button";
+
+// Helper function to determine media type based on file extension
+const getMediaType = (url) => {
+  if (!url) return "image"; // Default to image if no URL
+  const extension = url.split(".").pop().toLowerCase();
+  const videoExtensions = ["mp4", "webm", "ogg", "mov", "m4v"];
+  return videoExtensions.includes(extension) ? "video" : "image";
+};
 
 export default function PropertyDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,6 +58,9 @@ export default function PropertyDetails() {
   const [directions, setDirections] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const dispatch = useDispatch();
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -194,6 +207,50 @@ export default function PropertyDetails() {
     );
   };
 
+  // Update the media rendering section:
+  const renderMedia = (url) => {
+    const mediaType = getMediaType(url);
+
+    if (mediaType === "video") {
+      return (
+        <video
+          src={url}
+          className="w-full h-full object-cover"
+          controls
+          playsInline
+          controlsList="nodownload"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
+        >
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+
+    return (
+      <img
+        src={url || "/placeholder.svg"}
+        alt="Property"
+        className="w-full h-full object-cover"
+        onError={(e) => {
+          e.target.src = "/placeholder.svg";
+        }}
+      />
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? property?.img_urls.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) =>
+      prev === property?.img_urls.length - 1 ? 0 : prev + 1
+    );
+  };
+
   // Loading state
   if (isLoading) {
     return (
@@ -216,7 +273,7 @@ export default function PropertyDetails() {
   const safeProperty = {
     agent_id: property?.agent_id || "N/A",
     list_type: property?.list_type || "N/A",
-    img_urls: property?.img_urls || "/placeholder.svg",
+    img_urls: property?.img_urls?.split(", ") || [],
     headline: property?.headline || "No Headline",
     address: property?.address || "No Address",
     city: property?.city || "Unknown",
@@ -280,71 +337,48 @@ export default function PropertyDetails() {
               {safeProperty.list_type.toLocaleUpperCase()}
             </span>
             {/* Main Image */}
-            <div className="relative h-[400px] lg:h-[500px] mb-8">
-              {property.mediaType === "video" ? (
-                <video
-                  src={safeProperty.img_urls?.split(", ")[0]}
-                  className="rounded-lg w-full h-full object-cover"
-                  controls
-                  playsInline
-                  controlsList="nodownload"
-                  disablePictureInPicture
-                  onContextMenu={(e) => e.preventDefault()}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              ) : (
-                <img
-                  src={safeProperty.img_urls?.split(", ")[0]}
-                  alt={safeProperty.headline}
-                  className="rounded-lg w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.src = "/placeholder.svg";
-                  }}
-                />
-              )}
-            </div>
 
-            {/* Image Gallery */}
-            <div
-              className="overflow-x-auto mb-12 [&::-webkit-scrollbar]:w-2 
-  [&::-webkit-scrollbar-track]:bg-gray-100 
-  [&::-webkit-scrollbar-thumb]:bg-gray-300 
-  [&::-webkit-scrollbar-thumb:hover]:bg-gray-400"
-            >
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 min-w-full">
-                {safeProperty.img_urls
-                  .split(", ")
-                  .filter((item) => item.trim() !== "")
-                  .map((media, index) => (
-                    <div
-                      key={media}
-                      className="relative h-24 border shadow-sm rounded-md flex-shrink-0"
-                    >
-                      {property.mediaType === "video" ? (
-                        <video
-                          src={media}
-                          className="rounded-md w-full h-full object-cover"
-                          muted
-                          playsInline
-                          controlsList="nodownload"
-                          disablePictureInPicture
-                          onContextMenu={(e) => e.preventDefault()}
-                        >
-                          Your browser does not support the video tag.
-                        </video>
-                      ) : (
-                        <img
-                          src={media}
-                          alt={`${safeProperty.headline} - Image ${index + 1}`}
-                          className="rounded-md w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.src = "/placeholder.svg";
-                          }}
-                        />
-                      )}
+            <div className="mb-8">
+              {/* Main Media Display */}
+              <div className="relative aspect-[16/9] w-full mb-4 bg-gray-100 rounded-lg overflow-hidden">
+                {safeProperty.img_urls && safeProperty.img_urls.length > 0 && (
+                  <>
+                    <div className="absolute inset-0">
+                      {renderMedia(safeProperty.img_urls[currentImageIndex])}
                     </div>
-                  ))}
+
+                    {/* Navigation Arrows */}
+                    <button
+                      onClick={handlePrevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors"
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </button>
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full transition-colors"
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Thumbnails Row */}
+              <div className="grid grid-cols-4 gap-4">
+                {safeProperty.img_urls?.slice(0, 4).map((url, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={cn(
+                      "relative aspect-square rounded-lg overflow-hidden",
+                      currentImageIndex === index && "ring-2 ring-purple-600"
+                    )}
+                  >
+                    <div className="absolute inset-0">{renderMedia(url)}</div>
+                  </button>
+                ))}
+
               </div>
             </div>
 
