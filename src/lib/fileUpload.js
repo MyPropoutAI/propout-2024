@@ -62,6 +62,7 @@ const MIME_TYPE_FALLBACK = {
 
 const getCloudinaryConfig = () => ({
   cloudName: "dttqyhyv5",
+
   uploadPreset: "propout",
   apiKey: "468958649223754",
   folder: "property_uploads",
@@ -74,6 +75,7 @@ const getCloudinaryConfig = () => ({
   maxImageHeight: 2000,
   maxVideoFileSize: 104857600, // 100MB for videos
   maxVideoLength: 60, // 60 seconds
+
 });
 
 const validateFile = (fileObj) => {
@@ -283,6 +285,7 @@ const handleUploadMedia = async ({
   concurrentUploads = 3,
 }) => {
   try {
+
     const config = getCloudinaryConfig();
     const validFiles = mediaFiles.filter((media) => media.file !== null);
 
@@ -329,6 +332,7 @@ const handleUploadMedia = async ({
   } catch (error) {
     console.error("Upload error:", error);
     onError(error);
+
     throw error;
   }
 };

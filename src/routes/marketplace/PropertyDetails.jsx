@@ -58,7 +58,9 @@ export default function PropertyDetails() {
   const [directions, setDirections] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const dispatch = useDispatch();
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -335,6 +337,7 @@ export default function PropertyDetails() {
               {safeProperty.list_type.toLocaleUpperCase()}
             </span>
             {/* Main Image */}
+
             <div className="mb-8">
               {/* Main Media Display */}
               <div className="relative aspect-[16/9] w-full mb-4 bg-gray-100 rounded-lg overflow-hidden">
@@ -375,6 +378,7 @@ export default function PropertyDetails() {
                     <div className="absolute inset-0">{renderMedia(url)}</div>
                   </button>
                 ))}
+
               </div>
             </div>
 

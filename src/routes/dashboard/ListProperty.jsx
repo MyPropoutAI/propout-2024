@@ -267,7 +267,9 @@ const ListProperty = () => {
     setIsLoading(true);
     try {
       const imagesUri = await handleUploadImages();
+
       //console.log("db image url", imagesUri);
+
 
       const res = await fetch(
         "https://proput-db-4vtf.onrender.com/new_listing",
@@ -276,22 +278,12 @@ const ListProperty = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             ...form,
+
             headline: form._propertyTitle,
+
             property_price: form.price.replace(/,/g, ""),
             img_urls: imagesUri,
-            room_spec: form._property_spec,
-            description: form._description,
             id: decodedUser.id,
-            square_ft: form._square,
-            type: form._property_type,
-            address: form._propertyAddress,
-            city: form._city,
-            country: form._country,
-            listType: form.listType,
-            bathroom: form._bathroom,
-            isLand: form.isLand,
-            inspection_availability: form.availability,
-            parking_space: form._parking_space,
           }),
         }
       );

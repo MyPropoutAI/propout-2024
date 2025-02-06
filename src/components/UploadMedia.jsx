@@ -41,6 +41,7 @@ const UploadMedia = ({
       if (!file) return;
 
       try {
+
         // Create object URL for preview
         const previewUrl = URL.createObjectURL(file);
         onFileSelect({ target: { files: [file] } }, index);
@@ -48,6 +49,7 @@ const UploadMedia = ({
         setUploadStatus(UploadStatus.UPLOADING);
         setErrorMessage("");
         setUploadProgress(0);
+
 
         console.log("Starting upload for file:", {
           name: file.name,
@@ -58,8 +60,10 @@ const UploadMedia = ({
 
         await handleUploadMedia({
           mediaFiles: [{ file, id: uploadId }],
+
           onProgress: (progress) => {
             setUploadProgress(progress);
+
           },
           onComplete: (results) => {
             const result = results.find((r) => r.id === uploadId);
@@ -73,7 +77,9 @@ const UploadMedia = ({
               setUploadProgress(100);
               onUploadComplete(result.result, index);
             } else {
+
               throw new Error("Upload completed but no URL returned");
+
             }
           },
           onError: (error) => {
@@ -81,9 +87,11 @@ const UploadMedia = ({
               error,
               fileName: file.name,
               uploadId,
+
             });
             setUploadStatus(UploadStatus.ERROR);
             setErrorMessage(error.message || "Upload failed");
+
             setUploadProgress(0);
             onUploadComplete("", index);
           },
@@ -91,11 +99,15 @@ const UploadMedia = ({
       } catch (error) {
         console.error("File upload error:", {
           error,
+
+
           fileName: file?.name,
           uploadId,
         });
         setUploadStatus(UploadStatus.ERROR);
+
         setErrorMessage(error.message || "Upload failed");
+
         setUploadProgress(0);
       }
     },

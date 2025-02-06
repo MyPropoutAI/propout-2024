@@ -140,8 +140,10 @@ export default function PropertyListing() {
                       {property.list_type.toLocaleUpperCase()}
                     </span>
                     <div className="relative w-full h-48">
+
                       {getMediaType(property.img_urls?.split(", ")[0]) ===
                       "video" ? (
+
                         <video
                           src={property.img_urls?.split(", ")[0]}
                           className="absolute inset-0 w-full h-full object-cover"
