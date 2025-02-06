@@ -6,6 +6,22 @@ import { useGetProperties } from "../../contexts/hooks/useProperty";
 
 const ITEMS_PER_PAGE = 9;
 
+// Helper functions to mask sensitive information
+const maskPhoneNumber = (phone) => {
+  if (!phone) return "";
+  const firstFour = phone.slice(0, 4);
+  const remaining = phone.slice(4);
+  return `${firstFour}${"*".repeat(remaining.length)}`;
+};
+
+const maskEmail = (email) => {
+  if (!email) return "";
+  const firstFive = email.slice(0, 5);
+  const [username, domain] = email.split("@");
+  const maskedUsername = username.slice(5);
+  return `${firstFive}${"*".repeat(maskedUsername.length)}@${domain}`;
+};
+
 export default function AgentDirectory() {
   const [agents, setAgents] = useState([]);
   const [filteredAgents, setFilteredAgents] = useState([]);
@@ -146,10 +162,10 @@ export default function AgentDirectory() {
 
                 <div className="space-y-1">
                   <p className="text-gray-600 text-sm truncate">
-                    {agent.email_address}
+                    {maskEmail(agent.email_address)}
                   </p>
                   <p className="text-gray-600 text-sm truncate">
-                    {agent.phone_number}
+                    {maskPhoneNumber(agent.phone_number)}
                   </p>
                   <p className="text-purple-600 text-sm font-medium truncate">
                     {agent.address}

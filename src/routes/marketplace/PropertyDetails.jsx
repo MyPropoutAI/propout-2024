@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import {
   GoogleMap,
-  LoadScript,
   Marker,
   DirectionsRenderer,
   useJsApiLoader,
@@ -48,6 +47,7 @@ export default function PropertyDetails() {
   const [coordinates, setCoordinates] = useState(null);
   const [directions, setDirections] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
+  const dispatch = useDispatch();
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -55,14 +55,12 @@ export default function PropertyDetails() {
     libraries: ["places"],
   });
 
-  const [map, setMap] = useState(null);
-
   const onLoad = useCallback((map) => {
-    setMap(map);
+    // Keep any necessary map initialization logic
   }, []);
 
   const onUnmount = useCallback(() => {
-    setMap(null);
+    // Keep any necessary cleanup logic
   }, []);
 
   // Map container styles
@@ -256,7 +254,6 @@ export default function PropertyDetails() {
     setModalContent(null);
   };
 
-  const dispatch = useDispatch();
   //console.log(property?.inspection_availability)
   const handleInspectionRequest = () => {
     //console.log('Opening inspection modal...');
@@ -284,11 +281,28 @@ export default function PropertyDetails() {
             </span>
             {/* Main Image */}
             <div className="relative h-[400px] lg:h-[500px] mb-8">
-              <img
-                src={safeProperty.img_urls?.split(", ")[0]}
-                alt="The Crystal Hyatt Place"
-                className="rounded-lg w-full h-full object-cover"
-              />
+              {property.mediaType === "video" ? (
+                <video
+                  src={safeProperty.img_urls?.split(", ")[0]}
+                  className="rounded-lg w-full h-full object-cover"
+                  controls
+                  playsInline
+                  controlsList="nodownload"
+                  disablePictureInPicture
+                  onContextMenu={(e) => e.preventDefault()}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <img
+                  src={safeProperty.img_urls?.split(", ")[0]}
+                  alt={safeProperty.headline}
+                  className="rounded-lg w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src = "/placeholder.svg";
+                  }}
+                />
+              )}
             </div>
 
             {/* Image Gallery */}
@@ -302,16 +316,33 @@ export default function PropertyDetails() {
                 {safeProperty.img_urls
                   .split(", ")
                   .filter((item) => item.trim() !== "")
-                  .map((img) => (
+                  .map((media, index) => (
                     <div
-                      key={img}
+                      key={media}
                       className="relative h-24 border shadow-sm rounded-md flex-shrink-0"
                     >
-                      <img
-                        src={img}
-                        alt={`Interior`}
-                        className="rounded-md w-full h-full object-cover"
-                      />
+                      {property.mediaType === "video" ? (
+                        <video
+                          src={media}
+                          className="rounded-md w-full h-full object-cover"
+                          muted
+                          playsInline
+                          controlsList="nodownload"
+                          disablePictureInPicture
+                          onContextMenu={(e) => e.preventDefault()}
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <img
+                          src={media}
+                          alt={`${safeProperty.headline} - Image ${index + 1}`}
+                          className="rounded-md w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.src = "/placeholder.svg";
+                          }}
+                        />
+                      )}
                     </div>
                   ))}
               </div>

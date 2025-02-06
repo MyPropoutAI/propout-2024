@@ -16,7 +16,6 @@ export default function HomeHero() {
       {/* Purple Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/90 to-blue-600/70"></div>
 
-
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 sm:px-6 lg:px-8">
         <motion.h1
@@ -31,7 +30,6 @@ export default function HomeHero() {
           </span>
         </motion.h1>
 
-
         <motion.p
           className="text-md sm:text-xl text-white mb-8 max-w-3xl"
           initial={{ opacity: 0 }}
@@ -43,7 +41,6 @@ export default function HomeHero() {
           AI-powered market insights at your fingertips.
         </motion.p>
 
-
         <motion.div
           className="flex flex-col sm:flex-row gap-4"
           initial={{ opacity: 0, y: 50 }}
@@ -51,22 +48,21 @@ export default function HomeHero() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <Link to={"/dashboard/list"}>
-            <Button size="lg" variant="default">
-              Explore Listings
+            <Button size="lg" variant="outline">
+              List Property
             </Button>
           </Link>
           <Link to={"/marketplace"}>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="default">
               Buy Properties
             </Button>
           </Link>
           <Link to={"/agents"}>
-            <Button size="lg" variant="secondary">
-              Agents
+            <Button size="lg" variant="outline">
+              Contact Agents
             </Button>
           </Link>
         </motion.div>
-
       </div>
     </div>
   );

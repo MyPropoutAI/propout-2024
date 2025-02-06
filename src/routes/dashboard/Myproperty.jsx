@@ -13,6 +13,8 @@ import {
   DollarSign,
   Trash2,
   MoreHorizontal,
+  Rocket,
+  Signpost,
 } from "lucide-react";
 
 import {
@@ -91,6 +93,10 @@ const MyProperties = () => {
     );
   };
 
+  const handleBoostProperty = (propertyId) => {
+    navigate(`/dashboard/ads/${propertyId}`);
+  };
+
   const handleToggleStatus = (propertyId) => {
     console.log("Toggling status for property:", propertyId);
     toast.info("Toggle status functionality not implemented yet");
@@ -157,8 +163,12 @@ const MyProperties = () => {
           <span>Edit</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleGenerateFlyer(property.id)}>
-          <Edit className="mr-2 h-4 w-4" />
+          <Signpost className="mr-2 h-4 w-4" />
           <span>Generate Flyer</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleBoostProperty(property.id)}>
+          <Rocket className="mr-2 h-4 w-4" />
+          <span>Boost this property </span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleToggleStatus(property.id)}>
           {property.status === "Disabled" ? (
