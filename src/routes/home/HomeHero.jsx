@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
+
 export default function HomeHero() {
   return (
     <div className="relative h-screen w-full overflow-hidden">
@@ -30,6 +31,12 @@ export default function HomeHero() {
           </span>
         </motion.h1>
 
+
+
+
+
+
+
         <motion.p
           className="text-md sm:text-xl text-white mb-8 max-w-3xl"
           initial={{ opacity: 0 }}
@@ -41,6 +48,10 @@ export default function HomeHero() {
           AI-powered market insights at your fingertips.
         </motion.p>
 
+
+
+
+
         <motion.div
           className="flex flex-col sm:flex-row gap-4"
           initial={{ opacity: 0, y: 50 }}
@@ -48,21 +59,28 @@ export default function HomeHero() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <Link to={"/dashboard/list"}>
+
             <Button size="lg" variant="outline">
               List Property
             </Button>
           </Link>
           <Link to={"/marketplace"}>
             <Button size="lg" variant="default">
+
+
               Buy Properties
             </Button>
           </Link>
           <Link to={"/agents"}>
+
             <Button size="lg" variant="outline">
               Contact Agents
             </Button>
           </Link>
         </motion.div>
+
+
+
       </div>
     </div>
   );

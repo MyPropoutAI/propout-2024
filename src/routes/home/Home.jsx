@@ -11,7 +11,9 @@ import WhatPropOutIsFor from "../../components/WhatPropoutIsFor";
 // import { HomeHero } from "./HomeHero";
 //import Mobilesneak from "./Mobilesneak";
 import HomeHero from "./HomeHero";
+
 import { AdsCarousel } from "../../components/Carosel";
+
 const Home = () => {
   return (
     <div className="">
