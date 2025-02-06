@@ -61,31 +61,31 @@ const mobileNav = [
   //   path: "/dashboard/stake",
   //   img: "/images/stake.svg",
   // },
-  {
-    name: "Task",
-    path: "/dashboard/task",
-    img: "/images/task.svg",
-  },
-  {
-    name: " Refer a friend",
-    path: "/dashboard/referral",
-    img: "/images/refer.svg",
-  },
+  // {
+  //   name: "Task",
+  //   path: "/dashboard/task",
+  //   img: "/images/task.svg",
+  // },
+  // {
+  //   name: " Refer a friend",
+  //   path: "/dashboard/referral",
+  //   img: "/images/refer.svg",
+  // },
   {
     name: "Settings",
     path: "/dashboard/setting",
     img: "/images/setting.svg",
   },
   // { name: "Faucet", path: "/home/testnet/faucet", state: true },
-  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
-  {
-    name: "Join the waitlist",
-    path: "http://waitlist-propout.onrender.com",
-    state: true,
-  },
+  // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+  // {
+  //   name: "Join the waitlist",
+  //   path: "http://waitlist-propout.onrender.com",
+  //   state: true,
+  // },
   {
     name: "Agents",
-    path: "/agent",
+    path: "/agents",
     state: true,
   },
 ];

@@ -123,7 +123,7 @@ export default function PropertyListing() {
                   <div className="relative bg-white rounded-lg shadow-md overflow-hidden">
                     <span
                       className={cn(
-                        "absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold",
+                        "absolute py-2 px-5 top-0 right-0 bg-[#0EFC25] text-white font-semibold z-10",
                         property.list_type === "Sell"
                           ? "bg-blue-900"
                           : "bg-[#0EFC25]"
@@ -131,13 +131,33 @@ export default function PropertyListing() {
                     >
                       {property.list_type.toLocaleUpperCase()}
                     </span>
-                    <img
-                      src={
-                        property.img_urls?.split(", ")[0] || "/placeholder.svg"
-                      }
-                      alt={property.headline}
-                      className="w-full h-48 object-cover"
-                    />
+                    <div className="relative w-full h-48">
+                      {property.mediaType === "video" ? (
+                        <video
+                          src={property.img_urls?.split(", ")[0]}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          controls
+                          playsInline
+                          controlsList="nodownload"
+                          disablePictureInPicture
+                          onContextMenu={(e) => e.preventDefault()}
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <img
+                          src={
+                            property.img_urls?.split(", ")[0] ||
+                            "/placeholder.svg"
+                          }
+                          alt={property.headline}
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.src = "/placeholder.svg";
+                          }}
+                        />
+                      )}
+                    </div>
                     <div className="p-4">
                       <h3 className="text-lg font-semibold mb-1 truncate">
                         {property.headline}

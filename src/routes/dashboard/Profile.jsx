@@ -33,6 +33,22 @@ import { usePropertyDetails } from "../../contexts/hooks/useGetOneUserProperties
 import ReferralCodeCopy from "../../components/RefferalCode";
 //import { useNavigate } from "react-router-dom";
 
+// Helper functions to mask sensitive information
+const maskPhoneNumber = (phone) => {
+  if (!phone) return "";
+  const firstFour = phone.slice(0, 4);
+  const remaining = phone.slice(4);
+  return `${firstFour}${"*".repeat(remaining.length)}`;
+};
+
+const maskEmail = (email) => {
+  if (!email) return "";
+  const firstFive = email.slice(0, 5);
+  const [username, domain] = email.split("@");
+  const maskedUsername = username.slice(5);
+  return `${firstFive}${"*".repeat(maskedUsername.length)}@${domain}`;
+};
+
 export default function AgentProfile() {
   const [userData, setUserData] = useState(null);
   const [agentProperties, setAgentProperties] = useState([]);
@@ -161,11 +177,15 @@ export default function AgentProfile() {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-6 w-6 text-purple-600" />
-                <span className="text-gray-600">{userData.phone_number}</span>
+                <span className="text-gray-600">
+                  {maskPhoneNumber(userData.phone_number)}
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-6 w-6 text-purple-600" />
-                <span className="text-gray-600">{userData.email_address}</span>
+                <span className="text-gray-600">
+                  {maskEmail(userData.email_address)}
+                </span>
               </div>
             </div>
 
@@ -231,9 +251,13 @@ export default function AgentProfile() {
             <div className="w-full flex items-center justify-center">
               <FidgetSpinner />
             </div>
+          ) : !safeProperty?.listing ? (
+            <div className="text-center py-10 text-gray-500">
+              No properties found for this agent.
+            </div>
           ) : (
             <div className="grid grid-cols-2  md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
-              {safeProperty?.listing.map((property, index) => (
+              {safeProperty.listing.map((property, index) => (
                 <motion.div
                   key={property.id || index}
                   initial={{ opacity: 0, y: 20 }}

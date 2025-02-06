@@ -4,7 +4,7 @@ import Features from "../../components/Features";
 import HowItWorks from "../../components/HowItWorks";
 import Newsletter from "../../components/NewsLetter";
 import Partners from "../../components/Partners";
-import PropertyCarousel from "../../components/PropertyCarousel";
+//import PropertyCarousel from "../../components/PropertyCarousel";
 import PropertyListing from "../../components/PropertyListed";
 import WhatPropOutIsFor from "../../components/WhatPropoutIsFor";
 //import Builtfor from "./Builtfor";
@@ -12,12 +12,14 @@ import WhatPropOutIsFor from "../../components/WhatPropoutIsFor";
 //import Mobilesneak from "./Mobilesneak";
 import HomeHero from "./HomeHero";
 
+import { AdsCarousel } from "../../components/Carosel";
+
 const Home = () => {
   return (
     <div className="">
       <HomeHero />
       <div className="">
-        <PropertyCarousel />
+        <AdsCarousel />
       </div>
       <PropertyListing />
       <HowItWorks />

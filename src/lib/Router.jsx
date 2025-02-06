@@ -60,6 +60,7 @@ import WhitepaperContent from "../routes/WhitePapper";
 import TestnetActivities from "../routes/Airdrop";
 import EditProperty from "../routes/dashboard/EditProperty";
 import MyStorePage from "../routes/marketplace/MyStore";
+import SponseredAdsPage from "../routes/dashboard/AdsScreen";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -191,6 +192,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/mint-nft",
         element: <MintNft />,
+      },
+      {
+        path: "/dashboard/ads/:id",
+        element: <SponseredAdsPage />,
       },
       {
         path: "/dashboard/setting",
