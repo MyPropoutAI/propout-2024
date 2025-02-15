@@ -6,7 +6,7 @@ const features = [
   {
     title: "Secure Transactions",
     description:
-      "Blockchain-powered security ensures your property deals are tamper-proof and transparent.",
+      "AI-powered security ensures your property deals are tamper-proof and transparent.",
     icon: Shield,
   },
   {
