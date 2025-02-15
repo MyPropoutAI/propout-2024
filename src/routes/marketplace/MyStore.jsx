@@ -280,6 +280,7 @@ export default function MyStorePage() {
                             key={property.id}
                             className="block"
                           >
+
                             <div className="bg-white rounded-lg shadow-md overflow-hidden">
                               <div className="relative">
                                 <span
@@ -322,6 +323,7 @@ export default function MyStorePage() {
                                     />
                                   )}
                                 </div>
+
                               </div>
                               <div className="p-2 md:p-4">
                                 <h3 className="text-sm md:text-lg font-semibold mb-1 truncate">
