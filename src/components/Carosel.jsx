@@ -95,7 +95,7 @@ export function AdsCarousel() {
             carousel.offsetHeight;
             carousel.style.transition = "transform 500ms ease-in-out";
           }
-        }, 500);
+        }, 300);
       }
       return nextIndex;
     });
@@ -114,7 +114,7 @@ export function AdsCarousel() {
             carousel.offsetHeight;
             carousel.style.transition = "transform 500ms ease-in-out";
           }
-        }, 500);
+        }, 300);
         return listedProperties.length;
       }
       return prevIndex - 1;
@@ -122,7 +122,7 @@ export function AdsCarousel() {
   }, [listedProperties.length]);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 1000);
     return () => clearInterval(interval);
   }, [nextSlide]);
 
