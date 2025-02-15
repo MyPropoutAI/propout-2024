@@ -65,36 +65,38 @@ export default function CounterDisplay() {
   const totalProperties = listedProperties.length;
   const totalUsers = agentsData?.length;
   return (
-    <div className="p-4 space-y-4 bg-purple-900 min-h-[20rem]">
-      <h1 className="text-3xl font-bold text-center mb-8 text-white">
-        Our Numbers
-      </h1>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Counter
-          endValue={totalUsers}
-          duration={2000}
-          title="Total Users"
-          icon={<Users className="h-4 w-4 text-muted-foreground" />}
-        />
-        <Counter
-          endValue={10}
-          duration={2000}
-          title="Total Transactions"
-          icon={<CreditCard className="h-4 w-4 text-muted-foreground" />}
-        />
-        <Counter
-          endValue={totalProperties}
-          duration={2000}
-          title="Total Properties"
-          icon={<Home className="h-4 w-4 text-muted-foreground" />}
-        />
-        <Counter
-          endValue={50}
-          duration={2000}
-          title="Total Property Requests"
-          icon={<GitPullRequest className="h-4 w-4 text-muted-foreground" />}
-        />
+    <section className="p-4 space-y-4 bg-purple-900 min-h-[20rem]">
+      <div className="p-4 space-y-4  container mx-auto">
+        <h1 className="text-3xl font-bold text-center mb-8 text-white">
+          Our Numbers
+        </h1>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Counter
+            endValue={totalUsers}
+            duration={2000}
+            title="Total Users"
+            icon={<Users className="h-4 w-4 text-muted-foreground" />}
+          />
+          <Counter
+            endValue={10}
+            duration={2000}
+            title="Total Transactions"
+            icon={<CreditCard className="h-4 w-4 text-muted-foreground" />}
+          />
+          <Counter
+            endValue={totalProperties}
+            duration={2000}
+            title="Total Properties"
+            icon={<Home className="h-4 w-4 text-muted-foreground" />}
+          />
+          <Counter
+            endValue={50}
+            duration={2000}
+            title="Total Property Requests"
+            icon={<GitPullRequest className="h-4 w-4 text-muted-foreground" />}
+          />
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
