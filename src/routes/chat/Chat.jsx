@@ -80,11 +80,13 @@ export default function Chat() {
     console.log("Agreement signed");
     setIsOpen(false);
   };
-
+  const API_URL = (
+    import.meta.env.VITE_API_URL_CHAT || "http://localhost:3001"
+  ).replace(/\/$/, "");
   // Socket Connection and Event Handling
   useEffect(() => {
     // Create Socket Connection
-    const newSocket = io("https://propout-chat-server.onrender.com", {
+    const newSocket = io(API_URL, {
       auth: {
         token: user, // Optional: pass user token for authentication
       },

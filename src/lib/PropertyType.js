@@ -5,6 +5,7 @@ export const PropertyType = [
   "Hostels",
   "Office space",
   "Short lets",
+  "land",
   "Others",
 ];
 

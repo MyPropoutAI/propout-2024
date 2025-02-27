@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { PropertyType } from "../lib/PropertyType";
 
 const formatNumberWithCommas = (value) => {
   if (!value) return "";
@@ -97,6 +98,7 @@ export function PropertyRequestForm() {
       throw error;
     }
   };
+  //console.log(PropertyType);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
@@ -181,7 +183,7 @@ export function PropertyRequestForm() {
 
   return (
     <>
-      <Dialog className="bg-white" open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog className="bg-white " open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             className="fixed left-4 bottom-4 z-[100] rounded-md py-2 px-4 bg-purple-800"
@@ -191,7 +193,7 @@ export function PropertyRequestForm() {
             <Plus className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] bg-white">
+        <DialogContent className="sm:max-w-[425px] bg-white z-[200]">
           <DialogHeader>
             <DialogTitle>Add Property Request</DialogTitle>
           </DialogHeader>
@@ -265,11 +267,12 @@ export function PropertyRequestForm() {
                           <SelectValue placeholder="Select property type" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="apartment">Apartment</SelectItem>
-                        <SelectItem value="house">House</SelectItem>
-                        <SelectItem value="condo">Condo</SelectItem>
-                        <SelectItem value="townhouse">Townhouse</SelectItem>
+                      <SelectContent className="z-[300]">
+                        {PropertyType.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
