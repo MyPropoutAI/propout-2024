@@ -55,7 +55,7 @@ const LandingPageNav = () => {
 
   const userAvartar = decodedUser?.name.substring(0, 2);
   return (
-    <div className="bg-purple-900 sticky top-0 z-20">
+    <div className="bg-purple-900 sticky top-0 z-50">
       <Wrapper>
         <div className="flex justify-between items-center text-white">
           <Link to="/">
