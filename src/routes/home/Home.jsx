@@ -190,7 +190,7 @@ export default function Home() {
                           variant="outline"
                           className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
                         >
-                          Sell Properties
+                          Rent Properties
                         </Button>
                       </Link>
                       <Link to={"/marketplace"}>
