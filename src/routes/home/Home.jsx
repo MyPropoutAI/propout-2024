@@ -1,4 +1,4 @@
-import { Search, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 // import {
@@ -50,60 +50,169 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-white">
       <main className="flex-1">
         {/* Mobile Hero Section */}
-        <section className="md:hidden py-8 px-4 bg-white">
-          <motion.div
-            className="space-y-6"
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-          >
-            <h1 className="text-2xl font-bold">
-              Find Your Dream Property in Africa
-            </h1>
-            <p className="text-sm text-gray-500">
-              Your trusted partner for African real estate investments
-            </p>
+        <section className="md:hidden relative min-h-[90vh] overflow-hidden">
+          {/* Video Background */}
+          <div className="absolute inset-0 w-full h-full z-0">
+            <video
+              autoPlay
+              muted
+              playsInline
+              loop
+              className="object-cover w-full h-full"
+            >
+              <source src="/video/hero1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/80 via-[#000000]/60 to-transparent z-10"></div>
+          </div>
 
-            <div className="flex flex-col gap-3">
-              <Tabs defaultValue="rent" className="w-full">
-                <TabsList className="grid grid-cols-3 mb-4">
-                  <TabsTrigger value="rent" className="text-sm">
-                    Rent
-                  </TabsTrigger>
-                  <TabsTrigger value="buy" className="text-sm">
-                    Buy
-                  </TabsTrigger>
-                  <TabsTrigger value="sell" className="text-sm">
-                    Sell
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+          {/* Content */}
+          <div className="relative z-20 h-full flex items-center">
+            <div className="w-full px-4">
+              <motion.div
+                className="space-y-6 text-white"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <motion.h1
+                  className="text-3xl font-bold leading-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  Find Your Dream Property in Africa
+                </motion.h1>
 
-              <div className="relative">
-                <Input placeholder="Barcelona, Spain" className="pl-10" />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-              </div>
-              <Link to={"/marketplace"}>
-                <Button className="w-full bg-[#7065F0] hover:bg-[#5D55D0]">
-                  Browse Properties
-                </Button>
-              </Link>
+                <motion.p
+                  className="text-base text-white/80"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  Your trusted partner for African real estate investments
+                </motion.p>
+
+                <motion.div
+                  className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 shadow-xl"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.6 }}
+                >
+                  <Tabs defaultValue="rent" className="w-full">
+                    <TabsList className="grid grid-cols-3 mb-6 bg-white/10">
+                      <TabsTrigger
+                        value="rent"
+                        className="text-white data-[state=active]:bg-purple-900 data-[state=active]:text-white"
+                      >
+                        Rent
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="buy"
+                        className="text-white data-[state=active]:bg-purple-900 data-[state=active]:text-white"
+                      >
+                        Buy
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="sell"
+                        className="text-white data-[state=active]:bg-purple-900 data-[state=active]:text-white"
+                      >
+                        Sell
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    <Link to={"/marketplace"}>
+                      <Button
+                        variant="outline"
+                        className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
+                      >
+                        Rent Properties
+                      </Button>
+                    </Link>
+                    <Link to={"/marketplace"}>
+                      <Button
+                        variant="outline"
+                        className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
+                      >
+                        Buy Properties
+                      </Button>
+                    </Link>
+                    <Link to={"/dashboard/list"}>
+                      <Button className="w-full bg-purple-900 hover:bg-[#5D55D0]">
+                        List Properties
+                      </Button>
+                    </Link>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="grid grid-cols-2 gap-4 pt-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 1 }}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 1.1 }}
+                    className="bg-white/10 backdrop-blur-sm p-3 rounded-lg"
+                  >
+                    <div className="text-purple-300 text-xl font-bold">
+                      10k+
+                    </div>
+                    <div className="text-xs text-white/80">Agents</div>
+                    <div className="text-xs text-white/80">
+                      available to help get the best deals to you
+                    </div>
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 1.2 }}
+                    className="bg-white/10 backdrop-blur-sm p-3 rounded-lg"
+                  >
+                    <div className="text-purple-300 text-xl font-bold">
+                      100k+
+                    </div>
+                    <div className="text-xs text-white/80">properties</div>
+                    <div className="text-xs text-white/80">
+                      available for transaction in our database
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-4 pt-4">
-              <div>
-                <div className="text-[#7065F0] text-xl font-bold">500k+</div>
-                <div className="text-xs text-gray-500">renters</div>
-                <div className="text-xs text-gray-500">
-                  satisfied in our service
-                </div>
-              </div>
-              <div>
-                <div className="text-[#7065F0] text-xl font-bold">10k+</div>
-                <div className="text-xs text-gray-500">properties</div>
-                <div className="text-xs text-gray-500">
-                  and houses ready for occupancy
-                </div>
+          {/* Animated scroll indicator */}
+          <motion.div
+            className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1,
+              delay: 1.5,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
+          >
+            <div className="flex flex-col items-center text-white">
+              <div className="text-xs font-light mb-1">Scroll to explore</div>
+              <div className="w-5 h-8 border-2 border-white/50 rounded-full flex justify-center">
+                <motion.div
+                  className="w-1 h-1 bg-white rounded-full mt-1.5"
+                  animate={{
+                    y: [0, 10, 0],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                  }}
+                />
               </div>
             </div>
           </motion.div>
@@ -224,9 +333,9 @@ export default function Home() {
                       <div className="text-purple-800 text-3xl font-bold">
                         10k+
                       </div>
-                      <div className="text-sm text-white/80">renters</div>
+                      <div className="text-sm text-white/80">Agents</div>
                       <div className="text-sm text-white/80">
-                        satisfied in our service
+                        available to help get the best deals to you
                       </div>
                     </motion.div>
                     <motion.div
@@ -240,7 +349,7 @@ export default function Home() {
                       </div>
                       <div className="text-sm text-white/80">properties</div>
                       <div className="text-sm text-white/80">
-                        ready for occupancy
+                        available for transaction in our database
                       </div>
                     </motion.div>
                   </motion.div>
