@@ -299,9 +299,7 @@ export default function Home() {
                           variant="outline"
                           className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
                         >
-
                           Rent Properties
-
                         </Button>
                       </Link>
                       <Link to={"/marketplace"}>
@@ -314,7 +312,6 @@ export default function Home() {
                       </Link>
 
                       <Link to={"/dashboard/list"}>
-
                         <Button className="w-full bg-purple-900 hover:bg-[#5D55D0]">
                           List Properties
                         </Button>
@@ -349,9 +346,7 @@ export default function Home() {
                       className="bg-white/10 backdrop-blur-sm p-4 rounded-lg"
                     >
                       <div className="text-purple-800 text-3xl font-bold">
-
                         100k+
-
                       </div>
                       <div className="text-sm text-white/80">properties</div>
                       <div className="text-sm text-white/80">
@@ -376,13 +371,11 @@ export default function Home() {
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full bg-purple-900 flex items-center justify-center text-white text-xl">
-
                           MG
                         </div>
                         <div>
                           <div className="text-sm font-medium">
                             Magdalene Govender
-
                           </div>
                           <div className="text-xs text-gray-500">
                             Real Estate Agent
@@ -487,7 +480,7 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-white ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               className="text-center mb-12 md:hidden"
@@ -509,7 +502,6 @@ export default function Home() {
                   Browse Properties
                 </Button>
               </Link>
-
             </motion.div>
 
             <motion.div
@@ -526,9 +518,11 @@ export default function Home() {
                 Find your dream place to live in with more than 10k+ properties
                 listed.
               </p>
-              <Button className="mt-4  bg-purple-900 hover:bg-[#7065F0]">
-                Browse Properties
-              </Button>
+              <Link to={"/marketplace"}>
+                <Button className="mt-4 bg-purple-900 hover:bg-[#7065F0]">
+                  Browse Properties
+                </Button>
+              </Link>
             </motion.div>
 
             <motion.div
