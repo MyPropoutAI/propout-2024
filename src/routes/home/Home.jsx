@@ -201,7 +201,7 @@ export default function Home() {
                           Buy Properties
                         </Button>
                       </Link>
-                      <Link to={"/marketplace"}>
+                      <Link to={"/dashboard/list"}>
                         <Button className="w-full bg-purple-900 hover:bg-[#5D55D0]">
                           List Properties
                         </Button>
@@ -236,7 +236,7 @@ export default function Home() {
                       className="bg-white/10 backdrop-blur-sm p-4 rounded-lg"
                     >
                       <div className="text-purple-800 text-3xl font-bold">
-                        1k+
+                        100k+
                       </div>
                       <div className="text-sm text-white/80">properties</div>
                       <div className="text-sm text-white/80">
@@ -261,11 +261,11 @@ export default function Home() {
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full bg-purple-900 flex items-center justify-center text-white text-xl">
-                          MV
+                          MG
                         </div>
                         <div>
                           <div className="text-sm font-medium">
-                            Michael Villa
+                            Magdalene Govender
                           </div>
                           <div className="text-xs text-gray-500">
                             Real Estate Agent
@@ -386,9 +386,11 @@ export default function Home() {
                 Find your dream place to live in with more than 10k+ properties
                 listed.
               </p>
-              <Button className="mt-4 bg-purple-900 hover:bg-[#7065F0]">
-                Browse Properties
-              </Button>
+              <Link to={"/marketplace"}>
+                <Button className="mt-4 bg-purple-900 hover:bg-[#7065F0]">
+                  Browse Properties
+                </Button>
+              </Link>
             </motion.div>
 
             <motion.div
