@@ -12,7 +12,7 @@ const PageRoot = () => {
       <div className="bg-white">
         <Outlet />
       </div>
-      <div className="fixed bottom-[4rem]  -translate-y-1/2 right-4">
+      <div className="fixed bottom-[4rem]  -translate-y-1/2 right-4 z-50">
         <Menu />
       </div>
       <PropertyRequestForm />

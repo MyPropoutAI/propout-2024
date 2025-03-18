@@ -19,7 +19,7 @@ const links = [
 
 export function Menu() {
   return (
-    <Sheet>
+    <Sheet className="">
       <SheetTrigger asChild>
         <img
           src="/images/menu.svg"
@@ -28,12 +28,16 @@ export function Menu() {
         />
       </SheetTrigger>
       <SheetContent
-        className="w-[100vw] h-fit bg-[#964CC3] top-20 left-1/2 -translate-x-1/2"
+        className="w-[100vw] h-fit bg-[#964CC3] rounded-md top-20 left-1/2 -translate-x-1/2"
         style={{ minWidth: "80vw" }}
       >
         <div className=" flex flex-col gap-2 justify-center py-6">
           {links.map((link) => (
-            <SheetClose key={link.link} asChild>
+            <SheetClose
+              key={link.link}
+              asChild
+              className="shadow-sm bg-purple-800"
+            >
               <Link
                 to={link.url}
                 className="bg-white p-4 rounded-xl w-2/3 min-w-[320px] mx-auto capitalize"
