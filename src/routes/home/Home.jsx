@@ -127,7 +127,9 @@ export default function Home() {
                     <Link to={"/marketplace"}>
                       <Button
                         variant="outline"
-                        className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
+
+                        className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
+
                       >
                         Rent Properties
                       </Button>
@@ -135,13 +137,17 @@ export default function Home() {
                     <Link to={"/marketplace"}>
                       <Button
                         variant="outline"
-                        className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
+
+                        className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
+
                       >
                         Buy Properties
                       </Button>
                     </Link>
                     <Link to={"/dashboard/list"}>
-                      <Button className="w-full bg-purple-900 hover:bg-[#5D55D0]">
+
+                      <Button className="w-full text-wrap p-2 bg-purple-900 hover:bg-[#5D55D0]">
+
                         List Properties
                       </Button>
                     </Link>
