@@ -9,42 +9,44 @@ import { Connect } from "./ConnectButton";
 import User from "./User";
 const mobileNav = [
   { name: "Home", path: "/" },
-  { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
-
-  { name: "Explore Propout", path: "/list", state: true },
-  { name: "About Us", path: "/about", state: true },
-  {
-    name: "Join the waitlist",
-    path: "http://waitlist-propout.onrender.com",
-    state: true,
-  },
-  {
-    name: "Marketplace",
-    path: "/marketplace",
-    state: true,
-  },
-];
-const navLink = [
-  { name: "Home", path: "/" },
   // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
-  { name: "Explore Propout", path: "/list", state: true },
+  // { name: "Explore Propout", path: "/list", state: true },
+  { name: "ROI Calculator", path: "/roi-calculator", state: true },
   { name: "About Us", path: "/about", state: true },
   // {
   //   name: "Join the waitlist",
   //   path: "http://waitlist-propout.onrender.com",
   //   state: true,
   // },
-  {
-    name: "Marketplace",
-    path: "/marketplace",
-    state: true,
-  },
-  {
-    name: "Agents",
-    path: "/agents",
-    state: true,
-  },
+  // {
+  //   name: "Marketplace",
+  //   path: "/marketplace",
+  //   state: true,
+  // },
+];
+const navLink = [
+  { name: "PBSA", path: "/PBSA" },
+  // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
+
+  // { name: "Explore Propout", path: "/list", state: true },
+  { name: "About Us", path: "/about" },
+  { name: "ROI Calculator", path: "/roicalculator" },
+  // {
+  //   name: "Join the waitlist",
+  //   path: "http://waitlist-propout.onrender.com",
+  //   state: true,
+  // },
+  // {
+  //   name: "Marketplace",
+  //   path: "/marketplace",
+  //   state: true,
+  // },
+  // {
+  //   name: "Agents",
+  //   path: "/agents",
+  //   state: true,
+  // },
 ];
 
 const LandingPageNav = () => {
@@ -102,7 +104,7 @@ const LandingPageNav = () => {
                 </div>
               </div>
             ) : (
-              <Link to="/auth/login">
+              <Link to="/PBSA">
                 <Button className="border border-purple-500 border-solid text-white">
                   Get Started
                 </Button>
