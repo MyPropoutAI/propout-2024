@@ -171,6 +171,7 @@ export default function Home() {
                   </Tabs>
 
                   <div className="grid grid-cols-3 gap-4">
+
                     <Button
                       variant="outline"
                       className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
@@ -191,6 +192,7 @@ export default function Home() {
                     >
                       List Properties
                     </Button>
+
                   </div>
                 </motion.div>
 
