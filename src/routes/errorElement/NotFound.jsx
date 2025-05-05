@@ -1,14 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, forwardRef } from "react";
+import PropTypes from "prop-types";
 import { useRouteError, Link } from "react-router-dom";
 
-export default function NotFound({ reset }) {
+const NotFound = forwardRef(({ reset }, ref) => {
+  const error = useRouteError();
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
   }, [error]);
-  const error = useRouteError();
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center px-4">
+    <div
+      ref={ref}
+      className="min-h-screen bg-gray-100 flex flex-col justify-center items-center px-4"
+    >
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8 text-center">
         <h1 className="text-3xl font-bold text-red-600 mb-4">
           Oops! Something went wrong
@@ -33,4 +37,12 @@ export default function NotFound({ reset }) {
       </div>
     </div>
   );
-}
+});
+
+NotFound.displayName = "NotFound";
+
+NotFound.propTypes = {
+  reset: PropTypes.func,
+};
+
+export default NotFound;

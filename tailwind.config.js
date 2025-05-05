@@ -44,6 +44,7 @@ module.exports = {
       },
 
       colors: {
+        primary: "rgb(var(--primary))", // Added primary color
         main: "rgb(var(--background))",
         ring: "rgb(var(--ring))",
         orange: "rgb(var(--orange))",

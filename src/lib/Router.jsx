@@ -13,16 +13,16 @@ import Refer from "../routes/dashboard/Refer";
 import Myproperty from "../routes/dashboard/Myproperty";
 import Overview from "../routes/dashboard/Overview";
 import ListProperty from "../routes/dashboard/ListProperty";
-import Marketplace from "../routes/marketplace/Marketplace";
+//import Marketplace from "../routes/marketplace/Marketplace";
 import Swap from "../routes/dashboard/swap";
 import Stake from "../routes/dashboard/stake";
 //import Faucet from "../routes/testnet/faucet/faucet";
 import Root from "../routes/root/Root";
 import NotFound from "../routes/errorElement/NotFound";
-import Home from "../routes/home/Home";
+//import Home from "../routes/home/Home";
 // import Testing from "../routes/testing/Testing";
 // import Testing from "../routes/page/testing/Testing";
-import List from "../routes/List/List";
+//import List from "../routes/List/List";
 // import Sell from "../routes/List/sell/Sell";
 // import Success from "../routes/list-success/Success";
 // import AboutUs from "../routes/about/AboutUs";
@@ -32,9 +32,9 @@ import ForgetPassword from "../routes/auth/forgetPassword/ForgetPassword";
 import NewPassword from "../routes/auth/newPassword/NewPassword";
 // import Index from "../routes/page/Index";
 import PageRoot from "../routes/page/Root";
-import Blog from "../routes/blog/Blog";
-import RoadMap from "../routes/road-map/RoadMap";
-import Guide from "../routes/guide/Guide";
+//import Blog from "../routes/blog/Blog";
+//import RoadMap from "../routes/road-map/RoadMap";
+//import Guide from "../routes/guide/Guide";
 import AuthRoot from "../routes/auth/Root";
 
 import Accountsetting from "../components/Accountsetting";
@@ -52,15 +52,22 @@ import About from "../routes/page/About";
 import Otp from "../routes/auth/otp/Otp";
 import MintNft from "../routes/dashboard/MintNft";
 import AgentProfile from "../routes/dashboard/Profile";
-import PropertyDetails from "../routes/marketplace/PropertyDetails";
+//import PropertyDetails from "../routes/marketplace/PropertyDetails";
 import Chat from "../routes/chat/Chat";
-import AgentDirectory from "../routes/Agent/Agent";
+//import AgentDirectory from "../routes/Agent/Agent";
 import AgentAvailability from "../routes/dashboard/InspectionAvaleibility";
-import WhitepaperContent from "../routes/WhitePapper";
-import TestnetActivities from "../routes/Airdrop";
+//import WhitepaperContent from "../routes/WhitePapper";
+//import TestnetActivities from "../routes/Airdrop";
 import EditProperty from "../routes/dashboard/EditProperty";
-import MyStorePage from "../routes/marketplace/MyStore";
+//import MyStorePage from "../routes/marketplace/MyStore";
 import SponseredAdsPage from "../routes/dashboard/AdsScreen";
+
+//ROI CALCULATOR
+//  import RoiCalculator from "../routes/calculator/Roi-Calculator";
+//import ROICalculator from../routes/calculator/RoiCalculatoror";
+import Index from "../routes/home/NewLandingPage";
+import Home from "../routes/home/Home";
+import ROICalculator from "../routes/calculator/RoiCalculator";
 
 // export const router = createHashRouter([
 // import Login from "../routes/onboarding/Login";
@@ -74,45 +81,46 @@ export const router = createBrowserRouter([
     children: [
       // { index: true, element: <Home /> },
       { path: "/", element: <Home /> },
-      { path: "blog", element: <Blog /> },
-      { path: "/road-map", element: <RoadMap /> },
-      { path: "/guide", element: <Guide /> },
+      { path: "/PBSA", element: <Index /> },
+      // { path: "/road-map", element: <RoadMap /> },
+      // { path: "/guide", element: <Guide /> },
+      { path: "/roicalculator", element: <ROICalculator /> },
       {
         path: "/about",
         element: <About />,
       },
-      {
-        path: "/list",
-        element: <List />,
-      },
-      {
-        path: "/marketplace",
-        element: <Marketplace />,
-      },
-      {
-        path: "/properties/store/:id",
-        element: <MyStorePage />,
-      },
-      {
-        path: "/whitepaper",
-        element: <WhitepaperContent />,
-      },
-      {
-        path: "/airdrop",
-        element: <TestnetActivities />,
-      },
-      {
-        path: "/property/:id",
-        element: <PropertyDetails />,
-      },
-      {
-        path: "/profile/:id",
-        element: <AgentProfile />,
-      },
-      {
-        path: "/agents",
-        element: <AgentDirectory />,
-      },
+      // {
+      //   path: "/list",
+      //   element: <List />,
+      // },
+      // {
+      //   path: "/marketplace",
+      //   element: <Marketplace />,
+      // },
+      // {
+      //   path: "/properties/store/:id",
+      //   element: <MyStorePage />,
+      // },
+      // {
+      //   path: "/whitepaper",
+      //   element: <WhitepaperContent />,
+      // },
+      // {
+      //   path: "/airdrop",
+      //   element: <TestnetActivities />,
+      // },
+      // {
+      //   path: "/property/:id",
+      //   element: <PropertyDetails />,
+      // },
+      // {
+      //   path: "/profile/:id",
+      //   element: <AgentProfile />,
+      // },
+      // {
+      //   path: "/agents",
+      //   element: <AgentDirectory />,
+      // },
     ],
   },
   // {

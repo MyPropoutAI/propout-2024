@@ -10,13 +10,60 @@ import { Input } from "@/components/ui/input";
 // } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { AdsCarousel } from "../../components/Carosel";
-import { Link } from "react-router-dom";
+// import { AdsCarousel } from "../../components/Carosel";
+//import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { ComingSoonModal } from "../../components/ComingSoonModal";
 //import { TestimonialCard } from "../../components/TestimonialCard";
 import { ResponsiveTestimonialCarousel } from "../../components/ResponsiveTestimonialCarousel";
+// import TeamMember from "../../components/TeamMember";
+// import Section from "../../components/Section";
+
+// const teamMembers = [
+//   {
+//     image: "/lovable-uploads/t4.jpg",
+//     name: "Oloyede Goodness .O.",
+//     title: "Research and Campus scout",
+//   },
+//   {
+//     image: "/lovable-uploads/t2.jpg",
+//     name: "Olivier Magdalene .G.",
+//     title: "Finance and compliance officer",
+//   },
+//   {
+//     image: "/lovable-uploads/t7.jpg",
+//     name: "Abraham Ekoh",
+//     title: "Research and Campus scout",
+//   },
+//   {
+//     image: "/lovable-uploads/t5.jpg",
+//     name: "Odunwa Kome .A.",
+//     title: "Chief Design and Construction Engineer",
+//   },
+//   {
+//     image: "/lovable-uploads/t6.jpg",
+//     name: "Paulo Ribeiro",
+//     title: "Bus. Partner | U-World Pt | Jorge Properties",
+//   },
+//   {
+//     image: "/lovable-uploads/t3.jpg",
+//     name: "Olusola Osinoiki",
+//     title: "Investor Partner, Advisory, Growth",
+//   },
+//   {
+//     image: "/lovable-uploads/t1.jpg",
+//     name: "Mrs Comfort",
+//     title: "Investment Officer",
+//   },
+// ];
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   // Animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -124,33 +171,28 @@ export default function Home() {
                   </Tabs>
 
                   <div className="grid grid-cols-3 gap-4">
-                    <Link to={"/marketplace"}>
-                      <Button
-                        variant="outline"
 
-                        className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
+                    <Button
+                      variant="outline"
+                      className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
+                      onClick={openModal}
+                    >
+                      Rent Properties
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
+                      onClick={openModal}
+                    >
+                      Buy Properties
+                    </Button>
+                    <Button
+                      className="w-full text-wrap p-2 bg-purple-900 hover:bg-[#5D55D0]"
+                      onClick={openModal}
+                    >
+                      List Properties
+                    </Button>
 
-                      >
-                        Rent Properties
-                      </Button>
-                    </Link>
-                    <Link to={"/marketplace"}>
-                      <Button
-                        variant="outline"
-
-                        className="w-full text-wrap p-2 border-white/30 text-white hover:bg-white/20 hover:text-white"
-
-                      >
-                        Buy Properties
-                      </Button>
-                    </Link>
-                    <Link to={"/dashboard/list"}>
-
-                      <Button className="w-full text-wrap p-2 bg-purple-900 hover:bg-[#5D55D0]">
-
-                        List Properties
-                      </Button>
-                    </Link>
                   </div>
                 </motion.div>
 
@@ -300,31 +342,27 @@ export default function Home() {
                     </Tabs>
 
                     <div className="grid grid-cols-3 gap-4">
-                      <Link to={"/marketplace"}>
-                        <Button
-                          variant="outline"
-                          className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
-                        >
+                      <Button
+                        variant="outline"
+                        className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
+                        onClick={openModal}
+                      >
+                        Rent Properties
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
+                        onClick={openModal}
+                      >
+                        Buy Properties
+                      </Button>
 
-                          Rent Properties
-
-                        </Button>
-                      </Link>
-                      <Link to={"/marketplace"}>
-                        <Button
-                          variant="outline"
-                          className="w-full border-white/30 text-white hover:bg-white/20 hover:text-white"
-                        >
-                          Buy Properties
-                        </Button>
-                      </Link>
-
-                      <Link to={"/dashboard/list"}>
-
-                        <Button className="w-full bg-purple-900 hover:bg-[#5D55D0]">
-                          List Properties
-                        </Button>
-                      </Link>
+                      <Button
+                        className="w-full bg-purple-900 hover:bg-[#5D55D0]"
+                        onClick={openModal}
+                      >
+                        List Properties
+                      </Button>
                     </div>
                   </motion.div>
 
@@ -355,9 +393,7 @@ export default function Home() {
                       className="bg-white/10 backdrop-blur-sm p-4 rounded-lg"
                     >
                       <div className="text-purple-800 text-3xl font-bold">
-
                         100k+
-
                       </div>
                       <div className="text-sm text-white/80">properties</div>
                       <div className="text-sm text-white/80">
@@ -382,15 +418,11 @@ export default function Home() {
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full bg-purple-900 flex items-center justify-center text-white text-xl">
-
-
                           MG
                         </div>
                         <div>
                           <div className="text-sm font-medium">
                             Magdalene Govender
-
-
                           </div>
                           <div className="text-xs text-gray-500">
                             Real Estate Agent
@@ -484,7 +516,7 @@ export default function Home() {
         </section>
 
         {/* Property Listings */}
-        <section className="py-12 bg-white">
+        {/* <section className="py-12 bg-white">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -492,7 +524,7 @@ export default function Home() {
           >
             <AdsCarousel />
           </motion.div>
-        </section>
+        </section> */}
 
         {/* Features Section */}
         <section className="py-12 bg-white ">
@@ -512,13 +544,11 @@ export default function Home() {
                 listed.
               </p>
 
-              <Link to={"/marketplace"}>
+              <a href="/PBSA">
                 <Button className="mt-4 bg-purple-900 hover:bg-[#7065F0]">
-                  Browse Properties
+                  Explore PBSA
                 </Button>
-              </Link>
-
-
+              </a>
             </motion.div>
 
             <motion.div
@@ -535,11 +565,11 @@ export default function Home() {
                 Find your dream place to live in with more than 10k+ properties
                 listed.
               </p>
-              <Link to={"/marketplace"}>
+              <a href="/PBSA">
                 <Button className="mt-4 bg-purple-900 hover:bg-[#7065F0]">
-                  Browse Properties
+                  Explore PBSA
                 </Button>
-              </Link>
+              </a>
             </motion.div>
 
             <motion.div
@@ -662,7 +692,7 @@ export default function Home() {
                 </motion.div>
               </motion.div>
 
-              <motion.div
+              {/* <motion.div
                 className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mt-12 text-xl"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -687,7 +717,7 @@ export default function Home() {
                     Daily Completed Transactions
                   </div>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </section>
@@ -726,7 +756,20 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
-
+        {/* Hidden section for spacing */}
+        {/* <Section id="team" title="OUR TEAM" titlePosition="center">
+          <div className="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-5 gap-8">
+            {teamMembers.map((member, index) => (
+              <TeamMember
+                key={index}
+                image={member.image}
+                name={member.name}
+                title={member.title}
+                index={index}
+              />
+            ))}
+          </div>
+        </Section> */}
         {/* Testimonials Section */}
         <section className="py-12 bg-[#F8F7FF]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -761,6 +804,7 @@ export default function Home() {
           </div>
         </section>
       </main>
+      <ComingSoonModal isOpen={isModalOpen} onClose={closeModal} />;
     </div>
   );
 }
