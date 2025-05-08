@@ -34,11 +34,11 @@ const Index = () => {
       name: "Odunwa Kome .A.",
       title: "Chief Design and Construction Engineer",
     },
-    {
-      image: "/lovable-uploads/t6.jpg",
-      name: "Paulo Ribeiro",
-      title: "Bus. Partner | U-World Pt | Jorge Properties",
-    },
+    // {
+    //   image: "/lovable-uploads/t6.jpg",
+    //   name: "Paulo Ribeiro",
+    //   title: "Bus. Partner | U-World Pt | Jorge Properties",
+    // },
     {
       image: "/lovable-uploads/t3.jpg",
       name: "Olusola Osinoiki",
