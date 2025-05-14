@@ -12,7 +12,9 @@ const mobileNav = [
   // { name: "Faucet", path: "https://sepolia-faucet.lisk.com/", state: true },
 
   // { name: "Explore Propout", path: "/list", state: true },
-  { name: "ROI Calculator", path: "/roi-calculator", state: true },
+
+  { name: "ROI Calculator", path: "/roicalculator", state: true },
+
   { name: "About Us", path: "/about", state: true },
   // {
   //   name: "Join the waitlist",
