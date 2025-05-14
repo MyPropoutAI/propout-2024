@@ -23,7 +23,7 @@ const LOCATIONS = [
   { name: "Uniport", total: 750_000_000, open: false },
 ];
 
-const AVAILABLE_SHARES = 100;
+const AVAILABLE_SHARES = 35;
 
 function ROICalculator() {
   const [selectedLocation, setSelectedLocation] = useState(LOCATIONS[0]);
@@ -262,7 +262,11 @@ function ROICalculator() {
           </button>
         </DialogContent>
       </Dialog>
-      <Dialog open={contactModalOpen} onOpenChange={setContactModalOpen}>
+      <Dialog
+        open={contactModalOpen}
+        onOpenChange={setContactModalOpen}
+        className="bg-white"
+      >
         <DialogOverlay />
         <DialogContent>
           <div className="text-lg font-semibold mb-2 text-primary">
