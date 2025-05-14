@@ -90,9 +90,8 @@ function ROICalculator() {
           ROI Calculator
         </h1>
         <p className="text-center text-sm text-foreground/70 mb-6">
-          Disclaimer: This is an estimated calculation for demonstration
-          purposes only. Actual returns may vary please contact us for the
-          actual value.
+          Disclaimer: This is an estimated calculation for preview purpose only. Actual returns varies. 
+Contact us for more info and actual valuations.
         </p>
          <div className="mb-6 bg-primary/5 p-4 rounded-lg border border-primary/20">
           <h3 className="text-lg font-semibold text-primary mb-2 text-center">Business Operations</h3>
