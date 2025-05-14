@@ -24,7 +24,7 @@ const LOCATIONS = [
 ];
 
 
-const AVAILABLE_SHARES = 100;
+const AVAILABLE_SHARES = 30;
 
 
 function ROICalculator() {
