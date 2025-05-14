@@ -166,7 +166,7 @@ function ROICalculator() {
             />
             <div className="mt-6 p-4 rounded-lg bg-primary/10 text-primary font-semibold text-center">
               Available Shares:{" "}
-              <span className="text-2xl">{AVAILABLE_SHARES} %</span>
+              <span className="text-2xl">{AVAILABLE_SHARES}%</span>
             </div>
           </div>
           <div className="space-y-6 flex flex-col justify-center">
