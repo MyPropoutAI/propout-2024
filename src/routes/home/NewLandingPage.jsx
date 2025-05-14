@@ -15,9 +15,21 @@ import ContactInfo from "../../components/ContactInfo";
 const Index = () => {
   const teamMembers = [
     {
-      image: "/lovable-uploads/t4.jpg",
-      name: "Oloyede Goodness .O.",
-      title: "Research and Campus scout",
+
+      image: "/lovable-uploads/t3.jpg",
+      name: "Olusola Osinoiki",
+      title: "Investor Partner, Advisory, Growth",
+    },
+    {
+      image: "/lovable-uploads/t1.jpg",
+      name: "Mrs Comfort",
+      title: "Investment Officer",
+    },
+    {
+      image: "/lovable-uploads/pt11.jpg",
+      name: "Oghoro Jim Wannabee",
+      title: "Investment and Accountability Officer",
+
     },
     {
       image: "/lovable-uploads/t2.jpg",
@@ -30,6 +42,14 @@ const Index = () => {
       title: "Research and Campus scout",
     },
     {
+
+      image: "/lovable-uploads/t4.jpg",
+      name: "Oloyede Goodness .O.",
+      title: "Research and Campus scout",
+    },
+
+    {
+
       image: "/lovable-uploads/t5.jpg",
       name: "Odunwa Kome .A.",
       title: "Chief Design and Construction Engineer",
@@ -39,16 +59,8 @@ const Index = () => {
     //   name: "Paulo Ribeiro",
     //   title: "Bus. Partner | U-World Pt | Jorge Properties",
     // },
-    {
-      image: "/lovable-uploads/t3.jpg",
-      name: "Olusola Osinoiki",
-      title: "Investor Partner, Advisory, Growth",
-    },
-    {
-      image: "/lovable-uploads/t1.jpg",
-      name: "Mrs Comfort",
-      title: "Investment Officer",
-    },
+
+
   ];
 
   // Enhanced animation variants
@@ -108,7 +120,9 @@ const Index = () => {
                 Contact Us
               </a>
               <a
+
                 href="/roicalculator"
+
                 className="px-6 py-3 rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold shadow-lg hover:scale-105 transition-transform"
               >
                 ROI Calculator

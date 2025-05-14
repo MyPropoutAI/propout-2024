@@ -626,6 +626,108 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Partner Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="text-center mb-12"
+            >
+              <motion.h2
+                variants={fadeIn}
+                className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              >
+                Our Trusted Partner
+              </motion.h2>
+              <motion.p
+                variants={fadeIn}
+                className="text-lg text-gray-600 max-w-3xl mx-auto"
+              >
+                We collaborate with industry leaders to bring you the best real
+                estate opportunities across Africa
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="bg-white rounded-xl shadow-lg overflow-hidden"
+            >
+              <div className="md:flex items-center">
+                <motion.div
+                  variants={itemVariant}
+                  className="md:w-1/3 p-8 flex justify-center items-center"
+                >
+                  {/* Logo placeholder - you can add your logo here */}
+                  {/* <div className="w-64 h-64 bg-gray-100 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300">
+                    <span className="text-gray-400 text-sm">Partner Logo</span>
+                  </div> */}
+                  <img
+                    src="/lovable-uploads/kk.png"
+                    alt="Partner Logo"
+                    className="w-64 h-64 object-contain"
+                  />
+                </motion.div>
+
+                <motion.div variants={itemVariant} className="md:w-2/3 p-8">
+                  <div className="flex items-center mb-4">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Toprofile Real Estate Limited
+                    </h3>
+                    <Badge className="ml-3 bg-purple-100 text-purple-900 border-purple-300">
+                      RC: 6900425
+                    </Badge>
+                  </div>
+
+                  <p className="text-gray-700 mb-6">
+                    Toprofile Real Estate Limited is passionate about empowering
+                    families by providing safe and prosperous communities to
+                    live and do business in. Their team is characterized by
+                    excellence, respect, integrity, and the ability to
+                    consistently deliver superior professional service with
+                    innovation. As our valued partner, they ensure client
+                    satisfaction remains at the forefront of every interaction,
+                    providing all necessary support to leave clients pleased and
+                    proud to recommend their services.
+                  </p>
+
+                  <div className="flex flex-wrap gap-3">
+                    <Badge
+                      variant="outline"
+                      className="bg-[#F8F7FF] text-purple-900 border-purple-900"
+                    >
+                      Excellence
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="bg-[#F8F7FF] text-purple-900 border-purple-900"
+                    >
+                      Integrity
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="bg-[#F8F7FF] text-purple-900 border-purple-900"
+                    >
+                      Innovation
+                    </Badge>
+                    <Badge
+                      variant="outline"
+                      className="bg-[#F8F7FF] text-purple-900 border-purple-900"
+                    >
+                      Client-Focused
+                    </Badge>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-12 bg-purple-900 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -808,3 +910,196 @@ export default function Home() {
     </div>
   );
 }
+
+{
+  /* CTA Section */
+}
+// <section className="py-12 bg-purple-900 text-white">
+//   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//     <motion.div
+//       className="text-center"
+//       initial="hidden"
+//       whileInView="visible"
+//       viewport={{ once: true }}
+//       variants={fadeIn}
+//     >
+//       <h2 className="text-2xl font-bold">
+//         We make it easy for{" "}
+//         <span className="text-white/80">tenants</span> and{" "}
+//         <span className="text-white/80">landlords</span>.
+//       </h2>
+
+//       <motion.div
+//         className="grid md:grid-cols-3 gap-6 mt-12"
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true }}
+//         variants={staggerContainer}
+//       >
+//         <motion.div
+//           className="bg-purple-800 shadow-md rounded-xl p-6 text-left"
+//           variants={itemVariant}
+//         >
+//           <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-4">
+//             <div className="text-white">🏠</div>
+//           </div>
+//           <h3 className="font-semibold mb-2">Virtual home tour</h3>
+//           <p className="text-sm text-white/80">
+//             Schedule virtual home touring with agents and explore
+//             properties from your comfort zone.
+//           </p>
+//         </motion.div>
+
+//         <motion.div
+//           className="bg-purple-800 rounded-xl p-6 text-left"
+//           variants={itemVariant}
+//         >
+//           <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-4">
+//             <div className="text-white">🔍</div>
+//           </div>
+//           <h3 className="font-semibold mb-2">Find the best deal</h3>
+//           <p className="text-sm text-white/80">
+//             Browse thousands of properties, save your favorites and get
+//             notified when new homes match your criteria.
+//           </p>
+//         </motion.div>
+
+//         <motion.div
+//           className="bg-purple-800 rounded-xl p-6 text-left"
+//           variants={itemVariant}
+//         >
+//           <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center mb-4">
+//             <div className="text-white">📝</div>
+//           </div>
+//           <h3 className="font-semibold mb-2">Get ready to apply</h3>
+//           <p className="text-sm text-white/80">
+//             Create your renter profile once and use it to quickly apply
+//             for any available property on our platform.
+//           </p>
+//         </motion.div>
+//       </motion.div>
+
+//       {/* <motion.div
+//         className="flex flex-col md:flex-row justify-center gap-8 md:gap-16 mt-12 text-xl"
+//         initial={{ opacity: 0, y: 30 }}
+//         whileInView={{ opacity: 1, y: 0 }}
+//         viewport={{ once: true }}
+//         transition={{ duration: 0.7, delay: 0.3 }}
+//       >
+//         <div>
+//           <div className="font-bold">7.4%</div>
+//           <div className="text-sm text-white/80">
+//             Property Return Rate
+//           </div>
+//         </div>
+//         <div>
+//           <div className="font-bold">3,856</div>
+//           <div className="text-sm text-white/80">
+//             Properties Listed & Sold
+//           </div>
+//         </div>
+//         <div>
+//           <div className="font-bold">2,540</div>
+//           <div className="text-sm text-white/80">
+//             Daily Completed Transactions
+//           </div>
+//         </div>
+//       </motion.div> */}
+//     </motion.div>
+//   </div>
+// </section>
+
+{
+  /* Newsletter Section */
+}
+// <section className="py-12 bg-white">
+//   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//     <motion.div
+//       className="text-center space-y-4"
+//       initial={{ opacity: 0, y: 30 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true }}
+//       transition={{ duration: 0.7 }}
+//     >
+//       <div className="text-sm text-purple-800 font-medium">
+//         No Spam Promise
+//       </div>
+//       <h2 className="text-2xl font-bold">Are you a landlord?</h2>
+//       <p className="text-gray-500 max-w-md mx-auto">
+//         Discover how to increase your rental income and find better
+//         tenants. No spam.
+//       </p>
+//       <div className="max-w-md mx-auto flex gap-2 mt-6">
+//         <Input
+//           placeholder="Enter your email address"
+//           className="flex-1"
+//         />
+//         <Button className="bg-purple-900 hover:bg-[#5D55D0]">
+//           Submit
+//         </Button>
+//       </div>
+//       <div className="text-xs text-gray-400 mt-2">
+//         By submitting this form, you agree to our privacy policy and
+//         terms of service.
+//       </div>
+//     </motion.div>
+//   </div>
+// </section>
+{
+  /* Hidden section for spacing */
+}
+{
+  /* <Section id="team" title="OUR TEAM" titlePosition="center">
+          <div className="container mx-auto max-w-7xl grid grid-cols-2 md:grid-cols-5 gap-8">
+            {teamMembers.map((member, index) => (
+              <TeamMember
+                key={index}
+                image={member.image}
+                name={member.name}
+                title={member.title}
+                index={index}
+              />
+            ))}
+          </div>
+        </Section> */
+}
+{
+  /* Testimonials Section */
+}
+//         <section className="py-12 bg-[#F8F7FF]">
+//           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//             <motion.div
+//               className="text-center mb-12"
+//               initial={{ opacity: 0, y: 20 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ duration: 0.5 }}
+//             >
+//               <div className="text-sm text-purple-800 font-medium">
+//                 Testimonials
+//               </div>
+//               <h2 className="text-2xl font-bold mt-2">
+//                 What Our Clients Say About Us
+//               </h2>
+//               <p className="text-gray-500 max-w-md mx-auto mt-2">
+//                 Discover why property owners and buyers trust our platform for
+//                 their real estate needs.
+//               </p>
+//             </motion.div>
+
+//             <motion.div
+//               initial={{ opacity: 0 }}
+//               whileInView={{ opacity: 1 }}
+//               viewport={{ once: true }}
+//               transition={{ duration: 0.7 }}
+//               className="w-full"
+//             >
+//               <ResponsiveTestimonialCarousel />
+//             </motion.div>
+//           </div>
+//         </section>
+//       </main>
+//       <ComingSoonModal isOpen={isModalOpen} onClose={closeModal} />;
+//     </div>
+//   );
+// }
