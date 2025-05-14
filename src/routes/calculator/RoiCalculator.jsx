@@ -95,7 +95,7 @@ function ROICalculator() {
           actual value.
         </p>
          <div className="mb-6 bg-primary/5 p-4 rounded-lg border border-primary/20">
-          <h3 className="text-lg font-semibold text-primary mb-2 text-center">Investment Opportunities</h3>
+          <h3 className="text-lg font-semibold text-primary mb-2 text-center">Business Operations</h3>
           <ul className="space-y-1 text-sm text-foreground/80">
             <li className="flex items-center"><span className="w-2 h-2 bg-primary rounded-full mr-2"></span> Gym-house membership</li>
             <li className="flex items-center"><span className="w-2 h-2 bg-primary rounded-full mr-2"></span> Food Franchise Business (Chicken republic, Tastia, Chowdeck)</li>
